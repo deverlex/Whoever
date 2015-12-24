@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Whoever</string>
     <string name="facebook_app_id">956027404432402</string>
+
+    <string name="login_error">login error, try again or skip login</string>
+    <string name="login_cancel">skip login if you want</string>
+
 </resources>
