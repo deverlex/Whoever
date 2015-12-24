@@ -4,42 +4,16 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.service.textservice.SpellCheckerService.Session;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.URI;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by spider man on 12/22/2015.
@@ -50,15 +24,15 @@ public class StartActivity extends AppCompatActivity {
     public static final String PREFERENCES = "PREFERENCES_LOCAL";
     public static SharedPreferences sharedPreferences;
 
-    private LoginButton loginButtonFaceBook;
-    private CallbackManager callbackManagerFacebook;
-    private ProfileTracker profileTrackerFaceBook;
+  //  private LoginButton loginButtonFaceBook;
+  //  private CallbackManager callbackManagerFacebook;
+  //  private ProfileTracker profileTrackerFaceBook;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+     //   FacebookSdk.sdkInitialize(getApplicationContext());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -71,10 +45,7 @@ public class StartActivity extends AppCompatActivity {
             finish();
         }
 
-        setContentView(R.layout.start_layout);
-
-
-
+        setContentView(R.layout.start_main);
 
         TextView logoText = (TextView) findViewById(R.id.logoTextStart);
         Typeface bauhau93_font = Typeface.createFromAsset(getAssets(), "fonts/bauhau93.ttf");
@@ -95,6 +66,7 @@ public class StartActivity extends AppCompatActivity {
             Log.d("Account", "accountInfo: " + acname + ":" + actype);
         }
 
+        /*
         callbackManagerFacebook = CallbackManager.Factory.create();
 
         loginButtonFaceBook = (LoginButton) findViewById(R.id.loginFaceBookButton);
@@ -144,7 +116,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        /*
+
         loginButtonFaceBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +126,7 @@ public class StartActivity extends AppCompatActivity {
         */
     }
 
+    /*
     public void getProfileTracker() {
         profileTrackerFaceBook = new ProfileTracker() {
             @Override
@@ -197,12 +170,16 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
+    */
+
     public void navigateToMain() {
         Intent intentMain = new Intent(this, MainActivity.class);
         startActivity(intentMain);
         finish();
     }
 
+
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -210,17 +187,19 @@ public class StartActivity extends AppCompatActivity {
     //    getProfileTracker();
     }
 
+    */
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        AppEventsLogger.activateApp(this);
+    //    AppEventsLogger.activateApp(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        AppEventsLogger.deactivateApp(this);
+    //    AppEventsLogger.deactivateApp(this);
     }
 
     @Override
