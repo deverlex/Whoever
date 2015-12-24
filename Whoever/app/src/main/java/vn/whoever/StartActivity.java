@@ -1,5 +1,7 @@
 package vn.whoever;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -35,6 +37,7 @@ import java.net.URI;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -70,9 +73,27 @@ public class StartActivity extends AppCompatActivity {
 
         setContentView(R.layout.start_layout);
 
+
+
+
         TextView logoText = (TextView) findViewById(R.id.logoTextStart);
         Typeface bauhau93_font = Typeface.createFromAsset(getAssets(), "fonts/bauhau93.ttf");
         logoText.setTypeface(bauhau93_font);
+
+
+
+        AccountManager am = AccountManager.get(this);
+        Account[] accounts = am.getAccounts();
+        ArrayList<String> googleAccounts = new ArrayList<String>();
+        for (Account ac : accounts) {
+            String acname = ac.name;
+            String actype = ac.type;
+            //add only google accounts
+            if(ac.type.equals("com.google")) {
+                googleAccounts.add(ac.name);
+            }
+            Log.d("Account", "accountInfo: " + acname + ":" + actype);
+        }
 
         callbackManagerFacebook = CallbackManager.Factory.create();
 
