@@ -10,6 +10,7 @@
     <string name="hind_input_password">Your password</string>
     <string name="text_button_signin">Login</string>
     <string name="text_register_account">Register in here</string>
-
+    <string name="text_to_new_user">Sign Up for Whoever</string>
+    <string name="text_term_user">Term of user</string>
 
 </resources>

@@ -17,6 +17,8 @@ import com.facebook.FacebookSdk;
 
 import java.util.ArrayList;
 
+import vn.whoever.fragments.SignInFragment;
+
 /**
  * Created by spider man on 12/22/2015.
  * TODO: login and logout application
@@ -55,7 +57,9 @@ public class StartActivity extends AppCompatActivity {
         Typeface bauhau93_font = Typeface.createFromAsset(getAssets(), "fonts/bauhau93.ttf");
         logoText.setTypeface(bauhau93_font);
 
-
+        frgStartManager = getFragmentManager();
+        frgStartTransaction = frgStartManager.beginTransaction();
+        frgStartTransaction.replace(R.id.layoutStartApp, new SignInFragment()).commit();
 
 
 
