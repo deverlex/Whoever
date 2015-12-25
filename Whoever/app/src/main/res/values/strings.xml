@@ -10,7 +10,9 @@
     <string name="hind_input_password">Your password</string>
     <string name="text_button_signin">Login</string>
     <string name="text_register_account">Register in here</string>
-    <string name="text_to_new_user">Sign Up for Whoever</string>
-    <string name="text_term_user">Term of user</string>
+    <string name="text_to_new_user"><u>Sign Up for Whoever</u></string>
+    <string name="text_term_user"><u>Term of user</u></string>
+    <string name="text_email_example">example@exam.com</string>
+    <string name="text_password_example">123456</string>
 
 </resources>
