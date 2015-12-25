@@ -4,5 +4,12 @@
 
     <string name="login_error">login error, try again or skip login</string>
     <string name="login_cancel">skip login if you want</string>
+    <string name="email_text">Email</string>
+    <string name="password_text">Password</string>
+    <string name="hind_input_email">Your email</string>
+    <string name="hind_input_password">Your password</string>
+    <string name="text_button_signin">Login</string>
+    <string name="text_register_account">Register in here</string>
+
 
 </resources>

@@ -2,6 +2,8 @@ package vn.whoever;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -28,6 +30,8 @@ public class StartActivity extends AppCompatActivity {
   //  private CallbackManager callbackManagerFacebook;
   //  private ProfileTracker profileTrackerFaceBook;
 
+    private FragmentManager frgStartManager;
+    private FragmentTransaction frgStartTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,8 @@ public class StartActivity extends AppCompatActivity {
         TextView logoText = (TextView) findViewById(R.id.logoTextStart);
         Typeface bauhau93_font = Typeface.createFromAsset(getAssets(), "fonts/bauhau93.ttf");
         logoText.setTypeface(bauhau93_font);
+
+
 
 
 

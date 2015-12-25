@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhoeverMain"
+    android:background="@color/colorMain"
     android:orientation="vertical">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="w"
         android:textColor="@color/colorWhite"
-        android:textSize="180sp"/>
+        android:textSize="128sp"/>
 
     <FrameLayout
         android:id="@+id/layoutStartApp"
