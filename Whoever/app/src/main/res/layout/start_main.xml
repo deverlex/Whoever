@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="w"
         android:textColor="@color/colorWhite"
-        android:textSize="128sp"/>
+        android:textSize="98sp"/>
 
     <FrameLayout
         android:id="@+id/layoutStartApp"

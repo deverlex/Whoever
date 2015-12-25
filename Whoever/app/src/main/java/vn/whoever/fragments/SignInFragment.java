@@ -1,12 +1,19 @@
 package vn.whoever.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,15 +36,23 @@ public class SignInFragment extends Fragment {
     private TextView textSignUp;
     private TextView textTerm;
 
+    private FragmentManager frgtManagerSignIn;
+    private FragmentTransaction frgTransactionSignIn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_in_layout, null);
 
-        emailText = (EditText) view.findViewById(R.id.inputEmailStart);
-        emailText.setTextColor(Color.parseColor("#ffffff"));
+        frgtManagerSignIn = getActivity().getFragmentManager();
 
-        passwordText = (EditText) view.findViewById(R.id.inputPasswordStart);
-        passwordText.setTextColor(Color.parseColor("#ffffff"));
+        setFeatureEmailEditText(view);
+        setFeaturePasswordEditText(view);
+
+        setCreateNewAccount(view);
+
+
+
+        textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
 
         Button btnSignin = (Button) view.findViewById(R.id.signInButton);
       //  btnSignin.setHeight((int)SizeDisplay.convertPxtoDp(40, getActivity()));
@@ -58,8 +73,45 @@ public class SignInFragment extends Fragment {
         return view;
     }
 
-    public boolean checkLoginAccount() {
+    public void setCreateNewAccount(View view) {
+        textSignUp = (TextView) view.findViewById(R.id.textCreateNewUser);
+        textSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frgTransactionSignIn = frgtManagerSignIn.beginTransaction();
+                frgTransactionSignIn.replace(R.id.layoutStartApp, new SignUpFragment()).commit();
+            }
+        });
+    }
 
+    public void setFeatureEmailEditText(final View view) {
+        emailText = (EditText) view.findViewById(R.id.inputEmailStart);
+        emailText.setTextColor(Color.parseColor("#ffffff"));
+
+        emailText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // check key input
+
+                return false;
+            }
+        });
+    }
+
+    public void setFeaturePasswordEditText(View view) {
+        passwordText = (EditText) view.findViewById(R.id.inputPasswordStart);
+        passwordText.setTextColor(Color.parseColor("#ffffff"));
+
+        passwordText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                return false;
+            }
+        });
+    }
+
+    public boolean checkLoginAccount() {
         /**
          * TODO: check password and email on server
           */

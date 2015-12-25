@@ -4,15 +4,23 @@
 
     <string name="login_error">login error, try again or skip login</string>
     <string name="login_cancel">skip login if you want</string>
+
     <string name="email_text">Email</string>
     <string name="password_text">Password</string>
+    <string name="nick_name_text">Nick name</string>
+
     <string name="hind_input_email">Your email</string>
     <string name="hind_input_password">Your password</string>
     <string name="text_button_signin">Login</string>
+    <string name="text_forgot_password"><u>Forgot password?</u></string>
+    <string name="text_button_signup">Create new account</string>
     <string name="text_register_account">Register in here</string>
     <string name="text_to_new_user"><u>Sign Up for Whoever</u></string>
-    <string name="text_term_user"><u>Term of user</u></string>
+    <string name="text_term_user"><u>Term of Service</u></string>
+    <string name="text_term_agree">I agree to the Term of Service Whoever</string>
     <string name="text_email_example">example@exam.com</string>
     <string name="text_password_example">123456</string>
+    <string name="text_name_example">anonymous</string>
+    <string name="text_have_account"><u>Have a account?</u></string>
 
 </resources>
