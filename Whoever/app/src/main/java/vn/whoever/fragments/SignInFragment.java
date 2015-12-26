@@ -49,6 +49,8 @@ public class SignInFragment extends Fragment {
         setCreateNewAccount(view);
 
         setButtonSignInWithAccount(view);
+        setButtonSkipSignIn(view);
+
 
         textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
 

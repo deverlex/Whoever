@@ -28,7 +28,7 @@ public class SignUpFragment extends Fragment {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private CheckBox checkBoxAgreeTerm;
-    private Button buttonCreateAccount;
+    private Button btnCreateAccount;
     private TextView textViewSignIn;
     private TextView textViewTerm;
 
@@ -44,6 +44,10 @@ public class SignUpFragment extends Fragment {
         setFeatureeEditTextNickname(view);
         setFeatureEditTextEmail(view);
         setFeatureEditTextPassword(view);
+
+        setFeatureButtonCreateAccount(view);
+        setFeatureCheckboxAgree(view);
+        setFeatureTextViewTerm(view);
 
         return view;
     }
@@ -73,6 +77,41 @@ public class SignUpFragment extends Fragment {
                  */
                 frgTransactionRegister = frgManagerRegister.beginTransaction();
                 frgTransactionRegister.replace(R.id.layoutStartApp, new SignInFragment()).commit();
+            }
+        });
+    }
+
+    public void setFeatureButtonCreateAccount(View view) {
+        btnCreateAccount = (Button) view.findViewById(R.id.signUpButton);
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * TODO: check email, password, check agree
+                 */
+
+                frgTransactionRegister = frgManagerRegister.beginTransaction();
+                frgTransactionRegister.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+            }
+        });
+    }
+
+    public void setFeatureCheckboxAgree(View view) {
+        checkBoxAgreeTerm = (CheckBox) view.findViewById(R.id.checkAgreeTermService);
+        checkBoxAgreeTerm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void setFeatureTextViewTerm(View view) {
+        textViewTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
+        textViewTerm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

@@ -24,4 +24,7 @@
     <string name="text_name_example">anonymous</string>
     <string name="text_have_account"><u>Have a account?</u></string>
 
+    <string name="text_view_birthday">Your birthday</string>
+    <string name="text_view_language">Your language</string>
+
 </resources>
