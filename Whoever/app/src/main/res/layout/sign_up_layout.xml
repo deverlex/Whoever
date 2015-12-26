@@ -6,8 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/colorMain"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
-    android:scrollbarAlwaysDrawVerticalTrack="true">
+    android:focusableInTouchMode="true">
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/textRegisterNickNameView"
         android:text="@string/nick_name_text"
         android:layout_below="@+id/textRegisterView"
@@ -32,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:ems="10"
         android:editable="false"
+        android:inputType="text"
         android:id="@+id/textEditNickNameRegister"
         android:layout_below="@+id/textRegisterNickNameView"
         android:hint="@string/text_name_example"
@@ -49,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="@string/email_text"
         android:layout_below="@+id/textEditNickNameRegister"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorSilver"
         android:id="@+id/textRegisterEmailView"/>
 
@@ -58,8 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textRegisterEmailView"
         android:layout_marginTop="5dp"
-        android:ems="10"
         android:editable="false"
+        android:inputType="textEmailAddress"
         android:hint="@string/text_email_example"
         android:textColorHint="@color/colorSilver"
         android:background="@drawable/custom_edit_text"
@@ -74,7 +73,7 @@
         android:layout_height="wrap_content"
         android:text="@string/password_text"
         android:layout_below="@+id/textEditEmailRegister"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorSilver"
         android:id="@+id/textRegisterPasswordView"/>
 
@@ -83,7 +82,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textRegisterPasswordView"
         android:layout_marginTop="5dp"
-        android:ems="10"
         android:editable="false"
         android:inputType="textPassword"
         android:hint="@string/text_password_example"
@@ -111,7 +109,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:id="@+id/signUpButton"
         android:layout_below="@+id/checkAgreeTermService"
         android:layout_marginTop="14dp"
@@ -122,7 +120,6 @@
         android:background="@color/colorButtonMain"
         android:text="@string/text_button_signup"
         android:textColor="@color/colorWhite"
-        android:textSize="16dp"
         android:textStyle="bold"/>
 
     <TextView
