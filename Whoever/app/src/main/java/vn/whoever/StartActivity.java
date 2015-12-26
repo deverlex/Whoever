@@ -32,8 +32,8 @@ public class StartActivity extends AppCompatActivity {
   //  private CallbackManager callbackManagerFacebook;
   //  private ProfileTracker profileTrackerFaceBook;
 
-    private FragmentManager frgStartManager;
-    private FragmentTransaction frgStartTransaction;
+    public static FragmentManager frgStartManager;
+    public static FragmentTransaction frgStartTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +60,6 @@ public class StartActivity extends AppCompatActivity {
         frgStartManager = getFragmentManager();
         frgStartTransaction = frgStartManager.beginTransaction();
         frgStartTransaction.replace(R.id.layoutStartApp, new SignInFragment()).commit();
-
-
 
         AccountManager am = AccountManager.get(this);
         Account[] accounts = am.getAccounts();

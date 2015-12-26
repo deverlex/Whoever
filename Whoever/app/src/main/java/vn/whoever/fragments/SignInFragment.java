@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
+import vn.whoever.StartActivity;
 
 /**
  * Created by spider man on 12/24/2015.
@@ -35,14 +36,9 @@ public class SignInFragment extends Fragment {
     private Button btnSignin;
     private Button btnSkipSignIn;
 
-    private FragmentManager frgtManagerSignIn;
-    private FragmentTransaction frgTransactionSignIn;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_in_layout, null);
-
-        frgtManagerSignIn = getActivity().getFragmentManager();
 
         setFeatureEmailEditText(view);
         setFeaturePasswordEditText(view);
@@ -62,8 +58,8 @@ public class SignInFragment extends Fragment {
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frgTransactionSignIn = frgtManagerSignIn.beginTransaction();
-                frgTransactionSignIn.replace(R.id.layoutStartApp, new SignUpFragment()).commit();
+                StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new SignUpFragment()).commit();
             }
         });
     }

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import vn.whoever.R;
+import vn.whoever.StartActivity;
 
 /**
  * Created by spider man on 12/24/2015.
@@ -32,14 +33,9 @@ public class SignUpFragment extends Fragment {
     private TextView textViewSignIn;
     private TextView textViewTerm;
 
-    private FragmentManager frgManagerRegister;
-    private FragmentTransaction frgTransactionRegister;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_up_layout, null);
-
-        frgManagerRegister = getActivity().getFragmentManager();
 
         setFeatureeEditTextNickname(view);
         setFeatureEditTextEmail(view);
@@ -48,6 +44,7 @@ public class SignUpFragment extends Fragment {
         setFeatureButtonCreateAccount(view);
         setFeatureCheckboxAgree(view);
         setFeatureTextViewTerm(view);
+        setFeatureTextViewSignIn(view);
 
         return view;
     }
@@ -75,8 +72,8 @@ public class SignUpFragment extends Fragment {
                 /**
                  * TODO: naviagte to login layout
                  */
-                frgTransactionRegister = frgManagerRegister.beginTransaction();
-                frgTransactionRegister.replace(R.id.layoutStartApp, new SignInFragment()).commit();
+                StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new SignInFragment()).commit();
             }
         });
     }
@@ -89,9 +86,8 @@ public class SignUpFragment extends Fragment {
                 /**
                  * TODO: check email, password, check agree
                  */
-
-                frgTransactionRegister = frgManagerRegister.beginTransaction();
-                frgTransactionRegister.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+                StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
             }
         });
     }
