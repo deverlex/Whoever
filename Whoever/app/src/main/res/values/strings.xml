@@ -24,7 +24,15 @@
     <string name="text_name_example">anonymous</string>
     <string name="text_have_account"><u>Have a account?</u></string>
 
-    <string name="text_view_birthday">Your birthday</string>
-    <string name="text_view_language">Your language</string>
+    <string name="text_view_birthday">Birthday</string>
+    <string name="text_view_language">Language</string>
+
+    <string name="text_view_welcome0">Welcome you to</string>
+    <string name="text_view_welcome1">Whoever</string>
+    <string name="text_view_welcome2">Social networking anonymous for you.</string>
+    <string name="text_default_birthday">01/01/2000</string>
+    <string name="text_default_language">English</string>
+
+    <string name="text_button_pushapp">Push</string>
 
 </resources>

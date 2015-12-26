@@ -2,19 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
     android:background="@color/colorMain">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:id="@+id/textViewBirthday"
-        android:text="@string/text_view_birthday"
+        android:id="@+id/textViewWelcome0"
+        android:text="@string/text_view_welcome0"
         android:textColor="@color/colorWhite"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textViewWelcome0"
+        android:id="@+id/textViewWelcome1"
+        android:text="@string/text_view_welcome1"
+        android:textColor="@color/colorWhite"
+        android:layout_centerHorizontal="true"
+        android:textSize="28dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_below="@+id/textViewWelcome1"
+        android:id="@+id/textViewWelcome2"
+        android:text="@string/text_view_welcome2"
+        android:textColor="@color/colorWhite"
+        android:layout_centerHorizontal="true"
+        android:textSize="16dp"
+        android:textAlignment="center"/>
 
     <Space
         android:layout_width="wrap_content"
@@ -25,9 +49,64 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/textViewWelcome2"
+        android:id="@+id/textViewBirthday"
+        android:text="@string/text_view_birthday"
+        android:textColor="@color/colorWhite"
+        android:layout_toLeftOf="@+id/spaceCenterWelcome"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/textViewWelcome2"
         android:layout_toRightOf="@id/spaceCenterWelcome"
-        android:text="@string/accept"
-        android:background="@drawable/custom_edit_text"/>
+        android:text="@string/text_default_birthday"
+        android:background="@drawable/custom_edit_text"
+        android:id="@+id/textBirthDayWelcome"
+        android:textColor="@color/colorWhite"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:id="@+id/textViewLanguage"
+        android:layout_below="@+id/textViewBirthday"
+        android:text="@string/text_view_language"
+        android:textColor="@color/colorWhite"
+        android:layout_toLeftOf="@+id/spaceCenterWelcome"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/textBirthDayWelcome"
+        android:layout_toRightOf="@id/spaceCenterWelcome"
+        android:text="@string/text_default_language"
+        android:background="@drawable/custom_edit_text"
+        android:id="@+id/textLanguageWelcome"
+        android:textColor="@color/colorWhite"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/text_button_pushapp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/buttonPushApp"
+        android:layout_below="@+id/textViewLanguage"
+        android:layout_marginTop="34dp"
+        android:background="@color/colorButtonMain"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"/>
 
 </RelativeLayout>
