@@ -103,7 +103,6 @@ public class SignInFragment extends Fragment {
 
     public void setButtonSignInWithAccount(View view) {
         btnSignin = (Button) view.findViewById(R.id.signInButton);
-        //  btnSignin.setHeight((int)SizeDisplay.convertPxtoDp(40, getActivity()));
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

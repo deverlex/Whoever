@@ -7,7 +7,7 @@ import android.util.DisplayMetrics;
 /**
  * Created by spider man on 12/25/2015.
  */
-public class SizeDisplay {
+public class CovertSizeDisplay {
 
     public static float convertDptoPx(float dp, Context context) {
         Resources resources = context.getResources();
