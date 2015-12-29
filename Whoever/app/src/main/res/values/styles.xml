@@ -4,8 +4,19 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorMain</item>
-        <item name="colorPrimaryDark">@color/colorMain</item>
+        <item name="colorPrimaryDark">@null</item>
         <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabText</item>
+        <item name="tabSelectedTextColor">@color/colorWhite</item>
+
+    </style>
+
+    <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">0sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
 </resources>

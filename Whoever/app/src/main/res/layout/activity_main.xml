@@ -7,11 +7,42 @@
     android:background="@color/colorMain"
     tools:context="vn.whoever.MainActivity">
 
+    <include
+        android:id="@+id/onlineLayout"
+        layout="@layout/online_layout" />
+
+    <include
+        android:id="@+id/overviewLayout"
+        layout="@layout/overview_layout" />
+
     <LinearLayout
         android:id="@+id/homeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorButtonMain">
+
+            <ImageView
+                android:id="@+id/btnOpenOverview"
+                android:layout_width="24sp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_overview"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="8dp"/>
+
+            <ImageView
+                android:id="@+id/btnOpenOnlineView"
+                android:layout_width="24sp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_online"
+                android:layout_alignParentRight="true"
+                android:layout_margin="8dp"/>
+        </RelativeLayout>
+
         <FrameLayout
             android:id="@+id/containerViewMain"
             android:layout_width="match_parent"

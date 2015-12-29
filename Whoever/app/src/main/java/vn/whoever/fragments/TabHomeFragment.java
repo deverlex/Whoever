@@ -1,10 +1,19 @@
 package vn.whoever.fragments;
 
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +29,20 @@ public class TabHomeFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private static final int int_items = 4;
+    private int[] icons = {
+            R.drawable.ic_action_newfeed,
+            R.drawable.ic_action_newline,
+            R.drawable.ic_action_inbox,
+            R.drawable.ic_action_contacts
+    };
+    private int[] icons_red = {
+            R.drawable.ic_action_newfeed_red,
+            R.drawable.ic_action_newline_red,
+            R.drawable.ic_action_inbox_red,
+            R.drawable.ic_action_contacst_red
+    };
+
+   // private int selectedItems = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedStanceState) {
@@ -35,10 +58,41 @@ public class TabHomeFragment extends Fragment {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
+
+                tabLayout.getTabAt(0).setIcon(icons_red[0]);
+                for(int i = 1 ; i < int_items; ++i) {
+                    tabLayout.getTabAt(i).setIcon(icons[i]);
+                }
+
+                tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+                updateColorTabSelected();
             }
         });
 
         return view;
+    }
+
+    public void updateColorTabSelected() {
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                tabLayout.getTabAt(tab.getPosition()).setIcon(icons_red[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                tabLayout.getTabAt(tab.getPosition()).setIcon(icons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                tabLayout.getTabAt(tab.getPosition()).setIcon(icons_red[tab.getPosition()]);
+            }
+        });
     }
 
     class MyAdapter extends FragmentPagerAdapter {
@@ -70,16 +124,6 @@ public class TabHomeFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "NewFeed";
-                case 1:
-                    return "NewLine";
-                case 2:
-                    return "Inbox";
-                case 3:
-                    return "Contacts";
-            }
 
             return null;
         }
