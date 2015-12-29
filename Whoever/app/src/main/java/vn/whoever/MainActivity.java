@@ -1,20 +1,20 @@
 package vn.whoever;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import vn.whoever.fragments.TabHomeFragment;
+import vn.whoever.utils.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,16 +51,81 @@ public class MainActivity extends AppCompatActivity {
         panelWidth = (int) (metrics.widthPixels * 0.85);
 
         setDefaultFixLayout();
+
+        btnOpenOverview = (ImageView) findViewById(R.id.btnOpenOverview);
+        btnOpenOnline = (ImageView) findViewById(R.id.btnOpenOnlineView);
+
+        setEventOnLayout();
     }
 
     public void setDefaultFixLayout() {
         layoutOnline = (RelativeLayout) findViewById(R.id.onlineLayout);
         layoutParamsOnline = (FrameLayout.LayoutParams) layoutOnline.getLayoutParams();
-        
+        layoutParamsOnline.width = metrics.widthPixels;
+        layoutOnline.setLayoutParams(layoutParamsOnline);
 
         layoutOverview = (RelativeLayout) findViewById(R.id.overviewLayout);
+        layoutParamsOverview = (FrameLayout.LayoutParams) layoutOverview.getLayoutParams();
+        layoutParamsOverview.width = metrics.widthPixels;
+        layoutOverview.setLayoutParams(layoutParamsOverview);
 
         layoutMain = (LinearLayout) findViewById(R.id.homeLayout);
+        layoutParamsMain = (FrameLayout.LayoutParams) layoutMain.getLayoutParams();
+        layoutParamsMain.width = metrics.widthPixels;
+        layoutMain.setLayoutParams(layoutParamsMain);
+    }
+
+    public void setEventOnLayout() {
+        btnOpenOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isExpanded) {
+                    isExpanded = true;
+
+                    new TranslateToRight(layoutMain, panelWidth,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.85f,
+                            0, 0.0f,
+                            0, 0.0f);
+                    layoutOverview.setVisibility(View.VISIBLE);
+                    layoutOnline.setVisibility(View.INVISIBLE);
+                } else {
+                    isExpanded = false;
+
+                    new CloseSliding(layoutMain, panelWidth,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.85f,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                            0, 0.0f,
+                            0, 0.0f);
+                }
+            }
+        });
+
+        btnOpenOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!isExpanded) {
+                    isExpanded = true;
+
+                    new TranslateToLeft(layoutMain, panelWidth,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                            TranslateAnimation.RELATIVE_TO_SELF, -0.85f,
+                            0, 0.0f,
+                            0, 0.0f);
+                    layoutOverview.setVisibility(View.INVISIBLE);
+                    layoutOnline.setVisibility(View.VISIBLE);
+                } else {
+                    isExpanded = false;
+
+                    new CloseSliding(layoutMain, panelWidth,
+                            TranslateAnimation.RELATIVE_TO_SELF, -0.85f,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                            0, 0.0f,
+                            0, 0.0f);
+                }
+            }
+        });
     }
 
 }
