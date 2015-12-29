@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
+import android.support.design.widget.TabLayout;
 
 import vn.whoever.R;
 
@@ -17,7 +17,7 @@ import vn.whoever.R;
  */
 public class TabHomeFragment extends Fragment {
 
-    private TableLayout tableLayout;
+    private TabLayout tabLayout;
     private ViewPager viewPager;
     private static final int int_items = 4;
 
@@ -26,10 +26,17 @@ public class TabHomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.tab_home_layout, null);
 
-        tableLayout = (TableLayout) view.findViewById(R.id.tabLayoutHome);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayoutHome);
         viewPager = (ViewPager) view.findViewById(R.id.viewPageHome);
 
+        viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                tabLayout.setupWithViewPager(viewPager);
+            }
+        });
 
         return view;
     }
@@ -47,6 +54,10 @@ public class TabHomeFragment extends Fragment {
                     return new NewFeedFragment();
                 case 1:
                     return new NewLineFragment();
+                case 2:
+                    return new InboxFragment();
+                case 3:
+                    return new ContactsFragment();
             }
 
             return  null;
