@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import vn.whoever.R;
 
 /**
- * Created by spider man on 12/28/2015.
+ * Created by spider man on 12/29/2015.
  */
-public class NewFeedFragment extends Fragment {
+public class ContactsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.newfeed_layout, null);
+        View view = inflater.inflate(R.layout.contacts_layout, null);
+
 
         return view;
     }
