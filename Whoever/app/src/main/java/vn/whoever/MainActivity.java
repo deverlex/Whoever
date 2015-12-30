@@ -1,19 +1,18 @@
 package vn.whoever;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import vn.whoever.activities.SearchActivity;
 import vn.whoever.fragments.TabHomeFragment;
 import vn.whoever.utils.*;
 
@@ -34,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout.LayoutParams layoutParamsOnline;
     private FrameLayout.LayoutParams layoutParamsMain;
 
-    private ImageButton btnOpenOverview;
-    private ImageButton btnOpenOnline;
-    private ImageButton btnOpenNotify;
+    private RelativeLayout btnOpenOverview;
+    private RelativeLayout btnOpenOnline;
+    private RelativeLayout btnOpenNotify;
     private RelativeLayout btnOpenSearch;
 
     @Override
@@ -55,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         setDefaultFixLayout();
 
-        btnOpenOverview = (ImageButton) findViewById(R.id.btnOpenOverview);
-        btnOpenOnline = (ImageButton) findViewById(R.id.btnOpenOnlineView);
-        btnOpenNotify = (ImageButton) findViewById(R.id.btnOpenNotify);
+        btnOpenOverview = (RelativeLayout) findViewById(R.id.btnOpenOverview);
+        btnOpenOnline = (RelativeLayout) findViewById(R.id.btnOpenOnlineView);
+        btnOpenNotify = (RelativeLayout) findViewById(R.id.btnOpenNotify);
         btnOpenSearch = (RelativeLayout) findViewById(R.id.btnOpenSearch);
 
         setEventOnLayout();
@@ -142,9 +141,14 @@ public class MainActivity extends AppCompatActivity {
         btnOpenSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                navigateToSearch();
             }
         });
+    }
+
+    public void navigateToSearch() {
+        Intent intentSearch = new Intent(this, SearchActivity.class);
+        startActivity(intentSearch);
     }
 
 }
