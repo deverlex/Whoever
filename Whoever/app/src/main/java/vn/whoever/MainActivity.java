@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout.LayoutParams layoutParamsOnline;
     private FrameLayout.LayoutParams layoutParamsMain;
 
-    private ImageView btnOpenOverview;
-    private ImageView btnOpenOnline;
+    private ImageButton btnOpenOverview;
+    private ImageButton btnOpenOnline;
+    private ImageButton btnOpenNotify;
+    private RelativeLayout btnOpenSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
         setDefaultFixLayout();
 
-        btnOpenOverview = (ImageView) findViewById(R.id.btnOpenOverview);
-        btnOpenOnline = (ImageView) findViewById(R.id.btnOpenOnlineView);
+        btnOpenOverview = (ImageButton) findViewById(R.id.btnOpenOverview);
+        btnOpenOnline = (ImageButton) findViewById(R.id.btnOpenOnlineView);
+        btnOpenNotify = (ImageButton) findViewById(R.id.btnOpenNotify);
+        btnOpenSearch = (RelativeLayout) findViewById(R.id.btnOpenSearch);
 
         setEventOnLayout();
     }
@@ -124,6 +129,20 @@ public class MainActivity extends AppCompatActivity {
                             0, 0.0f,
                             0, 0.0f);
                 }
+            }
+        });
+
+        btnOpenNotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnOpenSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

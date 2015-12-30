@@ -40,4 +40,6 @@
     <string name="title_tab_inbox">Inbox</string>
     <string name="title_tab_contact">Contacts</string>
 
+    <string name="text_btn_search">Search</string>
+
 </resources>
