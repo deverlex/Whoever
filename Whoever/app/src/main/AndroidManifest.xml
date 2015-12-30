@@ -29,7 +29,9 @@
         </activity>
 
         <activity android:name=".activities.SearchActivity"
-            android:configChanges="keyboard|orientation" />
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+
+
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

@@ -1,6 +1,7 @@
 package vn.whoever.activities;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,6 +34,9 @@ public class SearchActivity extends AppCompatActivity {
     public void onCreate(Bundle savedStanceState) {
         super.onCreate(savedStanceState);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.search_layout);
 
         textInputSearch = (EditText) findViewById(R.id.textInputSearch);
@@ -44,9 +49,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void setEventForLayout() {
-     //   InputMethodManager imm = (InputMethodManager) this.getSystemService(Service.INPUT_METHOD_SERVICE);
-    //    imm.showSoftInput(textInputSearch, 0);
-    //    textInputSearch.requestFocus();
 
         textInputSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,6 +80,11 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textInputSearch.setText("");
+                if(textInputSearch.requestFocus()) {
+                    InputMethodManager imm = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(textInputSearch, InputMethodManager.SHOW_IMPLICIT);
+                }
             }
         });
 
@@ -91,6 +98,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void navigateToMain() {
         Intent intentMain = new Intent(this, MainActivity.class);
+        intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intentMain);
         finish();
     }
