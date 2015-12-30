@@ -1,9 +1,12 @@
 package vn.whoever.activities;
 
 import android.app.Service;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -13,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import vn.whoever.MainActivity;
 import vn.whoever.R;
 
 /**
@@ -34,39 +38,60 @@ public class SearchActivity extends AppCompatActivity {
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
 
         btnDestroySearch = (ImageView) findViewById(R.id.btnDestroySearch);
+        btnBackSearch = (RelativeLayout) findViewById(R.id.btnBackSearch);
+
         setEventForLayout();
     }
 
     public void setEventForLayout() {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Service.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(textInputSearch, 0);
-        textInputSearch.requestFocus();
-        textInputSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+     //   InputMethodManager imm = (InputMethodManager) this.getSystemService(Service.INPUT_METHOD_SERVICE);
+    //    imm.showSoftInput(textInputSearch, 0);
+    //    textInputSearch.requestFocus();
 
+        textInputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
             }
-        });
 
-        textInputSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
-
-        textInputSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                String text = textInputSearch.getText().toString();
-                Log.d("INPUT TEXT: ", text);
-                if(text.length() > 0) {
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if (textInputSearch.getText().length() > 0) {
                     btnDestroySearch.setVisibility(View.VISIBLE);
                 } else {
                     btnDestroySearch.setVisibility(View.INVISIBLE);
                 }
-                return false;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (textInputSearch.getText().length() > 0) {
+                    btnDestroySearch.setVisibility(View.VISIBLE);
+                } else {
+                    btnDestroySearch.setVisibility(View.INVISIBLE);
+                }
             }
         });
+
+        btnDestroySearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textInputSearch.setText("");
+            }
+        });
+
+        btnBackSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToMain();
+            }
+        });
+    }
+
+    public void navigateToMain() {
+        Intent intentMain = new Intent(this, MainActivity.class);
+        startActivity(intentMain);
+        finish();
     }
 }
