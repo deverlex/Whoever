@@ -10,13 +10,13 @@
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/MyCustomTabText</item>
-        <item name="tabSelectedTextColor">@color/colorWhite</item>
+        <item name="tabSelectedTextColor">@color/colorButtonMain</item>
 
     </style>
 
     <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textSize">0sp</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/colorSilver</item>
     </style>
 
 </resources>

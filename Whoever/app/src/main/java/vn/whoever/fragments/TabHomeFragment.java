@@ -1,5 +1,6 @@
 package vn.whoever.fragments;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
@@ -18,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.TabLayout;
+
+import java.util.ArrayList;
 
 import vn.whoever.R;
 
@@ -42,12 +45,16 @@ public class TabHomeFragment extends Fragment {
             R.drawable.ic_action_contacst_red
     };
 
+    private ArrayList<String> titles;
+
    // private int selectedItems = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedStanceState) {
 
         View view = inflater.inflate(R.layout.tab_home_layout, null);
+
+        setTiltesTab(getActivity());
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayoutHome);
         viewPager = (ViewPager) view.findViewById(R.id.viewPageHome);
@@ -71,6 +78,14 @@ public class TabHomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void setTiltesTab(Context context) {
+        titles = new ArrayList<>();
+        titles.add(0, context.getString(R.string.title_tab_home));
+        titles.add(1, context.getString(R.string.title_tab_new));
+        titles.add(2, context.getString(R.string.title_tab_inbox));
+        titles.add(3, context.getString(R.string.title_tab_contact));
     }
 
     public void updateColorTabSelected() {
@@ -124,8 +139,7 @@ public class TabHomeFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-
-            return null;
+            return titles.get(position);
         }
     }
 }
