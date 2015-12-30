@@ -5,13 +5,13 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/toolBarSearch"
+        android:id="@+id/toolBarFromSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorButtonMain">
 
         <RelativeLayout
-            android:id="@+id/btnBackSearch"
+            android:id="@+id/btnBackHomeFromSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -29,14 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/btnBackSearch">
+            android:layout_toRightOf="@+id/btnBackHomeFromSearch">
 
             <EditText
-                android:id="@+id/textInputSearch"
+                android:id="@+id/textInputFromSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_text_search"
-                android:layout_below="@+id/btnSearch"
+                android:layout_below="@+id/iconButtonSearchFromSearch"
                 android:paddingLeft="34sp"
                 android:paddingRight="44sp"
                 android:hint="@string/text_btn_search"
@@ -49,7 +49,7 @@
                 android:singleLine="true"/>
 
             <ImageView
-                android:id="@+id/btnSearch"
+                android:id="@+id/iconButtonSearchFromSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_action_search"
@@ -58,7 +58,7 @@
                 android:layout_marginTop="12dp"/>
 
             <ImageView
-                android:id="@+id/btnDestroySearch"
+                android:id="@+id/btnDestroyInputFromSearch"
                 android:layout_width="44dp"
                 android:layout_height="26dp"
                 android:src="@drawable/ic_action_destroy"
@@ -70,6 +70,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
 
 </LinearLayout>

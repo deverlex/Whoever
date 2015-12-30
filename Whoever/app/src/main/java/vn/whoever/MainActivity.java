@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import vn.whoever.activities.NotifyActivity;
 import vn.whoever.activities.SearchActivity;
 import vn.whoever.fragments.TabHomeFragment;
 import vn.whoever.utils.*;
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         btnOpenNotify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                navigateToNotify();
             }
         });
 
@@ -148,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
                 navigateToSearch();
             }
         });
+    }
+
+    public void navigateToNotify() {
+        Intent intentNotify = new Intent(this, NotifyActivity.class);
+        startActivity(intentNotify);
     }
 
     public void navigateToSearch() {

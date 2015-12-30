@@ -1,6 +1,5 @@
 package vn.whoever.activities;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,9 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -24,7 +20,7 @@ import vn.whoever.R;
 /**
  * Created by spider man on 12/30/2015.
  */
-public class SearchActivity extends AppCompatActivity {
+public class NotifyActivity extends AppCompatActivity {
 
     private EditText textInputSearch;
     private RelativeLayout btnBackHome;
@@ -37,13 +33,13 @@ public class SearchActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.search_layout);
+        setContentView(R.layout.notify_layout);
 
-        textInputSearch = (EditText) findViewById(R.id.textInputFromSearch);
+        textInputSearch = (EditText) findViewById(R.id.textInputFromNotify);
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
 
-        btnDestroySearch = (ImageView) findViewById(R.id.btnDestroyInputFromSearch);
-        btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromSearch);
+        btnDestroySearch = (ImageView) findViewById(R.id.btnDestroyInputFromNotify);
+        btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromNotify);
 
         setEventForLayout();
     }
@@ -80,11 +76,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textInputSearch.setText("");
-                if(textInputSearch.requestFocus()) {
-                    InputMethodManager imm = (InputMethodManager)
-                            getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(textInputSearch, InputMethodManager.SHOW_IMPLICIT);
-                }
             }
         });
 
