@@ -111,4 +111,10 @@
         </FrameLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/listenerClick"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
 </FrameLayout>

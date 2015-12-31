@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
@@ -24,16 +26,20 @@ public class MainActivity extends AppCompatActivity {
     public static FragmentTransaction frgTransactionMain;
 
     private DisplayMetrics metrics;
-    private boolean isExpanded;
+    private boolean isExpandedLeft;
+    private boolean isExpandedRight;
     private int panelWidth;
 
     private RelativeLayout layoutOverview;
     private RelativeLayout layoutOnline;
-    private LinearLayout layoutMain;
+    private LinearLayout layoutHome;
 
     private FrameLayout.LayoutParams layoutParamsOverview;
     private FrameLayout.LayoutParams layoutParamsOnline;
     private FrameLayout.LayoutParams layoutParamsMain;
+
+    private LinearLayout listenerClick;
+    private FrameLayout.LayoutParams listenerPrams;
 
     private RelativeLayout btnOpenOverview;
     private RelativeLayout btnOpenOnline;
@@ -64,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         btnOpenNotify = (RelativeLayout) findViewById(R.id.btnOpenNotify);
         btnOpenSearch = (RelativeLayout) findViewById(R.id.btnOpenSearch);
 
+        listenerClick = (LinearLayout) findViewById(R.id.listenerClick);
+
         setEventOnLayout();
     }
 
@@ -78,20 +86,20 @@ public class MainActivity extends AppCompatActivity {
         layoutParamsOverview.width = metrics.widthPixels;
         layoutOverview.setLayoutParams(layoutParamsOverview);
 
-        layoutMain = (LinearLayout) findViewById(R.id.homeLayout);
-        layoutParamsMain = (FrameLayout.LayoutParams) layoutMain.getLayoutParams();
+        layoutHome = (LinearLayout) findViewById(R.id.homeLayout);
+        layoutParamsMain = (FrameLayout.LayoutParams) layoutHome.getLayoutParams();
         layoutParamsMain.width = metrics.widthPixels;
-        layoutMain.setLayoutParams(layoutParamsMain);
+        layoutHome.setLayoutParams(layoutParamsMain);
     }
 
     public void setEventOnLayout() {
         btnOpenOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isExpanded) {
-                    isExpanded = true;
-
-                    new TranslateToRight(layoutMain, panelWidth,
+                if(!isExpandedLeft) {
+                    isExpandedLeft = true;
+                    openRightListenerClick();;
+                    new TranslateToRight(layoutHome, panelWidth,
                             TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
                             TranslateAnimation.RELATIVE_TO_SELF, 0.85f,
                             0, 0.0f,
@@ -99,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
                     layoutOverview.setVisibility(View.VISIBLE);
                     layoutOnline.setVisibility(View.INVISIBLE);
                 } else {
-                    isExpanded = false;
-
-                    new CloseSliding(layoutMain, panelWidth,
+                    isExpandedLeft = false;
+                    closeListenerClick();
+                    new CloseSliding(layoutHome, panelWidth,
                             TranslateAnimation.RELATIVE_TO_SELF, 0.85f,
                             TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
                             0, 0.0f,
@@ -113,11 +121,10 @@ public class MainActivity extends AppCompatActivity {
         btnOpenOnline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(!isExpanded) {
-                    isExpanded = true;
-
-                    new TranslateToLeft(layoutMain, panelWidth,
+                if (!isExpandedRight) {
+                    isExpandedRight = true;
+                    openLeftListenerClick();
+                    new TranslateToLeft(layoutHome, panelWidth,
                             TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
                             TranslateAnimation.RELATIVE_TO_SELF, -0.85f,
                             0, 0.0f,
@@ -125,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
                     layoutOverview.setVisibility(View.INVISIBLE);
                     layoutOnline.setVisibility(View.VISIBLE);
                 } else {
-                    isExpanded = false;
-
-                    new CloseSliding(layoutMain, panelWidth,
+                    isExpandedRight = false;
+                    closeListenerClick();
+                    new CloseSliding(layoutHome, panelWidth,
                             TranslateAnimation.RELATIVE_TO_SELF, -0.85f,
                             TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
                             0, 0.0f,
@@ -149,6 +156,58 @@ public class MainActivity extends AppCompatActivity {
                 navigateToSearch();
             }
         });
+        
+        listenerClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("CLICK HOME LAYOUT", "CLICK, CLICK !!!");
+                if (isExpandedLeft) {
+                    isExpandedLeft = false;
+                    closeListenerClick();
+                    new CloseSliding(layoutHome, panelWidth,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.85f,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                            0, 0.0f,
+                            0, 0.0f);
+                }
+                if(isExpandedRight) {
+                    isExpandedRight = false;
+                    closeListenerClick();
+                    new CloseSliding(layoutHome, panelWidth,
+                            TranslateAnimation.RELATIVE_TO_SELF, -0.85f,
+                            TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                            0, 0.0f,
+                            0, 0.0f);
+                }
+            }
+        });
+    }
+
+    public void openRightListenerClick() {
+        /**
+         * TODO: layout listener on right main layout
+         * | L|
+         */
+        listenerPrams = (FrameLayout.LayoutParams) listenerClick.getLayoutParams();
+        listenerPrams.width = (int) (metrics.widthPixels * 0.15);
+        listenerPrams.leftMargin = (int) (metrics.widthPixels * 0.85);
+        listenerClick.setLayoutParams(listenerPrams);
+    }
+
+    public void openLeftListenerClick() {
+        listenerPrams = (FrameLayout.LayoutParams) listenerClick.getLayoutParams();
+        listenerPrams.width = (int) (metrics.widthPixels * 0.15);
+        listenerPrams.rightMargin = (int) (metrics.widthPixels * 0.85);
+        listenerClick.setLayoutParams(listenerPrams);
+    }
+
+    public void closeListenerClick() {
+        listenerPrams = (FrameLayout.LayoutParams) listenerClick.getLayoutParams();
+        listenerPrams.width = 0;
+        listenerPrams.leftMargin = 0;
+        listenerPrams.rightMargin = 0;
+        listenerClick.setLayoutParams(listenerPrams);
     }
 
     public void navigateToNotify() {
