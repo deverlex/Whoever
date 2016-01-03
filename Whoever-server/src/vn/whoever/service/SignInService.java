@@ -9,7 +9,13 @@ import javax.ws.rs.Path;
  * @author Nguyen Van Do
  * @version 1.0
  */
-@Path("/Login")
-public class LoginService {
+@Path("/SignIn")
+public class SignInService implements Service {
+
+	@Override
+	public String getSupportOparations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

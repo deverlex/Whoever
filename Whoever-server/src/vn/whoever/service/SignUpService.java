@@ -1,0 +1,23 @@
+package vn.whoever.service;
+
+import javax.ws.rs.Path;
+
+/**
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2016</p>
+ * @author Nguyen Van Do
+ * @version 1.0
+ */
+
+@Path("/SignUp")
+public class SignUpService implements Service {
+
+	@Override
+	public String getSupportOparations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}
