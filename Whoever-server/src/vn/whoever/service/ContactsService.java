@@ -9,7 +9,8 @@ import javax.ws.rs.Path;
  * @author Nguyen Van Do
  * @version 1.0
  */
-@Path("/Login")
-public class LoginService {
+
+@Path("Contacts")
+public class ContactsService {
 
 }
