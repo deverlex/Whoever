@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 navigateToSearch();
             }
         });
-        
+
         listenerClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,5 +219,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intentSearch = new Intent(this, SearchActivity.class);
         startActivity(intentSearch);
     }
-
 }

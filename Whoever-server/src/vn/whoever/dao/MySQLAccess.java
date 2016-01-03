@@ -22,7 +22,7 @@ public class MySQLAccess {
 	public void readDataBase() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/nofacedb?"
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/whoeverdb?useSSL=false&"
 					+ "user=root&password=1903");
 			
 			statement = connection.createStatement();

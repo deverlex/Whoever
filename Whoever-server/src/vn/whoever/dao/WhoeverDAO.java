@@ -1,6 +1,6 @@
 package vn.whoever.dao;
 
-public interface NoFaceDAO {
+public interface WhoeverDAO {
 	/**
 	 * Data Access Object
 	 */
