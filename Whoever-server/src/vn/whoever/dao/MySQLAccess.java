@@ -12,14 +12,35 @@ public class MySQLAccess implements DBAccess {
 	private Connection connection = null;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
-	private ResultSet resultSet = null;
 	
 	public static void main(String[] args) {
 		MySQLAccess access = new MySQLAccess();
-		access.readDataBase();
+		access.openAccessDatabases();
+		access.writeDB(access.readDatabases("select * from users"));
 	}
 	
-	public void readDataBase() {
+	public void writeDB(ResultSet resultSet) {
+		try{
+			System.out.println("Print data in Database!");
+			while(resultSet.next()) {
+				System.out.println("id: " + resultSet.getInt("id"));
+				System.out.println("Name: " + resultSet.getString("nickName"));
+				System.out.println("Email: " + resultSet.getString("email"));
+				System.out.println("Password: " + resultSet.getString("password"));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void openAccessDatabases() {
+		// TODO Auto-generated method stub
+		/**
+		 * TODO: load config from file
+		 */
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/whoeverdb?useSSL=false&"
@@ -27,33 +48,42 @@ public class MySQLAccess implements DBAccess {
 			
 			statement = connection.createStatement();
 			
-			resultSet = statement.executeQuery("select * from users");
-			
-			writeDB(resultSet);
-		}catch(ClassNotFoundException e) {
-			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
 			close();
 		}
+		
 	}
-	
-	public void writeDB(ResultSet resultSet) throws SQLException {
-		System.out.println("Print data in Database!");
-		while(resultSet.next()) {
-			System.out.println("Name: " + resultSet.getString("name"));
-			System.out.println("Email: " + resultSet.getString("email"));
-		}
-	}
-	
-	public void close() {
-		try {
-			if(resultSet != null ) {
-				resultSet.close();
+
+	@Override
+	public ResultSet readDatabases(String strQuery) {
+		// TODO Auto-generated method stub
+		if(statement != null) {
+			try {
+				return statement.executeQuery(strQuery);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				close();
 			}
-			
+		}
+		return null;
+	}
+
+	@Override
+	public void writeDatabases() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void close() {
+		try {			
 			if(statement != null) {
 				statement.close();
 			}
@@ -62,7 +92,10 @@ public class MySQLAccess implements DBAccess {
 				connection.close();
 			}
 		}catch(Exception e) {
-			
+			e.printStackTrace();
+		} finally {
+			statement = null;
+			connection = null;
 		}
 	}
 }

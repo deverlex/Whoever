@@ -5,12 +5,13 @@ import java.util.ArrayList;
 
 public class Status {
 	
-	private int id;
-	private String content;
-	private String writer;
-	private Date dateWriter;
-	private byte[] image;
+	private int idStatus;
+	private String contentStatus;
+	private String senderStatus;
+	private Date dateWriterStatus;
+	private byte[] avatarUserStatus;
+	private byte[] imageStatus;
 	
-	private ArrayList<Reply> arrComment;
+	private ArrayList<Reply> arrCommentStatus;
 	
 }

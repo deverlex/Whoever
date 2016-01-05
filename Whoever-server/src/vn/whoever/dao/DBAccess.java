@@ -1,5 +1,8 @@
 package vn.whoever.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -15,7 +18,8 @@ public interface DBAccess {
 	 * 
 	 */
 	public void openAccessDatabases();
-	public void readDatabases();
+	public ResultSet readDatabases(String strQuery);
 	public void writeDatabases();
+	public void close();
 	
 }
