@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MySQLAccess {
+public class MySQLAccess implements DBAccess {
 		
 	private Connection connection = null;
 	private Statement statement = null;

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <whoever>
 	<root>
-		
+		<database>
+			<name>whoeverdb</name>
+			<user-name>root</user-name>
+			<password>1903</password>
+		</database>
 	</root>
 </whoever>

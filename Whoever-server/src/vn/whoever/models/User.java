@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * <p>Title: </p>
  * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2015</p>
+ * <p>Copyright: Copyright (c) 2016</p>
  * @author Nguyen Van Do
  * @version 1.0
  */
@@ -26,7 +26,5 @@ public class User implements Serializable {
 	private int totalComment;
 	private int totalLike;
 	private int totalDislike;
-	
-	
 
 }

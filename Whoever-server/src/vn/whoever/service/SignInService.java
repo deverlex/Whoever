@@ -20,13 +20,14 @@ import vn.whoever.models.User;
 public class SignInService implements Service {
 
 	/**
-	 * <h>Example: /path/nguyendo94vn@gmail.com;password=123456</h>
-	 * QueryParam /path?email=nguyendo94vn@gmail.com&pasword=123456&password=123456
+	 * <h>Example: /SignIn/nguyendo94vn@gmail.com;password=123456</h>
+	 * QueryParam /SignIn?email=nguyendo94vn@gmail.com&pasword=123456&password=123456
 	 * if passowrd is QueryParam with List<?>
 	 * @param email
 	 * @param password
 	 * @return
 	 */
+	
 	@GET
 	@Path("{email}")
 	@Produces(MediaType.APPLICATION_JSON)
