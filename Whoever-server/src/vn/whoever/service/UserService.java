@@ -21,7 +21,7 @@ import vn.whoever.models.User;
  * @author Nguyen Van Do
  * @version 1.0
  */
-@Path("/UserService")
+@Path("/users")
 public class UserService implements Service {
 
 	/**
@@ -34,7 +34,7 @@ public class UserService implements Service {
 	 */
 	
 	@GET
-	@Path("/Login")
+	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserInfor(@QueryParam("email") String email,
 			@QueryParam("password") String password) {
@@ -43,7 +43,7 @@ public class UserService implements Service {
 	}
 	
 	@GET
-	@Path("/ForgetPassword/{email}")
+	@Path("/forget_password/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean forgetPassword(@PathParam("email") String email) {
 		

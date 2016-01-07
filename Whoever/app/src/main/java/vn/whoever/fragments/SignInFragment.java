@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import vn.whoever.MainActivity;
 import vn.whoever.R;
 import vn.whoever.StartActivity;
+import vn.whoever.Transactions.UserTransaction;
+import vn.whoever.models.User;
 
 /**
  * Created by spider man on 12/24/2015.
@@ -124,6 +127,13 @@ public class SignInFragment extends Fragment {
         /**
          * TODO: check password and email on server
           */
+        User user = UserTransaction.getInstance().getRequestLogin(getActivity(), "nguyendo94vn@gmail.com", "12345678");
+        if(user != null) {
+            Log.d("nickName: ", user.getNickName());
+            Log.d("email: ", user.getEmail());
+            Log.d("password: ", user.getPassword());
+        }
+
         return true;
     }
 

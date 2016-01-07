@@ -17,14 +17,11 @@ public final class MySQLAccess extends DBAccess {
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	
-	private static MySQLAccess sqlAccess = null;
+	private static MySQLAccess sqlAccess = new MySQLAccess();
 	
 	private MySQLAccess() { }
 	
-	public static MySQLAccess getInstance() {
-		if(sqlAccess == null) {
-			sqlAccess = new MySQLAccess();
-		}
+	public static synchronized MySQLAccess getInstance() {
 		sqlAccess.openAccessDatabases();
 		return sqlAccess;
 	}
