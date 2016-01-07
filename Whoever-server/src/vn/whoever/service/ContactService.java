@@ -10,14 +10,7 @@ import javax.ws.rs.Path;
  * @version 1.0
  */
 
-@Path("/SignUp")
-public class SignUpService implements Service {
+@Path("ContactService")
+public class ContactService {
 
-	@Override
-	public String getSupportOparations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }

@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
  * @version 1.0
  */
 
-@Path("/Message")
+@Path("/MessageService")
 public class MessageService {
 
 }

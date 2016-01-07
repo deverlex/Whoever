@@ -1,5 +1,6 @@
 package vn.whoever.service;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.MatrixParam;
 import javax.ws.rs.POST;
@@ -10,7 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlElement;
 
-import vn.whoever.dao.LoginDAO;
+import vn.whoever.dao.UserDAO;
 import vn.whoever.models.User;
 
 /**
@@ -20,8 +21,8 @@ import vn.whoever.models.User;
  * @author Nguyen Van Do
  * @version 1.0
  */
-@Path("/SignInService")
-public class SignInService implements Service {
+@Path("/UserService")
+public class UserService implements Service {
 
 	/**
 	 * <h>Example: /SignIn/nguyendo94vn@gmail.com;password=123456</h>
@@ -37,7 +38,7 @@ public class SignInService implements Service {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserInfor(@QueryParam("email") String email,
 			@QueryParam("password") String password) {
-		LoginDAO loginDAO = new LoginDAO();
+		UserDAO loginDAO = new UserDAO();
 		return loginDAO.getUser(email, password);
 	}
 	
@@ -47,6 +48,23 @@ public class SignInService implements Service {
 	public boolean forgetPassword(@PathParam("email") String email) {
 		
 		return true;
+	}
+	
+	@POST
+	@Path("/UpdatePassword/{email}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void updatePassword(@PathParam("email") String email,
+			@MatrixParam("password") String password,
+			@MatrixParam("rePassword") String rePassword) {
+		
+	}
+	
+	@POST
+	@Path("/UpdateEmail/{email}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void updateEmail(@PathParam("email") String email,
+			@MatrixParam("newEmail") String newEmail) {
+		
 	}
 	
 	@Override

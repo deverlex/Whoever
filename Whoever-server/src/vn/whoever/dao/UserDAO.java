@@ -10,7 +10,7 @@ import vn.whoever.models.User;
  * @author spider man
  * TODO: data access object
  */
-public class LoginDAO {
+public class UserDAO {
 
 	private User user = null;
 	
@@ -30,10 +30,6 @@ public class LoginDAO {
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}
-			System.out.println(user.getId());
-			System.out.println(user.getEmail());
-			System.out.println(user.getNickName());
-			System.out.println(user.getPassword());
 			return user;
 		} else {
 			return null;

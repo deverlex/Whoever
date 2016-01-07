@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
  * @version 1.0
  */
 
-@Path("/Online")
+@Path("/OnlineService")
 public class OnlineService {
 	
 	private ConcurrentHashMap<String, String> userOnline = new ConcurrentHashMap<String, String>();

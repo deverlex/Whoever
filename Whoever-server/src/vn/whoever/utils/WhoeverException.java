@@ -1,5 +1,11 @@
 package vn.whoever.utils;
 
-public interface WhoeverException {
+public class WhoeverException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	
 }

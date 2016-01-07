@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isExpandedRight;
     private int panelWidth;
 
-    private RelativeLayout layoutOverview;
-    private RelativeLayout layoutOnline;
+    private LinearLayout layoutOverview;
+    private LinearLayout layoutOnline;
     private LinearLayout layoutHome;
 
     private FrameLayout.LayoutParams layoutParamsOverview;
@@ -76,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setDefaultFixLayout() {
-        layoutOnline = (RelativeLayout) findViewById(R.id.onlineLayout);
+        layoutOnline = (LinearLayout) findViewById(R.id.onlineLayout);
         layoutParamsOnline = (FrameLayout.LayoutParams) layoutOnline.getLayoutParams();
         layoutParamsOnline.width = metrics.widthPixels;
         layoutOnline.setLayoutParams(layoutParamsOnline);
 
-        layoutOverview = (RelativeLayout) findViewById(R.id.overviewLayout);
+        layoutOverview = (LinearLayout) findViewById(R.id.overviewLayout);
         layoutParamsOverview = (FrameLayout.LayoutParams) layoutOverview.getLayoutParams();
         layoutParamsOverview.width = metrics.widthPixels;
         layoutOverview.setLayoutParams(layoutParamsOverview);
