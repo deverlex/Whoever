@@ -11,15 +11,16 @@ import java.sql.SQLException;
  * @version 1.0
  */
 
-public interface DBAccess {
+public abstract class DBAccess {
 	
 	/**
 	 * TODO: interface model for databases connector DBMS
 	 * 
 	 */
-	public void openAccessDatabases();
-	public ResultSet readDatabases(String strQuery);
-	public void writeDatabases();
-	public void close();
+	
+	protected abstract void openAccessDatabases();
+	protected abstract ResultSet readDatabases(String strQuery);
+	protected abstract void writeDatabases();
+	protected abstract void close();
 	
 }

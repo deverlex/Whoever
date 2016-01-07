@@ -48,6 +48,7 @@
         android:layout_toRightOf="@+id/spaceButtonSignIn"
         android:background="@color/colorButtonMain"
         android:text="@string/text_button_signin"
+        android:textSize="12dp"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"/>
 
@@ -68,6 +69,7 @@
         android:layout_toLeftOf="@+id/spaceButtonSignIn"
         android:background="@color/colorButtonMain"
         android:text="@string/text_button_skip"
+        android:textSize="12dp"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"/>
 
