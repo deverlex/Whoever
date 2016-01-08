@@ -1,10 +1,12 @@
 package vn.whoever.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -96,6 +98,11 @@ public class SignInFragment extends Fragment {
         btnSkipSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * TODO: get IMEI of phone send to server
+                 */
+                String serialNb = getSerialNumberUser();
+
                 navigateToMain();
             }
         });
@@ -108,13 +115,20 @@ public class SignInFragment extends Fragment {
             public void onClick(View v) {
                 email = emailText.getText().toString();
                 password = passwordText.getText().toString();
-                if (checkLoginAccount()) {
-                    navigateToMain();
-                } else {
-                    Toast toastLogin = new Toast(getActivity());
-                }
+                /**
+                 * TODO: after check password and email => demo
+                 */
+                email = "nguyendo94vn@gmail.com";
+                password = "12345678";
+
+                UserTransaction.getInstance(getActivity()).getRequestLogin(email, password);
             }
         });
+    }
+
+    public String getSerialNumberUser() {
+        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
     }
 
     public void navigateToMain() {
@@ -122,20 +136,5 @@ public class SignInFragment extends Fragment {
         startActivity(intentMain);
         getActivity().finish();
     }
-
-    public boolean checkLoginAccount() {
-        /**
-         * TODO: check password and email on server
-          */
-        User user = UserTransaction.getInstance().getRequestLogin(getActivity(), "nguyendo94vn@gmail.com", "12345678");
-        if(user != null) {
-            Log.d("nickName: ", user.getNickName());
-            Log.d("email: ", user.getEmail());
-            Log.d("password: ", user.getPassword());
-        }
-
-        return true;
-    }
-
 
 }
