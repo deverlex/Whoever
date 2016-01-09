@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import vn.whoever.dao.UserDAO;
 import vn.whoever.models.User;
 import vn.whoever.models.Verify;
+import vn.whoever.utils.JSONStream;
 
 /**
  * <p>Title: </p>
@@ -63,25 +64,14 @@ public class UserService implements Service {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Verify loginUseAnonymous(InputStream incomingData) {
-		StringBuilder sb = new StringBuilder();
+		
+		JSONStream jsonStream = new JSONStream(incomingData);
+		JSONObject jsonObject = jsonStream.getJSONObject();
 		try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
-            String line = null;
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-            }
-            
-            String data = sb.toString();
-    		data = java.net.URLDecoder.decode(data, "UTF-8");
-    		
-    		JSONObject jsonObject = new JSONObject(data);
-    		System.out.println("String get by JSON:" + jsonObject.get("imei"));
-    		
-    		userDAO.createAnonymousUser(jsonObject.getString("imei"));
-        } catch (Exception e) {
-            System.out.println("Error Parsing: - ");
-            return new Verify(false);
-        }
+			System.out.println("imei: " + jsonObject.getString("imei"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		System.out.println("return to client result");
 		return new Verify(true);
 	}
