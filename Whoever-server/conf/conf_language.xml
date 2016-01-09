@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<whoever>
+	<language-support value="180">
+		<language name="Abkhazian">ab</language>
+		<language name="Afar">aa</language>
+		<language name="Afrikaans">af</language>
+		<language name="Albanian">sq</language>
+		<language name="Amharic">am</language>
+		<language name="Arabic">ar</language>
+		<language name="Aragonese">an</language>
+		<language name="Armenian">hy</language>
+		<language name="Assamese">as</language>
+		<language name="Aymara">ay</language>
+		<language name="Azerbaijani">az</language>
+		<language name="Bashkir">ba</language>
+		<language name="Basque">eu</language>
+		<language name="Bengali" extend="Bangla">bn</language>
+		<language name="Bhutani">dz</language>
+		<language name="Bihari">bh</language>
+		<language name="Bislama">bi</language>
+		<language name="Breton">br</language>
+		<language name="Bulgarian">bg</language>
+		<language name="Burmese">my</language>
+		<language name="Byelorussian" extend="Belarusian">be</language>
+		<language name="Cambodian">km</language>
+		<language name="Catalan">ca</language>
+		<language name="Chinese">zh</language>
+		<language name="Chinese" extend="Simplified">zh-Hans</language>
+		<language name="Chinese" extend="Traditional">zh-Hant</language>
+		<language name="Corsican">co</language>
+		<language name="Croatian">hr</language>
+		<language name="Czech">cs</language>
+		<language name="Danish">da</language>
+		<language name="Dutch">nl</language>
+		<language name="English">en</language>
+		<language name="Esperanto">eo</language>
+		<language name="Estonian">et</language>
+		<language name="Faeroese">fo</language>
+		<language name="Farsi">fa</language>
+		<language name="Fiji">fj</language>
+		<language name="Finnish">fi</language>
+		<language name="French">fr</language>
+		<language name="Frisian">fy</language>
+		<language name="Galician">gl</language>
+		<language name="Gaelic" extend="Scottish">gd</language>
+		<language name="Gaelic" extend="Manx">gv</language>
+		<language name="Georgian">ka</language>
+		<language name="German">de</language>
+		<language name="Greek">el</language>
+		<language name="Greenlandic">kl</language>
+		<language name="Guarani">gn</language>
+		<language name="Gujarati">gu</language>
+		<language name="Haitian Creole">ht</language>
+		<language name="Hausa">ha</language>
+		<language name="Hebrew">he</language>
+		<language name="Hindi">hi</language>
+		<language name="Hungarian">hu</language>
+		<language name="Icelandic">is</language>
+		<language name="Ido">io</language>
+		<language name="Indonesian">id</language>
+		<language name="Interlingua">ia</language>
+		<language name="Interlingue">ie</language>
+		<language name="Inuktitut">iu</language>
+		<language name="Inupiak">ik</language>
+		<language name="Irish">ga</language>
+		<language name="Italian">it</language>
+		<language name="Japanese">ja</language>
+		<language name="Javanese">jv</language>
+		<language name="Kannada">kn</language>
+		<language name="Kashmiri">ks</language>
+		<language name="Kazakh">kk</language>
+		<language name="Kinyarwanda" extend="Ruanda">rw</language>
+		<language name="Kirghiz">ky</language>
+		<language name="Kirundi" extend="Rundi">rn</language>
+		<language name="Korean">ko</language>
+		<language name="Kurdish">ku</language>
+		<language name="Laothian">lo</language>
+		<language name="Latin">la</language>
+		<language name="Latvian" extend="Lettish">lv</language>
+		<language name="Limburgish" extend="Limburger">li</language>
+		<language name="Lingala">ln</language>
+		<language name="Lithuanian">lt</language>
+		<language name="Macedonian">mk</language>
+		<language name="Malagasy">mg</language>
+		<language name="Malay">ms</language>
+		<language name="Malayalam">ml</language>
+		<language name="Maltese">mt</language>
+		<language name="Maori">mi</language>
+		<language name="Marathi">mr</language>
+		<language name="Moldavian">mo</language>
+		<language name="Mongolian">mn</language>
+		<language name="Nauru">na</language>
+		<language name="Nepali">ne</language>
+		<language name="Norwegian">no</language>
+		<language name="Occitan">oc</language>
+		<language name="Oriya">or</language>
+		<language name="Oromo" extend="Afaan Oromo">om</language>
+		<language name="Pashto" exntend="Pushto">ps</language>
+		<language name="Polish">pl</language>
+		<language name="Portuguese">pt</language>
+		<language name="Punjabi">pa</language>
+		<language name="Quechua">qu</language>
+		<language name="Rhaeto-Romance">rm</language>
+		<language name="Romanian">ro</language>
+		<language name="Russian">ru</language>
+		<language name="Samoan">sm</language>
+		<language name="Sangro">sg</language>
+		<language name="Sanskrit">sa</language>
+		<language name="Serbian">sr</language>
+		<language name="Serbo-Croatian">sh</language>
+		<language name="Sesotho">st</language>
+		<language name="Setswana">tn</language>
+		<language name="Shona">sn</language>
+		<language name="Sichuan Yi">ii</language>
+		<language name="Sindhi">sd</language>
+		<language name="Sinhalese">si</language>
+		<language name="Siswati">ss</language>
+		<language name="Slovak">sk</language>
+		<language name="Slovenian">sl</language>
+		<language name="Somali">so</language>
+		<language name="Spanish">es</language>
+		<language name="Sundanese">su</language>
+		<language name="Swahili" extend="Kiswahili">sw</language>
+		<language name="Swedish">sv</language>
+		<language name="Tagalog">tl</language>
+		<language name="Tajik">tg</language>
+		<language name="Tamil">ta</language>
+		<language name="Tatar">tt</language>
+		<language name="Telugu">te</language>
+		<language name="Thai">th</language>
+		<language name="Tibetan">bo</language>
+		<language name="Tigrinya">ti</language>
+		<language name="Tonga">to</language>
+		<language name="Tsonga">ts</language>
+		<language name="Turkish">tr</language>
+		<language name="Turkmen">tk</language>
+		<language name="Twi">tw</language>
+		<language name="Uighur">ug</language>
+		<language name="Ukrainian">uk</language>
+		<language name="Urdu">ur</language>
+		<language name="Uzbek">uz</language>
+		<language name="Vietnamese">vi</language>
+		<language name="Volapük">vo</language>
+		<language name="Wallon">wa</language>
+		<language name="Welsh">cy</language>
+		<language name="Wolof">wo</language>
+		<language name="Xhosa">xh</language>
+		<language name="Yiddish">yi</language>
+		<language name="Yoruba">yo</language>
+		<language name="Zulu">zu</language>
+	</language-support>
+</whoever>

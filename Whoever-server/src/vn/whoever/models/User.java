@@ -1,6 +1,7 @@
 package vn.whoever.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,6 +26,9 @@ public class User implements Serializable {
 	private String nickName;
 	private String email;
 	private String password;
+	
+	private Date birthDay;
+
 	
 	public int getId() {
 		return id;

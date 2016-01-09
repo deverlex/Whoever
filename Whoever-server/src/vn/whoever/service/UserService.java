@@ -63,9 +63,9 @@ public class UserService implements Service {
 	@Path("/login-anonymous")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Verify loginUseAnonymous(InputStream incomingData) {
+	public Verify loginUseAnonymous(InputStream inputStream) {
 		
-		JSONStream jsonStream = new JSONStream(incomingData);
+		JSONStream jsonStream = new JSONStream(inputStream);
 		JSONObject jsonObject = jsonStream.getJSONObject();
 		try {
 			System.out.println("imei: " + jsonObject.getString("imei"));
@@ -74,6 +74,18 @@ public class UserService implements Service {
 		}
 		System.out.println("return to client result");
 		return new Verify(true);
+	}
+	
+	@POST
+	@Path("/create-account")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User getCreateNewAccount(InputStream inputStream) {
+		JSONStream jsonStream = new JSONStream(inputStream);
+		JSONObject jsonObject = jsonStream.getJSONObject();
+		
+		
+		return null;
 	}
 	
 	
