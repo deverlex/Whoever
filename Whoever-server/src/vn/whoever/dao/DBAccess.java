@@ -19,8 +19,8 @@ public abstract class DBAccess {
 	 */
 	
 	protected abstract void openAccessDatabases();
-	protected abstract ResultSet readDatabases(String strQuery);
-	protected abstract void writeDatabases();
+	protected abstract ResultSet readDatabases(String sqlQuery);
+	protected abstract boolean writeDatabases(String sqlUpdate);
 	protected abstract void close();
 	
 }

@@ -14,7 +14,7 @@ public class UserDAO {
 
 	private User user = null;
 	
-	public User getUser(String email, String password) {
+	public synchronized User getUser(String email, String password) {
 		user = new User();
 		String sqlQuery = "SELECT * FROM users WHERE email = '" 
 							+ email + "' and password = '" + password+"'";
@@ -35,4 +35,13 @@ public class UserDAO {
 			return null;
 		}
 	}
+	
+	public synchronized boolean createAnonymousUser(String imei) {
+		String sqlUpdate = "INSERT INTO USERS(...) VALUES(...) ";
+		//MySQLAccess.getInstance().writeDatabases(sqlUpdate);
+		
+		return true;
+	}
+	
+	
 }

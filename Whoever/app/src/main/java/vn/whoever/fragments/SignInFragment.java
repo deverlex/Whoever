@@ -102,7 +102,7 @@ public class SignInFragment extends Fragment {
                  * TODO: get IMEI of phone send to server
                  */
                 String serialNb = getSerialNumberUser();
-
+                UserTransaction.getInstance(getActivity()).getRequestLoginAnonymous(serialNb);
                 navigateToMain();
             }
         });

@@ -14,6 +14,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -78,23 +79,27 @@ public class UserTransaction {
      * TODO: using POST method upload IMEI mobile device
      */
     public void getRequestLoginAnonymous(String serialUser) {
-        String url = AddressTrans.URL_USER + "login_anonymous?";
+        String url = AddressTrans.URL_USER + "/login-anonymous";
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("id", serialUser);
+        params.put("imei", serialUser);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 // kết quả trả về khi đẩy lên server
+
+                Log.d("ANONYMOUS LOGIN: ", response.toString());
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("ANONYMOUS LOGIN: ", "ERROR");
             }
         });
+        ApplicationController.getsInstance(myActivity).addToRequestQueue(objectRequest);
     }
 
 }

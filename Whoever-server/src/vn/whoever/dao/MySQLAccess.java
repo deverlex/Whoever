@@ -50,7 +50,7 @@ public final class MySQLAccess extends DBAccess {
 	}
 
 	@Override
-	protected ResultSet readDatabases(String sqlQuery) {
+	protected synchronized ResultSet readDatabases(String sqlQuery) {
 		if(statement != null) {
 			try {
 				return statement.executeQuery(sqlQuery);
@@ -63,9 +63,18 @@ public final class MySQLAccess extends DBAccess {
 	}
 
 	@Override
-	protected void writeDatabases() {
+	protected synchronized boolean writeDatabases(String sqlUpdate) {
 		// TODO Auto-generated method stub
-		
+		if(statement != null) {
+			try {
+				statement.executeUpdate(sqlUpdate);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
