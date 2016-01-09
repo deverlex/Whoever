@@ -3,7 +3,7 @@ package vn.whoever.utils;
 
 
 
-public class LanguageCodes {
+public class LanguageSupport {
 	
 	/*
 	 * ISO 639-1 Language Codes.
@@ -11,5 +11,6 @@ public class LanguageCodes {
 	 * The W3C recommendation.
 	 * 
 	 */
+	
 	
 }
