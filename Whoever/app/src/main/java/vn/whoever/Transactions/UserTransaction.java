@@ -1,10 +1,14 @@
 package vn.whoever.Transactions;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -16,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import vn.whoever.MainActivity;
@@ -37,15 +42,19 @@ public class UserTransaction {
         return transaction;
     }
 
-    public void getRequestLogin(String email, String password) {
+    public void getRequestLogin(final String email, final String password) {
 
-        String url = AddressTrans.URL_USER + "/login?email="+email+"&password="+password;
-        JsonObjectRequest objectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>(){
+        //String url = AddressTrans.URL_USER + "/login"; //?email="+email+"&password="+password;
+        UrlQuery urlQuery = new UrlQuery(AddressTrans.URL_USER + "/login");
+        urlQuery.putParam("email", email);
+        urlQuery.putParam("password", password);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest( Request.Method.GET ,urlQuery.getUrl(),
+                new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     user = new User();
-                    //Log.d("Response:%n %s", response.toString(4));
                     user.setId(response.getInt("id"));
                     user.setEmail(response.getString("email"));
                     user.setNickName(response.getString("nickName"));
@@ -66,8 +75,7 @@ public class UserTransaction {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //VolleyLog.e("Error: ", error.getMessage());
-                Log.d("RESPONSE: ", "NOT RESPONSE ERROR 404!");
+                Log.d("RESPONSE: ", error.toString());
             }
         });
         ApplicationController.getsInstance(myActivity).addToRequestQueue(objectRequest);
@@ -84,7 +92,7 @@ public class UserTransaction {
         HashMap<String, String> params = new HashMap<>();
         params.put("imei", serialUser);
 
-        JsonObjectRequest objectRequest = new JsonObjectRequest(url, new JSONObject(params),
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

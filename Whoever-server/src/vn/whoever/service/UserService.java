@@ -86,6 +86,8 @@ public class UserService implements Service {
 		return new Verify(true);
 	}
 	
+	
+	
 	@GET
 	@Path("/forget-password/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
