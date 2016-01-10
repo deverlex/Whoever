@@ -22,13 +22,12 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 19837278912L;
 	
-	private int id;
+	private String id; //email or imei of mobile device
 	private String nickName;
-	private String email;
 	private String password;
+	private Date birthDay; // confirm >= 13 year old
+	private String idLanguage;
 	
-	private Date birthDay;
-
 	
 	public int getId() {
 		return id;
@@ -65,10 +64,5 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-//	private float index;
-//	private int totalComment;
-//	private int totalLike;
-//	private int totalDislike;
 
 }
