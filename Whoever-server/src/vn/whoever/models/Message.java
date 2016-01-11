@@ -1,5 +1,7 @@
 package vn.whoever.models;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -8,6 +10,7 @@ public class Message {
 
 	private int id;
 	private String content;
+	private Date timeSend;
 	private User sender;
 	private User receiver;
 	
@@ -17,41 +20,6 @@ public class Message {
 	 * image as String type Base64
 	 * 
 	 */
-	
-	public int getId() {
-		return id;
-	}
-	
-	@XmlElement
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getContent() {
-		return content;
-	}
-	
-	@XmlElement
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
-	public String getSender() {
-		return sender;
-	}
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
-	public String getReceiver() {
-		return receiver;
-	}
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
-	}
-	public byte[] getImage() {
-		return image;
-	}
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
+
 	
 }

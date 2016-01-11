@@ -22,10 +22,10 @@ public class UserDAO {
 		if(set != null) {
 			try {
 				while(set.next()) {
-					user.setId(set.getInt("id"));
-					user.setEmail(set.getString("email"));
-					user.setNickName(set.getString("nickName"));
-					user.setPassword(set.getString("password"));
+//					user.setId(set.getInt("id"));
+//					user.setEmail(set.getString("email"));
+//					user.setNickName(set.getString("nickName"));
+//					user.setPassword(set.getString("password"));
 				}
 			} catch(SQLException e) {
 				e.printStackTrace();

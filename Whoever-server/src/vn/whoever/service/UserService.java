@@ -53,10 +53,14 @@ public class UserService implements Service {
 	@GET
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User getUserInfor(@QueryParam("email") String email,
+	public String getUserInfor(@QueryParam("email") String email,
 			@QueryParam("password") String password) {
 		
-		return userDAO.getUser(email, password);
+		/**
+		 * TODO: package with JSON before send to request
+		 */
+		
+		return "";
 	}
 	
 	@POST
