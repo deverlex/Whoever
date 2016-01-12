@@ -53,12 +53,9 @@ public class TabHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedStanceState) {
 
         View view = inflater.inflate(R.layout.tab_home_layout, null);
+        init(view);
 
         setTiltesTab(getActivity());
-
-        tabLayout = (TabLayout) view.findViewById(R.id.tabLayoutHome);
-        viewPager = (ViewPager) view.findViewById(R.id.viewPageHome);
-
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
         tabLayout.post(new Runnable() {
@@ -78,6 +75,11 @@ public class TabHomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void init(View view) {
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayoutHome);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPageHome);
     }
 
     public void setTiltesTab(Context context) {

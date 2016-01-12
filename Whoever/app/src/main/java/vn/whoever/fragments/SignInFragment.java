@@ -44,21 +44,24 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_in_layout, null);
 
-        setFeatureEmailEditText(view);
-        setFeaturePasswordEditText(view);
-        setCreateNewAccount(view);
-
-        setButtonSignInWithAccount(view);
-        setButtonSkipSignIn(view);
-
-
-        textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
+        init(view);
+        initListener(view);
 
         return view;
     }
 
-    public void setCreateNewAccount(View view) {
+    public void init(View view) {
         textSignUp = (TextView) view.findViewById(R.id.textCreateNewUser);
+        emailText = (EditText) view.findViewById(R.id.inputEmailStart);
+        emailText.setTextColor(Color.parseColor("#ffffff"));
+        passwordText = (EditText) view.findViewById(R.id.inputPasswordStart);
+        passwordText.setTextColor(Color.parseColor("#ffffff"));
+        btnSkipSignIn = (Button) view.findViewById(R.id.skipSignInButton);
+        btnSignin = (Button) view.findViewById(R.id.signInButton);
+        textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
+    }
+
+    public void initListener(View view) {
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +69,6 @@ public class SignInFragment extends Fragment {
                 StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new SignUpFragment()).commit();
             }
         });
-    }
-
-    public void setFeatureEmailEditText(final View view) {
-        emailText = (EditText) view.findViewById(R.id.inputEmailStart);
-        emailText.setTextColor(Color.parseColor("#ffffff"));
 
         emailText.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -80,11 +78,6 @@ public class SignInFragment extends Fragment {
                 return false;
             }
         });
-    }
-
-    public void setFeaturePasswordEditText(View view) {
-        passwordText = (EditText) view.findViewById(R.id.inputPasswordStart);
-        passwordText.setTextColor(Color.parseColor("#ffffff"));
 
         passwordText.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -93,10 +86,7 @@ public class SignInFragment extends Fragment {
                 return false;
             }
         });
-    }
 
-    public void setButtonSkipSignIn(View view) {
-        btnSkipSignIn = (Button) view.findViewById(R.id.skipSignInButton);
         btnSkipSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,10 +99,7 @@ public class SignInFragment extends Fragment {
                 navigateToMain();
             }
         });
-    }
 
-    public void setButtonSignInWithAccount(View view) {
-        btnSignin = (Button) view.findViewById(R.id.signInButton);
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

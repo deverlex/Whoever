@@ -42,4 +42,9 @@
 
     <string name="text_btn_search">Search</string>
 
+    <string name="text_direct_to_profile">View your profile</string>
+    <string name="text_overview_favorites">Favorites</string>
+    <string name="text_overview_group">Groups</string>
+    <string name="text_overview_help_and_setting">Help &amp; Setting</string>
+
 </resources>

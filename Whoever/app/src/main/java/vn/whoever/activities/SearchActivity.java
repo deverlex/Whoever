@@ -39,16 +39,19 @@ public class SearchActivity extends AppCompatActivity {
 
         setContentView(R.layout.search_layout);
 
+        init();
+        initListener();
+    }
+
+    public void init() {
         textInputSearch = (EditText) findViewById(R.id.textInputFromSearch);
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
 
         btnDestroySearch = (ImageView) findViewById(R.id.btnDestroyInputFromSearch);
         btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromSearch);
-
-        setEventForLayout();
     }
 
-    public void setEventForLayout() {
+    public void initListener() {
 
         textInputSearch.addTextChangedListener(new TextWatcher() {
             @Override

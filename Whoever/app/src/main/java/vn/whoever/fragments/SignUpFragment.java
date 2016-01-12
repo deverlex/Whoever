@@ -3,6 +3,7 @@ package vn.whoever.fragments;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,39 +32,33 @@ public class SignUpFragment extends Fragment {
     private TextView textViewSignIn;
     private TextView textViewTerm;
 
+    private boolean isCheckTerm = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_up_layout, null);
 
-        setFeatureeEditTextNickname(view);
-        setFeatureEditTextEmail(view);
-        setFeatureEditTextPassword(view);
-
-        setFeatureButtonCreateAccount(view);
-        setFeatureCheckboxAgree(view);
-        setFeatureTextViewTerm(view);
-        setFeatureTextViewSignIn(view);
+        init(view);
+        initListener(view);
 
         return view;
     }
 
-    public void setFeatureeEditTextNickname(View view) {
+    public void init(View view) {
         editTextNickName = (EditText) view.findViewById(R.id.textEditNickNameRegister);
         editTextNickName.setTextColor(Color.parseColor("#ffffff"));
-    }
-
-    public void setFeatureEditTextEmail(View view) {
         editTextEmail = (EditText) view.findViewById(R.id.textEditEmailRegister);
         editTextEmail.setTextColor(Color.parseColor("#ffffff"));
-    }
-
-    public void setFeatureEditTextPassword(View view) {
         editTextPassword = (EditText) view.findViewById(R.id.textEditPasswordRegister);
         editTextPassword.setTextColor(Color.parseColor("#ffffff"));
+
+        textViewSignIn = (TextView) view.findViewById(R.id.textHaveAAccount);
+        btnCreateAccount = (Button) view.findViewById(R.id.signUpButton);
+        checkBoxAgreeTerm = (CheckBox) view.findViewById(R.id.checkAgreeTermService);
+        textViewTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
     }
 
-    public void setFeatureTextViewSignIn(View view) {
-        textViewSignIn = (TextView) view.findViewById(R.id.textHaveAAccount);
+    public void initListener(View view) {
         textViewSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,34 +69,33 @@ public class SignUpFragment extends Fragment {
                 StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new SignInFragment()).commit();
             }
         });
-    }
 
-    public void setFeatureButtonCreateAccount(View view) {
-        btnCreateAccount = (Button) view.findViewById(R.id.signUpButton);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
                  * TODO: check email, password, check agree
                  */
-                StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
-                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+                if(checkBoxAgreeTerm.isChecked()) {
+                    StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                    StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+                } else {
+                    Log.d("SIGNIN: ", "don't checked in checkbox!");
+                }
             }
         });
-    }
 
-    public void setFeatureCheckboxAgree(View view) {
-        checkBoxAgreeTerm = (CheckBox) view.findViewById(R.id.checkAgreeTermService);
         checkBoxAgreeTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isCheckTerm) {
+                    isCheckTerm = false;
+                } else {
 
+                }
             }
         });
-    }
 
-    public void setFeatureTextViewTerm(View view) {
-        textViewTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
         textViewTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

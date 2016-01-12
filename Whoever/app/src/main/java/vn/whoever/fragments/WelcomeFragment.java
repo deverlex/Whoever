@@ -27,14 +27,21 @@ public class WelcomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.welcome_layout, null);
 
+        init(view);
+
         setButtonPushWelcome(view);
         setFeatureBirthdayWelcome(view);
         setFeatureLanguageWelcome(view);
         return view;
     }
 
-    public void setFeatureBirthdayWelcome(View view) {
+    public void init(View view) {
         textViewBirthday = (TextView) view.findViewById(R.id.textBirthDayWelcome);
+        textViewLanguage = (TextView) view.findViewById(R.id.textLanguageWelcome);
+        btnPushApp = (Button) view.findViewById(R.id.buttonPushApp);
+    }
+
+    public void setFeatureBirthdayWelcome(View view) {
         textViewBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +54,6 @@ public class WelcomeFragment extends Fragment {
     }
 
     public void setFeatureLanguageWelcome(View view) {
-        textViewLanguage = (TextView) view.findViewById(R.id.textLanguageWelcome);
         textViewLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +66,6 @@ public class WelcomeFragment extends Fragment {
     }
 
     public void setButtonPushWelcome(View view) {
-        btnPushApp = (Button) view.findViewById(R.id.buttonPushApp);
         btnPushApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

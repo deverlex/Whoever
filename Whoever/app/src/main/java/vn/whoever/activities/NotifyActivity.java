@@ -35,16 +35,19 @@ public class NotifyActivity extends AppCompatActivity {
 
         setContentView(R.layout.notify_layout);
 
+        init();
+        initListener();
+    }
+
+    public void init() {
         textInputSearch = (EditText) findViewById(R.id.textInputFromNotify);
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
 
         btnDestroySearch = (ImageView) findViewById(R.id.btnDestroyInputFromNotify);
         btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromNotify);
-
-        setEventForLayout();
     }
 
-    public void setEventForLayout() {
+    public void initListener() {
 
         textInputSearch.addTextChangedListener(new TextWatcher() {
             @Override

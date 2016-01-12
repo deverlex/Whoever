@@ -62,19 +62,11 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         panelWidth = (int) (metrics.widthPixels * 0.85);
 
-        setDefaultFixLayout();
-
-        btnOpenOverview = (RelativeLayout) findViewById(R.id.btnOpenOverview);
-        btnOpenOnline = (RelativeLayout) findViewById(R.id.btnOpenOnlineView);
-        btnOpenNotify = (RelativeLayout) findViewById(R.id.btnOpenNotify);
-        btnOpenSearch = (RelativeLayout) findViewById(R.id.btnOpenSearch);
-
-        listenerClick = (LinearLayout) findViewById(R.id.listenerClick);
-
-        setEventOnLayout();
+        init();
+        initListener();
     }
 
-    public void setDefaultFixLayout() {
+    public void init() {
         layoutOnline = (LinearLayout) findViewById(R.id.onlineLayout);
         layoutParamsOnline = (FrameLayout.LayoutParams) layoutOnline.getLayoutParams();
         layoutParamsOnline.width = metrics.widthPixels;
@@ -89,9 +81,16 @@ public class MainActivity extends AppCompatActivity {
         layoutParamsMain = (FrameLayout.LayoutParams) layoutHome.getLayoutParams();
         layoutParamsMain.width = metrics.widthPixels;
         layoutHome.setLayoutParams(layoutParamsMain);
+
+        btnOpenOverview = (RelativeLayout) findViewById(R.id.btnOpenOverview);
+        btnOpenOnline = (RelativeLayout) findViewById(R.id.btnOpenOnlineView);
+        btnOpenNotify = (RelativeLayout) findViewById(R.id.btnOpenNotify);
+        btnOpenSearch = (RelativeLayout) findViewById(R.id.btnOpenSearch);
+
+        listenerClick = (LinearLayout) findViewById(R.id.listenerClick);
     }
 
-    public void setEventOnLayout() {
+    public void initListener() {
         btnOpenOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Log.d("CLICK HOME LAYOUT", "CLICK, CLICK !!!");
                 if (isExpandedLeft) {
                     isExpandedLeft = false;
                     closeListenerClick();
@@ -195,6 +193,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openLeftListenerClick() {
+        /**
+         * TODO: layout listener on left main layout
+         * |L |
+         */
         listenerPrams = (FrameLayout.LayoutParams) listenerClick.getLayoutParams();
         listenerPrams.width = (int) (metrics.widthPixels * 0.15);
         listenerPrams.rightMargin = (int) (metrics.widthPixels * 0.85);
