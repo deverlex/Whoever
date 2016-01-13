@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import vn.whoever.R;
 import vn.whoever.StartActivity;
@@ -80,7 +82,9 @@ public class SignUpFragment extends Fragment {
                     StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                     StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
                 } else {
-                    Log.d("SIGNIN: ", "don't checked in checkbox!");
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, -50);
+                    toast.show();
                 }
             }
         });
@@ -88,10 +92,17 @@ public class SignUpFragment extends Fragment {
         checkBoxAgreeTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast toast;
                 if(isCheckTerm) {
                     isCheckTerm = false;
+                    toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, -50);
+                    toast.show();
                 } else {
-
+                    isCheckTerm = true;
+                    toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, -50);
+                    toast.show();
                 }
             }
         });

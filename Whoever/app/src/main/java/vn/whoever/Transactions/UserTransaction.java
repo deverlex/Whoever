@@ -5,6 +5,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,12 +34,15 @@ public class UserTransaction {
 
     private static UserTransaction transaction = new UserTransaction();
     private static Activity myActivity;
+    private static View myView;
+
     private User user;
 
     private UserTransaction() {}
 
-    public static UserTransaction getInstance(Activity acctivity) {
+    public static UserTransaction getInstance(Activity acctivity, View view) {
         myActivity = acctivity;
+        myView = view;
         return transaction;
     }
 
@@ -107,6 +111,24 @@ public class UserTransaction {
                 Log.d("ANONYMOUS LOGIN: ", "ERROR");
             }
         });
+        ApplicationController.getsInstance(myActivity).addToRequestQueue(objectRequest);
+    }
+
+    public void getTermUser() {
+        String urlQuery = AddressTrans.URL_USER + "/term";
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, urlQuery, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
         ApplicationController.getsInstance(myActivity).addToRequestQueue(objectRequest);
     }
 

@@ -95,7 +95,7 @@ public class SignInFragment extends Fragment {
                  */
 
                 String serialNb = getSerialNumberUser();
-                UserTransaction.getInstance(getActivity()).getRequestLoginAnonymous(serialNb);
+                UserTransaction.getInstance(getActivity(), null).getRequestLoginAnonymous(serialNb);
                 navigateToMain();
             }
         });
@@ -111,7 +111,7 @@ public class SignInFragment extends Fragment {
                 email = "nguyendo94vn@gmail.com";
                 password = "12345678";
 
-                UserTransaction.getInstance(getActivity()).getRequestLogin(email, password);
+                UserTransaction.getInstance(getActivity(), null).getRequestLogin(email, password);
             }
         });
     }

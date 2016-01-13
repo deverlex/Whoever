@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/headerStatusItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- have a avatar, nickname, time upload, extend option button -->
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bodyStatusItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/toolbarStatusItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- have like, dislike, comment, share -->
+
+    </RelativeLayout>
+</LinearLayout>
