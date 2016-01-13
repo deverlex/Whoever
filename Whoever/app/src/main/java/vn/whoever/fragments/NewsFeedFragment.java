@@ -11,13 +11,13 @@ import vn.whoever.R;
 /**
  * Created by spider man on 12/28/2015.
  */
-public class NewLineFragment extends Fragment {
+public class NewsFeedFragment extends Fragment {
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.newline_layout, null);
+        View view = inflater.inflate(R.layout.newsfeed_layout, null);
 
         return view;
     }

@@ -92,17 +92,13 @@ public class SignUpFragment extends Fragment {
         checkBoxAgreeTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast;
                 if(isCheckTerm) {
                     isCheckTerm = false;
-                    toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, -50);
                     toast.show();
                 } else {
                     isCheckTerm = true;
-                    toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, -50);
-                    toast.show();
                 }
             }
         });
