@@ -24,16 +24,16 @@ public class TabHomeFragment extends Fragment {
     private ViewPager viewPager;
     private static final int int_items = 4;
     private int[] icons = {
-            R.drawable.ic_action_newfeed,
-            R.drawable.ic_action_newline,
+            R.drawable.ic_action_newshome,
+            R.drawable.ic_action_newsfeed,
             R.drawable.ic_action_inbox,
             R.drawable.ic_action_contacts
     };
     private int[] icons_red = {
-            R.drawable.ic_action_newfeed_red,
-            R.drawable.ic_action_newline_red,
+            R.drawable.ic_action_newshome_red,
+            R.drawable.ic_action_newsfeed_red,
             R.drawable.ic_action_inbox_red,
-            R.drawable.ic_action_contacst_red
+            R.drawable.ic_action_contacts_red
     };
 
     private ArrayList<String> titles;

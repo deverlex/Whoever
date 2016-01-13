@@ -24,6 +24,6 @@ public class NewsHomeFragment extends Fragment {
     }
 
     public void init(View view) {
-        listViewHome = (ListView) view.findViewById(R.id.listViewNewsHome);
+        //listViewHome = (ListView) view.findViewById(R.id.listViewNewsHome);
     }
 }

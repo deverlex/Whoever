@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorSilver"/>
 
     <RelativeLayout
         android:id="@+id/headerStatusItemLayout"
@@ -10,6 +16,46 @@
         android:layout_height="wrap_content">
 
         <!-- have a avatar, nickname, time upload, extend option button -->
+        <vn.whoever.customviews.RoundedImageView
+            android:id="@+id/imageAvatarOnNewsHome"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/donguyen"/>
+
+        <TextView
+            android:id="@+id/nickNameAndExtendOnNewsHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/imageAvatarOnNewsHome"
+            android:textColor="@color/colorBlack"
+            android:text="Nguyen Do"
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/nickNameAndExtendOnNewsHome"
+            android:layout_toRightOf="@+id/imageAvatarOnNewsHome"
+            android:text="13:15 hôm qua"
+            android:textSize="10dp"/>
+
+        <ImageButton
+            android:id="@+id/extendButtonStatusOnNewsHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_action_extends"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorWhite" />
 
     </RelativeLayout>
 
@@ -21,12 +67,74 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorSilver"/>
+
+    <LinearLayout
         android:id="@+id/toolbarStatusItemLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
 
         <!-- have like, dislike, comment, share -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_action_like" />
 
-    </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="12dp"
+            android:textColor="@color/colorSilver"
+            android:text="12 Like"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_action_dislike"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="12dp"
+            android:textColor="@color/colorSilver"
+            android:text="12 Dislike"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_action_comments"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="12dp"
+            android:textColor="@color/colorSilver"
+            android:text="12 Comment"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorSilver"/>
+
 </LinearLayout>
