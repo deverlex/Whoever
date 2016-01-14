@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="70dp">
+
+    <RelativeLayout
+        android:id="@+id/layouttAvatarOnContactList"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <vn.whoever.customviews.RoundedImageView
+            android:id="@+id/imageAvatarOnContacts"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/emngan"
+            android:scaleType="fitXY"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutTimeLastActive"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/timeLastActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:textSize="10dp"
+            android:textColor="@color/colorSilver"
+            android:text="4 giờ"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutContentContact"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/layouttAvatarOnContactList">
+
+        <TextView
+            android:id="@+id/nickNameOnContactList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thuy Ngan"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/textLastStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorSilver"
+            android:layout_below="@+id/nickNameOnContactList"
+            android:text="I miss you"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorSilver"
+        android:layout_toRightOf="@+id/layouttAvatarOnContactList"
+        android:layout_marginLeft="10dp"/>
 
 </RelativeLayout>
