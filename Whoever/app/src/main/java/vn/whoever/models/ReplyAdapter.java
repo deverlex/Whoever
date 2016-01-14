@@ -15,27 +15,27 @@ import vn.whoever.R;
  */
 public class ReplyAdapter extends BaseAdapter {
 
-    private ArrayList<Status> statusList;
+    private ArrayList<Reply> replyList;
     private Context context;
 
     public ReplyAdapter(Context context) {
         this.context = context;
-        statusList = new ArrayList<Status>();
+        replyList = new ArrayList<Reply>();
     }
 
     @Override
     public int getCount() {
-        return statusList.size();
+        return replyList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return statusList.get(position);
+        return replyList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return statusList.get(position).getIdStatus();
+        return replyList.get(position).getIdReply();
     }
 
     @Override
