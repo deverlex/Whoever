@@ -5,11 +5,6 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorSilver"/>
-
     <RelativeLayout
         android:id="@+id/headerStatusItemLayout"
         android:layout_width="match_parent"
@@ -50,9 +45,10 @@
             android:id="@+id/extendButtonStatusOnNewsHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:paddingLeft="15dp"
             android:paddingRight="10dp"
-            android:src="@drawable/ic_action_extends"
+            android:paddingTop="5dp"
+            android:src="@drawable/icon_extends"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="@color/colorWhite" />
@@ -74,67 +70,95 @@
         android:layout_marginRight="10dp"
         android:background="@color/colorSilver"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/toolbarStatusItemLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <!-- have like, dislike, comment, share -->
-        <ImageView
+        <LinearLayout
+            android:id="@+id/btnLikeStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/ic_action_like" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_like"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="30dp"
+                android:textSize="12dp"
+                android:textColor="@color/colorSilver"
+                android:text="12 Like"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnCommentStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textSize="12dp"
-            android:textColor="@color/colorSilver"
-            android:text="12 Like"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
 
-        <ImageView
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_comment"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textSize="12dp"
+                android:textColor="@color/colorSilver"
+                android:text="12 Comment"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnDislikeStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_action_dislike"/>
+            android:layout_toRightOf="@+id/btnLikeStatus"
+            android:layout_toLeftOf="@+id/btnCommentStatus"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textSize="12dp"
-            android:textColor="@color/colorSilver"
-            android:text="12 Dislike"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/icon_dislike"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
 
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_action_comments"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textSize="12dp"
+                android:textColor="@color/colorSilver"
+                android:text="12 Dislike"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textSize="12dp"
-            android:textColor="@color/colorSilver"
-            android:text="12 Comment"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorSilver"/>
+    </RelativeLayout>
 
 </LinearLayout>
