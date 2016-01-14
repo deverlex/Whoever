@@ -15,7 +15,7 @@
     </style>
 
     <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">9sp</item>
         <item name="android:textColor">@color/colorSilver</item>
     </style>
 
