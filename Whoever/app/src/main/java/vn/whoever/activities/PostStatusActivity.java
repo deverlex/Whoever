@@ -20,9 +20,6 @@ public class PostStatusActivity extends AppCompatActivity {
 
         setContentView(R.layout.write_status_layout);
 
-
     }
-
-
 
 }

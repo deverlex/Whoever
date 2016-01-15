@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/groupTextContactList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="T"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorButtonMain"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
 
     <RelativeLayout
         android:id="@+id/layouttAvatarOnContactList"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/groupTextContactList">
 
         <vn.whoever.customviews.RoundedImageView
             android:id="@+id/imageAvatarOnContacts"
@@ -24,7 +36,8 @@
         android:id="@+id/layoutTimeLastActive"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/groupTextContactList">
 
         <TextView
             android:id="@+id/timeLastActive"
@@ -42,7 +55,8 @@
         android:id="@+id/layoutContentContact"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/layouttAvatarOnContactList">
+        android:layout_toRightOf="@+id/layouttAvatarOnContactList"
+        android:layout_below="@+id/groupTextContactList">
 
         <TextView
             android:id="@+id/nickNameOnContactList"
