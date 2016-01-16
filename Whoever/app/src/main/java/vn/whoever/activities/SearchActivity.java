@@ -105,4 +105,10 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intentMain);
         finish();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
 }

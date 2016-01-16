@@ -220,4 +220,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intentSearch = new Intent(this, SearchActivity.class);
         startActivity(intentSearch);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
 }

@@ -38,6 +38,11 @@ public class TabHomeFragment extends Fragment {
 
     private ArrayList<String> titles;
 
+    private NewsHomeFragment newsHomeFragment;
+    private NewsFeedFragment newsFeedFragment;
+    private InboxFragment inboxFragment;
+    private ContactsFragment contactsFragment;
+
    // private int selectedItems = 0;
 
     @Override
@@ -71,6 +76,10 @@ public class TabHomeFragment extends Fragment {
     public void init(View view) {
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayoutHome);
         viewPager = (ViewPager) view.findViewById(R.id.viewPageHome);
+        newsHomeFragment  = new NewsHomeFragment();
+        newsFeedFragment = new NewsFeedFragment();
+        inboxFragment = new InboxFragment();
+        contactsFragment = new ContactsFragment();
     }
 
     public void setTiltesTab(Context context) {
@@ -113,15 +122,14 @@ public class TabHomeFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new NewsHomeFragment();
+                    return newsHomeFragment;
                 case 1:
-                    return new NewsFeedFragment();
+                    return newsFeedFragment;
                 case 2:
-                    return new InboxFragment();
+                    return inboxFragment;
                 case 3:
-                    return new ContactsFragment();
+                    return contactsFragment;
             }
-
             return  null;
         }
 
@@ -134,5 +142,11 @@ public class TabHomeFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             return titles.get(position);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
     }
 }

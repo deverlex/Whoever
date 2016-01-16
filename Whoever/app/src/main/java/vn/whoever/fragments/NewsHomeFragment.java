@@ -75,4 +75,10 @@ public class NewsHomeFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
 }

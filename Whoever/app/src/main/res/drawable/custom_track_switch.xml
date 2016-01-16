@@ -5,12 +5,12 @@
     android:dither="true"
     android:useLevel="false">
     <gradient
-        android:startColor="@color/colorWhite"
-        android:endColor="@color/colorWhite"
+        android:startColor="@color/colorButtonMain"
+        android:endColor="@color/colorRedMain"
         android:angle="270"/>
     <corners
         android:radius="15dp"/>
     <size
-        android:width="80dp"
-        android:height="40dp" />
+        android:width="60dp"
+        android:height="20dp" />
 </shape>

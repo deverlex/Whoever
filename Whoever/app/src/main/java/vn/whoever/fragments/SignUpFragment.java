@@ -110,4 +110,10 @@ public class SignUpFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
 }

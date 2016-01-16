@@ -75,4 +75,10 @@ public class WelcomeFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
 }

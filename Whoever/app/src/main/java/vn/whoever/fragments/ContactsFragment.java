@@ -27,4 +27,10 @@ public class ContactsFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
 }

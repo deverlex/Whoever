@@ -127,4 +127,10 @@ public class SignInFragment extends Fragment {
         getActivity().finish();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
+
 }

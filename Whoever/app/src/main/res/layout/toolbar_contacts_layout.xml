@@ -1,19 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/colorRedMain">
+    android:layout_height="80dp"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <Switch
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:id="@+id/imageAvatarProfileOnContactList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <vn.whoever.customviews.RoundedImageView
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/donguyen"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textStateProfileOnContactList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your State"
+            android:layout_toRightOf="@+id/imageAvatarProfileOnContactList"
+            android:layout_centerVertical="true"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorSilver"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="25dp"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutControlOnlineState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/textStateProfileOnContactList">
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="ON"
+                android:textOff="OFF"
+                android:thumb="@drawable/custom_switch_selector"
+                android:track="@drawable/custom_track_switch"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutSearchButtonContactList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textOn="On"
-            android:textOff="Off"/>
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_search_red"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/lineWhiteOnToolbarContact"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/layoutSearchButtonContactList"
+            android:background="@color/colorRedMain"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
     </RelativeLayout>
 
-</RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="People are your follow"
+        android:textSize="15dp"
+        android:textColor="@color/colorSilver"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorSilverWhite"/>
+
+</LinearLayout>

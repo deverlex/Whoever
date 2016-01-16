@@ -26,14 +26,14 @@ public class InboxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.inbox_layout, null);
 
-        init(view);
-        initListener(view);
+    //    init(view);
+    //    initListener(view);
         return view;
     }
 
     public void init(View view) {
-        listView = (ListView) view.findViewById(R.id.listViewPreviewMessage);
-        button = (FloatingActionButton) view.findViewById(R.id.btnCreateNewMessage);
+      //  listView = (ListView) view.findViewById(R.id.listViewPreviewMessage);
+       // button = (FloatingActionButton) view.findViewById(R.id.btnCreateNewMessage);
     }
 
     public void initListener(View view) {
@@ -72,6 +72,7 @@ public class InboxFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
                 return super.onFling(e1,e2, velocityX, velocityY );
             }
         });
@@ -82,5 +83,24 @@ public class InboxFragment extends Fragment {
                 return gestureDetector.onTouchEvent(event);
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("Pause", "clear memory");
+        System.gc();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("Stop", "clear memory");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Destroy", "clear memory");
     }
 }

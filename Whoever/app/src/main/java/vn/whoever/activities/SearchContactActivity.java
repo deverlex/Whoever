@@ -20,4 +20,10 @@ public class SearchContactActivity extends AppCompatActivity {
 
         setContentView(R.layout.search_contact_layout);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
 }

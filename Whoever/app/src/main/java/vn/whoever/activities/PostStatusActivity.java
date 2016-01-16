@@ -22,4 +22,10 @@ public class PostStatusActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
+
 }
