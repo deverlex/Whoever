@@ -2,13 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/colorRedMain"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <!-- layout for search -->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+
+        <EditText
+            android:id="@+id/textInputFromOnlineList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_search_online"
+            android:layout_below="@+id/iconButtonSearchFromOnlineList"
+            android:paddingLeft="34sp"
+            android:paddingRight="44sp"
+            android:hint="@string/text_btn_search"
+            android:inputType="text"
+            android:textColorHint="@color/colorSilverWhite"
+            android:layout_marginTop="-21dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="7dp"
+            android:singleLine="true"/>
+
+        <ImageView
+            android:id="@+id/iconButtonSearchFromOnlineList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_search"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"/>
+
+        <ImageView
+            android:id="@+id/btnDestroyInputFromOnlineList"
+            android:layout_width="44dp"
+            android:layout_height="26dp"
+            android:src="@drawable/icon_close"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="12dp"
+            android:visibility="invisible"/>
 
     </RelativeLayout>
 
@@ -20,11 +59,6 @@
 
     </LinearLayout>
 
-    <!-- layout list flows online -->
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </ListView>
 
 </LinearLayout>

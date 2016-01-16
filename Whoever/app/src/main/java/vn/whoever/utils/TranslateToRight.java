@@ -24,14 +24,14 @@ public class TranslateToRight extends TranslateAnimation
                             int toYType, float toYValue) {
         super(fromXType, fromXValue, toXType, toXValue, fromYType, fromYValue, toYType, toYValue);
 
-        slidingLayout = layout;
-        panelWidth = width;
+        this.slidingLayout = layout;
+        this.panelWidth = width;
 
         setDuration(300);
         setFillAfter(false);
         setInterpolator(new AccelerateDecelerateInterpolator());
         setAnimationListener(this);
-        slidingLayout.startAnimation(this);
+        this.slidingLayout.startAnimation(this);
     }
 
     @Override
