@@ -19,7 +19,7 @@ import vn.whoever.activities.SearchActivity;
 import vn.whoever.fragments.TabHomeFragment;
 import vn.whoever.utils.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements InitActivity {
 
     public static FragmentManager frgtManagerMain;
     public static FragmentTransaction frgTransactionMain;
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         initListener();
     }
 
+    @Override
     public void init() {
         layoutOnline = (LinearLayout) findViewById(R.id.onlineLayout);
         layoutParamsOnline = (FrameLayout.LayoutParams) layoutOnline.getLayoutParams();
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         listenerClick = (LinearLayout) findViewById(R.id.listenerClick);
     }
 
+    @Override
     public void initListener() {
         btnOpenOverview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,5 +227,10 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -7,7 +7,7 @@
             android:dither="true"
             android:useLevel="false">
             <gradient
-                android:startColor="@color/colorBlueSea"
+                android:startColor="@color/colorBlue"
                 android:endColor="@color/colorPrimary"
                 android:angle="270"/>
             <corners
@@ -27,8 +27,8 @@
             android:dither="true"
             android:useLevel="false">
             <gradient
-                android:startColor="@color/colorWhite"
-                android:endColor="@color/colorSilverWhite"
+                android:startColor="@color/colorSilverWhite"
+                android:endColor="@color/colorSilver"
                 android:angle="270"/>
             <corners
                 android:radius="15dp"/>

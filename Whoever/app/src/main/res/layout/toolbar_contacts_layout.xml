@@ -10,7 +10,7 @@
         android:layout_height="50dp">
 
         <RelativeLayout
-            android:id="@+id/imageAvatarProfileOnContactList"
+            android:id="@+id/imageAvatarUserOnContactList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <vn.whoever.customviews.RoundedImageView
@@ -24,14 +24,22 @@
                 android:layout_marginBottom="5dp"/>
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/stateUserOnContactList"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/icon_brightness_blue"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"/>
+
         <TextView
-            android:id="@+id/textStateProfileOnContactList"
+            android:id="@+id/textStateUserOnContactList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your State"
-            android:layout_toRightOf="@+id/imageAvatarProfileOnContactList"
+            android:layout_toRightOf="@+id/imageAvatarUserOnContactList"
             android:layout_centerVertical="true"
-            android:textSize="16dp"
+            android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/colorSilver"
             android:layout_marginLeft="15dp"
@@ -43,12 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
-            android:layout_toRightOf="@+id/textStateProfileOnContactList">
+            android:layout_toRightOf="@+id/textStateUserOnContactList">
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textOn="ON"
-                android:textOff="OFF"
                 android:thumb="@drawable/custom_switch_selector"
                 android:track="@drawable/custom_track_switch"/>
         </RelativeLayout>

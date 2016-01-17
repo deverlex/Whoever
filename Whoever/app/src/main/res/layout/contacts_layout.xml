@@ -11,15 +11,10 @@
     <LinearLayout
         android:id="@+id/layoutHeaderContactList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
         <include
             android:id="@+id/toolBarContact"
             layout="@layout/toolbar_contacts_layout" />
-
-        <include
-            layout="@layout/item_contact_layout" />
-
     </LinearLayout>
 
     <ListView

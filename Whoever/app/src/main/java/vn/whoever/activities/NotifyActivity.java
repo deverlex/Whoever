@@ -16,11 +16,12 @@ import android.widget.RelativeLayout;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
+import vn.whoever.utils.InitActivity;
 
 /**
  * Created by spider man on 12/30/2015.
  */
-public class NotifyActivity extends AppCompatActivity {
+public class NotifyActivity extends AppCompatActivity implements InitActivity {
 
     private EditText textInputSearch;
     private RelativeLayout btnBackHome;
@@ -39,6 +40,7 @@ public class NotifyActivity extends AppCompatActivity {
         initListener();
     }
 
+    @Override
     public void init() {
         textInputSearch = (EditText) findViewById(R.id.textInputFromNotify);
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
@@ -47,6 +49,7 @@ public class NotifyActivity extends AppCompatActivity {
         btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromNotify);
     }
 
+    @Override
     public void initListener() {
 
         textInputSearch.addTextChangedListener(new TextWatcher() {
@@ -101,5 +104,10 @@ public class NotifyActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

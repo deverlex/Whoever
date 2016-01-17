@@ -11,11 +11,12 @@ import android.widget.TextView;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
+import vn.whoever.utils.InitFragment;
 
 /**
  * Created by spider man on 12/26/2015.
  */
-public class WelcomeFragment extends Fragment {
+public class WelcomeFragment extends Fragment implements InitFragment {
 
     private TextView textViewBirthday;
     private TextView textViewLanguage;
@@ -28,20 +29,29 @@ public class WelcomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.welcome_layout, null);
 
         init(view);
+        initListener(view);
 
-        setButtonPushWelcome(view);
-        setFeatureBirthdayWelcome(view);
-        setFeatureLanguageWelcome(view);
         return view;
     }
 
+    @Override
     public void init(View view) {
         textViewBirthday = (TextView) view.findViewById(R.id.textBirthDayWelcome);
         textViewLanguage = (TextView) view.findViewById(R.id.textLanguageWelcome);
         btnPushApp = (Button) view.findViewById(R.id.buttonPushApp);
     }
 
-    public void setFeatureBirthdayWelcome(View view) {
+    @Override
+    public void initListener(View view) {
+        btnPushApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMain = new Intent(getActivity(), MainActivity.class);
+                startActivity(intentMain);
+                getActivity().finish();
+            }
+        });
+
         textViewBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,9 +61,7 @@ public class WelcomeFragment extends Fragment {
 
             }
         });
-    }
 
-    public void setFeatureLanguageWelcome(View view) {
         textViewLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,20 +73,14 @@ public class WelcomeFragment extends Fragment {
         });
     }
 
-    public void setButtonPushWelcome(View view) {
-        btnPushApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentMain = new Intent(getActivity(), MainActivity.class);
-                startActivity(intentMain);
-                getActivity().finish();
-            }
-        });
-    }
-
     @Override
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

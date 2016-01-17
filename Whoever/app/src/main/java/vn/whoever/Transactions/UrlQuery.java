@@ -1,6 +1,4 @@
-package vn.whoever.Transactions;
-
-import java.util.Objects;
+package vn.whoever.transactions;
 
 /**
  * Created by spider man on 1/9/2016.

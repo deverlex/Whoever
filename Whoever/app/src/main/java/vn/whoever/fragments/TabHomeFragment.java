@@ -14,11 +14,12 @@ import android.support.design.widget.TabLayout;
 import java.util.ArrayList;
 
 import vn.whoever.R;
+import vn.whoever.utils.InitFragment;
 
 /**
  * Created by spider man on 12/29/2015.
  */
-public class TabHomeFragment extends Fragment {
+public class TabHomeFragment extends Fragment implements InitFragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -50,8 +51,8 @@ public class TabHomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.tab_home_layout, null);
         init(view);
+        initListener(view);
 
-        setTiltesTab(getActivity());
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
         tabLayout.post(new Runnable() {
@@ -73,6 +74,7 @@ public class TabHomeFragment extends Fragment {
         return view;
     }
 
+    @Override
     public void init(View view) {
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayoutHome);
         viewPager = (ViewPager) view.findViewById(R.id.viewPageHome);
@@ -80,14 +82,17 @@ public class TabHomeFragment extends Fragment {
         newsFeedFragment = new NewsFeedFragment();
         inboxFragment = new InboxFragment();
         contactsFragment = new ContactsFragment();
+
+        titles = new ArrayList<>();
+        titles.add(0, getContext().getString(R.string.title_tab_home));
+        titles.add(1, getContext().getString(R.string.title_tab_new));
+        titles.add(2, getContext().getString(R.string.title_tab_inbox));
+        titles.add(3, getContext().getString(R.string.title_tab_contact));
     }
 
-    public void setTiltesTab(Context context) {
-        titles = new ArrayList<>();
-        titles.add(0, context.getString(R.string.title_tab_home));
-        titles.add(1, context.getString(R.string.title_tab_new));
-        titles.add(2, context.getString(R.string.title_tab_inbox));
-        titles.add(3, context.getString(R.string.title_tab_contact));
+    @Override
+    public void initListener(View view) {
+
     }
 
     public void updateColorTabSelected() {
@@ -148,5 +153,10 @@ public class TabHomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

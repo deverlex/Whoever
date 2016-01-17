@@ -13,11 +13,12 @@ import android.widget.ListView;
 
 import vn.whoever.R;
 import vn.whoever.utils.AlphaButton;
+import vn.whoever.utils.InitFragment;
 
 /**
  * Created by spider man on 12/29/2015.
  */
-public class InboxFragment extends Fragment {
+public class InboxFragment extends Fragment implements InitFragment {
 
     private ListView listView;
     private FloatingActionButton button;
@@ -26,16 +27,18 @@ public class InboxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.inbox_layout, null);
 
-    //    init(view);
-    //    initListener(view);
+        init(view);
+        initListener(view);
         return view;
     }
 
+    @Override
     public void init(View view) {
-      //  listView = (ListView) view.findViewById(R.id.listViewPreviewMessage);
-       // button = (FloatingActionButton) view.findViewById(R.id.btnCreateNewMessage);
+        listView = (ListView) view.findViewById(R.id.listViewPreviewMessage);
+        button = (FloatingActionButton) view.findViewById(R.id.btnCreateNewMessage);
     }
 
+    @Override
     public void initListener(View view) {
         final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
 
@@ -47,7 +50,7 @@ public class InboxFragment extends Fragment {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-                final int SWIPE_MIN_DISTANCE = 100;
+                final int SWIPE_MIN_DISTANCE = 40;
                 final int SWIPE_MAX_OFF_PATH = 150;
                 final int SWIPE_THRESHOLD_VELOCITY = 150;
 
@@ -56,17 +59,15 @@ public class InboxFragment extends Fragment {
                         return false;
                     }
                     if((e1.getY() - e2.getY()) > SWIPE_MIN_DISTANCE
-                            && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
+                            && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) { //up
                         if(button.getVisibility() == View.VISIBLE) {
                             new AlphaButton(button, 1.0f, 0.0f);
                         }
-                        Log.d("SWIPE TOUCH:", "e1 - e2"); // up
                     } else if((e2.getY() - e1.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
                         if(button.getVisibility() != View.VISIBLE) {
                             new AlphaButton(button, 0.0f, 1.0f);
                         }
-                        Log.d("SWIPE TOUCH:", "e2 - e1"); //down
                     }
 
                 } catch (Exception e) {
@@ -102,5 +103,10 @@ public class InboxFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d("Destroy", "clear memory");
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

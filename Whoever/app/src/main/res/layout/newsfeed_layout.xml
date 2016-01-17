@@ -7,25 +7,22 @@
     android:background="@color/colorSilverWhite">
 
 
-    <include
-        android:id="@+id/toolBarNewsFeed"
-        layout="@layout/toolbar_newsfeed_layout" />
+    <ListView
+        android:id="@+id/listViewNewsFeed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorMain"
+        android:dividerHeight="10dp">
 
-    <!--
-        <include layout="@layout/item_status_layout"
-            android:layout_below="@+id/toolBarNewsFeed"/>
+    </ListView>
 
+    <LinearLayout
+        android:id="@+id/layoutHeaderNewsFeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+        <include layout="@layout/toolbar_newsfeed_layout" />
+    </LinearLayout>
 
-        <ListView
-            android:id="@+id/listViewNewsFeed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="10dp"
-            android:layout_below="@+id/toolBarNewsFeed"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorMain">
-
-        </ListView>
-
-    -->
 </RelativeLayout>

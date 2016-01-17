@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import vn.whoever.R;
+import vn.whoever.utils.InitFragment;
 
 /**
  * Created by spider man on 12/28/2015.
  */
-public class NewsHomeFragment extends Fragment {
+public class NewsHomeFragment extends Fragment implements InitFragment {
 
     private ListView listViewHome;
 
@@ -28,10 +29,12 @@ public class NewsHomeFragment extends Fragment {
         return view;
     }
 
+    @Override
     public void init(View view) {
         //listViewHome = (ListView) view.findViewById(R.id.listViewNewsHome);
     }
 
+    @Override
     public void initListener(View view) {
 
         final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
@@ -44,7 +47,7 @@ public class NewsHomeFragment extends Fragment {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-                final int SWIPE_MIN_DISTANCE = 100;
+                final int SWIPE_MIN_DISTANCE = 40;
                 final int SWIPE_MAX_OFF_PATH = 150;
                 final int SWIPE_THRESHOLD_VELOCITY = 150;
 
@@ -80,5 +83,10 @@ public class NewsHomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +14,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Locale;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
 import vn.whoever.StartActivity;
-import vn.whoever.Transactions.UserTransaction;
-import vn.whoever.models.User;
+import vn.whoever.transactions.UserTransaction;
+import vn.whoever.utils.InitFragment;
 
 /**
  * Created by spider man on 12/24/2015.
  */
-public class SignInFragment extends Fragment {
+public class SignInFragment extends Fragment implements InitFragment {
 
     private String email = "";
     private String password = "";
@@ -50,6 +46,7 @@ public class SignInFragment extends Fragment {
         return view;
     }
 
+    @Override
     public void init(View view) {
         textSignUp = (TextView) view.findViewById(R.id.textCreateNewUser);
         emailText = (EditText) view.findViewById(R.id.inputEmailStart);
@@ -61,6 +58,7 @@ public class SignInFragment extends Fragment {
         textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
     }
 
+    @Override
     public void initListener(View view) {
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,4 +131,8 @@ public class SignInFragment extends Fragment {
         System.gc();
     }
 
+    @Override
+    public void initGc() {
+
+    }
 }

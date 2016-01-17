@@ -19,12 +19,13 @@ import com.facebook.FacebookSdk;
 import java.util.ArrayList;
 
 import vn.whoever.fragments.SignInFragment;
+import vn.whoever.utils.InitActivity;
 
 /**
  * Created by spider man on 12/22/2015.
  * TODO: login and logout application
  */
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity implements InitActivity {
 
     public static final String PREFERENCES = "PREFERENCES_LOCAL";
     public static SharedPreferences sharedPreferences;
@@ -134,6 +135,16 @@ public class StartActivity extends AppCompatActivity {
             }
         });
         */
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void initListener() {
+
     }
 
     /*

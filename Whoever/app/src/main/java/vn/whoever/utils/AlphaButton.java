@@ -25,7 +25,7 @@ public class AlphaButton extends AlphaAnimation
     public AlphaButton(FloatingActionButton imageButton, float fromAlpha, float toAlpha) {
         super(fromAlpha,toAlpha);
         this.imageButton = imageButton;
-        setDuration(400);
+        setDuration(300);
         setFillAfter(false);
         setInterpolator(new AccelerateDecelerateInterpolator());
         setAnimationListener(this);

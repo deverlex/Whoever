@@ -8,11 +8,6 @@
     android:focusableInTouchMode="true"
     android:background="@color/colorWhite">
 
-    <!--
-
-        <include layout="@layout/item_inbox_layout" />
-
-        -->
     <ListView
         android:id="@+id/listViewPreviewMessage"
         android:layout_width="match_parent"

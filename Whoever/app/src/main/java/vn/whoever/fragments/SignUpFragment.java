@@ -16,11 +16,12 @@ import android.widget.Toast;
 
 import vn.whoever.R;
 import vn.whoever.StartActivity;
+import vn.whoever.utils.InitFragment;
 
 /**
  * Created by spider man on 12/24/2015.
  */
-public class SignUpFragment extends Fragment {
+public class SignUpFragment extends Fragment implements InitFragment {
 
     private String nickName = "";
     private String email = "";
@@ -46,6 +47,7 @@ public class SignUpFragment extends Fragment {
         return view;
     }
 
+    @Override
     public void init(View view) {
         editTextNickName = (EditText) view.findViewById(R.id.textEditNickNameRegister);
         editTextNickName.setTextColor(Color.parseColor("#ffffff"));
@@ -60,6 +62,7 @@ public class SignUpFragment extends Fragment {
         textViewTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
     }
 
+    @Override
     public void initListener(View view) {
         textViewSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,5 +118,10 @@ public class SignUpFragment extends Fragment {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

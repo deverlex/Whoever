@@ -1,6 +1,5 @@
-package vn.whoever.Transactions;
+package vn.whoever.transactions;
 
-import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
