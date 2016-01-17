@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/25/2015.
  * TODO: update term from server to sqlite database
  */
-public class TermFragment extends Fragment implements InitFragment {
+public class TermFragment extends Fragment implements Initgc {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

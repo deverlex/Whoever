@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitActivity;
+import vn.whoever.utils.AppGc;
 
 /**
  * Created by spider man on 1/14/2016.
  */
-public class PostStatusActivity extends AppCompatActivity implements InitActivity {
+public class PostStatusActivity extends AppCompatActivity implements AppGc {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +24,6 @@ public class PostStatusActivity extends AppCompatActivity implements InitActivit
     }
 
     @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         System.gc();
@@ -42,5 +32,10 @@ public class PostStatusActivity extends AppCompatActivity implements InitActivit
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

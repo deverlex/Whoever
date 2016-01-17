@@ -10,15 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.AlphaButton;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/29/2015.
  */
-public class ContactsFragment extends Fragment implements InitFragment {
+public class ContactsFragment extends Fragment implements Initgc {
 
     private LinearLayout layoutToolBar;
     private FloatingActionButton buttonAddAccount;
@@ -64,9 +64,15 @@ public class ContactsFragment extends Fragment implements InitFragment {
                     if((e1.getY() - e2.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
                         // up
+                        if(buttonAddAccount.getVisibility() == View.VISIBLE) {
+                            new AlphaButton(buttonAddAccount, 1.0f, 0.0f);
+                        }
                     } else if(e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
                         // down
+                        if(buttonAddAccount.getVisibility() != View.VISIBLE) {
+                            new AlphaButton(buttonAddAccount, 0.0f, 1.0f);
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

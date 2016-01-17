@@ -9,12 +9,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 1/12/2016.
  */
-public class OverviewFragment extends Fragment implements InitFragment {
+public class OverviewFragment extends Fragment implements Initgc {
 
     private ListView listViewFavorites;
     private ListView listViewgroups;

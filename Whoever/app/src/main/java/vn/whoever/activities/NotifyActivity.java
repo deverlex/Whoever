@@ -1,6 +1,5 @@
 package vn.whoever.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,19 +8,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
-import vn.whoever.utils.InitActivity;
+import vn.whoever.utils.AppGc;
 
 /**
  * Created by spider man on 12/30/2015.
  */
-public class NotifyActivity extends AppCompatActivity implements InitActivity {
+public class NotifyActivity extends AppCompatActivity implements AppGc {
 
     private EditText textInputSearch;
     private RelativeLayout btnBackHome;
@@ -40,7 +38,6 @@ public class NotifyActivity extends AppCompatActivity implements InitActivity {
         initListener();
     }
 
-    @Override
     public void init() {
         textInputSearch = (EditText) findViewById(R.id.textInputFromNotify);
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
@@ -49,7 +46,6 @@ public class NotifyActivity extends AppCompatActivity implements InitActivity {
         btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromNotify);
     }
 
-    @Override
     public void initListener() {
 
         textInputSearch.addTextChangedListener(new TextWatcher() {
@@ -109,5 +105,10 @@ public class NotifyActivity extends AppCompatActivity implements InitActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

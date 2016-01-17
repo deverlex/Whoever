@@ -11,18 +11,16 @@ import android.widget.TextView;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/26/2015.
  */
-public class WelcomeFragment extends Fragment implements InitFragment {
+public class WelcomeFragment extends Fragment implements Initgc {
 
     private TextView textViewBirthday;
     private TextView textViewLanguage;
     private Button btnPushApp;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

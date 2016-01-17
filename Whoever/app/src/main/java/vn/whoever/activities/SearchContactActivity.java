@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitActivity;
+import vn.whoever.utils.AppGc;
 
 /**
  * Created by spider man on 1/16/2016.
  */
-public class SearchContactActivity extends AppCompatActivity implements InitActivity {
+public class SearchContactActivity extends AppCompatActivity implements AppGc {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +22,10 @@ public class SearchContactActivity extends AppCompatActivity implements InitActi
         setContentView(R.layout.search_contact_layout);
     }
 
-    @Override
     public void init() {
 
     }
 
-    @Override
     public void initListener() {
 
     }
@@ -41,5 +39,10 @@ public class SearchContactActivity extends AppCompatActivity implements InitActi
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

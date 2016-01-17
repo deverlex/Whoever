@@ -11,27 +11,31 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.models.StatusAdapter;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/28/2015.
  */
-public class NewsHomeFragment extends Fragment implements InitFragment {
+public class NewsHomeFragment extends Fragment implements Initgc {
 
     private ListView listViewHome;
+    private StatusAdapter statusAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.newshome_layout, null);
 
-
+        init(view);
         initListener(view);
         return view;
     }
 
     @Override
     public void init(View view) {
-        //listViewHome = (ListView) view.findViewById(R.id.listViewNewsHome);
+        listViewHome = (ListView) view.findViewById(R.id.listViewNewsHome);
+        statusAdapter = new StatusAdapter(getActivity());
+        listViewHome.setAdapter(statusAdapter);
     }
 
     @Override

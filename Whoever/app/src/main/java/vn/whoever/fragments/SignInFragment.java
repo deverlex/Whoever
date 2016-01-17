@@ -18,13 +18,13 @@ import android.widget.TextView;
 import vn.whoever.MainActivity;
 import vn.whoever.R;
 import vn.whoever.StartActivity;
-import vn.whoever.transactions.UserTransaction;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.transp.UserTransaction;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/24/2015.
  */
-public class SignInFragment extends Fragment implements InitFragment {
+public class SignInFragment extends Fragment implements Initgc {
 
     private String email = "";
     private String password = "";

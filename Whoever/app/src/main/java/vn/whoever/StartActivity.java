@@ -2,7 +2,6 @@ package vn.whoever;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -14,18 +13,16 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.facebook.FacebookSdk;
-
 import java.util.ArrayList;
 
 import vn.whoever.fragments.SignInFragment;
-import vn.whoever.utils.InitActivity;
+import vn.whoever.utils.AppGc;
 
 /**
  * Created by spider man on 12/22/2015.
  * TODO: login and logout application
  */
-public class StartActivity extends AppCompatActivity implements InitActivity {
+public class StartActivity extends AppCompatActivity implements AppGc {
 
     public static final String PREFERENCES = "PREFERENCES_LOCAL";
     public static SharedPreferences sharedPreferences;
@@ -137,16 +134,6 @@ public class StartActivity extends AppCompatActivity implements InitActivity {
         */
     }
 
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
     /*
     public void getProfileTracker() {
         profileTrackerFaceBook = new ProfileTracker() {
@@ -227,5 +214,10 @@ public class StartActivity extends AppCompatActivity implements InitActivity {
     protected void onDestroy() {
         super.onDestroy();
         System.gc();
+    }
+
+    @Override
+    public void initGc() {
+
     }
 }

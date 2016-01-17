@@ -13,12 +13,12 @@ import android.widget.ListView;
 
 import vn.whoever.R;
 import vn.whoever.utils.AlphaButton;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/29/2015.
  */
-public class InboxFragment extends Fragment implements InitFragment {
+public class InboxFragment extends Fragment implements Initgc {
 
     private ListView listView;
     private FloatingActionButton button;

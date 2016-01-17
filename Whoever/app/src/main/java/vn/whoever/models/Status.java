@@ -10,8 +10,10 @@ import java.util.HashMap;
 public class Status {
 
     private int idStatus;
+
     private String contentStatus;
     private User senderStatus;
+
     private Date dateWriterStatus;
     private String imageUpload;
     private int countComment;

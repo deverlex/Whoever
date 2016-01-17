@@ -1,6 +1,5 @@
 package vn.whoever.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,12 +13,12 @@ import android.support.design.widget.TabLayout;
 import java.util.ArrayList;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/29/2015.
  */
-public class TabHomeFragment extends Fragment implements InitFragment {
+public class TabHomeFragment extends Fragment implements Initgc {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;

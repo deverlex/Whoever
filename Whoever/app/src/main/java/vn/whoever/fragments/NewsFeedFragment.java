@@ -9,15 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import vn.whoever.R;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/28/2015.
  */
-public class NewsFeedFragment extends Fragment implements InitFragment {
+public class NewsFeedFragment extends Fragment implements Initgc {
 
     private LinearLayout toolbar;
     private ListView listView;

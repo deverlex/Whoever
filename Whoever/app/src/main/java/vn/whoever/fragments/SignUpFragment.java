@@ -3,7 +3,6 @@ package vn.whoever.fragments;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +15,12 @@ import android.widget.Toast;
 
 import vn.whoever.R;
 import vn.whoever.StartActivity;
-import vn.whoever.utils.InitFragment;
+import vn.whoever.utils.Initgc;
 
 /**
  * Created by spider man on 12/24/2015.
  */
-public class SignUpFragment extends Fragment implements InitFragment {
+public class SignUpFragment extends Fragment implements Initgc {
 
     private String nickName = "";
     private String email = "";
