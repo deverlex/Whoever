@@ -2,6 +2,8 @@ package vn.whoever.customviews;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class JTextView extends View {
 
     private String text;
-    private ArrayList<Line> lines;
+    private ArrayList<Line> linecollection;
     private TextPaint textPaint;
     private Typeface font;
     private int textColor;
@@ -33,18 +35,54 @@ public class JTextView extends View {
 
     public JTextView(Context context, String text) {
         super(context);
-        lines = new ArrayList<Line>();
+        linecollection = new ArrayList<Line>();
         this.text = text;
+        init();
     }
 
     public void init() {
-
+        textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        textColor = Color.BLACK;
     }
 
     @Override
     protected void onMeasure(int wMeasureSpace, int hMeasureSpace) {
         super.onMeasure(wMeasureSpace, hMeasureSpace);
-        
+
+        if(font != null) {
+            font = Typeface.createFromAsset(getContext().getAssets(), "fonts/arial.ttf" );
+            textPaint.setTypeface(font);
+        }
+
+        textPaint.setColor(textColor);
+
+        int minnw = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
+        width = resolveSizeAndState(minnw, wMeasureSpace, 1);
+        height = MeasureSpec.getSize(wMeasureSpace);
+
+        onBirim = 0.009259259f * width;
+        leftPadding = 3 * onBirim + getPaddingLeft();
+        rightPadding = 3 * onBirim + getPaddingRight();
+        lineHeight = textSize + lineSpace;
+
+        textPaint.setTextSize(textSize);
+
+        wordSpace = 15f;
+        Line lineBuffer = new Line();
+        this.linecollection.clear();
+        String[] lines = text.split("\n");
+        for(String line : lines) {
+            String[] words = line.split(" ");
+            lineBuffer = new Line();
+            float lineWidth = leftPadding + rightPadding;
+            float totalWordWidth = 0;
+
+            for(String word : words) {
+                float wordword = textPaint.measureText(word) + wordSpace;
+
+                
+            }
+        }
     }
 
     @Override
@@ -60,12 +98,12 @@ public class JTextView extends View {
         this.text = text;
     }
 
-    public ArrayList<Line> getLines() {
-        return lines;
+    public ArrayList<Line> getLinecollection() {
+        return linecollection;
     }
 
-    public void setLines(ArrayList<Line> lines) {
-        this.lines = lines;
+    public void setLinecollection(ArrayList<Line> lines) {
+        this.linecollection = lines;
     }
 
     public TextPaint getTextPaint() {
