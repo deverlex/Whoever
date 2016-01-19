@@ -50,4 +50,17 @@
     <string name="text_write_status">Post to Whoever</string>
     <string name="text_choice_show_near">Show nearby people</string>
 
+
+    <!-- String for Overview layout -->
+
+    <string name="text_app_setting">App Setting</string>
+    <string name="text_account_setting">Account Setting</string>
+    <string name="text_help_center">Help Center</string>
+    <string name="text_activity_log">Activity Log</string>
+    <string name="text_privacy">Privacy</string>
+    <string name="text_term_policies">Terms &amp; Policies</string>
+    <string name="text_ablout">About</string>
+    <string name="text_report">Report a problem</string>
+    <string name="text_logout">Log Out</string>
+
 </resources>
