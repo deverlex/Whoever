@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="50dp">
 
     <vn.whoever.customviews.RoundedImageView
         android:id="@+id/avatarItemOnlineList"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/emngan"
-        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"/>
 
     <ImageView
@@ -23,11 +23,20 @@
         android:id="@+id/nickNameItemOnlineList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_toRightOf="@id/stateItemOnlineList"
+        android:text="Thuy Ngan"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorSilverBlack"
+        android:textSize="15dp"/>
 
     <TextView
         android:id="@+id/followedStateItemOnlineList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:text="followed"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"/>
+
 </RelativeLayout>

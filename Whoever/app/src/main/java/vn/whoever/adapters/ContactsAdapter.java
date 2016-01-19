@@ -1,4 +1,4 @@
-package vn.whoever.models;
+package vn.whoever.adapters;
 
 /**
  * Created by spider man on 1/13/2016.

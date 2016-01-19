@@ -19,7 +19,7 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.write_status_layout);
+        setContentView(R.layout.post_status_layout);
 
     }
 

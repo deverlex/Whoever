@@ -1,4 +1,4 @@
-package vn.whoever.models;
+package vn.whoever.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,6 +13,8 @@ import java.util.Date;
 
 import vn.whoever.R;
 import vn.whoever.customviews.JTextView;
+import vn.whoever.models.ArrayStatus;
+import vn.whoever.models.Status;
 import vn.whoever.utils.ConvertTime;
 
 /**
@@ -90,7 +92,7 @@ public class StatusAdapter extends BaseAdapter {
         /**
          * TODO: load database from sqlite show to
          */
-        ArrayStatus  arrayStatus = new ArrayStatus();
+        ArrayStatus arrayStatus = new ArrayStatus();
         statusList = arrayStatus.getArrStatus();
     }
 }

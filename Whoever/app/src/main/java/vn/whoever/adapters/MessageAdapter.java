@@ -1,4 +1,4 @@
-package vn.whoever.models;
+package vn.whoever.adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+
+import vn.whoever.models.Message;
 
 /**
  * Created by spider man on 1/13/2016.

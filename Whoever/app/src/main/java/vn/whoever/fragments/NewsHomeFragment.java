@@ -1,6 +1,7 @@
 package vn.whoever.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -11,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import vn.whoever.R;
-import vn.whoever.models.StatusAdapter;
+import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.utils.Initgc;
 
 /**
@@ -21,6 +22,7 @@ public class NewsHomeFragment extends Fragment implements Initgc {
 
     private ListView listViewHome;
     private StatusAdapter statusAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

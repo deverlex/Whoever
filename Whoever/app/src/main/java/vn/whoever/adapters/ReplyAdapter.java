@@ -1,4 +1,4 @@
-package vn.whoever.models;
+package vn.whoever.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 
 import vn.whoever.R;
+import vn.whoever.models.Reply;
 
 /**
  * Created by spider man on 1/13/2016.

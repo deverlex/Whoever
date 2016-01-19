@@ -1,6 +1,7 @@
 package vn.whoever.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public class NewsFeedFragment extends Fragment implements Initgc {
 
     private LinearLayout toolbar;
     private ListView listView;
+    private FloatingActionButton btnFilter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,6 +35,7 @@ public class NewsFeedFragment extends Fragment implements Initgc {
 
     @Override
     public void init(View view) {
+        btnFilter = (FloatingActionButton) view.findViewById(R.id.btnSettingFilterNewsFeed);
         toolbar = (LinearLayout) view.findViewById(R.id.layoutHeaderNewsFeed);
         listView = (ListView) view.findViewById(R.id.listViewNewsFeed);
     }
@@ -59,11 +62,11 @@ public class NewsFeedFragment extends Fragment implements Initgc {
                     }
                     if((e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)) {
-                        // up && hide toolbar
+                        // up && hide toolbar && show filter
 
                     } else if((e2.getY() - e1.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY){
-                        // down && show toolbar
+                        // down && show toolbar && hide filter
                     }
 
                 } catch (Exception e) {
