@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <vn.whoever.customviews.RoundedImageView
+        android:id="@+id/avatarItemOnlineList"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/emngan"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
+
+    <ImageView
+        android:id="@+id/stateItemOnlineList"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@drawable/icon_brightness_blue"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="35dp"/>
+
+    <TextView
+        android:id="@+id/nickNameItemOnlineList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/followedStateItemOnlineList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+</RelativeLayout>

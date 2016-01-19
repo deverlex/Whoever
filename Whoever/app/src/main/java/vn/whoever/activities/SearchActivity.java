@@ -118,4 +118,5 @@ public class SearchActivity extends AppCompatActivity implements AppGc {
     public void initGc() {
 
     }
+
 }

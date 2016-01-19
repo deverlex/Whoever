@@ -1,16 +1,18 @@
 package vn.whoever;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -46,6 +48,16 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     private RelativeLayout btnOpenSearch;
 
     private final float ratioLayout = 0.85f;
+
+    /**
+     * TODO: for layout on online list layout
+     */
+    private EditText inputSearchOnline;
+    private ImageView btnDestroySeachOnline;
+
+    /**
+     * TODO: for layout overview
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +102,10 @@ public class MainActivity extends AppCompatActivity implements AppGc {
         btnOpenSearch = (RelativeLayout) findViewById(R.id.btnOpenSearch);
 
         listenerClick = (LinearLayout) findViewById(R.id.listenerClick);
+
+        inputSearchOnline = (EditText) layoutOnline.findViewById(R.id.textInputFromOnlineList);
+        inputSearchOnline.setTextColor(Color.parseColor("#ffffff"));
+        btnDestroySeachOnline = (ImageView) layoutOnline.findViewById(R.id.btnDestroyInputFromOnlineList);
     }
 
     public void initListener() {
@@ -181,6 +197,11 @@ public class MainActivity extends AppCompatActivity implements AppGc {
                 }
             }
         });
+
+        /**
+         * TODO: listener for online list layout
+         */
+
     }
 
     public void openRightListenerClick() {

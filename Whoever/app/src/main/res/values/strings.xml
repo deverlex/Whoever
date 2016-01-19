@@ -48,5 +48,6 @@
     <string name="text_overview_help_and_setting">Help &amp; Setting</string>
 
     <string name="text_write_status">Post to Whoever</string>
+    <string name="text_choice_show_near">Show nearby people</string>
 
 </resources>

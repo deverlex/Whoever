@@ -54,13 +54,38 @@
     </RelativeLayout>
 
     <!-- layout for setting state online/offline -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="5dp">
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/text_choice_show_near"
+            android:textColor="@color/colorWhite"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:thumb="@drawable/custom_switch_selector_red"
+            android:track="@drawable/custom_track_switch_red" />
+    </RelativeLayout>
 
+    <ListView
+        android:id="@+id/listOnlineUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </ListView>
 </LinearLayout>
