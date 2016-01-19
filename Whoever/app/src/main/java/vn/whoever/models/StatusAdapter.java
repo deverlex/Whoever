@@ -1,7 +1,6 @@
 package vn.whoever.models;
 
 import android.content.Context;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vn.whoever.R;
+import vn.whoever.customviews.JTextView;
 import vn.whoever.utils.ConvertTime;
 
 /**
@@ -66,8 +66,10 @@ public class StatusAdapter extends BaseAdapter {
         TextView timeUp = (TextView) convertView.findViewById(R.id.timeUploadStatus);
         timeUp.setText(ConvertTime.getInstance().getTimeStatus(new Date()));
 
-        TextView content = (TextView) convertView.findViewById(R.id.contentStatus);
-        content.setText(status.getContentStatus());
+
+
+        JTextView content = (JTextView) convertView.findViewById(R.id.contentStatus);
+        content.setText(status.getContentStatus(), true);
 
         /*
         TextView totalLike = (TextView) convertView.findViewById(R.id.totalLikeStatus);

@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     private RelativeLayout btnOpenNotify;
     private RelativeLayout btnOpenSearch;
 
+    private final float ratioLayout = 0.85f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements AppGc {
 
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        panelWidth = (int) (metrics.widthPixels * 0.85);
+        panelWidth = (int) (metrics.widthPixels * ratioLayout);
 
         init();
         initListener();
@@ -69,12 +71,12 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     public void init() {
         layoutOnline = (LinearLayout) findViewById(R.id.onlineLayout);
         layoutParamsOnline = (FrameLayout.LayoutParams) layoutOnline.getLayoutParams();
-        layoutParamsOnline.width = metrics.widthPixels;
+        layoutParamsOnline.width = (int) (metrics.widthPixels * ratioLayout);
         layoutOnline.setLayoutParams(layoutParamsOnline);
 
         layoutOverview = (LinearLayout) findViewById(R.id.overviewLayout);
         layoutParamsOverview = (FrameLayout.LayoutParams) layoutOverview.getLayoutParams();
-        layoutParamsOverview.width = metrics.widthPixels;
+        layoutParamsOverview.width = (int) (metrics.widthPixels * ratioLayout);
         layoutOverview.setLayoutParams(layoutParamsOverview);
 
         layoutHome = (LinearLayout) findViewById(R.id.homeLayout);

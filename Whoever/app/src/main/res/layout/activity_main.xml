@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/onlineLayout"
-        layout="@layout/online_layout" />
+        layout="@layout/online_list_layout" />
 
     <include
         android:id="@+id/overviewLayout"
