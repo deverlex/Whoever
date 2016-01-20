@@ -12,17 +12,17 @@
         android:id="@+id/listViewNewsFeed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorMain"
+        android:background="@color/colorSilverWhite"
         android:dividerHeight="10dp">
 
     </ListView>
 
+
     <LinearLayout
         android:id="@+id/layoutHeaderNewsFeed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
         <include layout="@layout/toolbar_newsfeed_layout" />
     </LinearLayout>
 
@@ -35,6 +35,6 @@
         android:src="@drawable/icon_eye"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="20dp"/>
+        android:layout_margin="15dp"/>
 
 </RelativeLayout>

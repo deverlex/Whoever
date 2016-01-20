@@ -3,16 +3,22 @@ package vn.whoever.fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import vn.whoever.R;
+import vn.whoever.utils.ConvertSizeDisplay;
 import vn.whoever.utils.Initgc;
+import vn.whoever.utils.TranslateToDown;
+import vn.whoever.utils.TranslateToUp;
 
 /**
  * Created by spider man on 12/28/2015.
@@ -23,11 +29,12 @@ public class NewsFeedFragment extends Fragment implements Initgc {
     private ListView listView;
     private FloatingActionButton btnFilter;
 
+    private boolean isHideToolbar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.newsfeed_layout, null);
-
         init(view);
         initListener(view);
         return view;
@@ -63,10 +70,18 @@ public class NewsFeedFragment extends Fragment implements Initgc {
                     if((e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)) {
                         // up && hide toolbar && show filter
+                        if(!isHideToolbar) {
+                            isHideToolbar = true;
+                            toolbar.setVisibility(View.GONE);
+                        }
 
                     } else if((e2.getY() - e1.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY){
                         // down && show toolbar && hide filter
+                        if(isHideToolbar) {
+                            isHideToolbar = false;
+                            toolbar.setVisibility(View.VISIBLE);
+                        }
                     }
 
                 } catch (Exception e) {
