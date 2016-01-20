@@ -95,7 +95,6 @@ public class InboxFragment extends Fragment implements Initgc {
     public void onPause() {
         super.onPause();
         Log.d("Pause", "clear memory");
-        System.gc();
     }
 
     @Override

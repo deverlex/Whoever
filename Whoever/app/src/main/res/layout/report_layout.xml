@@ -4,14 +4,14 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/toolBarFromHelpCenter"
+        android:id="@+id/toolBarFromReport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/colorButtonMain">
 
         <RelativeLayout
-            android:id="@+id/btnBackHomeFromHelpCenter"
+            android:id="@+id/btnBackHomeFromReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -28,12 +28,12 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnBackHomeFromHelpCenter">
+            android:layout_toRightOf="@+id/btnBackHomeFromReport">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_help_center"
+                android:text="@string/text_report"
                 android:textStyle="bold"
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
@@ -42,5 +42,4 @@
 
         </RelativeLayout>
     </RelativeLayout>
-
 </LinearLayout>

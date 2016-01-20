@@ -91,7 +91,6 @@ public class NewsHomeFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
-        System.gc();
     }
 
     @Override

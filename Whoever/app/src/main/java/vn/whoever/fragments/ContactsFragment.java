@@ -101,7 +101,6 @@ public class ContactsFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
-        System.gc();
     }
 
     @Override

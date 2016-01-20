@@ -14,10 +14,18 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import vn.whoever.activities.AccountSettingActivity;
+import vn.whoever.activities.AppSettingActivity;
+import vn.whoever.activities.HelpCenterActivity;
+import vn.whoever.activities.LogActivity;
 import vn.whoever.activities.NotifyActivity;
+import vn.whoever.activities.PrivacyActivity;
+import vn.whoever.activities.ReportActivity;
 import vn.whoever.activities.SearchActivity;
+import vn.whoever.adapters.ListOnlineAdapter;
 import vn.whoever.fragments.TabHomeFragment;
 import vn.whoever.utils.*;
 
@@ -54,10 +62,22 @@ public class MainActivity extends AppCompatActivity implements AppGc {
      */
     private EditText inputSearchOnline;
     private ImageView btnDestroySeachOnline;
+    private ListView listOnline;
+    private ListOnlineAdapter listOnlineAdapter;
 
     /**
      * TODO: for layout overview
      */
+
+    private RelativeLayout directAppSetting;
+    private RelativeLayout directAccountSetting;
+    private RelativeLayout directActivityLog;
+    private RelativeLayout directPrivacy;
+    private RelativeLayout directTermPolicities;
+    private RelativeLayout directHelpCenter;
+    private RelativeLayout directReport;
+    private RelativeLayout directAbout;
+    private RelativeLayout directLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,11 +121,36 @@ public class MainActivity extends AppCompatActivity implements AppGc {
         btnOpenNotify = (RelativeLayout) findViewById(R.id.btnOpenNotify);
         btnOpenSearch = (RelativeLayout) findViewById(R.id.btnOpenSearch);
 
+        /// listenClick for close/open sliding
         listenerClick = (LinearLayout) findViewById(R.id.listenerClick);
 
         inputSearchOnline = (EditText) layoutOnline.findViewById(R.id.textInputFromOnlineList);
         inputSearchOnline.setTextColor(Color.parseColor("#ffffff"));
         btnDestroySeachOnline = (ImageView) layoutOnline.findViewById(R.id.btnDestroyInputFromOnlineList);
+
+        /**
+         * TODO: init() for online layout
+         */
+
+        listOnline = (ListView) findViewById(R.id.listOnlineUser);
+
+
+        listOnlineAdapter = new ListOnlineAdapter(this);
+         listOnline.setAdapter(listOnlineAdapter);
+        /**
+         * TODO: init() for overview layout
+         */
+
+        directAppSetting = (RelativeLayout) findViewById(R.id.layoutAppSettingOverview);
+        directAccountSetting = (RelativeLayout) findViewById(R.id.layoutAccountSettingOverview);
+        directActivityLog = (RelativeLayout) findViewById(R.id.layoutLogActivityOverview);
+        directPrivacy = (RelativeLayout) findViewById(R.id.layoutPrivacyOverview);
+        directTermPolicities = (RelativeLayout) findViewById(R.id.layoutTermOverview);
+        directHelpCenter = (RelativeLayout) findViewById(R.id.layoutTermOverview);
+        directReport = (RelativeLayout) findViewById(R.id.layoutReportOverview);
+        directAbout = (RelativeLayout) findViewById(R.id.layoutAboutOverview);
+        directLogout = (RelativeLayout) findViewById(R.id.layoutLogOutOverview);
+
     }
 
     public void initListener() {
@@ -202,6 +247,76 @@ public class MainActivity extends AppCompatActivity implements AppGc {
          * TODO: listener for online list layout
          */
 
+
+
+        /**
+         * TODO: Listener for overview layout
+         */
+
+        directAppSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToAppSetting();
+            }
+        });
+
+        directAccountSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToAccountSetting();
+            }
+        });
+
+        directActivityLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToActivityLog();
+            }
+        });
+
+        directPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToPrivacy();
+            }
+        });
+
+        directHelpCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToHelpCenter();
+            }
+        });
+
+        directReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToReport();
+            }
+        });
+
+        directTermPolicities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * TODO: something else
+                 */
+            }
+        });
+
+        directAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        directLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void openRightListenerClick() {
@@ -242,6 +357,36 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     public void navigateToSearch() {
         Intent intentSearch = new Intent(this, SearchActivity.class);
         startActivity(intentSearch);
+    }
+
+    public void navigateToAppSetting() {
+        Intent intentAppSet = new Intent(this, AppSettingActivity.class);
+        startActivity(intentAppSet);
+    }
+
+    public void navigateToAccountSetting() {
+        Intent intentAccountSet = new Intent(this, AccountSettingActivity.class);
+        startActivity(intentAccountSet);
+    }
+
+    public void navigateToActivityLog() {
+        Intent intentLog = new Intent(this, LogActivity.class);
+        startActivity(intentLog);
+    }
+
+    public void navigateToPrivacy() {
+        Intent intentPrivacy = new Intent(this, PrivacyActivity.class);
+        startActivity(intentPrivacy);
+    }
+
+    public void navigateToHelpCenter() {
+        Intent intentHelp = new Intent(this, HelpCenterActivity.class);
+        startActivity(intentHelp);
+    }
+
+    public void navigateToReport() {
+        Intent intentReport = new Intent(this, ReportActivity.class);
+        startActivity(intentReport);
     }
 
     @Override

@@ -52,8 +52,20 @@
         
         <activity android:name=".activities.ChatActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        
-        
+
+        <activity android:name=".activities.HelpCenterActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name=".activities.LogActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name=".activities.PrivacyActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name=".activities.ReportActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

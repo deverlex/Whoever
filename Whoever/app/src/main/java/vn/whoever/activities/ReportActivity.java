@@ -10,16 +10,25 @@ import vn.whoever.utils.AppGc;
 /**
  * Created by spider man on 1/20/2016.
  */
-public class HelpCenterActivity extends AppCompatActivity implements AppGc {
+public class ReportActivity extends AppCompatActivity implements AppGc {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.help_center_layout);
+        setContentView(R.layout.report_layout);
+
+    }
+
+    public void init() {
+
+    }
+
+    public void initListener() {
+
     }
 
     @Override

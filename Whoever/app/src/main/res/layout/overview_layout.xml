@@ -93,15 +93,13 @@
                 android:textColor="@color/colorSilver"
                 android:textSize="16dp"
                 android:textStyle="bold" />
-            <!--
+
             <ListView
-                android:id="@+id/overviewListFavorites"
+                android:id="@+id/listFavoriteOverview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             </ListView>
-
-            -->
 
             <View
                 android:layout_width="match_parent"
@@ -119,14 +117,12 @@
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
-            <!--
 
             <ListView
                 android:id="@+id/listGroupOverview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></ListView>
 
-            -->
 
             <View
                 android:layout_width="match_parent"
@@ -292,42 +288,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/layoutTermOverview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <RelativeLayout
-                        android:id="@+id/iconTermOverview"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/icon_circle" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/icon_certificate" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/iconTermOverview"
-                        android:text="@string/text_term_policies"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:id="@+id/layoutHelpCenterOverview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -390,6 +350,42 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/iconReportOverview"
                         android:text="@string/text_report"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorSilverBlack"
+                        android:layout_marginLeft="15dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutTermOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:id="@+id/iconTermOverview"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icon_circle" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/icon_certificate" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/iconTermOverview"
+                        android:text="@string/text_term_policies"
                         android:layout_centerVertical="true"
                         android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"

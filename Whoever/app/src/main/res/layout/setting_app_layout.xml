@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/toolBarFromPostStatus"
+        android:id="@+id/toolBarFromAppSetting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/colorButtonMain">
         <RelativeLayout
-            android:id="@+id/btnBackHomeFromWriteStatus"
+            android:id="@+id/btnBackHomeFromAppSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -27,8 +27,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnBackHomeFromWriteStatus"
-            android:layout_toLeftOf="@+id/btnSendStatus">
+            android:layout_toRightOf="@+id/btnBackHomeFromAppSetting">
 
             <TextView
                 android:layout_width="wrap_content"
