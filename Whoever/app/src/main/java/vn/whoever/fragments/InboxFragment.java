@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import vn.whoever.R;
+import vn.whoever.adapters.InboxAdapter;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
 
@@ -20,8 +21,9 @@ import vn.whoever.utils.Initgc;
  */
 public class InboxFragment extends Fragment implements Initgc {
 
-    private ListView listView;
+    private ListView listInbox;
     private FloatingActionButton button;
+    private InboxAdapter inboxAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,8 +36,10 @@ public class InboxFragment extends Fragment implements Initgc {
 
     @Override
     public void init(View view) {
-        listView = (ListView) view.findViewById(R.id.listViewPreviewMessage);
+        listInbox = (ListView) view.findViewById(R.id.listViewPreviewMessage);
         button = (FloatingActionButton) view.findViewById(R.id.btnCreateNewMessage);
+        inboxAdapter = new InboxAdapter(getActivity());
+        listInbox.setAdapter(inboxAdapter);
     }
 
     @Override
@@ -78,10 +82,11 @@ public class InboxFragment extends Fragment implements Initgc {
             }
         });
 
-        listView.setOnTouchListener(new View.OnTouchListener() {
+        listInbox.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
+                gestureDetector.onTouchEvent(event);
+                return false;
             }
         });
     }

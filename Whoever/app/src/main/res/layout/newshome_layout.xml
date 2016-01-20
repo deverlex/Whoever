@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="top"
-        android:dividerHeight="10dp"
+        android:dividerHeight="5dp"
         android:background="@color/colorSilverWhite">
     </ListView>
 

@@ -1,6 +1,8 @@
 package vn.whoever.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import vn.whoever.R;
 import vn.whoever.dao.ConnectionDB;
 import vn.whoever.models.ArrayInbox;
 import vn.whoever.models.ArrayStatus;
@@ -51,6 +54,13 @@ public class InboxAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Inbox inbox = (Inbox) getItem(position);
+
+        if(convertView == null) {
+            convertView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_inbox_layout, null);
+        }
+
 
 
         return convertView;

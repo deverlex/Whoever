@@ -20,7 +20,7 @@ import vn.whoever.utils.Initgc;
  */
 public class NewsHomeFragment extends Fragment implements Initgc {
 
-    private ListView listViewHome;
+    private ListView listStatus;
     private StatusAdapter statusAdapter;
 
 
@@ -35,14 +35,15 @@ public class NewsHomeFragment extends Fragment implements Initgc {
 
     @Override
     public void init(View view) {
-        listViewHome = (ListView) view.findViewById(R.id.listViewNewsHome);
+        listStatus = (ListView) view.findViewById(R.id.listViewNewsHome);
         statusAdapter = new StatusAdapter(getActivity());
-        listViewHome.setAdapter(statusAdapter);
+        listStatus.setAdapter(statusAdapter);
     }
 
     @Override
     public void initListener(View view) {
 
+        /*
         final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
 
             @Override
@@ -83,6 +84,8 @@ public class NewsHomeFragment extends Fragment implements Initgc {
                 return gestureDetector.onTouchEvent(event);
             }
         });
+
+        */
     }
 
     @Override

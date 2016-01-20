@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import vn.whoever.R;
+import vn.whoever.adapters.ContactsAdapter;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
 
@@ -22,7 +23,9 @@ public class ContactsFragment extends Fragment implements Initgc {
 
     private LinearLayout layoutToolBar;
     private FloatingActionButton buttonAddAccount;
-    private ListView listView;
+    private ListView listContact;
+
+    private ContactsAdapter contactsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +40,10 @@ public class ContactsFragment extends Fragment implements Initgc {
     public void init(View view) {
         layoutToolBar = (LinearLayout) view.findViewById(R.id.layoutHeaderContactList);
         buttonAddAccount = (FloatingActionButton) view.findViewById(R.id.btnAddNewContact);
-        listView = (ListView) view.findViewById(R.id.listViewContactList);
+        listContact = (ListView) view.findViewById(R.id.listViewContactList);
+
+        contactsAdapter = new ContactsAdapter(getActivity());
+        listContact.setAdapter(contactsAdapter);
     }
 
     @Override
@@ -83,10 +89,11 @@ public class ContactsFragment extends Fragment implements Initgc {
 
         });
 
-        listView.setOnTouchListener(new View.OnTouchListener() {
+        listContact.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
+                gestureDetector.onTouchEvent(event);
+                return false;
             }
         });
     }

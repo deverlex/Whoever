@@ -38,7 +38,7 @@
             android:text="4 giờ"/>
 
         <ImageView
-            android:id="@+id/imageStateInteractiveMessage"
+            android:id="@+id/stateInteractiveMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/timeInteractiveMessage"

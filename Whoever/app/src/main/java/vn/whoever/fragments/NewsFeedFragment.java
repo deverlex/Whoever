@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
+import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.utils.ConvertSizeDisplay;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.TranslateToDown;
@@ -26,8 +27,9 @@ import vn.whoever.utils.TranslateToUp;
 public class NewsFeedFragment extends Fragment implements Initgc {
 
     private LinearLayout toolbar;
-    private ListView listView;
+    private ListView listStatus;
     private FloatingActionButton btnFilter;
+    private StatusAdapter statusAdapter;
 
     private boolean isHideToolbar;
 
@@ -44,7 +46,9 @@ public class NewsFeedFragment extends Fragment implements Initgc {
     public void init(View view) {
         btnFilter = (FloatingActionButton) view.findViewById(R.id.btnSettingFilterNewsFeed);
         toolbar = (LinearLayout) view.findViewById(R.id.layoutHeaderNewsFeed);
-        listView = (ListView) view.findViewById(R.id.listViewNewsFeed);
+        listStatus = (ListView) view.findViewById(R.id.listViewNewsFeed);
+        statusAdapter = new StatusAdapter(getActivity());
+        listStatus.setAdapter(statusAdapter);
     }
 
     @Override
@@ -92,12 +96,14 @@ public class NewsFeedFragment extends Fragment implements Initgc {
             }
         });
 
-        listView.setOnTouchListener(new View.OnTouchListener() {
+        listStatus.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
+                gestureDetector.onTouchEvent(event);
+                return false;
             }
         });
+
     }
 
     @Override
