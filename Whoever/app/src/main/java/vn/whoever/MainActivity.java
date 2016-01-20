@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements AppGc {
         directActivityLog = (RelativeLayout) findViewById(R.id.layoutLogActivityOverview);
         directPrivacy = (RelativeLayout) findViewById(R.id.layoutPrivacyOverview);
         directTermPolicities = (RelativeLayout) findViewById(R.id.layoutTermOverview);
-        directHelpCenter = (RelativeLayout) findViewById(R.id.layoutTermOverview);
+        directHelpCenter = (RelativeLayout) findViewById(R.id.layoutHelpCenterOverview);
         directReport = (RelativeLayout) findViewById(R.id.layoutReportOverview);
         directAbout = (RelativeLayout) findViewById(R.id.layoutAboutOverview);
         directLogout = (RelativeLayout) findViewById(R.id.layoutLogOutOverview);

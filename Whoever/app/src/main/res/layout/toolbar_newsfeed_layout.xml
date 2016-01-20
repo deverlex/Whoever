@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="@color/colorWhite">
+    android:background="@color/colorButtonMain">
 
     <RelativeLayout
         android:id="@+id/btnAvatarInWriteStatus"
@@ -42,14 +42,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/icon_pen"
+                android:src="@drawable/icon_pen_white"
                 android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Status"
-                android:textColor="@color/colorSilver"
+                android:textColor="@color/colorWhite"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"/>
@@ -72,14 +72,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_photo"
+                android:src="@drawable/icon_photo_white"
                 android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Photo"
-                android:textColor="@color/colorSilver"
+                android:textColor="@color/colorWhite"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"/>
@@ -99,7 +99,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
-            android:text="What's on your mind ?"/>
+            android:text="What's on your mind ?"
+            android:textColor="@color/colorWhite"/>
     </RelativeLayout>
 
 
