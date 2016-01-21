@@ -64,4 +64,10 @@
     <string name="text_logout">Log Out</string>
     <string name="text_profile">Your Profile</string>
 
+    <string name="text_privacy_in_post_status">Use:</string>
+    <string name="text_privacy_with_account">Account</string>
+    <string name="text_privacy_with_anonymous">Anonymous</string>
+
+    <string name="text_hind_box_write_status">Write something...</string>
+
 </resources>

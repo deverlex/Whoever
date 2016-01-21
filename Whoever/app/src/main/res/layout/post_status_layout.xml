@@ -11,7 +11,7 @@
         android:background="@color/colorButtonMain">
 
         <RelativeLayout
-            android:id="@+id/btnBackHomeFromWriteStatus"
+            android:id="@+id/btnBackFromPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -43,7 +43,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnBackHomeFromWriteStatus"
+            android:layout_toRightOf="@+id/btnBackFromPostStatus"
             android:layout_toLeftOf="@+id/btnSendStatus">
 
             <TextView
@@ -60,12 +60,60 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/toolBarChoicePrivacy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolBarFromPostStatus">
 
+        <TextView
+            android:id="@+id/textViewPrivacyPostStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_privacy_in_post_status"
+            android:textSize="14sp"
+            android:textColor="@color/colorSilverBlack"
+            android:layout_margin="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
+        <ImageView
+            android:id="@+id/symbolPrivacyPostStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_account"
+            android:layout_toRightOf="@+id/textViewPrivacyPostStatus"
+            android:layout_centerVertical="true"/>
 
+        <TextView
+            android:id="@+id/textShowPrivacyPostStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_privacy_with_account"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/symbolPrivacyPostStatus"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorButtonMain"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_navigate"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/contentPostStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolBarChoicePrivacy"
+        android:layout_alignParentBottom="true">
+
+        <include layout="@layout/text_post_status_layout" />
     </RelativeLayout>
 
 </RelativeLayout>
