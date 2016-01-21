@@ -65,6 +65,9 @@
         <activity android:name=".activities.ReportActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity android:name=".activities.ProifileActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

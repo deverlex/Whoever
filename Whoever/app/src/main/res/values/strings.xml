@@ -60,7 +60,8 @@
     <string name="text_privacy">Privacy</string>
     <string name="text_term_policies">Terms &amp; Policies</string>
     <string name="text_ablout">About</string>
-    <string name="text_report">Report a problem</string>
+    <string name="text_report">Report problem</string>
     <string name="text_logout">Log Out</string>
+    <string name="text_profile">Your Profile</string>
 
 </resources>

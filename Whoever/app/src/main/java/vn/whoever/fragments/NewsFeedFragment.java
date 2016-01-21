@@ -1,20 +1,26 @@
 package vn.whoever.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
+import vn.whoever.activities.PostStatusActivity;
+import vn.whoever.activities.ProifileActivity;
 import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.utils.ConvertSizeDisplay;
 import vn.whoever.utils.Initgc;
@@ -32,6 +38,17 @@ public class NewsFeedFragment extends Fragment implements Initgc {
     private StatusAdapter statusAdapter;
 
     private boolean isHideToolbar;
+    private Intent intentNav;
+
+    /**
+     * TODO: for toolbar
+     */
+
+    private RelativeLayout btnProfile;
+    private RelativeLayout btnWriteStatus;
+    private LinearLayout btnChoiceWriteStatus;
+    private LinearLayout btnChoiceUpPhoto;
+    private ImageView avatarInToolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,11 +61,23 @@ public class NewsFeedFragment extends Fragment implements Initgc {
 
     @Override
     public void init(View view) {
+        intentNav = new Intent();
+
         btnFilter = (FloatingActionButton) view.findViewById(R.id.btnSettingFilterNewsFeed);
         toolbar = (LinearLayout) view.findViewById(R.id.layoutHeaderNewsFeed);
         listStatus = (ListView) view.findViewById(R.id.listViewNewsFeed);
         statusAdapter = new StatusAdapter(getActivity());
         listStatus.setAdapter(statusAdapter);
+
+        /**
+         * TODO: for toobar layout
+         */
+        btnProfile = (RelativeLayout) toolbar.findViewById(R.id.btnAvatarInWriteStatus);
+        avatarInToolbar = (ImageView) btnProfile.findViewById(R.id.avatarInToolbarNewsFeed);
+        btnChoiceWriteStatus = (LinearLayout) toolbar.findViewById(R.id.btnChoiceWriteStatus);
+        btnChoiceUpPhoto = (LinearLayout) toolbar.findViewById(R.id.btnChoiceUploadPhoto);
+        btnWriteStatus = (RelativeLayout) toolbar.findViewById(R.id.btnWriteStatusInWriteStatus);
+
     }
 
     @Override
@@ -104,11 +133,87 @@ public class NewsFeedFragment extends Fragment implements Initgc {
             }
         });
 
+        listStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+        listStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        /**
+         * TODO: initListener() for toolbar
+         *
+         */
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // navigate to profile layout
+                intentNav.setClass(getContext(), ProifileActivity.class);
+                startActivity(intentNav);
+            }
+        });
+
+        btnChoiceWriteStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentNav.setClass(getContext(), PostStatusActivity.class);
+                startActivity(intentNav);
+            }
+        });
+
+        btnChoiceUpPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentNav.setClass(getContext(), PostStatusActivity.class);
+                startActivity(intentNav);
+            }
+        });
+
+        btnWriteStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentNav.setClass(getContext(), PostStatusActivity.class);
+                startActivity(intentNav);
+            }
+        });
+
+        /**
+         * TODO: filter
+         */
+
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // show a dialog
+            }
+        });
+
+        Log.d("Init()", "reInit()");
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("onResume()", "Resume() hihihih");
+        intentNav = new Intent();
     }
 
     @Override
