@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:id="@+id/postStatusLayout">
 
     <RelativeLayout
         android:id="@+id/toolBarFromPostStatus"
@@ -93,27 +95,40 @@
             android:layout_toRightOf="@+id/symbolPrivacyPostStatus"
             android:layout_marginLeft="5dp"
             android:textColor="@color/colorButtonMain"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_navigate"
-            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_alignParentEnd="true"/>
+            android:src="@drawable/icon_navigate" />
 
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/contentPostStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolBarChoicePrivacy"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/toolBarChoicePrivacy">
 
-        <include layout="@layout/text_post_status_layout" />
+        <EditText
+            android:id="@+id/contentTextInputStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorWhite"
+            android:hint="@string/text_hind_box_write_status"
+            android:textSize="16sp"
+            android:gravity="top|left" />
     </RelativeLayout>
 
 </RelativeLayout>

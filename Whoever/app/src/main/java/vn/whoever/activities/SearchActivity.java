@@ -30,10 +30,6 @@ public class SearchActivity extends AppCompatActivity implements AppGc {
     @Override
     protected void onCreate(Bundle savedStanceState) {
         super.onCreate(savedStanceState);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.search_layout);
 
         init();

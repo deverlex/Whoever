@@ -28,10 +28,6 @@ public class NotifyActivity extends AppCompatActivity implements AppGc {
     @Override
     protected void onCreate(Bundle savedStanceState) {
         super.onCreate(savedStanceState);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.notify_layout);
 
         init();

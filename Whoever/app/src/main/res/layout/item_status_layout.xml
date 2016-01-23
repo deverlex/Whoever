@@ -29,7 +29,7 @@
             android:layout_toRightOf="@+id/imageAvatarOnStatus"
             android:textColor="@color/colorBlack"
             android:text="Nguyen Do"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_below="@+id/nickNameAndExtendOnStatus"
             android:layout_toRightOf="@+id/imageAvatarOnStatus"
             android:text="13:15 hôm qua"
-            android:textSize="10dp"/>
+            android:textSize="10sp"/>
 
         <ImageButton
             android:id="@+id/extendButtonStatusOnStatus"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="30dp"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="@color/colorSilver"
                 android:text="12 Like"
                 android:textStyle="bold"
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="@color/colorSilver"
                 android:text="12 Comment"
                 android:textStyle="bold"

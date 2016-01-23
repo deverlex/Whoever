@@ -82,10 +82,6 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_main);
 
         frgtManagerMain = getSupportFragmentManager();
@@ -393,11 +389,6 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     public void onPause() {
         super.onPause();
         System.gc();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override

@@ -2,11 +2,14 @@ package vn.whoever.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
+import vn.whoever.fragments.PostTextStatusFragment;
 import vn.whoever.utils.AppGc;
 
 /**
@@ -18,13 +21,10 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
     private RelativeLayout btnBack;
     private RelativeLayout btnPost;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.post_status_layout);
 
         init();
