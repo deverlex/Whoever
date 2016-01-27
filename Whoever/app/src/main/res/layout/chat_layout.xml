@@ -1,7 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/toolBarFromChat"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorButtonMain">
 
-</LinearLayout>
+        <RelativeLayout
+            android:id="@+id/btnBackFromChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_back"
+                android:layout_margin="12dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btnViewProfileFromChat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_eye"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="24dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btnBackFromChat"
+            android:layout_toLeftOf="@+id/btnSendStatus"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textNameChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thuy Ngan"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/textTimeAccessFromChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="15dp"
+                android:text="Vừa mới truy cập"
+                android:textSize="12sp"
+                android:textColor="@color/colorWhite"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listMessageOfChatSession"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolBarFromChat"
+        android:layout_above="@+id/toolBarInputSendTextOfChat">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/toolBarInputSendTextOfChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+    </RelativeLayout>
+
+</RelativeLayout>

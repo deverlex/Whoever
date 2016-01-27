@@ -89,7 +89,7 @@
         android:background="@color/colorSilver"/>
 
     <RelativeLayout
-        android:id="@+id/toolbarStatusItemLayout"
+        android:id="@+id/toolBarStatusItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

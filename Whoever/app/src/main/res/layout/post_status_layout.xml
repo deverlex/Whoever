@@ -120,15 +120,25 @@
             android:id="@+id/contentTextInputStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
+            android:layout_above="@+id/listViewPhotoPostStatus"
             android:background="@color/colorWhite"
             android:hint="@string/text_hind_box_write_status"
             android:textSize="16sp"
-            android:gravity="top|left" />
+            android:gravity="top|left"
+            android:scrollbars="vertical"/>
+
+        <GridView
+            android:id="@+id/listViewPhotoPostStatus"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:numColumns="3"
+            android:layout_alignParentBottom="true">
+
+        </GridView>
+
     </RelativeLayout>
 
 </RelativeLayout>

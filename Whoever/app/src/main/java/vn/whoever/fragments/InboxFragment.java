@@ -1,5 +1,6 @@
 package vn.whoever.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import vn.whoever.R;
+import vn.whoever.activities.ChatActivity;
 import vn.whoever.adapters.InboxAdapter;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
@@ -22,7 +25,7 @@ import vn.whoever.utils.Initgc;
 public class InboxFragment extends Fragment implements Initgc {
 
     private ListView listInbox;
-    private FloatingActionButton button;
+    private FloatingActionButton btnCreateNewChat;
     private InboxAdapter inboxAdapter;
 
     @Override
@@ -37,7 +40,7 @@ public class InboxFragment extends Fragment implements Initgc {
     @Override
     public void init(View view) {
         listInbox = (ListView) view.findViewById(R.id.listViewPreviewMessage);
-        button = (FloatingActionButton) view.findViewById(R.id.btnCreateNewMessage);
+        btnCreateNewChat = (FloatingActionButton) view.findViewById(R.id.btnCreateNewMessage);
         inboxAdapter = new InboxAdapter(getActivity());
         listInbox.setAdapter(inboxAdapter);
     }
@@ -64,13 +67,13 @@ public class InboxFragment extends Fragment implements Initgc {
                     }
                     if((e1.getY() - e2.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) { //up
-                        if(button.getVisibility() == View.VISIBLE) {
-                            new AlphaButton(button, 1.0f, 0.0f);
+                        if(btnCreateNewChat.getVisibility() == View.VISIBLE) {
+                            new AlphaButton(btnCreateNewChat, 1.0f, 0.0f);
                         }
                     } else if((e2.getY() - e1.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                        if(button.getVisibility() != View.VISIBLE) {
-                            new AlphaButton(button, 0.0f, 1.0f);
+                        if(btnCreateNewChat.getVisibility() != View.VISIBLE) {
+                            new AlphaButton(btnCreateNewChat, 0.0f, 1.0f);
                         }
                     }
 
@@ -89,6 +92,26 @@ public class InboxFragment extends Fragment implements Initgc {
                 return false;
             }
         });
+
+        listInbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                navigateChatActivity();
+            }
+        });
+
+        btnCreateNewChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void navigateChatActivity() {
+        Intent intentChat = new Intent(getActivity(), ChatActivity.class);
+        startActivity(intentChat);
     }
 
     @Override

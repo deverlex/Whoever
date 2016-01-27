@@ -2,14 +2,10 @@ package vn.whoever.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
-import vn.whoever.fragments.PostTextStatusFragment;
 import vn.whoever.utils.AppGc;
 
 /**
