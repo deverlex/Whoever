@@ -3,6 +3,7 @@ package vn.whoever.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
@@ -14,7 +15,7 @@ import vn.whoever.utils.AppGc;
 public class PostStatusActivity extends AppCompatActivity implements AppGc {
 
     private RelativeLayout toolbar;
-    private RelativeLayout btnBack;
+    private ImageButton btnBackHome;
     private RelativeLayout btnPost;
 
 
@@ -29,13 +30,13 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
 
     public void init() {
         toolbar = (RelativeLayout) findViewById(R.id.toolBarFromPostStatus);
-        btnBack = (RelativeLayout) toolbar.findViewById(R.id.btnBackFromPostStatus);
+        btnBackHome = (ImageButton) toolbar.findViewById(R.id.btnBackFromPostStatus);
         btnPost = (RelativeLayout) toolbar.findViewById(R.id.btnSendStatus);
 
     }
 
     public void initListener() {
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

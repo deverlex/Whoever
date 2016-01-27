@@ -9,20 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <RelativeLayout
+        <vn.whoever.customviews.RoundedImageView
             android:id="@+id/imageAvatarUserOnContactList"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <vn.whoever.customviews.RoundedImageView
-                android:layout_width="35dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/donguyen"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"/>
-        </RelativeLayout>
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/donguyen"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"/>
 
         <ImageView
             android:id="@+id/stateUserOnContactList"

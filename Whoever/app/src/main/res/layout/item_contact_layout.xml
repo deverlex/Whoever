@@ -14,25 +14,16 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp" />
 
-    <RelativeLayout
-        android:id="@+id/layouttAvatarOnContactList"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/groupTextContactList">
-
-
-        <vn.whoever.customviews.RoundedImageView
-            android:id="@+id/imageAvatarOnContacts"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/emngan"
-            android:scaleType="fitXY"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"/>
-
-
-    </RelativeLayout>
+    <vn.whoever.customviews.RoundedImageView
+        android:id="@+id/imageAvatarOnContacts"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/emngan"
+        android:scaleType="fitXY"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/groupTextContactList"/>
 
     <RelativeLayout
         android:id="@+id/layoutTimeLastActive"
@@ -57,7 +48,7 @@
         android:id="@+id/layoutContentContact"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/layouttAvatarOnContactList"
+        android:layout_toRightOf="@+id/imageAvatarOnContacts"
         android:layout_below="@+id/groupTextContactList">
 
         <TextView
@@ -88,7 +79,7 @@
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorSilver"
-        android:layout_toRightOf="@+id/layouttAvatarOnContactList"
+        android:layout_toRightOf="@+id/imageAvatarOnContacts"
         android:layout_marginLeft="10dp"/>
 
 </RelativeLayout>

@@ -4,22 +4,15 @@
     android:layout_height="70dp"
     android:background="@color/colorWhite">
 
-    <RelativeLayout
-        android:id="@+id/layouttAvatarOnInbox"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-
-        <vn.whoever.customviews.RoundedImageView
-            android:id="@+id/imageAvatarOnInbox"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/emngan"
-            android:scaleType="fitXY"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"/>
-
-    </RelativeLayout>
+    <vn.whoever.customviews.RoundedImageView
+        android:id="@+id/imageAvatarOnInbox"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/emngan"
+        android:scaleType="fitXY"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"/>
 
     <RelativeLayout
         android:id="@+id/layoutTimeInteractiveMessage"
@@ -51,7 +44,7 @@
         android:id="@+id/layoutContentPreviewInbox"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/layouttAvatarOnInbox">
+        android:layout_toRightOf="@+id/imageAvatarOnInbox">
 
         <TextView
             android:id="@+id/nickNameOnPreviewInbox"
@@ -81,7 +74,7 @@
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorSilver"
-        android:layout_toRightOf="@+id/layouttAvatarOnInbox"
+        android:layout_toRightOf="@+id/imageAvatarOnInbox"
         android:layout_marginLeft="10dp"/>
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -22,7 +23,7 @@ import vn.whoever.utils.AppGc;
 public class NotifyActivity extends AppCompatActivity implements AppGc {
 
     private EditText textInputSearch;
-    private RelativeLayout btnBackHome;
+    private ImageButton btnBackHome;
     private ImageView btnDestroySearch;
 
     @Override
@@ -39,7 +40,7 @@ public class NotifyActivity extends AppCompatActivity implements AppGc {
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
 
         btnDestroySearch = (ImageView) findViewById(R.id.btnDestroyInputFromNotify);
-        btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromNotify);
+        btnBackHome = (ImageButton) findViewById(R.id.btnBackHomeFromNotify);
     }
 
     public void initListener() {

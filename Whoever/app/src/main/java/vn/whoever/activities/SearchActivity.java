@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -24,7 +25,7 @@ import vn.whoever.utils.AppGc;
 public class SearchActivity extends AppCompatActivity implements AppGc {
 
     private EditText textInputSearch;
-    private RelativeLayout btnBackHome;
+    private ImageButton btnBackHome;
     private ImageView btnDestroySearch;
 
     @Override
@@ -41,7 +42,7 @@ public class SearchActivity extends AppCompatActivity implements AppGc {
         textInputSearch.setTextColor(Color.parseColor("#ffffff"));
 
         btnDestroySearch = (ImageView) findViewById(R.id.btnDestroyInputFromSearch);
-        btnBackHome = (RelativeLayout) findViewById(R.id.btnBackHomeFromSearch);
+        btnBackHome = (ImageButton) findViewById(R.id.btnBackHomeFromSearch);
     }
 
     public void initListener() {

@@ -9,20 +9,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/colorButtonMain">
-        <RelativeLayout
+
+        <ImageButton
             android:id="@+id/btnBackHomeFromAppSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_back"
-                android:layout_margin="12dp"/>
-
-        </RelativeLayout>
+            android:layout_alignParentStart="true"
+            android:src="@drawable/icon_back"
+            android:background="@color/colorButtonMain"
+            android:padding="12dp"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"

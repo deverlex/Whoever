@@ -10,34 +10,24 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorButtonMain">
 
-        <RelativeLayout
+        <ImageButton
             android:id="@+id/btnBackFromChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:src="@drawable/icon_back"
+            android:background="@color/colorButtonMain"
+            android:padding="12dp"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_back"
-                android:layout_margin="12dp"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        <ImageButton
             android:id="@+id/btnViewProfileFromChat"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true" >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_eye"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="12dp"
-                android:layout_marginLeft="24dp"/>
-        </RelativeLayout>
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_eye"
+            android:background="@color/colorButtonMain"
+            android:padding="12dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -85,6 +75,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+
+        <View
+            android:id="@+id/viewLineOfChatSession"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorSilver"
+            android:layout_alignParentTop="true"/>
+
+        <ImageButton
+            android:id="@+id/btnSendMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_send_red"
+            android:background="@color/colorWhite"
+            android:padding="10dp"/>
+
+        <EditText
+            android:id="@+id/inputMessageSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Write a message"
+            android:background="@color/colorWhite"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/viewLineOfChatSession"/>
 
     </RelativeLayout>
 

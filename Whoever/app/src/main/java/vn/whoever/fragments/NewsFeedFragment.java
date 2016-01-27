@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,11 +45,10 @@ public class NewsFeedFragment extends Fragment implements Initgc {
      * TODO: for toolbar
      */
 
-    private RelativeLayout btnProfile;
     private RelativeLayout btnWriteStatus;
     private LinearLayout btnChoiceWriteStatus;
     private LinearLayout btnChoiceUpPhoto;
-    private ImageView avatarInToolbar;
+    private ImageButton avatarInToolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +64,7 @@ public class NewsFeedFragment extends Fragment implements Initgc {
         intentNav = new Intent();
 
         btnFilter = (FloatingActionButton) view.findViewById(R.id.btnSettingFilterNewsFeed);
-        toolbar = (LinearLayout) view.findViewById(R.id.layoutHeaderNewsFeed);
+        toolbar = (LinearLayout) view.findViewById(R.id.layoutToolBarWriteNewsFeed);
         listStatus = (ListView) view.findViewById(R.id.listViewNewsFeed);
         statusAdapter = new StatusAdapter(getActivity());
         listStatus.setAdapter(statusAdapter);
@@ -72,8 +72,7 @@ public class NewsFeedFragment extends Fragment implements Initgc {
         /**
          * TODO: for toobar layout
          */
-        btnProfile = (RelativeLayout) toolbar.findViewById(R.id.btnAvatarInWriteStatus);
-        avatarInToolbar = (ImageView) btnProfile.findViewById(R.id.avatarInToolbarNewsFeed);
+        avatarInToolbar = (ImageButton) toolbar.findViewById(R.id.btnAvatarInWriteStatus);
         btnChoiceWriteStatus = (LinearLayout) toolbar.findViewById(R.id.btnChoiceWriteStatus);
         btnChoiceUpPhoto = (LinearLayout) toolbar.findViewById(R.id.btnChoiceUploadPhoto);
         btnWriteStatus = (RelativeLayout) toolbar.findViewById(R.id.btnWriteStatusInWriteStatus);
@@ -157,7 +156,7 @@ public class NewsFeedFragment extends Fragment implements Initgc {
          *
          */
 
-        btnProfile.setOnClickListener(new View.OnClickListener() {
+        avatarInToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // navigate to profile layout

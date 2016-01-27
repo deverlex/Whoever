@@ -4,25 +4,20 @@
     android:layout_height="70dp"
     android:background="@color/colorButtonMain">
 
-    <RelativeLayout
+    <ImageButton
         android:id="@+id/btnAvatarInWriteStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/donguyen"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
-        <ImageView
-            android:id="@+id/avatarInToolbarNewsFeed"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/donguyen"/>
 
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layoutChoicePostStatus"
