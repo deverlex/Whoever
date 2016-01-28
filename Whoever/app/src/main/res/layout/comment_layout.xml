@@ -1,6 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/toolBarFromPrivacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorButtonMain">
+
+        <ImageButton
+            android:id="@+id/btnBackHomeFromComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/icon_back"
+            android:background="@color/colorButtonMain"
+            android:padding="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_comment_header"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/btnBackHomeFromComment"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            android:layout_margin="14dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/headerStatusDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- have a avatar, nickname, time upload, extend option button -->
+            <vn.whoever.customviews.RoundedImageView
+                android:id="@+id/imageAvatarOnStatusDetail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/donguyen"/>
+
+            <TextView
+                android:id="@+id/nickNameAndExtendOnStatusDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/imageAvatarOnStatusDetail"
+                android:textColor="@color/colorBlack"
+                android:text="Nguyen Do"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/timeUploadStatusDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/nickNameAndExtendOnStatusDetail"
+                android:layout_toRightOf="@+id/imageAvatarOnStatusDetail"
+                android:text="13:15 hôm qua"
+                android:textSize="10sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/bodyStatusDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <vn.whoever.customviews.JTextView
+                android:id="@+id/contentStatusDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:gravity="fill_horizontal"/>
+
+            <ImageView
+                android:id="@+id/imageInStatusDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="350dp"
+                android:scaleType="centerInside"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listCommentOfStatusDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
+
 
 </LinearLayout>

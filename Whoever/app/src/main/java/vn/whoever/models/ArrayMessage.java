@@ -15,22 +15,22 @@ public class ArrayMessage {
 
         Message message0 = new Message();
         message0.setMe(true);
-        message0.setMessage("Anh yeu em, Ngan ah");
+        message0.setMessage("Ngân à, em thích a không?");
         message0.setDate(new Date());
 
         Message message1 = new Message();
-        message1.setMe(true);
-        message1.setMessage("Em co yeu anh khong?");
+        message1.setMe(false);
+        message1.setMessage("Em có ạ. Ahihi");
         message1.setDate(new Date());
 
         Message message2 = new Message();
         message2.setMe(false);
-        message2.setMessage("Co chu, em yeu anh rat nhieu :)))");
+        message2.setMessage("Thế còn anh thì sao? :))");
         message2.setDate(new Date());
 
         Message message3 = new Message();
         message3.setMe(true);
-        message3.setMessage("Ahihi");
+        message3.setMessage("Có chứ, thích quá đi chứ, ahihi");
         message3.setDate(new Date());
 
         messages.add(message0);

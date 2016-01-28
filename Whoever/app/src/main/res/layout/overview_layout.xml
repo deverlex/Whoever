@@ -35,7 +35,6 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/donguyen" />
 
-
                 <TextView
                     android:id="@+id/overviewNickName"
                     android:layout_width="wrap_content"
@@ -57,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/overviewNickName"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:layout_toRightOf="@+id/overviewAvatarUser"
                     android:text="Rate: 3.7/5"
                     android:textColor="@color/colorSilverBlack"
@@ -74,14 +73,14 @@
                     android:layout_toRightOf="@+id/overviewAvatarUser"
                     android:text="View your profile"
                     android:textColor="@color/colorSilverBlack"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/colorSilver" />
 
             <TextView
@@ -94,17 +93,94 @@
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
-            <ListView
-                android:id="@+id/listFavoriteOverview"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            </ListView>
+                <RelativeLayout
+                    android:id="@+id/layoutIndexOnWorldOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:id="@+id/iconIndexOnWorldOverview"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icon_circle_bluesea" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/icon_cup" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/iconIndexOnWorldOverview"
+                        android:text="@string/text_rank_world"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorSilverBlack"
+                        android:layout_marginLeft="15dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutIndexOnLanguageOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:id="@+id/iconIndexOnLanguageOverview"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icon_circle_blue" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/icon_rank" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/iconIndexOnLanguageOverview"
+                        android:text="@string/text_rank_language"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorSilverBlack"
+                        android:layout_marginLeft="15dp"/>
+
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/listFavoriteOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/colorSilver" />
 
             <TextView
@@ -117,17 +193,59 @@
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
-
-            <ListView
-                android:id="@+id/listGroupOverview"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <RelativeLayout
+                    android:id="@+id/layoutCreateGroupOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:id="@+id/iconCreateGroupOverview"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icon_circle_accent" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/icon_create_group" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/iconCreateGroupOverview"
+                        android:text="@string/text_create_group"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorSilverBlack"
+                        android:layout_marginLeft="15dp"/>
+
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/listGroupOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null"/>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/colorSilver" />
 
             <TextView

@@ -87,7 +87,8 @@
         android:id="@+id/listOnlineUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="5dp">
+        android:dividerHeight="5dp"
+        android:divider="@color/colorRedMain">
 
     </ListView>
 </LinearLayout>

@@ -70,4 +70,9 @@
 
     <string name="text_hind_box_write_status">Write something...</string>
 
+    <string name="text_rank_world">Top on World</string>
+    <string name="text_rank_language">Top on Language</string>
+    <string name="text_create_group">Create new Group</string>
+    <string name="text_comment_header">Comments</string>
+
 </resources>

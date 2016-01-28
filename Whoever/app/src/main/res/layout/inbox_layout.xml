@@ -12,7 +12,9 @@
         android:id="@+id/listViewPreviewMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        android:divider="@null"
+        android:dividerHeight="0dp">
 
     </ListView>
 

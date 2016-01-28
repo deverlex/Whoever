@@ -84,7 +84,7 @@ public class ChatAdapter extends BaseAdapter {
         //holder.imageSender.setImageBitmap(null);
         setAlignment(holder, message.getIsme());
         holder.message.setText(message.getMessage());
-        holder.state.setText(String.valueOf(message.getDate()));
+        //holder.state.setText(String.valueOf(message.getDate()));
 
         return convertView;
     }
