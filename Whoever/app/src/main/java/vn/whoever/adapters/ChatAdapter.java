@@ -1,17 +1,21 @@
 package vn.whoever.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import vn.whoever.R;
 import vn.whoever.customviews.RoundedImageView;
+import vn.whoever.models.ArrayMessage;
 import vn.whoever.models.Message;
 
 /**
@@ -23,10 +27,12 @@ public class ChatAdapter extends BaseAdapter {
     private ArrayList<ViewHolder> viewHolders;
     private Context context;
     private int position;
+    private boolean oldState;
 
     public ChatAdapter(Context context) {
         this.context = context;
         viewHolders = new ArrayList<>();
+        loadListMessageChat();
     }
 
     public ChatAdapter(Context context, ArrayList<Message> messages) {
@@ -69,13 +75,16 @@ public class ChatAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_layout, null);
             holder = createViewHolder(convertView);
             convertView.setTag(holder);
+            viewHolders.add(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         //holder.imageReceiver.setImageBitmap(null);
         //holder.imageSender.setImageBitmap(null);
-        setAlignment(holder, true);
+        setAlignment(holder, message.getIsme());
+        holder.message.setText(message.getMessage());
+        holder.state.setText(String.valueOf(message.getDate()));
 
         return convertView;
     }
@@ -89,12 +98,52 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     public void setAlignment(ViewHolder holder, boolean isMe) {
-        if(isMe) {
-            if(messages.get(position-1).getIsme()) {
+        ViewHolder lholder;
 
+        if(position > 0) {
+            // TODO: need config later
+            if(messages.get(position).getDate().getTime() - messages.get(position - 1).getDate().getTime() < 10000){
+                viewHolders.get(position - 1).layoutState.setVisibility(View.GONE);
             }
-        } else {
 
+
+            if(oldState != isMe) {
+                viewHolders.get(position - 1).space.setVisibility(View.INVISIBLE);
+            }
+            oldState = isMe;
+        }
+        viewHolders.get(position).space.setVisibility(View.GONE);
+        if(isMe) {
+            if(position > 0 && messages.get(position-1).getIsme()) {
+                lholder = viewHolders.get(position - 1);
+                lholder.imageSender.setVisibility(View.INVISIBLE);
+                lholder.layoutMessage.setBackgroundResource(R.drawable.in_message_ex);
+                lholder.layoutState.setVisibility(View.GONE);
+            }
+            holder.imageReceiver.setVisibility(View.INVISIBLE);
+            // TODO: change icon of background content message and change gravity of layout content msg
+            holder.layoutMessage.setBackgroundResource(R.drawable.in_message);
+
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.layoutMessage.getLayoutParams();
+            layoutParams.gravity = Gravity.RIGHT;
+            holder.layoutMessage.setLayoutParams(layoutParams);
+
+            holder.message.setTextColor(Color.parseColor("#ffffff"));
+
+        } else {
+            if(position > 0 && !messages.get(position-1).getIsme()) {
+                lholder = viewHolders.get(position - 1);
+                lholder.imageReceiver.setVisibility(View.INVISIBLE);
+                lholder.layoutMessage.setBackgroundResource(R.drawable.out_message_ex);
+                lholder.layoutState.setVisibility(View.GONE);
+            }
+            holder.imageSender.setVisibility(View.INVISIBLE);
+            holder.layoutMessage.setBackgroundResource(R.drawable.out_message);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.layoutMessage.getLayoutParams();
+            layoutParams.gravity = Gravity.LEFT;
+            holder.layoutMessage.setLayoutParams(layoutParams);
+
+            holder.message.setTextColor(Color.parseColor("#000000"));
         }
     }
 
@@ -106,7 +155,13 @@ public class ChatAdapter extends BaseAdapter {
         holder.layoutState = (LinearLayout) view.findViewById(R.id.layoutStateMessageChat);
         holder.imageSender = (RoundedImageView) view.findViewById(R.id.avatarSenderItemMessageChat);
         holder.imageReceiver = (RoundedImageView) view.findViewById(R.id.avatarReceiverItemMessageChat);
+        holder.space = (Space) view.findViewById(R.id.spaceBetweenItemMessageChat);
         return holder;
+    }
+
+    public void loadListMessageChat() {
+        ArrayMessage arrayMessage = new ArrayMessage();
+        messages = arrayMessage.getMessages();
     }
 
     class ViewHolder {
@@ -116,5 +171,6 @@ public class ChatAdapter extends BaseAdapter {
         public LinearLayout layoutState;
         public RoundedImageView imageSender; // TODO: This me
         public RoundedImageView imageReceiver;
+        public Space space;
     }
 }

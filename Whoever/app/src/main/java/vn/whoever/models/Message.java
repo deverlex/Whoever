@@ -1,5 +1,7 @@
 package vn.whoever.models;
 
+import java.util.Date;
+
 /**
  * Created by spider man on 1/10/2016.
  */
@@ -9,7 +11,7 @@ public class Message {
     private boolean isMe;
     private String message;
     private Long userId;
-    private String dateTime;
+    private Date dateTime;
 
     public long getId() {
         return id;
@@ -37,11 +39,11 @@ public class Message {
         this.userId = userId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return dateTime;
     }
 
-    public void setDate(String dateTime) {
+    public void setDate(Date dateTime) {
         this.dateTime = dateTime;
     }
 }

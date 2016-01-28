@@ -7,26 +7,36 @@
     android:background="@android:color/transparent">
 
     <LinearLayout
-        android:id="@+id/layoutContentMessageItemChat"
+        android:id="@+id/layoutBoderContentMessageItemChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@+id/avatarReceiverItemMessageChat"
         android:layout_toLeftOf="@+id/avatarSenderItemMessageChat"
-        android:background="@drawable/in_message"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp">
 
-        <TextView
-            android:id="@+id/textMessageContentChat"
+        <LinearLayout
+            android:id="@+id/layoutContentMessageItemChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Anh yêu em :))"
-            android:maxWidth="230dp"
-            android:textSize="14sp"
-            android:padding="14sp"
-            android:textColor="@color/colorWhite"/>
+            android:background="@drawable/in_message"
+            android:layout_gravity="right">
+
+            <TextView
+                android:id="@+id/textMessageContentChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anh yêu em :))"
+                android:maxWidth="230dp"
+                android:textSize="14sp"
+                android:padding="14sp"
+                android:textColor="@color/colorWhite"/>
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
     <vn.whoever.customviews.RoundedImageView
         android:id="@+id/avatarReceiverItemMessageChat"
@@ -35,7 +45,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/emngan"
-        android:layout_alignBottom="@id/layoutContentMessageItemChat"/>
+        android:layout_alignBottom="@+id/layoutBoderContentMessageItemChat"
+        android:layout_marginLeft="8dp"/>
 
     <vn.whoever.customviews.RoundedImageView
         android:id="@+id/avatarSenderItemMessageChat"
@@ -43,29 +54,36 @@
         android:layout_height="35dp"
         android:src="@drawable/donguyen"
         android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/layoutContentMessageItemChat"/>
+        android:layout_marginRight="8dp"
+        android:layout_alignBottom="@id/layoutBoderContentMessageItemChat"/>
+
+    <Space
+        android:id="@+id/spaceBetweenItemMessageChat"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@+id/layoutStateMessageChat"/>
 
     <LinearLayout
         android:id="@+id/layoutStateMessageChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/out_message_ex"
+        android:background="@drawable/state_message"
         android:layout_below="@+id/avatarSenderItemMessageChat"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="35dp">
+        android:layout_marginRight="45dp">
 
         <TextView
             android:id="@+id/textStateMessageChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:text="19:56, 26/12/2015"
             android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp" />
     </LinearLayout>
 
 </RelativeLayout>
