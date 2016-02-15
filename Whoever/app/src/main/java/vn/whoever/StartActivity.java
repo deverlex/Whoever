@@ -6,13 +6,18 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.security.MessageDigest;
+import java.security.Signature;
 import java.util.ArrayList;
 
 import vn.whoever.fragments.SignInFragment;

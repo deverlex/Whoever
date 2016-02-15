@@ -23,7 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutHeaderContactList"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        android:divider="@null"
+        android:dividerHeight="0dp">
 
     </ListView>
 

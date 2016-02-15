@@ -66,24 +66,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolBarFromChat"
-        android:layout_above="@+id/toolBarInputSendTextOfChat"
+        android:layout_above="@+id/viewLineOfChatSession"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:background="@color/colorWhite"
         android:listSelector="@color/colorWhite" />
 
+    <View
+        android:id="@+id/viewLineOfChatSession"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorSilver"
+        android:layout_above="@+id/toolBarInputSendTextOfChat"/>
+
     <RelativeLayout
         android:id="@+id/toolBarInputSendTextOfChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <View
-            android:id="@+id/viewLineOfChatSession"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorSilver"
-            android:layout_alignParentTop="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite">
 
         <ImageButton
             android:id="@+id/btnSendMessage"
@@ -92,7 +93,8 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/icon_send_red"
             android:background="@color/colorWhite"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:layout_centerVertical="true"/>
 
         <EditText
             android:id="@+id/inputMessageSend"
@@ -100,10 +102,14 @@
             android:layout_height="wrap_content"
             android:hint="Write a message"
             android:background="@color/colorWhite"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@+id/viewLineOfChatSession"/>
+            android:padding="5dp"
+            android:layout_toLeftOf="@+id/btnSendMessage"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:cursorVisible="true" />
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>
