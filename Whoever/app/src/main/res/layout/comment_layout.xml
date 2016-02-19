@@ -103,6 +103,24 @@
                 android:maxHeight="350dp"
                 android:scaleType="centerInside"/>
         </LinearLayout>
+
+        <View
+            android:id="@+id/viewLineOfContentStatus"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorSilver"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status này chưa có bình luận nào"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
     </LinearLayout>
 
     <ListView
@@ -115,37 +133,41 @@
         android:layout_below="@+id/headerInforUserFromComment"
         android:layout_above="@+id/toolBarInputSendTextOfComment" />
 
+    <View
+        android:id="@+id/viewLineOfComment"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorSilver"
+        android:layout_above="@+id/toolBarInputSendTextOfComment"/>
+
     <RelativeLayout
         android:id="@+id/toolBarInputSendTextOfComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <View
-            android:id="@+id/viewLineOfChatSession"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorSilver" />
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite">
 
         <ImageButton
             android:id="@+id/btnSendComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:src="@drawable/icon_send_red"
             android:background="@color/colorWhite"
             android:padding="10dp"
-            android:src="@drawable/icon_send_red" />
+            android:layout_centerVertical="true"/>
 
         <EditText
             android:id="@+id/inputCommentSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/viewLineOfChatSession"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:hint="Write a message"
             android:background="@color/colorWhite"
-            android:hint="Write a message" />
+            android:padding="5dp"
+            android:layout_toLeftOf="@+id/btnSendComment"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:cursorVisible="true" />
 
     </RelativeLayout>
 

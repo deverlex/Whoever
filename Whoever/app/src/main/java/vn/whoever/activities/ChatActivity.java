@@ -19,8 +19,9 @@ public class ChatActivity extends AppCompatActivity implements AppGc {
 
     private EditText inputText;
     private ListView listMessage;
-    private ImageButton btnBack;
+    private ImageButton btnBackHome;
     private ImageButton btnQickViewProfile;
+    private ImageButton btnSendMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +37,28 @@ public class ChatActivity extends AppCompatActivity implements AppGc {
         ChatAdapter chatAdapter = new ChatAdapter(this);
         listMessage.setAdapter(chatAdapter);
 
-        btnBack = (ImageButton) findViewById(R.id.btnBackFromChat);
+        btnBackHome = (ImageButton) findViewById(R.id.btnBackFromChat);
         btnQickViewProfile = (ImageButton) findViewById(R.id.btnQuickViewProfileFromChat);
+        btnSendMessage = (ImageButton) findViewById(R.id.btnSendMessage);
     }
 
     public void initListener() {
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBackHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
+
+        btnQickViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        btnQickViewProfile.setOnClickListener(new View.OnClickListener() {
+        btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

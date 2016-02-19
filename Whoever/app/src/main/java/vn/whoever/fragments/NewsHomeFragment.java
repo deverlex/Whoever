@@ -23,7 +23,6 @@ public class NewsHomeFragment extends Fragment implements Initgc {
     private ListView listStatus;
     private StatusAdapter statusAdapter;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.newshome_layout, null);
