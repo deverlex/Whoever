@@ -1,7 +1,6 @@
 package vn.whoever.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vn.whoever.R;
-import vn.whoever.activities.CommentActivity;
+import vn.whoever.activities.ReplyActivity;
 import vn.whoever.customviews.JTextView;
 import vn.whoever.models.ArrayStatus;
 import vn.whoever.models.Status;
@@ -79,7 +78,7 @@ public class StatusAdapter extends BaseAdapter {
         btnComent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, CommentActivity.class);
+                Intent intent = new Intent(activity, ReplyActivity.class);
                 activity.startActivity(intent);
             }
         });

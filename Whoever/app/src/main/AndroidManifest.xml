@@ -66,7 +66,7 @@
         <activity android:name=".activities.ProifileActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.CommentActivity"
+        <activity android:name=".activities.ReplyActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
 
