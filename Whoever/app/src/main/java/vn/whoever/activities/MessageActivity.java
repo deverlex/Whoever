@@ -1,21 +1,22 @@
 package vn.whoever.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 import vn.whoever.R;
-import vn.whoever.adapters.ChatAdapter;
+import vn.whoever.adapters.MessageAdapter;
 import vn.whoever.utils.AppGc;
 
 /**
  * Created by spider man on 1/20/2016.
  */
-public class ChatActivity extends AppCompatActivity implements AppGc {
+public class MessageActivity extends AppCompatActivity implements AppGc, AbsListView.OnScrollListener {
 
     private EditText inputText;
     private ListView listMessage;
@@ -34,8 +35,8 @@ public class ChatActivity extends AppCompatActivity implements AppGc {
 
     public void init() {
         listMessage = (ListView) findViewById(R.id.listMessageOfChatSession);
-        ChatAdapter chatAdapter = new ChatAdapter(this);
-        listMessage.setAdapter(chatAdapter);
+        MessageAdapter messageAdapter = new MessageAdapter(this, 6 ,4);
+        listMessage.setAdapter(messageAdapter);
 
         btnBackHome = (ImageButton) findViewById(R.id.btnBackFromChat);
         btnQickViewProfile = (ImageButton) findViewById(R.id.btnQuickViewProfileFromChat);
@@ -54,7 +55,7 @@ public class ChatActivity extends AppCompatActivity implements AppGc {
         btnQickViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onNavigateProfile();
             }
         });
 
@@ -66,8 +67,23 @@ public class ChatActivity extends AppCompatActivity implements AppGc {
         });
     }
 
+    public void onNavigateProfile() {
+        Intent intent = new Intent(this, ProifileActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void initGc() {
+
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
     }
 }

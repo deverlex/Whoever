@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import vn.whoever.R;
-import vn.whoever.activities.ChatActivity;
+import vn.whoever.activities.MessageActivity;
 import vn.whoever.adapters.InboxAdapter;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
@@ -110,7 +110,7 @@ public class InboxFragment extends Fragment implements Initgc {
     }
 
     public void navigateChatActivity() {
-        Intent intentChat = new Intent(getActivity(), ChatActivity.class);
+        Intent intentChat = new Intent(getActivity(), MessageActivity.class);
         startActivity(intentChat);
     }
 

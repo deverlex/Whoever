@@ -44,8 +44,8 @@ public class StartActivity extends AppCompatActivity implements AppGc {
         super.onCreate(savedInstanceState);
      //   FacebookSdk.sdkInitialize(getApplicationContext());
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         sharedPreferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
         boolean isLogin = sharedPreferences.getBoolean("isLogin", false);
