@@ -49,7 +49,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_below="@+id/textViewWelcome2"
         android:id="@+id/textViewBirthday"
         android:text="@string/text_view_birthday"
@@ -61,7 +61,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/textViewWelcome2"
         android:layout_toRightOf="@id/spaceCenterWelcome"
         android:text="@string/text_default_birthday"
@@ -69,7 +69,8 @@
         android:id="@+id/textBirthDayWelcome"
         android:textColor="@color/colorWhite"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:paddingTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,7 +87,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/textBirthDayWelcome"
         android:layout_toRightOf="@id/spaceCenterWelcome"
         android:text="@string/text_default_language"
@@ -94,7 +95,8 @@
         android:id="@+id/textLanguageWelcome"
         android:textColor="@color/colorWhite"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:paddingTop="10dp"/>
 
     <Button
         android:layout_width="wrap_content"

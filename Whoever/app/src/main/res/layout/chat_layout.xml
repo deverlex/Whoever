@@ -94,7 +94,8 @@
             android:src="@drawable/icon_send_red"
             android:background="@color/colorWhite"
             android:padding="10dp"
-            android:layout_centerVertical="true"/>
+            android:layout_marginBottom="2dp"
+            android:layout_alignBottom="@+id/inputMessageSend"/>
 
         <EditText
             android:id="@+id/inputMessageSend"
@@ -102,7 +103,8 @@
             android:layout_height="wrap_content"
             android:hint="Write a message"
             android:background="@color/colorWhite"
-            android:padding="5dp"
+            android:textSize="16sp"
+            android:padding="10dp"
             android:layout_toLeftOf="@+id/btnSendMessage"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"

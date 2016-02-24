@@ -156,15 +156,17 @@
             android:src="@drawable/icon_send_red"
             android:background="@color/colorWhite"
             android:padding="10dp"
-            android:layout_centerVertical="true"/>
+            android:layout_marginBottom="2dp"
+            android:layout_alignBottom="@+id/inputCommentSend"/>
 
         <EditText
             android:id="@+id/inputCommentSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Write a message"
+            android:textSize="16sp"
             android:background="@color/colorWhite"
-            android:padding="5dp"
+            android:padding="10dp"
             android:layout_toLeftOf="@+id/btnSendComment"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"

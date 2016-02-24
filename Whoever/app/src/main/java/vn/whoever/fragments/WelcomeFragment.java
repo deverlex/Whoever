@@ -1,5 +1,6 @@
 package vn.whoever.fragments;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
+import vn.whoever.dialogs.DatePickerFragment;
+import vn.whoever.dialogs.LanguagePickerFragment;
+import vn.whoever.utils.ConvertSizeDisplay;
 import vn.whoever.utils.Initgc;
 
 /**
@@ -56,7 +60,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
                 /**
                  * TODO: popup picker date
                  */
-
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getActivity().getFragmentManager(), "datePicker");
             }
         });
 
@@ -66,7 +71,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
                 /**
                  * TODO: popup menus language
                  */
-
+                DialogFragment newFragment = new LanguagePickerFragment();
+                newFragment.show(getActivity().getFragmentManager(), "languagePicker");
             }
         });
     }
