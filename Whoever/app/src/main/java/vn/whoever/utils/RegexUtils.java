@@ -6,6 +6,10 @@ package vn.whoever.utils;
  */
 public class RegexUtils {
 
+    private final String emailPattern = "";
+    private final String nickNamePattern = "";
+    private final String passWordPattern = "";
+
     public static boolean checkEmail(String email) {
 
         return true;

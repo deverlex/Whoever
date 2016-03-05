@@ -33,6 +33,7 @@ public class SignUpFragment extends Fragment implements Initgc {
     private Button btnCreateAccount;
     private TextView textViewSignIn;
     private TextView textViewTerm;
+    private Toast toast;
 
     private boolean isCheckTerm = false;
 
@@ -84,8 +85,8 @@ public class SignUpFragment extends Fragment implements Initgc {
                     StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                     StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
                 } else {
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, -50);
+                    toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
                     toast.show();
                 }
             }
@@ -96,11 +97,14 @@ public class SignUpFragment extends Fragment implements Initgc {
             public void onClick(View v) {
                 if(isCheckTerm) {
                     isCheckTerm = false;
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, -50);
+                    toast = Toast.makeText(getActivity().getApplicationContext(), "Not agree to the Term, don't create new account", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
                     toast.show();
                 } else {
                     isCheckTerm = true;
+                    toast = Toast.makeText(getActivity().getApplicationContext(), "Greate, can create new account", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
+                    toast.show();
                 }
             }
         });

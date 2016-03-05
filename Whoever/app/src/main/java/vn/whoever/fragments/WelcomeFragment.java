@@ -2,16 +2,21 @@ package vn.whoever.fragments;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import vn.whoever.MainActivity;
 import vn.whoever.R;
+import vn.whoever.dao.LanguageDao;
 import vn.whoever.dialogs.DatePickerFragment;
 import vn.whoever.dialogs.LanguagePickerFragment;
 import vn.whoever.utils.ConvertSizeDisplay;
@@ -25,6 +30,9 @@ public class WelcomeFragment extends Fragment implements Initgc {
     private TextView textViewBirthday;
     private TextView textViewLanguage;
     private Button btnPushApp;
+    DatePickerFragment dateDialog;
+    LanguagePickerFragment langDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +49,12 @@ public class WelcomeFragment extends Fragment implements Initgc {
         textViewBirthday = (TextView) view.findViewById(R.id.textBirthDayWelcome);
         textViewLanguage = (TextView) view.findViewById(R.id.textLanguageWelcome);
         btnPushApp = (Button) view.findViewById(R.id.buttonPushApp);
+
+        dateDialog = new DatePickerFragment();
+        dateDialog.setViewDate(textViewBirthday);
+
+        langDialog  = new LanguagePickerFragment();
+        langDialog.setTextLanguage(textViewLanguage);
     }
 
     @Override
@@ -48,6 +62,13 @@ public class WelcomeFragment extends Fragment implements Initgc {
         btnPushApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * In this, need push to server a schedule contain:
+                 * birth day, language, user name and password
+                 * -> update infor of user
+                 */
+
+
                 Intent intentMain = new Intent(getActivity(), MainActivity.class);
                 startActivity(intentMain);
                 getActivity().finish();
@@ -60,8 +81,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                 /**
                  * TODO: popup picker date
                  */
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getActivity().getFragmentManager(), "datePicker");
+                dateDialog.show(getActivity().getFragmentManager(), "datePicker");
             }
         });
 
@@ -71,8 +91,20 @@ public class WelcomeFragment extends Fragment implements Initgc {
                 /**
                  * TODO: popup menus language
                  */
-                DialogFragment newFragment = new LanguagePickerFragment();
-                newFragment.show(getActivity().getFragmentManager(), "languagePicker");
+               // DialogFragment newFragment = new LanguagePickerFragment();
+               // newFragment.show(getActivity().getFragmentManager(), "languagePicker");
+
+                //LanguageDao languageDao = new LanguageDao(getActivity());
+                //languageDao.getArrayLanguageSupport();
+
+                /*
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList(LanguagePickerFragment.DATA, getItems());
+                bundle.putInt(LanguagePickerFragment.SELECTED, 0);
+                dialog.setArguments(bundle);
+                */
+                langDialog.show(getActivity().getFragmentManager(), "Dialog");
+
             }
         });
     }
@@ -87,4 +119,19 @@ public class WelcomeFragment extends Fragment implements Initgc {
     public void initGc() {
 
     }
+
+    /*
+    private ArrayList<String> getItems()
+    {
+        ArrayList<String> ret_val = new ArrayList<String>();
+
+        ret_val.add("Mikasa");
+        ret_val.add("Crysta");
+        ret_val.add("Ani");
+        ret_val.add("Sasha");
+        ret_val.add("Yumiru");
+        return ret_val;
+    }
+
+    */
 }

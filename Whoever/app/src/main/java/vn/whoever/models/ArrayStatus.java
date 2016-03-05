@@ -19,9 +19,7 @@ public class ArrayStatus {
 
         Status status = new Status();
         status.setIdStatus(100);
-        status.setContentStatus("Nguyên Văn Đô năm nay, năm sau nhấy định thành công vang dội." +
-                " Anh sẽ hoàn thành khóa luận, vượt cấp T.A và ra tr đúng hạn và còn nhiều điều " +
-                "hay ho thú vị khác nữa đang chờ anh ở phía trước. Làm cú hack trick nhé hí hí hí!!!");
+        status.setContentStatus("Tất cả vì mục tiêu, ra trường đúng hạn !!!");
 
         User user = new User();
         user.setNickName("Nguyễn Đô");

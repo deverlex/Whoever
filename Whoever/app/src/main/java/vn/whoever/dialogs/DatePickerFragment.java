@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -13,19 +15,23 @@ import java.util.Calendar;
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-    private int year;
-    private int dayOfMonth;
-    private int month;
+    private int year = 2000;
+    private int dayOfMonth = 1;
+    private int month = 1;
+
+    private DatePickerDialog datePickerDialog;
+    private TextView viewDate;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        /*
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        int year =  2000;//c.get(Calendar.YEAR);
+        int month =  1;//c.get(Calendar.MONTH);
+        int day =  1;//c.get(Calendar.DAY_OF_MONTH);
+        */
+        return new DatePickerDialog(getActivity(), this, year, month, dayOfMonth);
     }
 
     @Override
@@ -33,6 +39,27 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         this.year = year;
         this.month = monthOfYear;
         this.dayOfMonth = dayOfMonth;
+
+        String strDate = "";
+        if(dayOfMonth < 10) {
+            strDate += "0" + dayOfMonth;
+        } else {
+            strDate += dayOfMonth;
+        }
+
+        if(month < 10) {
+            strDate += "/0" + month;
+        } else {
+            strDate += "/" + month;
+        }
+
+        strDate += "/" + year;
+
+        viewDate.setText(strDate);
+    }
+
+    public void setViewDate(TextView viewDate) {
+        this.viewDate = viewDate;
     }
 
     public int getDayOfMonth() {

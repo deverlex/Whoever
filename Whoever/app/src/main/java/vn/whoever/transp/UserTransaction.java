@@ -50,12 +50,12 @@ public class UserTransaction {
             public void onResponse(JSONObject response) {
                 try {
                     user = new User();
-                    user.setId(response.getInt("id"));
-                    user.setEmail(response.getString("email"));
-                    user.setNickName(response.getString("nickName"));
+                //    user.setId(response.getInt("id"));
+                    user.setEmail(response.getString("name"));
+                //    user.setNickName(response.getString("nickName"));
                     user.setPassword(response.getString("password"));
 
-                    Log.d("nickName: ", user.getNickName());
+                 //   Log.d("nickName: ", user.getNickName());
                     Log.d("email: ", user.getEmail());
                     Log.d("password: ", user.getPassword());
 
@@ -103,6 +103,12 @@ public class UserTransaction {
             }
         });
         ApplicationController.getsInstance(myActivity).addToRequestQueue(objectRequest);
+    }
+
+    public void createNewAccount(String name, String password, String birthday, String language) {
+
+        String url = "";
+
     }
 
     public void getTermUser() {

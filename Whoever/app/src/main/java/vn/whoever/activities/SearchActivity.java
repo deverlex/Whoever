@@ -88,16 +88,10 @@ public class SearchActivity extends AppCompatActivity implements AppGc {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToMain();
+                onBackPressed();
+                finish();
             }
         });
-    }
-
-    public void navigateToMain() {
-        Intent intentMain = new Intent(this, MainActivity.class);
-        intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intentMain);
-        finish();
     }
 
     @Override

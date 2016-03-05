@@ -3,61 +3,86 @@ package vn.whoever.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.NumberPicker;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import vn.whoever.R;
-import vn.whoever.adapters.ChoiceLangueAdapter;
+import vn.whoever.dao.LanguageDao;
+import vn.whoever.models.ArrayLanguage;
 
 /**
  * Created by spider man on 2/24/2016.
  */
 public class LanguagePickerFragment extends DialogFragment {
 
-    final String languages[] = {"[Default System]","English", "Tiếng Việt"};
-
-    public ListView listLanguage;
-    public ChoiceLangueAdapter choiceLangueAdapter;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.language_choice_layout, container, false);
-        init(view);
-        initListener(view);
-        return view;
-    }
+    private HashMap<String, String> mapLanguage;
+    private ArrayList<String> listLanguage = new ArrayList<>();
+    private ArrayList<String> listkey = new ArrayList<>();
+    private TextView textLanguage;
+    private int position = 0;
+    private CharSequence[] cs;
+    private AlertDialog.Builder dialog;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Resources res = getActivity().getResources();
+        //Bundle bundle = getArguments();
 
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
+        dialog = new AlertDialog.Builder(getActivity());
+
+        dialog.setTitle("Please Select");
+        dialog.setPositiveButton("Cancel", new PositiveButton());
+
+        mapLanguage = LanguageDao.getInstance(getActivity()).getArrayLanguageSupport();
+
+        String sysCodeLanguage = Locale.getDefault().getISO3Language().substring(0, 2);
+
+        for (Map.Entry<String, String> select : mapLanguage.entrySet()) {
+            listLanguage.add(select.getValue());
+            listkey.add(select.getKey());
+        }
+
+        if(position == 0) {
+            position = listkey.indexOf(sysCodeLanguage);
+        }
+
+        if(position == -1) {
+            position = listkey.indexOf("en");
+        }
+
+        cs = listLanguage.toArray(new CharSequence[listLanguage.size()]);
+        dialog.setSingleChoiceItems(cs, position, selectedItem);
+
+        return dialog.create();
     }
 
-    public void init(View view) {
-        listLanguage = (ListView) view.findViewById(R.id.listLanguageChoiceWelcome);
+    class PositiveButton implements DialogInterface.OnClickListener {
 
-        choiceLangueAdapter = new ChoiceLangueAdapter(getActivity());
-        listLanguage.setAdapter(choiceLangueAdapter);
+        @Override
+        public void onClick(DialogInterface dialogInterface, int wh) {
+            dialogInterface.dismiss();
+        }
     }
 
-    public void initListener(View view) {
-        listLanguage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    DialogInterface.OnClickListener selectedItem = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInf, int selected) {
+            position = selected;
+            textLanguage.setText(listLanguage.get(position));
+            dialogInf.dismiss();
+        }
+    };
 
-            }
-        });
+    public void setTextLanguage(TextView textView) {
+        this.textLanguage = textView;
     }
+
 }

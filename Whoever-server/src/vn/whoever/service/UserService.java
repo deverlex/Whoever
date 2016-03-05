@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import vn.whoever.dao.UserDAO;
 import vn.whoever.models.User;
 import vn.whoever.models.Verify;
+import vn.whoever.test.XMLTest;
 import vn.whoever.utils.JSONStream;
 
 /**
@@ -53,14 +54,21 @@ public class UserService implements Service {
 	@GET
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getUserInfor(@QueryParam("email") String email,
+	public XMLTest getUserInfor(@QueryParam("email") String email,
 			@QueryParam("password") String password) {
 		
 		/**
 		 * TODO: package with JSON before send to request
 		 */
 		
-		return "";
+		System.out.println(email);
+		System.out.println(password);
+		
+		XMLTest test = new XMLTest();
+		test.setName("Nguyễn Văn Đô");
+		test.setPassword("123456789");
+		
+		return test; //String.valueOf(test);
 	}
 	
 	@POST
