@@ -106,12 +106,11 @@ public class SignUpFragment extends Fragment implements Initgc {
                 if(isCheckTerm) {
                     isCheckTerm = false;
                     toast = Toast.makeText(getActivity().getApplicationContext(), "Not agree to the Term, don't create new account", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
                     toast.show();
                 } else {
                     isCheckTerm = true;
                     toast = Toast.makeText(getActivity().getApplicationContext(), "Greate, can create new account", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
+                 //   toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
                     toast.show();
                 }
             }
@@ -129,8 +128,13 @@ public class SignUpFragment extends Fragment implements Initgc {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
                     boolean check = RegexUtils.checkNickName(editTextNickName.getText().toString());
-                    Log.d("Nickname: ", editTextNickName.getText().toString());
-                    Log.d("Check Nickname: ", String.valueOf(check));
+                    if(!check) {
+                        if(toast != null) {
+                            toast.cancel();
+                        }
+                        toast = Toast.makeText(getActivity(), "Nickname isn't standard of Nickname", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
             }
         });
@@ -140,8 +144,13 @@ public class SignUpFragment extends Fragment implements Initgc {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
                     boolean check = RegexUtils.checkEmail(editTextEmail.getText().toString());
-                    Log.d("Email: ", editTextEmail.getText().toString());
-                    Log.d("Check Email: ", String.valueOf(check));
+                    if(!check) {
+                        if(toast != null) {
+                            toast.cancel();
+                        }
+                        toast = Toast.makeText(getActivity(), "Email isn't standard of email", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
             }
         });
@@ -151,8 +160,13 @@ public class SignUpFragment extends Fragment implements Initgc {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
                     boolean check = RegexUtils.checkPassword(editTextPassword.getText().toString());
-                    Log.d("Password: ", editTextPassword.getText().toString());
-                    Log.d("Check Password: ", String.valueOf(check));
+                    if(!check) {
+                        if(toast != null) {
+                            toast.cancel();
+                        }
+                        toast = Toast.makeText(getActivity(), "Password isn't standard of password", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
             }
         });

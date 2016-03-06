@@ -18,7 +18,7 @@ import vn.whoever.activities.ReplyActivity;
 import vn.whoever.customviews.JTextView;
 import vn.whoever.models.ArrayStatus;
 import vn.whoever.models.Status;
-import vn.whoever.utils.ConvertTime;
+import vn.whoever.utils.TimeUtils;
 
 /**
  * Created by spider man on 1/13/2016.
@@ -28,15 +28,22 @@ public class StatusAdapter extends BaseAdapter {
     private ArrayList<Status> statusList;
     private Activity activity;
 
-    public StatusAdapter(Activity activity) {
+    private int startCount;
+    private int count;
+    private int stepNumber;
+
+    public StatusAdapter(Activity activity, int startCount, int stepCount) {
         this.activity = activity;
-        //statusList = new ArrayList<Status>();
         loadStatusList();
+
+        this.startCount = Math.min(startCount, statusList.size());
+        this.count = this.startCount;
+        this.stepNumber = stepCount;
     }
 
     @Override
     public int getCount() {
-        return statusList.size();
+        return this.count;
     }
 
     @Override
@@ -68,7 +75,7 @@ public class StatusAdapter extends BaseAdapter {
         nickName.setText(status.getSenderStatus().getNickName());
 
         TextView timeUp = (TextView) convertView.findViewById(R.id.timeUploadStatus);
-        timeUp.setText(ConvertTime.getInstance().getTimeStatus(new Date()));
+        timeUp.setText(TimeUtils.getInstance().getTimeStatus(new Date()));
 
         final JTextView content = (JTextView) convertView.findViewById(R.id.contentStatus);
         content.setText(status.getContentStatus(), true);
@@ -96,6 +103,29 @@ public class StatusAdapter extends BaseAdapter {
 
         */
         return convertView;
+    }
+
+    public boolean showMore() {
+        if(this.count == statusList.size()) {
+            return true;
+        } else {
+            count = Math.min(count + stepNumber, statusList.size());
+            notifyDataSetChanged();
+            return endReached();
+        }
+    }
+
+    public boolean endReached() {
+        return this.count == statusList.size();
+    }
+
+    public int getSize() {
+        return statusList.size();
+    }
+
+    public void reset() {
+        count = startCount;
+        notifyDataSetChanged();
     }
 
     public void loadStatusList() {

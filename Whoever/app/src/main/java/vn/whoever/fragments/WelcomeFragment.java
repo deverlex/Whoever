@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ import vn.whoever.dialogs.DatePickerFragment;
 import vn.whoever.dialogs.LanguagePickerFragment;
 import vn.whoever.utils.ConvertSizeDisplay;
 import vn.whoever.utils.Initgc;
+import vn.whoever.utils.TimeUtils;
 
 /**
  * Created by spider man on 12/26/2015.
@@ -33,10 +37,10 @@ public class WelcomeFragment extends Fragment implements Initgc {
     DatePickerFragment dateDialog;
     LanguagePickerFragment langDialog;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.welcome_layout, null);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         init(view);
         initListener(view);
@@ -67,11 +71,20 @@ public class WelcomeFragment extends Fragment implements Initgc {
                  * birth day, language, user name and password
                  * -> update infor of user
                  */
+                if(TimeUtils.getInstance().isOldEnough(dateDialog.getYear(), dateDialog.getMonth(), dateDialog.getDayOfMonth())) {
+                    /**
+                     * TODO: send infor to server
+                     *
+                     */
+
+                    Intent intentMain = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intentMain);
+                    getActivity().finish();
+                }   else {
+                    Toast.makeText(getActivity(), "You haven't enough year old", Toast.LENGTH_LONG).show();
+                }
 
 
-                Intent intentMain = new Intent(getActivity(), MainActivity.class);
-                startActivity(intentMain);
-                getActivity().finish();
             }
         });
 

@@ -44,6 +44,7 @@ public class ReplyActivity extends AppCompatActivity implements AppGc, AbsListVi
 
         init();
         initListener();
+
     }
 
     public void init() {

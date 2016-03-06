@@ -1,7 +1,10 @@
 package vn.whoever.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -12,11 +15,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
@@ -31,12 +36,15 @@ import vn.whoever.utils.TranslateToUp;
 /**
  * Created by spider man on 12/28/2015.
  */
-public class NewsFeedFragment extends Fragment implements Initgc {
+public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.OnScrollListener {
 
     private LinearLayout toolbar;
     private ListView listStatus;
     private FloatingActionButton btnFilter;
     private StatusAdapter statusAdapter;
+
+    private ProgressBar progressBarLoadMore;
+    private Handler mHandler;
 
     private boolean isHideToolbar;
     private Intent intentNav;
@@ -62,12 +70,23 @@ public class NewsFeedFragment extends Fragment implements Initgc {
     @Override
     public void init(View view) {
         intentNav = new Intent();
+        mHandler = new Handler();
 
         btnFilter = (FloatingActionButton) view.findViewById(R.id.btnSettingFilterNewsFeed);
         toolbar = (LinearLayout) view.findViewById(R.id.layoutToolBarWriteNewsFeed);
+
+        View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
+        progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBar);
+        progressBarLoadMore.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+
         listStatus = (ListView) view.findViewById(R.id.listViewNewsFeed);
-        statusAdapter = new StatusAdapter(getActivity());
+        listStatus.addFooterView(footer);
+
+
+        statusAdapter = new StatusAdapter(getActivity(), 10, 7);
         listStatus.setAdapter(statusAdapter);
+        listStatus.setOnScrollListener(this);
+        progressBarLoadMore.setVisibility((7 < statusAdapter.getSize()) ? View.VISIBLE : View.GONE);
 
         /**
          * TODO: for toobar layout
@@ -219,4 +238,28 @@ public class NewsFeedFragment extends Fragment implements Initgc {
     public void initGc() {
 
     }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if(firstVisibleItem + visibleItemCount == totalItemCount && !statusAdapter.endReached() && !hasCallback) {
+            mHandler.postDelayed(showMore, 1200);
+            hasCallback = true;
+        }
+    }
+
+    private boolean hasCallback;
+
+    private Runnable showMore = new Runnable() {
+        @Override
+        public void run() {
+            boolean noMoreToShow = statusAdapter.showMore();
+            progressBarLoadMore.setVisibility(noMoreToShow? View.GONE : View.VISIBLE);
+            hasCallback = false;
+        }
+    };
 }
