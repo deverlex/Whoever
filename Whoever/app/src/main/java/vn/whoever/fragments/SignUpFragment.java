@@ -3,8 +3,10 @@ package vn.whoever.fragments;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import vn.whoever.R;
 import vn.whoever.StartActivity;
 import vn.whoever.utils.Initgc;
+import vn.whoever.utils.RegexUtils;
 
 /**
  * Created by spider man on 12/24/2015.
@@ -81,12 +84,14 @@ public class SignUpFragment extends Fragment implements Initgc {
                 /**
                  * TODO: check email, password, check agree
                  */
+                if(toast != null) {
+                    toast.cancel();
+                }
                 if(checkBoxAgreeTerm.isChecked()) {
                     StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                     StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
                 } else {
                     toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
                     toast.show();
                 }
             }
@@ -95,6 +100,9 @@ public class SignUpFragment extends Fragment implements Initgc {
         checkBoxAgreeTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(toast != null) {
+                    toast.cancel();
+                }
                 if(isCheckTerm) {
                     isCheckTerm = false;
                     toast = Toast.makeText(getActivity().getApplicationContext(), "Not agree to the Term, don't create new account", Toast.LENGTH_LONG);
@@ -115,12 +123,53 @@ public class SignUpFragment extends Fragment implements Initgc {
 
             }
         });
+
+        editTextNickName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    boolean check = RegexUtils.checkNickName(editTextNickName.getText().toString());
+                    Log.d("Nickname: ", editTextNickName.getText().toString());
+                    Log.d("Check Nickname: ", String.valueOf(check));
+                }
+            }
+        });
+
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    boolean check = RegexUtils.checkEmail(editTextEmail.getText().toString());
+                    Log.d("Email: ", editTextEmail.getText().toString());
+                    Log.d("Check Email: ", String.valueOf(check));
+                }
+            }
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    boolean check = RegexUtils.checkPassword(editTextPassword.getText().toString());
+                    Log.d("Password: ", editTextPassword.getText().toString());
+                    Log.d("Check Password: ", String.valueOf(check));
+                }
+            }
+        });
     }
 
     @Override
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(toast != null) {
+            toast.cancel();
+        }
     }
 
     @Override

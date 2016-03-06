@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import vn.whoever.MainActivity;
 import vn.whoever.R;
 import vn.whoever.StartActivity;
 import vn.whoever.transp.UserTransaction;
 import vn.whoever.utils.Initgc;
+import vn.whoever.utils.RegexUtils;
 
 /**
  * Created by spider man on 12/24/2015.
@@ -29,12 +31,14 @@ public class SignInFragment extends Fragment implements Initgc {
     private String email = "";
     private String password = "";
 
-    private EditText emailText;
-    private EditText passwordText;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
     private TextView textSignUp;
     private TextView textTerm;
     private Button btnSignin;
     private Button btnSkipSignIn;
+
+    private Toast toast;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,10 +53,10 @@ public class SignInFragment extends Fragment implements Initgc {
     @Override
     public void init(View view) {
         textSignUp = (TextView) view.findViewById(R.id.textCreateNewUser);
-        emailText = (EditText) view.findViewById(R.id.inputEmailStart);
-        emailText.setTextColor(Color.parseColor("#ffffff"));
-        passwordText = (EditText) view.findViewById(R.id.inputPasswordStart);
-        passwordText.setTextColor(Color.parseColor("#ffffff"));
+        editTextEmail = (EditText) view.findViewById(R.id.inputEmailStart);
+        editTextEmail.setTextColor(Color.parseColor("#ffffff"));
+        editTextPassword = (EditText) view.findViewById(R.id.inputPasswordStart);
+        editTextPassword.setTextColor(Color.parseColor("#ffffff"));
         btnSkipSignIn = (Button) view.findViewById(R.id.skipSignInButton);
         btnSignin = (Button) view.findViewById(R.id.signInButton);
         textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
@@ -68,7 +72,7 @@ public class SignInFragment extends Fragment implements Initgc {
             }
         });
 
-        emailText.setOnKeyListener(new View.OnKeyListener() {
+        editTextEmail.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // check key input
@@ -77,11 +81,43 @@ public class SignInFragment extends Fragment implements Initgc {
             }
         });
 
-        passwordText.setOnKeyListener(new View.OnKeyListener() {
+        editTextPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 return false;
+            }
+        });
+
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    boolean check = RegexUtils.checkEmail(editTextEmail.getText().toString());
+                    if(!check) {
+                        if(toast != null) {
+                            toast.cancel();
+                        }
+                        toast = Toast.makeText(getActivity(), "Email isn't standard of email require", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                }
+            }
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    boolean check = RegexUtils.checkPassword(editTextPassword.getText().toString());
+                    if(!check) {
+                        if(toast != null) {
+                            toast.cancel();
+                        }
+                        toast = Toast.makeText(getActivity(), "Password isn't standard of email require", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                }
             }
         });
 
@@ -94,22 +130,32 @@ public class SignInFragment extends Fragment implements Initgc {
 
                 //String serialNb = getSerialNumberUser();
                 //UserTransaction.getInstance(getActivity(), null).getRequestLoginAnonymous(serialNb);
-                navigateToMain();
+                StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
             }
         });
 
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = emailText.getText().toString();
-                password = passwordText.getText().toString();
+                email = editTextEmail.getText().toString();
+                password = editTextPassword.getText().toString();
                 /**
                  * TODO: after check password and email => demo
                  */
-                email = "nguyendo94vn@gmail.com";
-                password = "12345678";
+              //  email = "nguyendo94vn@gmail.com";
+              //  password = "12345678";
 
-                UserTransaction.getInstance(getActivity(), null).getRequestLogin(email, password);
+                if(RegexUtils.checkEmail(email) && RegexUtils.checkPassword(password)) {
+                    UserTransaction.getInstance(getActivity(), null).getRequestLogin(email, password);
+                } else {
+                    if(toast != null) {
+                        toast.cancel();
+                    }
+                    // TODO: show a toast alert: standard of email & password input fails
+                    toast = Toast.makeText(getActivity(), "Try check email or password, please", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
     }
@@ -129,6 +175,14 @@ public class SignInFragment extends Fragment implements Initgc {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(toast != null) {
+            toast.cancel();
+        }
     }
 
     @Override

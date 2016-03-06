@@ -6,22 +6,38 @@ package vn.whoever.utils;
  */
 public class RegexUtils {
 
-    private final String emailPattern = "";
-    private final String nickNamePattern = "";
-    private final String passWordPattern = "";
+    public static final String emailPattern = "^([a-zA-Z0-9])+([a-zA-Z0-9_])+@([a-zA-Z])+(\\.[a-zA-Z]+)*(\\.[a-zA-Z]+)$";
+    public static final String nickNamePattern = "^([a-zA-Z0-9]+)+(\\s[a-zA-Z0-9]+)*(\\s[a-zA-Z0-9]+)*$";
+    public static final String passWordPattern = "([^\\s]{8,32})$";
 
     public static boolean checkEmail(String email) {
-
-        return true;
+        /**
+         * TODO: process split string before pattern
+         */
+        email = standardizeString(email);
+        return email.matches(emailPattern);
     }
 
     public static boolean checkPassword(String password) {
-
-        return true;
+        password = standardizeString(password);
+        return password.matches(passWordPattern);
     }
 
     public static boolean checkNickName(String nickName) {
+        nickName = standardizeString(nickName);
+        return nickName.matches(nickNamePattern);
+    }
 
-        return true;
+    public static String standardizeString(String str) {
+        str = str.replaceAll("\\s+", " ");
+        return str.trim();
+    }
+
+    public static String getTagInMessage(String msg) {
+        /**
+         *  TODO: check tag name => return a name tag
+         */
+
+        return null;
     }
 }
