@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Use:"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:background="@color/colorButtonMain"/>
+
+    <RadioGroup
+        android:id="@+id/groupButtonChoiceUse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="10dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonChoiceUseAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="   Use your account"
+            android:drawableLeft="@drawable/icon_account"
+            android:buttonTint="@color/colorButtonMain"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonChoiceUseAnonymous"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="   Use anonymous account"
+            android:drawableLeft="@drawable/icon_anonymous"
+            android:buttonTint="@color/colorButtonMain"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Privacy:"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingLeft="10dp"
+        android:background="@color/colorButtonMain"/>
+
+    <RadioGroup
+        android:id="@+id/groupButtonChoicePrivacyPostStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="10dp"
+        android:background="@color/colorWhite">
+
+        <RadioButton
+            android:id="@+id/radioButtonChoicePrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="    Primary"
+            android:drawableLeft="@drawable/icon_lock_red"
+            android:buttonTint="@color/colorButtonMain" />
+
+        <RadioButton
+            android:id="@+id/radioButtonChoiceFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="    Friends"
+            android:drawableLeft="@drawable/icon_contacts_red"
+            android:buttonTint="@color/colorButtonMain"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonChoicePublic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="    Public"
+            android:drawableLeft="@drawable/icon_notify_red"
+            android:buttonTint="@color/colorButtonMain" />
+
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+        <Button
+            android:id="@+id/btnAcceptChoicePrivacyPostStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:textColor="@color/colorButtonMain"
+            android:background="@drawable/custom_button_accept"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

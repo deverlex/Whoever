@@ -22,20 +22,15 @@
             android:background="@color/colorButtonMain"
             android:padding="12dp"/>
 
-        <RelativeLayout
+        <ImageButton
             android:id="@+id/btnSendStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_send"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="24dp"/>
-        </RelativeLayout>
+            android:src="@drawable/icon_send"
+            android:background="@color/colorButtonMain"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -74,7 +69,7 @@
             android:layout_alignParentStart="true"/>
 
         <ImageView
-            android:id="@+id/symbolPrivacyPostStatus"
+            android:id="@+id/symbolUseAccountPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_account"
@@ -82,15 +77,34 @@
             android:layout_centerVertical="true"/>
 
         <TextView
-            android:id="@+id/textShowPrivacyPostStatus"
+            android:id="@+id/textShowUseAccountPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_privacy_with_account"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/symbolPrivacyPostStatus"
+            android:layout_toRightOf="@+id/symbolUseAccountPostStatus"
             android:layout_marginLeft="5dp"
             android:textColor="@color/colorButtonMain"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/symbolPrivacyPostStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_lock_red"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textShowUseAccountPostStatus"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/symbolPrivacyPostStatus"
+            android:text="Friends"
+            android:textColor="@color/colorButtonMain"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -100,6 +114,12 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:src="@drawable/icon_navigate" />
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorRedMain"
+            android:layout_below="@+id/textViewPrivacyPostStatus"/>
 
     </RelativeLayout>
 
@@ -117,6 +137,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="7sp"
+            android:layout_marginBottom="10sp"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/listViewPhotoPostStatus"
             android:background="@color/colorWhite"
@@ -128,9 +150,10 @@
         <GridView
             android:id="@+id/listViewPhotoPostStatus"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="0dp"
             android:numColumns="3"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:visibility="visible">
 
         </GridView>
 

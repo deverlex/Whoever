@@ -3,10 +3,12 @@ package vn.whoever.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
+import vn.whoever.dialogs.DialogPrivacyPostStatus;
 import vn.whoever.utils.AppGc;
 
 /**
@@ -14,9 +16,15 @@ import vn.whoever.utils.AppGc;
  */
 public class PostStatusActivity extends AppCompatActivity implements AppGc {
 
-    private RelativeLayout toolbar;
+    private RelativeLayout toolbarPostStatus;
+    private RelativeLayout toobarPrivacy;
+
     private ImageButton btnBackHome;
-    private RelativeLayout btnPost;
+    private ImageButton btnPost;
+
+    private EditText editContentStatus;
+
+    private String status;
 
 
     @Override
@@ -29,10 +37,12 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
     }
 
     public void init() {
-        toolbar = (RelativeLayout) findViewById(R.id.toolBarFromPostStatus);
-        btnBackHome = (ImageButton) toolbar.findViewById(R.id.btnBackFromPostStatus);
-        btnPost = (RelativeLayout) toolbar.findViewById(R.id.btnSendStatus);
+        toolbarPostStatus = (RelativeLayout) findViewById(R.id.toolBarFromPostStatus);
+        toobarPrivacy = (RelativeLayout) findViewById(R.id.toolBarChoicePrivacy);
 
+        editContentStatus = (EditText) findViewById(R.id.contentTextInputStatus);
+        btnBackHome = (ImageButton) toolbarPostStatus.findViewById(R.id.btnBackFromPostStatus);
+        btnPost = (ImageButton) toolbarPostStatus.findViewById(R.id.btnSendStatus);
     }
 
     public void initListener() {
@@ -47,9 +57,24 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                status = editContentStatus.getText().toString();
+                /**
+                 * TODO: update for new feed & database SQLite
+                 */
 
             }
         });
+
+        toobarPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogPrivacyPostStatus privacyPost = new DialogPrivacyPostStatus();
+                privacyPost.show(getFragmentManager(), "Privacy Post Status");
+            }
+        });
+
+
+
     }
 
     @Override
