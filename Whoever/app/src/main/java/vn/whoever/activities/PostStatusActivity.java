@@ -26,11 +26,14 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
 
     private String status;
 
+    public final static String SETTING_POST_STATUS = "SETTING_POST_STATUS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_status_layout);
+
+
 
         init();
         initListener();

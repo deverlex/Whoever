@@ -29,7 +29,7 @@ import vn.whoever.utils.AppGc;
  */
 public class StartActivity extends AppCompatActivity implements AppGc {
 
-    public static final String PREFERENCES = "PREFERENCES_LOCAL";
+    public static final String SETTING_SYSTEM = "SETTING_SYSTEM";
     public static SharedPreferences sharedPreferences;
 
   //  private LoginButton loginButtonFaceBook;
@@ -47,7 +47,7 @@ public class StartActivity extends AppCompatActivity implements AppGc {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        sharedPreferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SETTING_SYSTEM, MODE_PRIVATE);
         boolean isLogin = sharedPreferences.getBoolean("isLogin", false);
         if(isLogin) {
             Intent intent = new Intent(this, MainActivity.class);
@@ -139,6 +139,14 @@ public class StartActivity extends AppCompatActivity implements AppGc {
         */
     }
 
+    public void init() {
+
+    }
+
+    public void initListener() {
+        
+    }
+
     /*
     public void getProfileTracker() {
         profileTrackerFaceBook = new ProfileTracker() {
@@ -183,16 +191,6 @@ public class StartActivity extends AppCompatActivity implements AppGc {
         });
     }
 
-    */
-
-    public void navigateToMain() {
-        Intent intentMain = new Intent(this, MainActivity.class);
-        startActivity(intentMain);
-        finish();
-    }
-
-
-    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
