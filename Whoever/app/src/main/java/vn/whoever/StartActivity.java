@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import vn.whoever.fragments.SignInFragment;
 import vn.whoever.utils.AppGc;
+import vn.whoever.utils.Storage;
 
 /**
  * Created by spider man on 12/22/2015.
@@ -29,8 +30,7 @@ import vn.whoever.utils.AppGc;
  */
 public class StartActivity extends AppCompatActivity implements AppGc {
 
-    public static final String SETTING_SYSTEM = "SETTING_SYSTEM";
-    public static SharedPreferences sharedPreferences;
+    public static final String START_SYSTEM = "START_SYSTEM";
 
   //  private LoginButton loginButtonFaceBook;
   //  private CallbackManager callbackManagerFacebook;
@@ -47,8 +47,9 @@ public class StartActivity extends AppCompatActivity implements AppGc {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        sharedPreferences = getSharedPreferences(SETTING_SYSTEM, MODE_PRIVATE);
-        boolean isLogin = sharedPreferences.getBoolean("isLogin", false);
+        Storage.setInstance(getSharedPreferences(START_SYSTEM, MODE_PRIVATE));
+        boolean isLogin = Storage.getInstance().getBoolean("isLogin", false);
+
         if(isLogin) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -144,7 +145,7 @@ public class StartActivity extends AppCompatActivity implements AppGc {
     }
 
     public void initListener() {
-        
+
     }
 
     /*

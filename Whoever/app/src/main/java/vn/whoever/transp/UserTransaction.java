@@ -26,6 +26,7 @@ public class UserTransaction {
     private static UserTransaction transaction = new UserTransaction();
     private static Activity myActivity;
     private static View myView;
+    private boolean isOke = false;
 
     private User user;
 
@@ -37,7 +38,7 @@ public class UserTransaction {
         return transaction;
     }
 
-    public void getRequestLogin(final String email, final String password) {
+    public boolean getRequestLogin(final String email, final String password) {
 
         //String url = AddressTrans.URL_USER + "/login"; //?email="+email+"&password="+password;
         UrlQuery urlQuery = new UrlQuery(AddressTrans.URL_USER + "/login");
@@ -59,21 +60,24 @@ public class UserTransaction {
                     Log.d("email: ", user.getEmail());
                     Log.d("password: ", user.getPassword());
 
-                    Intent intent = new Intent(myActivity, MainActivity.class);
-                    myActivity.startActivity(intent);
-                    myActivity.finish();
+
+                    isOke = true;
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    isOke = false;
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("RESPONSE: ", error.toString());
+                isOke = false;
             }
         });
         ApplicationController.getsInstance(myActivity).addToRequestQueue(objectRequest);
+
+        return isOke;
     }
 
     /**

@@ -63,7 +63,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.newsfeed_layout, null);
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         init(view);
         initListener(view);
@@ -223,11 +222,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         });
 
         Log.d("Init()", "reInit()");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Override

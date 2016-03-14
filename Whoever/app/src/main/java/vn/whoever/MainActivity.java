@@ -1,5 +1,6 @@
 package vn.whoever;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,8 +9,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -235,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements AppGc {
                             TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
                             0, 0.0f,
                             0, 0.0f);
+                    hiddenSoftInput();
                 }
             }
         });
@@ -343,6 +347,14 @@ public class MainActivity extends AppCompatActivity implements AppGc {
         listenerPrams.leftMargin = 0;
         listenerPrams.rightMargin = 0;
         listenerClick.setLayoutParams(listenerPrams);
+    }
+
+    public void hiddenSoftInput() {
+        View view = this.getCurrentFocus();
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     public void navigateToNotify() {

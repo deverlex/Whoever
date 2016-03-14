@@ -23,6 +23,7 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
     private ImageButton btnPost;
 
     private EditText editContentStatus;
+    private DialogPrivacyPostStatus privacyPost;
 
     private String status;
 
@@ -32,8 +33,6 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_status_layout);
-
-
 
         init();
         initListener();
@@ -46,6 +45,8 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
         editContentStatus = (EditText) findViewById(R.id.contentTextInputStatus);
         btnBackHome = (ImageButton) toolbarPostStatus.findViewById(R.id.btnBackFromPostStatus);
         btnPost = (ImageButton) toolbarPostStatus.findViewById(R.id.btnSendStatus);
+
+
     }
 
     public void initListener() {
@@ -71,12 +72,13 @@ public class PostStatusActivity extends AppCompatActivity implements AppGc {
         toobarPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogPrivacyPostStatus privacyPost = new DialogPrivacyPostStatus();
+                privacyPost = new DialogPrivacyPostStatus();
+                Bundle bundle = new Bundle();
+
+
                 privacyPost.show(getFragmentManager(), "Privacy Post Status");
             }
         });
-
-
 
     }
 

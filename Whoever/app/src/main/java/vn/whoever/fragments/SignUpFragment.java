@@ -87,11 +87,17 @@ public class SignUpFragment extends Fragment implements Initgc {
                 if(toast != null) {
                     toast.cancel();
                 }
-                if(checkBoxAgreeTerm.isChecked()) {
-                    StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
-                    StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+                if(RegexUtils.checkEmail(email) && RegexUtils.checkPassword(password) && RegexUtils.checkNickName(nickName)) {
+                    if(checkBoxAgreeTerm.isChecked()) {
+                        StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                        StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+
+                    } else {
+                        toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 } else {
-                    toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(getActivity().getApplicationContext(),"Check email, password or nickname", Toast.LENGTH_LONG);
                     toast.show();
                 }
             }

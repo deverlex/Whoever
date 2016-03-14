@@ -5,12 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.TabLayout;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import vn.whoever.R;
 import vn.whoever.utils.Initgc;
@@ -49,6 +52,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedStanceState) {
 
         View view = inflater.inflate(R.layout.tab_home_layout, null);
+
         init(view);
         initListener(view);
 

@@ -146,12 +146,21 @@ public class SignInFragment extends Fragment implements Initgc {
               //  email = "nguyendo94vn@gmail.com";
               //  password = "12345678";
 
+                if(toast != null) {
+                    toast.cancel();
+                }
+
                 if(RegexUtils.checkEmail(email) && RegexUtils.checkPassword(password)) {
-                    UserTransaction.getInstance(getActivity(), null).getRequestLogin(email, password);
-                } else {
-                    if(toast != null) {
-                        toast.cancel();
+                    if(UserTransaction.getInstance(getActivity(), null).getRequestLogin(email, password)){
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else {
+                        toast = Toast.makeText(getActivity(), "Check your connection or your account", Toast.LENGTH_LONG);
+                        toast.show();
                     }
+
+                } else {
                     // TODO: show a toast alert: standard of email & password input fails
                     toast = Toast.makeText(getActivity(), "Try check email or password, please", Toast.LENGTH_LONG);
                     toast.show();
