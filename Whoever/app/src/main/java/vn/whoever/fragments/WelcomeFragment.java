@@ -3,6 +3,7 @@ package vn.whoever.fragments;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,10 +39,23 @@ public class WelcomeFragment extends Fragment implements Initgc {
     DatePickerFragment dateDialog;
     LanguagePickerFragment langDialog;
 
+    public static final String KEY_USE_ACCOUNT = "isSignUp";
+
+    private boolean isAccount = false; // for use register account
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.welcome_layout, null);
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        hiddenSoftInput();
+
+        Bundle bundle = getArguments();
+        if(bundle.getBoolean(KEY_USE_ACCOUNT)) {
+            Log.d("Check Welcome", "bbbbbbbb");
+            isAccount = true;
+        } else {
+            Log.d("Check Welcome", "aaaaaa");
+            isAccount = false;
+        }
 
         init(view);
         initListener(view);
@@ -71,16 +86,21 @@ public class WelcomeFragment extends Fragment implements Initgc {
                  * birth day, language, user name and password
                  * -> update infor of user
                  */
-                if(TimeUtils.getInstance().isOldEnough(dateDialog.getYear(), dateDialog.getMonth(), dateDialog.getDayOfMonth())) {
+                if (TimeUtils.getInstance().isOldEnough(dateDialog.getYear(), dateDialog.getMonth(), dateDialog.getDayOfMonth())) {
                     /**
                      * TODO: send infor to server
                      *
                      */
+                    if(isAccount) {
+                        /**
+                         * TODO: saved clear start activity
+                         */
+                    }
 
                     Intent intentMain = new Intent(getActivity(), MainActivity.class);
                     startActivity(intentMain);
                     getActivity().finish();
-                }   else {
+                } else {
                     Toast.makeText(getActivity(), "You haven't enough year old", Toast.LENGTH_LONG).show();
                 }
 
@@ -104,8 +124,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
                 /**
                  * TODO: popup menus language
                  */
-               // DialogFragment newFragment = new LanguagePickerFragment();
-               // newFragment.show(getActivity().getFragmentManager(), "languagePicker");
+                // DialogFragment newFragment = new LanguagePickerFragment();
+                // newFragment.show(getActivity().getFragmentManager(), "languagePicker");
 
                 //LanguageDao languageDao = new LanguageDao(getActivity());
                 //languageDao.getArrayLanguageSupport();
@@ -120,6 +140,14 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
             }
         });
+    }
+
+    public void hiddenSoftInput() {
+        View view = getActivity().getCurrentFocus();
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override

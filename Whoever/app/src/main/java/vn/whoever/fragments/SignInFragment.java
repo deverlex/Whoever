@@ -19,8 +19,9 @@ import android.widget.Toast;
 import vn.whoever.MainActivity;
 import vn.whoever.R;
 import vn.whoever.StartActivity;
-import vn.whoever.transp.UserTransaction;
+import vn.whoever.transp.LoginTransaction;
 import vn.whoever.utils.Initgc;
+import vn.whoever.utils.LoginState;
 import vn.whoever.utils.RegexUtils;
 
 /**
@@ -129,9 +130,13 @@ public class SignInFragment extends Fragment implements Initgc {
                  */
 
                 //String serialNb = getSerialNumberUser();
-                //UserTransaction.getInstance(getActivity(), null).getRequestLoginAnonymous(serialNb);
+                //LoginTransaction.getInstance(getActivity(), null).getRequestLoginAnonymous(serialNb);
                 StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
-                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, false);
+                WelcomeFragment welcomeFragment = new WelcomeFragment();
+                welcomeFragment.setArguments(bundle);
+                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, welcomeFragment).commit();
             }
         });
 
@@ -151,15 +156,19 @@ public class SignInFragment extends Fragment implements Initgc {
                 }
 
                 if(RegexUtils.checkEmail(email) && RegexUtils.checkPassword(password)) {
-                    if(UserTransaction.getInstance(getActivity(), null).getRequestLogin(email, password)){
+                    int stateLogin = LoginTransaction.getInstance(getActivity(), null).getRequestLogin(email, password);
+
+                    if(LoginState.PASS == stateLogin){
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                         getActivity().finish();
+                    } else if(LoginState.WELCOME == stateLogin) {
+                        StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                        StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
                     } else {
                         toast = Toast.makeText(getActivity(), "Check your connection or your account", Toast.LENGTH_LONG);
                         toast.show();
                     }
-
                 } else {
                     // TODO: show a toast alert: standard of email & password input fails
                     toast = Toast.makeText(getActivity(), "Try check email or password, please", Toast.LENGTH_LONG);

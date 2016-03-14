@@ -1,7 +1,6 @@
 package vn.whoever.transp;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
@@ -15,30 +14,31 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import vn.whoever.MainActivity;
 import vn.whoever.models.User;
+import vn.whoever.utils.LoginState;
 
 /**
  * Created by spider man on 1/7/2016.
  */
-public class UserTransaction {
+public class LoginTransaction {
 
-    private static UserTransaction transaction = new UserTransaction();
+    private static LoginTransaction transaction = new LoginTransaction();
     private static Activity myActivity;
     private static View myView;
-    private boolean isOke = false;
+
+    private int fState = LoginState.FAIL;
 
     private User user;
 
-    private UserTransaction() {}
+    private LoginTransaction() {}
 
-    public static UserTransaction getInstance(Activity acctivity, View view) {
+    public static LoginTransaction getInstance(Activity acctivity, View view) {
         myActivity = acctivity;
         myView = view;
         return transaction;
     }
 
-    public boolean getRequestLogin(final String email, final String password) {
+    public final int getRequestLogin(final String email, final String password) {
 
         //String url = AddressTrans.URL_USER + "/login"; //?email="+email+"&password="+password;
         UrlQuery urlQuery = new UrlQuery(AddressTrans.URL_USER + "/login");
@@ -59,25 +59,32 @@ public class UserTransaction {
                  //   Log.d("nickName: ", user.getNickName());
                     Log.d("email: ", user.getEmail());
                     Log.d("password: ", user.getPassword());
-
-
-                    isOke = true;
+                    if(true) {
+                        /**
+                         * TODO: Check response from server
+                         *
+                         */
+                        fState = LoginState.PASS;
+                    } else {
+                        fState = LoginState.WELCOME;
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    isOke = false;
+                    fState = LoginState.FAIL;
+
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("RESPONSE: ", error.toString());
-                isOke = false;
+                fState = LoginState.FAIL;
             }
         });
         ApplicationController.getsInstance(myActivity).addToRequestQueue(objectRequest);
 
-        return isOke;
+        return fState;
     }
 
     /**
