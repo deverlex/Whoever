@@ -28,6 +28,9 @@ import vn.whoever.utils.ConvertSizeDisplay;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.TimeUtils;
 
+
+import javax.net.ssl.HttpsURLConnection
+
 /**
  * Created by spider man on 12/26/2015.
  */
