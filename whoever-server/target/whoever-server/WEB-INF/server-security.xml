@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+    
+    <http realm="Protected API" use-expressions="true" auto-config="false"
+    	create-session="always" entry-point-ref="CustomAuthenticationEntryPoint">
+    	<custom-filter ref="AuthenticationProcessingFiler" position="PRE_AUTH_FILTER"/>
+    	<intercept-url pattern="/authenticate" access="permitAll"/>
+    	<intercept-url pattern="/**" access="isAuthenticated()"/>
+    </http>
+    
+    <beans:bean id="CustomAuthenticationEntryPoint" 
+    	class="vn.whoever.server.configuration.CustomAuthenticationEntryPoint" />
+    
+    <beans:bean id="AuthenticationProcessingFiler"
+    	class="vn.whoever.server.configuration.AuthenticationProcessingFilter" >
+    	<beans:constructor-arg ref="authenticationManager"/>
+    </beans:bean> 
+    
+    <authentication-manager alias="authenticationManager">
+    	<authentication-provider ref="myAuthenticationProvider"/>
+    </authentication-manager>
+    
+    <beans:bean id="myAuthenticationProvider" 
+    	class="vn.whoever.server.configuration.MyAuthenticationProvider" />
+    
+</beans:beans>
