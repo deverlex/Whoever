@@ -13,13 +13,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyAuthenticationProvider implements AuthenticationProvider, Serializable {
+public class AuthenticationProviderImpl implements AuthenticationProvider, Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1089833959L;
 	
-	public MyAuthenticationProvider() {
+	public AuthenticationProviderImpl() {
 		super();
 	}
 

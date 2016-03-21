@@ -43,9 +43,15 @@ public class AuthenticationProcessingFilter extends GenericFilterBean {
 		System.out.println("Request!!!");
 		Map<String, String[]> params = request.getParameterMap();
 		
+		//neu la login, cap cho token=default, username = anonymous, password=annonymous
+		//neu la login?username=... cap cho token=default, required username & password
+		//can code lai
+		
+		System.out.println("Token: " + extractAuthTokenFromRequest(getAsHttpRequest(request)));
+		
 		if(params.containsKey("token")) {
 			String token = params.get("token")[0];
-			
+			System.out.println(token);
 			//validate token
 			if(tokenUtils.validate(token)) {
 				//determine the user base on the (already validated) token
@@ -59,12 +65,13 @@ public class AuthenticationProcessingFilter extends GenericFilterBean {
 				SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
 				
 				//setting for response
-				HttpServletResponse httpResponse = (HttpServletResponse) response;
 				
 			}
 		} else {
 			// send to client a token
 		}
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		httpResponse.setHeader("token", "astgcyacg33hw7wakbxbu927");
 		//((HttpServletResponse)response).setHeader("Access-Control-Allow-Headers", "x-auth-token, x-requested-with");
 		chain.doFilter(request, response);
 	}

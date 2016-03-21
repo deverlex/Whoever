@@ -16,6 +16,9 @@ public class MainControllerImpl implements MainController {
 		return "index";
 	}
 	
-	
+	@RequestMapping(value = "/checkout")
+	public String checkOut() {
+		return "index";
+	}
 
 }

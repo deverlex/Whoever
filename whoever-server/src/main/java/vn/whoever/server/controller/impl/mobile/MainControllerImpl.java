@@ -27,5 +27,7 @@ public class MainControllerImpl implements MainController {
 		
 		return "Ngu xi dan don";
 	}
+	
+	
 
 }

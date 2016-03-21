@@ -20,7 +20,7 @@ public class TokenUtilsImpl implements TokenUtils {
 	}
 
 	public User getUserFromToken(String token) {
-		return new User("nguyendo", "1903", "USER");
+		return new User("nguyendo", "1903", "ROLE_USER");
 	}
 	
 	

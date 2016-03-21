@@ -7,6 +7,11 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
+/**
+ * @author spider man
+ *	Class nay chua su dung
+ */
+
 @Configuration
 @EnableRedisHttpSession
 public class HttpSessionConfig {

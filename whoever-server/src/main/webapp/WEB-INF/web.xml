@@ -41,6 +41,8 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	
 
 	<!-- Spring Security Filter -->
 	<!-- Code for login example with spring mvc -->
