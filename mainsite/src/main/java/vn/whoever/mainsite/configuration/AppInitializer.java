@@ -1,5 +1,6 @@
 package vn.whoever.mainsite.configuration;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -14,31 +15,23 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * @author spider man
  *
  */
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer 
+	implements WebApplicationInitializer  {
 	
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		AnnotationConfigWebApplicationContext ctx_web = new AnnotationConfigWebApplicationContext();
-		ctx_web.register(AppWebConfig.class);
-		ctx_web.setServletContext(servletContext);
+		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+		ctx.register(AppConfig.class);
+		ctx.setServletContext(servletContext);
 		
 		ServletRegistration.Dynamic servlet_web 
-			= servletContext.addServlet("dispatcher-web", new DispatcherServlet(ctx_web));
-		servlet_web.setLoadOnStartup(2);
-		servlet_web.addMapping("/web/*");
-		
-		AnnotationConfigWebApplicationContext ctx_mobile = new AnnotationConfigWebApplicationContext();
-		ctx_mobile.register(AppMobileConfig.class);
-		ctx_mobile.setServletContext(servletContext);
-		
-		ServletRegistration.Dynamic servlet_mobile
-			= servletContext.addServlet("dispatcher-mobile", new DispatcherServlet(ctx_mobile));
-		servlet_mobile.setLoadOnStartup(1);
-		servlet_mobile.addMapping("/mobile/*");
+			= servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
+		servlet_web.addMapping("/");
+		servlet_web.setLoadOnStartup(1);
 	}
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] {AppWebConfig.class};
+		return new Class[] { AppConfig.class };
 	}
 
 	@Override
@@ -48,8 +41,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/*"};
+		return new String[] {"/"};
 	}
 
-	
+	@Override
+	protected Filter[] getServletFilters() {
+		return new Filter[] { new AppFilter()};
+	}
 }
