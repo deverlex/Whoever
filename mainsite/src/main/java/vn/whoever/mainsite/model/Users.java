@@ -2,16 +2,18 @@ package vn.whoever.mainsite.model;
 
 import java.util.Date;
 
-public class User {
+public class Users {
 
 	private String ssoId;
 	private String email;
 	private String password;
 	private Date birthday;
 	
-	public User() {}
+	public Users() {
+		super();
+	}
 	
-	public User(String ssoId, String email, 
+	public Users(String ssoId, String email, 
 			String password, Date birthday) {
 		this.ssoId = ssoId;
 		this.email = email;
