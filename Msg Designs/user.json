@@ -1,0 +1,46 @@
+// Trên server sau khi nhân đc email sẽ băm tạo ra mã ssoId
+
+
+//Đăng nhập lần đầu / bên ngoài
+{
+	"email" : "?",
+	"password" : "?"
+}
+
+//Đăng nhập ẩn danh
+{
+	"email" : "anonymous",
+	"password" : "null"
+}
+
+//Bắt đầu phiên làm việc của ẩn danh
+{
+	"language" : "?",
+	"birthday" : "?",
+	"nickname" : "anonymous"
+}
+//note: hiện popup để người dùng ẩn danh có thể chọn lại nickname
+
+//Đăng ký người dùng
+
+{
+	"email" : "?",
+	"password" : "?",
+	"nickname" : "?"
+}
+
+//Hoàn tất thủ tục đăng ký
+{
+	"language" : "?",
+	"birthday" : "?"
+}
+
+Note: sau khi đăng nhập, thông tin server trả về xác nhận có thể tham gia phiên hay không
+{
+	"ssoId" : "?",
+	"note" : "?"
+}
+
+//if ssoId = null => đăng nhập thất bại
+// if ssoId != null => bắt đầu gửi request lên server để lấy thông tin newfeed, home....
+// Đối với người dùng đăng nhập lần đầu
