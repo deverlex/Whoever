@@ -1,5 +1,8 @@
 package vn.whoever.mainsite.service;
 
-public interface UserService {
+import vn.whoever.mainsite.model.User;
 
+public interface UserService {
+	
+	public User findBySsoId(String ssoId);
 }

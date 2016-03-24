@@ -23,9 +23,9 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<version>4.4</version>
 		</dependency>
+
 
 		<!-- Spring Security -->
 		<dependency>
@@ -58,7 +58,7 @@
 			<version>${jstl.version}</version>
 		</dependency>
 
-		<!-- Spring -->
+		<!-- BEGIN FOR SPRINGFRAMEWORK -->
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -74,6 +74,12 @@
 
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
@@ -83,6 +89,8 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+
+		<!-- END SPRINGFRAMEWORK -->
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -122,12 +130,19 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-
 		<!-- MySQL connector -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.connector.version}</version>
+		</dependency>
+		
+		<!-- EXTENDS MODULE LIBRARIES SUPPORTED -->
+		
+		<dependency>
+			<groupId>vn.whoever.support</groupId>
+  			<artifactId>utils</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
@@ -148,6 +163,4 @@
 		</pluginManagement>
 		<finalName>mainsite</finalName>
 	</build>
-
-
 </project>
