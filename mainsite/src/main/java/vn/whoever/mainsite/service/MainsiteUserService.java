@@ -20,7 +20,7 @@ public class MainsiteUserService implements UserDetailsService {
 	@Autowired
 	UserService userService;
 	
-	@Transactional(readOnly = true, timeout = 10000)
+	@Transactional(readOnly = true, timeout = 5000)
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
 
 		Users users = userService.findBySsoId(ssoId);
@@ -33,9 +33,9 @@ public class MainsiteUserService implements UserDetailsService {
 		return null;
 	} 
 	
-	private User buildUserForAuthentication(Users users) {
-		
-	}
+//	private User buildUserForAuthentication(Users users, List<GrantedAuthority> authorities) {
+//		return new User(users.getSsoId(), users.getPassword(), )
+//	}
 	
 	private List<GrantedAuthority> buildUserAuthorities(Users users) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

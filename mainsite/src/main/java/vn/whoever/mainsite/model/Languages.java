@@ -1,5 +1,10 @@
 package vn.whoever.mainsite.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Languages {
 
 	private String langCode;
@@ -19,6 +24,8 @@ public class Languages {
 		this.postalCode = postalCode;
 	}
 
+	@Id
+	@Column(name = "langCode", length = 4)
 	public String getLangCode() {
 		return langCode;
 	}
@@ -27,6 +34,7 @@ public class Languages {
 		this.langCode = langCode;
 	}
 
+	@Column(name = "standarName", length = 32, nullable = false)
 	public String getStandardName() {
 		return standardName;
 	}
@@ -35,6 +43,7 @@ public class Languages {
 		this.standardName = standardName;
 	}
 
+	@Column(name = "nativeName", length = 64)
 	public String getNativeName() {
 		return nativeName;
 	}
@@ -42,7 +51,9 @@ public class Languages {
 	public void setNativeName(String nativeName) {
 		this.nativeName = nativeName;
 	}
-
+	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "postalCode", length = 4)
 	public String getPostalCode() {
 		return postalCode;
 	}
