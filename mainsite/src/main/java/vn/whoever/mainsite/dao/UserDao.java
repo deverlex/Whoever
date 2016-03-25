@@ -1,6 +1,5 @@
 package vn.whoever.mainsite.dao;
 
-import vn.whoever.mainsite.model.UserStates;
 import vn.whoever.mainsite.model.Users;
 
 public interface UserDao {

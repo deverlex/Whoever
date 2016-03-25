@@ -10,18 +10,16 @@ public class Languages {
 	private String langCode;
 	private String standardName;
 	private String nativeName;
-	private String postalCode;
 
 	public Languages() {
 		super();
 	}
 
-	public Languages(String langCode, String standardName, String nativeName, String postalCode) {
+	public Languages(String langCode, String standardName, String nativeName) {
 		super();
 		this.langCode = langCode;
 		this.standardName = standardName;
 		this.nativeName = nativeName;
-		this.postalCode = postalCode;
 	}
 
 	@Id
@@ -50,15 +48,5 @@ public class Languages {
 
 	public void setNativeName(String nativeName) {
 		this.nativeName = nativeName;
-	}
-	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "postalCode", length = 4)
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
 	}
 }

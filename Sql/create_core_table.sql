@@ -6,6 +6,17 @@ drop table users;
 drop table language;
 drop table countries;
 
+alter table languages drop foreign key fk_language_country;
+alter table languages drop column postalCode;
+
+create table languages_countries (
+postalCode varchar(4) not null,
+langCode varchar(4) not null,
+constraint fk_country_countries foreign key (postalCode) references countries (postalCode),
+constraint fk_language_languages foreign key (langCode) references languages (langCode),
+unique key uniq_language_country (postalCode, langCode)
+) engine = InnoDB;
+
 create table countries (
 postalCode varchar(4) primary key,
 name varchar(32) not null
@@ -16,12 +27,11 @@ langCode varchar(4) primary key,
 standardName varchar(32) not null,
 nativeName varchar(64),
 postalCode varchar(4),
-constraint fk_language_country foreign key (postalCode) references countries (postalCode)
 ) engine = InnoDB;
 
 create table users (
 ssoId varchar(32) primary key,
-email varchar(64),
+email varchar(64) unique,
 password varchar(32),
 nickName varchar(64),
 birthday date,
