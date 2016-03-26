@@ -2,30 +2,33 @@ package vn.whoever.support.model.request;
 
 public class UserModelRequest {
 	
-	private String email;
+	private String ssoId;
 	private String password;
 	
 	public UserModelRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserModelRequest(String email, String password) {
+	
+	public UserModelRequest(String ssoId, String password) {
 		super();
-		this.email = email;
+		this.ssoId = ssoId;
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
+	
+	public String getSsoId() {
+		return ssoId;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	
+	public void setSsoId(String ssoId) {
+		this.ssoId = ssoId;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 }

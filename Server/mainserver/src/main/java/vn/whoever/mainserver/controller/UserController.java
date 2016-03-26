@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,9 +45,14 @@ public class UserController {
 	@RequestMapping(value = {"/mobile/login"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String loginWhoever(HttpServletRequest request, HttpSession session,@RequestBody UserModelRequest userReq) {
-		System.out.println("Email: " + userReq.getEmail());
+		System.out.println("ssoId: " + userReq.getSsoId());
 		System.out.println("Password: " + userReq.getPassword());
 		
+		UsernamePasswordAuthenticationToken authToken = 
+				new UsernamePasswordAuthenticationToken(userReq.getSsoId(), userReq.getPassword());
+		request.getSession();
+		authToken.setDetails(new WebAuthenticationDetails(request));
+		SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
 		
 		return "=>> Login Success !!";
 	}

@@ -7,6 +7,8 @@ drop table users;
 drop table languages;
 drop table countries;
 
+ALTER TABLE languages rename index langCode_2 to langCode;
+
 create table countries (
 idCountry int(4) unsigned auto_increment not null primary key,
 postalCode varchar(6) not null,
@@ -16,7 +18,7 @@ unique key uniq_countries (postalCode, name)
 
 create table languages (
 idLanguage int(4) unsigned auto_increment not null primary key, 
-langCode varchar(4) not null unique,
+langCode varchar(8) not null unique,
 standardName varchar(32) not null,
 nativeName varchar(64)
 ) engine = InnoDB;
@@ -31,13 +33,13 @@ unique key uniq_language_country (idCountry, idLanguage)
 
 create table users (
 idUser int unsigned primary key,
-ssoId varchar(32) unique,
+ssoId varchar(32) unique not null,
 password varchar(32),
 email varchar(64) unique,
 nickName varchar(64),
 birthday date,
-langCode varchar(4) not null,
-constraint fk_users_languages foreign key (langCode) references languages (langCode)
+idLanguage int(4) unsigned unique not null,
+constraint fk_users_languages foreign key (idLanguage) references languages (idLanguage)
 ) engine = InnoDB;
 
 create table Users_Role (

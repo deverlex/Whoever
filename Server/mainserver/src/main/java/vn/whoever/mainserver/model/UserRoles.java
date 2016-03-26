@@ -10,42 +10,42 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "Users_Role", uniqueConstraints = 
-	@UniqueConstraint(columnNames = {"ssoId", "role"}))
+	@UniqueConstraint(columnNames = {"idUser", "role"}))
 public class UserRoles {
 
-	private int idUserRole;
-	private String ssoId;
+	private int idRole;
+	private int idUser;
 	private String role = Roles.ANONYMOUS.getRole();
 	
 	public UserRoles() {
 		super();
 	}
 	
-	public UserRoles(int idUserRole, String ssoId, String role) {
+	public UserRoles(int idRole, int idUser, String role) {
 		super();
-		this.idUserRole = idUserRole;
-		this.ssoId = ssoId;
+		this.idRole = idRole;
+		this.idUser = idUser;
 		this.role = role;
 	}
-	
+
 	@Id
-	@Column(name = "idUserRole")
-	public int getIdUserRole() {
-		return idUserRole;
+	@Column(name = "idRole")
+	public int getIdRole() {
+		return idRole;
 	}
 
-	public void setIdUserRole(int idUserRole) {
-		this.idUserRole = idUserRole;
+	public void setIdRole(int idRole) {
+		this.idRole = idRole;
 	}
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ssoId", length = 32, nullable = false)
-	public String getSsoId() {
-		return ssoId;
+	@Column(name = "idUser", nullable = false)
+	public int getIdUser() {
+		return idUser;
 	}
 	
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 	
 	@Column(name = "role", length = 32, nullable = false)

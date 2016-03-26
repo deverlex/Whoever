@@ -21,6 +21,7 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+		//System.out.println("ADMIN: " + userDetailsService.loadUserByUsername("admin"));
 		auth.userDetailsService(userDetailsService);
 	}
 	

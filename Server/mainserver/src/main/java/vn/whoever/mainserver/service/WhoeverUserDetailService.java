@@ -30,7 +30,10 @@ public class WhoeverUserDetailService implements UserDetailsService{
 			System.out.println("User not found");
 			throw new UsernameNotFoundException("Username not found");
 		}
-		return new User(user.getSsoId(), user.getPassword(), user.getStates().equals("active"), true, true, true,
+		System.out.println("ssoId: " + user.getSsoId());
+		System.out.println("password: " + user.getPassword());
+		System.out.println("isActve: " + user.getStates().getState().equals("active"));
+		return new User(user.getSsoId(), user.getPassword(), user.getStates().getState().equals("active"), true, true, true,
 				getGrantedAuthorities(user));
 	}
 	

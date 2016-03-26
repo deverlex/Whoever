@@ -4,16 +4,19 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "Users_State", uniqueConstraints = 
-	@UniqueConstraint(columnNames = {"ssoId", "state"}))
+@Table(name = "User_State")
 public class UserStates {
 
-	private String ssoId;
+	private int idUser;
 	private String state;
 	private Date timeout;
 	private Date exp_date;
@@ -21,25 +24,25 @@ public class UserStates {
 	public UserStates() {
 		super();
 	}
-	
-	public UserStates(String ssoId, String state, Date timeout,Date exp_date) {
+		
+	public UserStates(int idUser, String state, Date timeout, Date exp_date) {
 		super();
-		this.ssoId = ssoId;
+		this.idUser = idUser;
 		this.state = state;
 		this.timeout = timeout;
 		this.exp_date = exp_date;
 	}
 
 	@Id
-	@Column(name = "ssoId", length = 32, unique = true, nullable = true)
-	public String getSsoId() {
-		return ssoId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getIdUser() {
+		return idUser;
 	}
-	
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
-	
+
 	@Column(name = "state", length = 12, nullable = true)
 	public String getState() {
 		return state;
