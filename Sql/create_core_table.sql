@@ -1,14 +1,5 @@
 use whoeverdb;
 
-drop table languages_countries;
-drop table user_state;
-drop table users_role;
-drop table users;
-drop table languages;
-drop table countries;
-
-ALTER TABLE languages rename index langCode_2 to langCode;
-
 create table countries (
 idCountry int(4) unsigned auto_increment not null primary key,
 postalCode varchar(6) not null,
@@ -56,4 +47,11 @@ state varchar(12) not null,
 timeout datetime,
 exp_date datetime,
 constraint fk_user_state foreign key(idUser) references users (idUser)
+) engine = InnoDB;
+
+create table token (
+idUser int unsigned primary key,
+token varchar(32) not null unique,
+exp_date datetime not null,
+constraint fk_token_user foreign key (idUser) references users (idUser)
 ) engine = InnoDB;

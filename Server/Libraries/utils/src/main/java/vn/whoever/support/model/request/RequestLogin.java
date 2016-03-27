@@ -1,16 +1,15 @@
 package vn.whoever.support.model.request;
 
-public class UserModelRequest {
+public class RequestLogin {
 	
 	private String ssoId;
 	private String password;
 	
-	public UserModelRequest() {
+	public RequestLogin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
-	public UserModelRequest(String ssoId, String password) {
+	public RequestLogin(String ssoId, String password) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;

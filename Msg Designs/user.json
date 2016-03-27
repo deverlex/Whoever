@@ -3,9 +3,40 @@
 
 //Đăng nhập lần đầu / bên ngoài
 {
-	"email" : "?",
+	"ssoId" : "?",
 	"password" : "?"
 }
+// ? làm cái response này sau
+{
+	"result"
+}
+
+//Đăng ký mới tài khoản
+// B1:
+{
+	"ssoId" : "",
+	"password" : "",
+	"nickName" : ""
+}
+
+//
+
+{
+	"result" : "",
+	"" ?
+}
+//B2:
+{
+	"ssoId" : "",
+	"langCode" : "",
+	"birthday" : ""
+}
+
+//xác nhận và trả về chuỗi bảng tin
+{
+	"response" : ""
+}
+
 
 //Đăng nhập ẩn danh
 {

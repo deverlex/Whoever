@@ -1,35 +1,47 @@
 package vn.whoever.mainserver.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "Users_Role", uniqueConstraints = 
 	@UniqueConstraint(columnNames = {"idUser", "role"}))
-public class UserRoles {
+public class UserRoles implements Serializable {
 
+	private static final long serialVersionUID = 1687563455L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idRole")
 	private int idRole;
-	private int idUser;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "idUser")
+	private Users users;
+	
+	@Column(name = "role", length = 32, nullable = false)
 	private String role = Roles.ANONYMOUS.getRole();
 	
 	public UserRoles() {
 		super();
 	}
 	
-	public UserRoles(int idRole, int idUser, String role) {
+	public UserRoles(int idRole, Users users, String role) {
 		super();
 		this.idRole = idRole;
-		this.idUser = idUser;
+		this.users = users;
 		this.role = role;
 	}
 
-	@Id
-	@Column(name = "idRole")
 	public int getIdRole() {
 		return idRole;
 	}
@@ -38,17 +50,14 @@ public class UserRoles {
 		this.idRole = idRole;
 	}
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idUser", nullable = false)
-	public int getIdUser() {
-		return idUser;
+	public Users getUser() {
+		return users;
 	}
 	
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setUser(Users users) {
+		this.users = users;
 	}
 	
-	@Column(name = "role", length = 32, nullable = false)
 	public String getRole() {
 		return role;
 	}

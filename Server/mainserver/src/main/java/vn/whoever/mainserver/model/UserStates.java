@@ -1,24 +1,36 @@
 package vn.whoever.mainserver.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "User_State")
-public class UserStates {
+public class UserStates implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 12121212434L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idUser", nullable = false)
 	private int idUser;
+	
+	@Column(name = "state", length = 12, nullable = true)
 	private String state;
+	
+	@Column(name = "timeout")
 	private Date timeout;
+	
+	@Column(name = "exp_date")
 	private Date exp_date;
 	
 	public UserStates() {
@@ -33,8 +45,6 @@ public class UserStates {
 		this.exp_date = exp_date;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getIdUser() {
 		return idUser;
 	}
@@ -43,7 +53,6 @@ public class UserStates {
 		this.idUser = idUser;
 	}
 
-	@Column(name = "state", length = 12, nullable = true)
 	public String getState() {
 		return state;
 	}
@@ -52,7 +61,6 @@ public class UserStates {
 		this.state = state;
 	}
 	
-	@Column(name = "timeout")
 	public Date getTimeout() {
 		return timeout;
 	}
@@ -61,7 +69,6 @@ public class UserStates {
 		this.timeout = timeout;
 	}
 
-	@Column(name = "exp_date")
 	public Date getExp_date() {
 		return exp_date;
 	}

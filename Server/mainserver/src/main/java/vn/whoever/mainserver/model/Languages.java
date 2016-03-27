@@ -1,19 +1,30 @@
 package vn.whoever.mainserver.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "languages")
-public class Languages {
+public class Languages implements Serializable {
 
+	private static final long serialVersionUID = 15436456456352L;
+
+	@Id
+	@GeneratedValue
 	private int idLanguage;
+	
+	@Column(name = "langCode", length = 8, unique = true)
 	private String langCode;
+	
+	@Column(name = "standardName", length = 32, nullable = false)
 	private String standardName;
+	
+	@Column(name = "nativeName", length = 64, nullable = true)
 	private String nativeName;
 
 	public Languages() {
@@ -28,8 +39,6 @@ public class Languages {
 		this.nativeName = nativeName;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getIdLanguage() {
 		return idLanguage;
 	}
@@ -38,7 +47,6 @@ public class Languages {
 		this.idLanguage = idLanguage;
 	}
 
-	@Column(name = "langCode", length = 8, unique = true)
 	public String getLangCode() {
 		return langCode;
 	}
@@ -47,7 +55,6 @@ public class Languages {
 		this.langCode = langCode;
 	}
 
-	@Column(name = "standarName", length = 32, nullable = false)
 	public String getStandardName() {
 		return standardName;
 	}
@@ -56,7 +63,6 @@ public class Languages {
 		this.standardName = standardName;
 	}
 
-	@Column(name = "nativeName", length = 64)
 	public String getNativeName() {
 		return nativeName;
 	}

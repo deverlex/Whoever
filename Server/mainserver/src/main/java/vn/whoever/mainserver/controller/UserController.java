@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import vn.whoever.support.model.request.UserModelRequest;
+import vn.whoever.support.model.request.RequestLogin;
 
 @Controller
 public class UserController {
@@ -31,7 +31,7 @@ public class UserController {
 	
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
-		
+		// TODO: model set somethings argument
 		return "homePage";
 	}
 	
@@ -44,15 +44,17 @@ public class UserController {
 //	
 	@RequestMapping(value = {"/mobile/login"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody String loginWhoever(HttpServletRequest request, HttpSession session,@RequestBody UserModelRequest userReq) {
-		System.out.println("ssoId: " + userReq.getSsoId());
-		System.out.println("Password: " + userReq.getPassword());
-		
-		UsernamePasswordAuthenticationToken authToken = 
-				new UsernamePasswordAuthenticationToken(userReq.getSsoId(), userReq.getPassword());
-		request.getSession();
-		authToken.setDetails(new WebAuthenticationDetails(request));
-		SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
+	public @ResponseBody String loginWhoever(HttpServletRequest request, HttpSession session,@RequestBody RequestLogin requestLogin) {
+		try {
+			UsernamePasswordAuthenticationToken authToken = 
+					new UsernamePasswordAuthenticationToken(requestLogin.getSsoId(), requestLogin.getPassword());
+			request.getSession();
+			authToken.setDetails(new WebAuthenticationDetails(request));
+			SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "==> login fail";
+		}
 		
 		return "=>> Login Success !!";
 	}

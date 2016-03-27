@@ -1,14 +1,16 @@
 package vn.whoever.mainserver.dao.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
-import com.mysql.fabric.xmlrpc.base.Array;
 
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.UserDao;
@@ -17,28 +19,13 @@ import vn.whoever.mainserver.model.UserStates;
 import vn.whoever.mainserver.model.Users;
 
 @Repository("userDao")
-public class UserDaoImpl extends AbstractDao<String, Users> implements UserDao {
+public class UserDaoImpl extends AbstractDao<Integer,Users> implements UserDao, Serializable {
 
-	public Users findBySso(String sso) {
-//		Criteria crit = createEntityCriteria();
-//		crit.add(Restrictions.eq("ssoId", sso));
-//		return (Users) crit.uniqueResult();
-		Users users = new Users();
-		users.setSsoId("admin");
-		users.setPassword("12345678");
-		
-		UserStates states = new UserStates();
-		states.setState("active");
-		
-		Set<UserRoles> roles = new HashSet<UserRoles>();
-		UserRoles role = new UserRoles();
-		role.setRole("ADMIN");
-		roles.add(role);
-		
-		users.setRoles(roles);
-		
-		users.setStates(states);
-		
-		return users;
+	private static final long serialVersionUID = 189797394999L;
+
+	public Users findBySsoId(String ssoId) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("ssoId", ssoId));
+		return (Users) crit.uniqueResult();
 	}	
 }

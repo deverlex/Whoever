@@ -1,9 +1,9 @@
 package vn.whoever.mainserver.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -11,10 +11,18 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "countries", uniqueConstraints = 
 	@UniqueConstraint(columnNames = {"postalCode", "name"}))
-public class Countries {
+public class Countries implements Serializable {
 
+	private static final long serialVersionUID = 165643342L;
+
+	@Id
+	@Column(name = "idCountry")
 	private int idCountry;
+	
+	@Column(name = "postalCode", length = 6, nullable = false)
 	private String postalCode;
+	
+	@Column(name = "name", length = 32, nullable = false)
 	private String name;
 
 	public Countries() {
@@ -28,8 +36,6 @@ public class Countries {
 		this.name = name;
 	}
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getIdCountry() {
 		return idCountry;
 	}
@@ -38,7 +44,6 @@ public class Countries {
 		this.idCountry = idCountry;
 	}
 
-	@Column(name = "postalCode", length = 6, nullable = false)
 	public String getPostalCode() {
 		return postalCode;
 	}
@@ -47,7 +52,6 @@ public class Countries {
 		this.postalCode = postalCode;
 	}
 
-	@Column(name = "name", length = 32, nullable = false)
 	public String getName() {
 		return name;
 	}

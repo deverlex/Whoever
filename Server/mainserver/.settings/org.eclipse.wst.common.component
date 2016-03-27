@@ -7,6 +7,9 @@
         <dependent-module archiveName="utils-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/utils/utils">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="service-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/service/service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="mainserver"/>
         <property name="java-output-path" value="/mainserver/target/classes"/>
     </wb-module>

@@ -43,7 +43,6 @@ public class WhoeverUserDetailService implements UserDetailsService{
 		for(UserRoles role : user.getRoles()){
 			authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRole()));
 		}
-		
 		System.out.print("authorities :"+authorities);
 		return authorities;
 	}

@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao dao;
 
-	public Users findBySso(String sso) {
-		return dao.findBySso(sso);
+	public Users findBySso(String ssoId) {
+		return dao.findBySsoId(ssoId);
 	}
 
 }
