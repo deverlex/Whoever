@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing|stateHidden"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:parentActivityName=".StartActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

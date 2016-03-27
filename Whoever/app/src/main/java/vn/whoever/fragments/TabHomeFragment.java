@@ -1,5 +1,6 @@
 package vn.whoever.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.TabLayout;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -64,7 +66,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
                 tabLayout.setupWithViewPager(viewPager);
 
                 tabLayout.getTabAt(0).setIcon(icons_red[0]);
-                for(int i = 1 ; i < int_items; ++i) {
+                for (int i = 1; i < int_items; ++i) {
                     tabLayout.getTabAt(i).setIcon(icons[i]);
                 }
 
@@ -156,6 +158,11 @@ public class TabHomeFragment extends Fragment implements Initgc {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

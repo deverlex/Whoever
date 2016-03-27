@@ -29,10 +29,10 @@ import vn.whoever.utils.RegexUtils;
  */
 public class SignInFragment extends Fragment implements Initgc {
 
-    private String email = "";
+    private String ssoId = "";
     private String password = "";
 
-    private EditText editTextEmail;
+    private EditText editTextSsoId;
     private EditText editTextPassword;
     private TextView textSignUp;
     private TextView textTerm;
@@ -54,8 +54,8 @@ public class SignInFragment extends Fragment implements Initgc {
     @Override
     public void init(View view) {
         textSignUp = (TextView) view.findViewById(R.id.textCreateNewUser);
-        editTextEmail = (EditText) view.findViewById(R.id.inputEmailStart);
-        editTextEmail.setTextColor(Color.parseColor("#ffffff"));
+        editTextSsoId = (EditText) view.findViewById(R.id.inputSsoIdStart);
+        editTextSsoId.setTextColor(Color.parseColor("#ffffff"));
         editTextPassword = (EditText) view.findViewById(R.id.inputPasswordStart);
         editTextPassword.setTextColor(Color.parseColor("#ffffff"));
         btnSkipSignIn = (Button) view.findViewById(R.id.skipSignInButton);
@@ -73,7 +73,7 @@ public class SignInFragment extends Fragment implements Initgc {
             }
         });
 
-        editTextEmail.setOnKeyListener(new View.OnKeyListener() {
+        editTextSsoId.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // check key input
@@ -90,16 +90,16 @@ public class SignInFragment extends Fragment implements Initgc {
             }
         });
 
-        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editTextSsoId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
-                    boolean check = RegexUtils.checkEmail(editTextEmail.getText().toString());
+                    boolean check = RegexUtils.getInstance().checkSsoId(editTextSsoId.getText().toString());
                     if(!check) {
                         if(toast != null) {
                             toast.cancel();
                         }
-                        toast = Toast.makeText(getActivity(), "Email isn't standard of email require", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(getActivity(), "Account isn't standard of account require", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }
@@ -110,7 +110,7 @@ public class SignInFragment extends Fragment implements Initgc {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
-                    boolean check = RegexUtils.checkPassword(editTextPassword.getText().toString());
+                    boolean check = RegexUtils.getInstance().checkPassword(editTextPassword.getText().toString());
                     if(!check) {
                         if(toast != null) {
                             toast.cancel();
@@ -143,7 +143,7 @@ public class SignInFragment extends Fragment implements Initgc {
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = editTextEmail.getText().toString();
+                ssoId = editTextSsoId.getText().toString();
                 password = editTextPassword.getText().toString();
                 /**
                  * TODO: after check password and email => demo
@@ -155,8 +155,8 @@ public class SignInFragment extends Fragment implements Initgc {
                     toast.cancel();
                 }
 
-                if(RegexUtils.checkEmail(email) && RegexUtils.checkPassword(password)) {
-                    int stateLogin = LoginTransaction.getInstance(getActivity(), null).getRequestLogin(email, password);
+                if(RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
+                    int stateLogin = LoginTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
 
                     if(LoginState.PASS == stateLogin){
                         Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -166,12 +166,12 @@ public class SignInFragment extends Fragment implements Initgc {
                         StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                         StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
                     } else {
-                        toast = Toast.makeText(getActivity(), "Check your connection or your account", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(getActivity(), "Check your connection or your Acccount ID", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 } else {
                     // TODO: show a toast alert: standard of email & password input fails
-                    toast = Toast.makeText(getActivity(), "Try check email or password, please", Toast.LENGTH_LONG);
+                    toast = Toast.makeText(getActivity(), "Try check Account ID or Password, please", Toast.LENGTH_LONG);
                     toast.show();
                 }
             }

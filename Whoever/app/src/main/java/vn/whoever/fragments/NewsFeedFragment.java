@@ -227,7 +227,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("onResume()", "Resume() hihihih");
         intentNav = new Intent();
     }
 

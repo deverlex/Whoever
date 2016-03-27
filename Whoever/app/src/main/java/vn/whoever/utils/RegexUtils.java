@@ -10,7 +10,13 @@ public class RegexUtils {
     public static final String nickNamePattern = "^(\\p{L}+)+(\\s\\p{L}+)*(\\s\\p{L}+)*$";
     public static final String passWordPattern = "([^\\s]{8,32})$";
 
-    public static boolean checkEmail(String email) {
+    private static RegexUtils regexUtils = new RegexUtils();
+
+    public static RegexUtils getInstance() {
+        return regexUtils;
+    }
+
+    public boolean checkEmail(String email) {
         /**
          * TODO: process split string before pattern
          */
@@ -18,22 +24,27 @@ public class RegexUtils {
         return email.matches(emailPattern);
     }
 
-    public static boolean checkPassword(String password) {
+    public boolean checkSsoId(String ssoId) {
+        // TODO: somethings else
+        return true;
+    }
+
+    public boolean checkPassword(String password) {
         password = standardizeString(password);
         return password.matches(passWordPattern);
     }
 
-    public static boolean checkNickName(String nickName) {
+    public boolean checkNickName(String nickName) {
         nickName = standardizeString(nickName);
         return nickName.matches(nickNamePattern);
     }
 
-    public static String standardizeString(String str) {
+    public String standardizeString(String str) {
         str = str.replaceAll("\\s+", " ");
         return str.trim();
     }
 
-    public static String getTagInMessage(String msg) {
+    public String getTagInMessage(String msg) {
         /**
          *  TODO: check tag name => return a name tag
          */

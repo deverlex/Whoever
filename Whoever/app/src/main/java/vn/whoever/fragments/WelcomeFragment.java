@@ -24,12 +24,8 @@ import vn.whoever.R;
 import vn.whoever.dao.LanguageDao;
 import vn.whoever.dialogs.DatePickerFragment;
 import vn.whoever.dialogs.LanguagePickerFragment;
-import vn.whoever.utils.ConvertSizeDisplay;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.TimeUtils;
-
-
-import javax.net.ssl.HttpsURLConnection
 
 /**
  * Created by spider man on 12/26/2015.
@@ -49,7 +45,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.welcome_layout, null);
-        hiddenSoftInput();
+        hiddenSoftInput(view);
 
         Bundle bundle = getArguments();
         if(bundle.getBoolean(KEY_USE_ACCOUNT)) {
@@ -64,6 +60,13 @@ public class WelcomeFragment extends Fragment implements Initgc {
         initListener(view);
 
         return view;
+    }
+
+    public void hiddenSoftInput(View view) {;
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override
@@ -94,7 +97,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                      * TODO: send infor to server
                      *
                      */
-                    if(isAccount) {
+                    if (isAccount) {
                         /**
                          * TODO: saved clear start activity
                          */
@@ -143,14 +146,6 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
             }
         });
-    }
-
-    public void hiddenSoftInput() {
-        View view = getActivity().getCurrentFocus();
-        if(view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     @Override

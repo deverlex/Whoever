@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        hiddenSoftInput();
 
         frgtManagerMain = getSupportFragmentManager();
         frgTransactionMain = frgtManagerMain.beginTransaction();
@@ -401,6 +404,11 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     public void onPause() {
         super.onPause();
         System.gc();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

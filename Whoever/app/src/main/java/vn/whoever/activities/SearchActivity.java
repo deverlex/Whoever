@@ -89,9 +89,18 @@ public class SearchActivity extends AppCompatActivity implements AppGc {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                hiddenSoftInput();
                 finish();
             }
         });
+    }
+
+    public void hiddenSoftInput() {
+        View view = this.getCurrentFocus();
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override

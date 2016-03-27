@@ -26,11 +26,11 @@ import vn.whoever.utils.RegexUtils;
 public class SignUpFragment extends Fragment implements Initgc {
 
     private String nickName = "";
-    private String email = "";
+    private String ssoId = "";
     private String password = "";
 
     private EditText editTextNickName;
-    private EditText editTextEmail;
+    private EditText editTextSsoId;
     private EditText editTextPassword;
     private CheckBox checkBoxAgreeTerm;
     private Button btnCreateAccount;
@@ -54,8 +54,8 @@ public class SignUpFragment extends Fragment implements Initgc {
     public void init(View view) {
         editTextNickName = (EditText) view.findViewById(R.id.textEditNickNameRegister);
         editTextNickName.setTextColor(Color.parseColor("#ffffff"));
-        editTextEmail = (EditText) view.findViewById(R.id.textEditEmailRegister);
-        editTextEmail.setTextColor(Color.parseColor("#ffffff"));
+        editTextSsoId = (EditText) view.findViewById(R.id.textEditSsoIdRegister);
+        editTextSsoId.setTextColor(Color.parseColor("#ffffff"));
         editTextPassword = (EditText) view.findViewById(R.id.textEditPasswordRegister);
         editTextPassword.setTextColor(Color.parseColor("#ffffff"));
 
@@ -84,14 +84,15 @@ public class SignUpFragment extends Fragment implements Initgc {
                 /**
                  * TODO: check email, password, check agree
                  */
-                email = editTextEmail.getText().toString();
+                ssoId = editTextSsoId.getText().toString();
                 password = editTextPassword.getText().toString();
                 nickName = editTextNickName.getText().toString();
 
                 if(toast != null) {
                     toast.cancel();
                 }
-                if(RegexUtils.checkEmail(email) && RegexUtils.checkPassword(password) && RegexUtils.checkNickName(nickName)) {
+                if(RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)
+                        && RegexUtils.getInstance().checkNickName(nickName)) {
                     if(checkBoxAgreeTerm.isChecked()) {
                         StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                         Bundle bundle = new Bundle();
@@ -106,9 +107,9 @@ public class SignUpFragment extends Fragment implements Initgc {
                     }
                 } else {
                     Log.d("Nick", nickName);
-                    Log.d("Email", email);
+                    Log.d("SsoId", ssoId);
                     Log.d("Pass", password);
-                    toast = Toast.makeText(getActivity().getApplicationContext(),"Check email, password or nickname", Toast.LENGTH_LONG);
+                    toast = Toast.makeText(getActivity().getApplicationContext(),"Check Acccount ID, Password or Nickname", Toast.LENGTH_LONG);
                     toast.show();
                 }
             }
@@ -144,7 +145,7 @@ public class SignUpFragment extends Fragment implements Initgc {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
-                    boolean check = RegexUtils.checkNickName(editTextNickName.getText().toString());
+                    boolean check = RegexUtils.getInstance().checkNickName(editTextNickName.getText().toString());
                     if(!check) {
                         if(toast != null) {
                             toast.cancel();
@@ -156,16 +157,16 @@ public class SignUpFragment extends Fragment implements Initgc {
             }
         });
 
-        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editTextSsoId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
-                    boolean check = RegexUtils.checkEmail(editTextEmail.getText().toString());
+                    boolean check = RegexUtils.getInstance().checkSsoId(editTextSsoId.getText().toString());
                     if(!check) {
                         if(toast != null) {
                             toast.cancel();
                         }
-                        toast = Toast.makeText(getActivity(), "Email isn't standard of email", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(getActivity(), "Email isn't standard of Account ID", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }
@@ -176,7 +177,7 @@ public class SignUpFragment extends Fragment implements Initgc {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
-                    boolean check = RegexUtils.checkPassword(editTextPassword.getText().toString());
+                    boolean check = RegexUtils.getInstance().checkPassword(editTextPassword.getText().toString());
                     if(!check) {
                         if(toast != null) {
                             toast.cancel();

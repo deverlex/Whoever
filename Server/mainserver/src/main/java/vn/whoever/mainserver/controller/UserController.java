@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import vn.whoever.support.model.request.RequestAcceptTerm;
 import vn.whoever.support.model.request.RequestLogin;
+import vn.whoever.support.model.request.RequestRegister;
 
 @Controller
 public class UserController {
@@ -59,7 +61,24 @@ public class UserController {
 		return "=>> Login Success !!";
 	}
 
+	@RequestMapping(value = {"/mobile/register"}, method = RequestMethod.POST,
+			consumes = "application/json", produces = "application/json")
+	public String registerAccount(@RequestBody RequestRegister requestRegister) {
+		
+		return "";
+	}
 	
+	@RequestMapping(value = {"/mobile/accept_term"})
+	public String acceptTermWhoever(HttpSession session, @RequestBody RequestAcceptTerm acceptTerm) {
+
+		return "";
+	}
+	
+	/**
+	 * Thuoc phan code sau
+	 * @param model
+	 * @return
+	 */
 	
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDeniedPage(ModelMap model) {
