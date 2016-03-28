@@ -27,5 +27,22 @@ public class UserDaoImpl extends AbstractDao<Integer,Users> implements UserDao, 
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("ssoId", ssoId));
 		return (Users) crit.uniqueResult();
-	}	
+	}
+
+	public boolean registerUser(Users users) {
+		
+		return false;
+	}
+
+	public boolean updateUser(Users users) {
+	
+		return false;
+	}
+
+	public boolean destroyUser(String ssoId) {
+	
+		return false;
+	}
+	
+	
 }

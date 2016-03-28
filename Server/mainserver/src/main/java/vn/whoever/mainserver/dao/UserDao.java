@@ -4,5 +4,9 @@ import vn.whoever.mainserver.model.Users;
 
 public interface UserDao {
 	
-	Users findBySsoId(String ssoId);
+	public Users findBySsoId(String ssoId);
+	public boolean registerUser(Users users);
+	public boolean updateUser(Users users);
+	public boolean destroyUser(String ssoId);
+	
 }

@@ -6,9 +6,11 @@
 	"ssoId" : "?",
 	"password" : "?"
 }
+
 // ? làm cái response này sau
 {
-	"result"
+	"roles" : "",
+	"note" : ""
 }
 
 //Đăng ký mới tài khoản
@@ -22,8 +24,8 @@
 //
 
 {
-	"result" : "",
-	"" ?
+	"response" : "FAIL", //fail
+	"note" : "Account Unavailable"
 }
 //B2:
 {
@@ -32,17 +34,40 @@
 	"birthday" : ""
 }
 
-//xác nhận và trả về chuỗi bảng tin
+//xác nhận
 {
-	"response" : ""
+	"response" : "",
+	"note" : ""
 }
 
+//Đăng nhập ẩn danh lần đầu - cái này dùng GET
+// http..../mobile/login/anonymous?langCode=?&birthday=?
 
-//Đăng nhập ẩn danh
+//xác nhận như trên
+//lấy lại mật khẩu
 {
-	"email" : "anonymous",
-	"password" : "null"
+	"ssoId" : "",
+	"inbox" : "" //email or mobile
 }
+
+//trả lại kết quả
+{
+	"response" : "FAIL",
+	"note" : "We not find your mobile number"
+}
+
+//lấy điều khoản người dùng
+// Sử dụng GET
+
+// xác thực lại đăng nhập chỉ cần request with sha:key
+{
+	"ssoId" : "",
+	"shaKey" : ""
+}
+
+//lấy thông tin bảng tin
+//sử dụng GET
+
 
 //Bắt đầu phiên làm việc của ẩn danh
 {
