@@ -19,4 +19,18 @@ public class UserServiceImpl implements UserService{
 		return dao.findBySsoId(ssoId);
 	}
 
+	public boolean registerUser(Users users) {
+		
+		return dao.registerUser(users);
+	}
+
+	private boolean updateRole(Users users) {
+		
+		return true;
+	}
+	
+	private boolean updateState(Users users) {
+		
+		return true;
+	}
 }

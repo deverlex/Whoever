@@ -40,7 +40,7 @@ public class Countries implements Serializable {
 		return idCountry;
 	}
 
-	public void setIdCountry(int idCountry) {
+	protected void setIdCountry(int idCountry) {
 		this.idCountry = idCountry;
 	}
 
@@ -48,7 +48,7 @@ public class Countries implements Serializable {
 		return postalCode;
 	}
 
-	public void setPostalCode(String postalCode) {
+	protected void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
@@ -56,7 +56,7 @@ public class Countries implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 }

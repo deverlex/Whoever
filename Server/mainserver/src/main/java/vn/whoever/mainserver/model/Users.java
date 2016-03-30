@@ -63,7 +63,7 @@ public class Users implements Serializable {
 	
 	@Column(name = "isShowOnline", nullable = false)
 	private boolean isShowOnline;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idLanguage")
 	private Languages language;
@@ -79,22 +79,68 @@ public class Users implements Serializable {
 		super();
 	}
 	
-	
-	
-	public Users(long idUser, String ssoId, String password, boolean isAnonymous, String nickName, Languages language,
-			UserStates states, List<UserRoles> roles) {
+	public Users(String ssoId, String password, boolean isAnonymous, boolean isGetAroundStatus, boolean isShowOnline) {
 		super();
-		this.idUser = idUser;
 		this.ssoId = ssoId;
 		this.password = password;
 		this.isAnonymous = isAnonymous;
+		this.isGetAroundStatus = isGetAroundStatus;
+		this.isShowOnline = isShowOnline;
+	}
+	
+	/**
+	 * There are for register new user
+	 * @param ssoId
+	 * @param password
+	 * @param nickName
+	 * @param birthday
+	 */
+	public Users(String ssoId, String password, int idLanguage,String nickName,Date birthday) {
+		super();
+		this.ssoId = ssoId;
+		this.password = password;
 		this.nickName = nickName;
+		this.birthday = birthday;
+		this.language = new Languages();
+		language.setIdLanguage(idLanguage);
+		this.isAnonymous = false;
+		this.isGetAroundStatus = true;
+		this.isShowOnline = true;
+	}
+
+	public Users(String ssoId, String password, boolean isAnonymous, String email, String mobile,
+			String nickName, Date birthday, String sex, boolean isGetAroundStatus, boolean isShowOnline) {
+		super();
+		this.ssoId = ssoId;
+		this.password = password;
+		this.isAnonymous = isAnonymous;
+		this.email = email;
+		this.mobile = mobile;
+		this.nickName = nickName;
+		this.birthday = birthday;
+		this.sex = sex;
+		this.isGetAroundStatus = isGetAroundStatus;
+		this.isShowOnline = isShowOnline;
+	}
+
+	public Users(String ssoId, String password, boolean isAnonymous, String email, String mobile,
+			String nickName, Date birthday, String sex, boolean isGetAroundStatus, boolean isShowOnline,
+			Languages language, UserStates states, List<UserRoles> roles) {
+		super();
+		this.ssoId = ssoId;
+		this.password = password;
+		this.isAnonymous = isAnonymous;
+		this.email = email;
+		this.mobile = mobile;
+		this.nickName = nickName;
+		this.birthday = birthday;
+		this.sex = sex;
+		this.isGetAroundStatus = isGetAroundStatus;
+		this.isShowOnline = isShowOnline;
 		this.language = language;
 		this.states = states;
 		this.roles = roles;
 	}
-
-
 
 	public long getIdUser() {
 		return idUser;
@@ -107,7 +153,7 @@ public class Users implements Serializable {
 	public String getSsoId() {
 		return ssoId;
 	}
-	
+
 	public void setSsoId(String ssoId) {
 		this.ssoId = ssoId;
 	}

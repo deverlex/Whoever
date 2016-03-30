@@ -43,7 +43,7 @@ public class Languages implements Serializable {
 		return idLanguage;
 	}
 
-	public void setIdLanguage(int idLanguage) {
+	protected void setIdLanguage(int idLanguage) {
 		this.idLanguage = idLanguage;
 	}
 
@@ -51,7 +51,7 @@ public class Languages implements Serializable {
 		return langCode;
 	}
 
-	public void setLangCode(String langCode) {
+	protected void setLangCode(String langCode) {
 		this.langCode = langCode;
 	}
 
@@ -59,7 +59,7 @@ public class Languages implements Serializable {
 		return standardName;
 	}
 
-	public void setStandardName(String standardName) {
+	protected void setStandardName(String standardName) {
 		this.standardName = standardName;
 	}
 
@@ -67,7 +67,7 @@ public class Languages implements Serializable {
 		return nativeName;
 	}
 
-	public void setNativeName(String nativeName) {
+	protected void setNativeName(String nativeName) {
 		this.nativeName = nativeName;
 	}
 }

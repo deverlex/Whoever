@@ -4,5 +4,6 @@ import vn.whoever.mainserver.model.Users;
 
 public interface UserService {
 
-	Users findBySso(String sso);
+	public Users findBySso(String sso);
+	public boolean registerUser(Users users);
 }

@@ -28,14 +28,14 @@ unique key uniq_language_country (idCountry, idLanguage)
 
 create table users (
 idUser bigint unsigned auto_increment primary key,
-idLanguage int(4) unsigned unique not null,
+idLanguage int(4) unsigned not null,
 ssoId varchar(32) unique not null,
 password varchar(32) not null,
 isAnonymous boolean not null,
 email varchar(64) unique,
 mobile varchar(32),
 nickName varchar(64) default 'anonymous',
-birthday date,
+birthday date not null,
 sex varchar(32) default 'unknown',
 isGetAroundStatus boolean not null,
 isShowOnline boolean not null,
@@ -158,7 +158,7 @@ unique key (idContact, idUser)
 ) engine = InnoDB;
 
 create table Message (
-idMessage bigint unsigned primary key,
+idMessage bigint unsigned auto_increment primary key,
 idUser bigint unsigned not null,
 message varchar (1024) not null,
 sendTime datetime not null,
@@ -195,10 +195,7 @@ constraint fk_user_group_user foreign key (idUser) references Users (iduser),
 constraint fk_user_group_group foreign key (idGroup) references Groups (idGroup)
 ) engine = InnoDB;
 
-
-
-
-
+commit;
 
 
 

@@ -30,7 +30,12 @@ public class UserDaoImpl extends AbstractDao<Integer,Users> implements UserDao, 
 	}
 
 	public boolean registerUser(Users users) {
-		
+		try {
+			persist(users);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

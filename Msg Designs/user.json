@@ -9,8 +9,7 @@
 
 // ? làm cái response này sau
 {
-	"roles" : "",
-	"note" : ""
+	
 }
 
 //Đăng ký mới tài khoản
@@ -18,7 +17,9 @@
 {
 	"ssoId" : "",
 	"password" : "",
-	"nickName" : ""
+	"nickName" : "",
+	"birthday" : "",
+	"langCode" : ""
 }
 
 //
