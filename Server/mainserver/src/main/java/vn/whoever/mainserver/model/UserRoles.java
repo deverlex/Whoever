@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import vn.whoever.mainserver.model.supports.Roles;
+
 @Entity
 @Table(name = "Users_Role", uniqueConstraints = 
 	@UniqueConstraint(columnNames = {"idUser", "role"}))

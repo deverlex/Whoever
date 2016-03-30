@@ -1,4 +1,4 @@
-package vn.whoever.mainserver.model;
+package vn.whoever.mainserver.model.supports;
 
 public enum States {
 

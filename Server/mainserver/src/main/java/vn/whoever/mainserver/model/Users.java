@@ -29,7 +29,7 @@ public class Users implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idUser", nullable = false)
-	private int idUser;
+	private long idUser;
 	
 	@Column(name = "ssoId", length = 32, nullable = false)
 	private String ssoId;
@@ -61,36 +61,11 @@ public class Users implements Serializable {
 		super();
 	}
 
-	public Users(int idUser, String ssoId, Date birthday, Languages language, UserStates states,
-			List<UserRoles> roles) {
-		super();
-		this.idUser = idUser;
-		this.ssoId = ssoId;
-		this.birthday = birthday;
-		this.language = language;
-		this.states = states;
-		this.roles = roles;
-	}
-
-	public Users(int idUser, String ssoId, String password, String email, String nickName, Date birthday,
-			Languages language, UserStates states, List<UserRoles> roles) {
-		super();
-		this.idUser = idUser;
-		this.ssoId = ssoId;
-		this.password = password;
-		this.email = email;
-		this.nickName = nickName;
-		this.birthday = birthday;
-		this.language = language;
-		this.states = states;
-		this.roles = roles;
-	}
-
-	public int getIdUser() {
+	public long getIdUser() {
 		return idUser;
 	}
 	
-	public void setIdUser(int idUser) {
+	public void setIdUser(long idUser) {
 		this.idUser = idUser;
 	}
 
