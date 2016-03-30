@@ -15,7 +15,7 @@ public class Tokens {
 	
 	@Id
 	@GeneratedValue
-	private int idUser;
+	private long idUser;
 	
 	@Column(name = "token", length = 32, nullable = false)
 	private String token;
@@ -27,18 +27,18 @@ public class Tokens {
 		super();
 	}
 
-	public Tokens(int idUser, String token, Date exp_date) {
+	public Tokens(long idUser, String token, Date exp_date) {
 		super();
 		this.idUser = idUser;
 		this.token = token;
 		this.exp_date = exp_date;
 	}
 
-	public int getIdUser() {
+	public long getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(int idUser) {
+	public void setIdUser(long idUser) {
 		this.idUser = idUser;
 	}
 

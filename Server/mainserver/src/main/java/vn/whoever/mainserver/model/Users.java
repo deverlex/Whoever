@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import vn.whoever.mainserver.model.supports.Genders;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = 
@@ -37,8 +40,14 @@ public class Users implements Serializable {
 	@Column(name = "password", length = 32)
 	private String password;
 	
+	@Column(name = "isAnonymous", nullable = false)
+	private boolean isAnonymous;
+	
 	@Column(name = "email", length = 64)
 	private String email;
+	
+	@Column(name = "mobile", length = 32)
+	private String mobile;
 	
 	@Column(name = "nickName", length = 64)
 	private String nickName;
@@ -46,20 +55,46 @@ public class Users implements Serializable {
 	@Column(name = "birthday")
 	private Date birthday;
 	
-	@ManyToOne
+	@Column(name = "sex", length = 32)
+	private String sex = Genders.UNKNOWN.getGender();
+	
+	@Column(name = "isGetAroundStatus", nullable = false)
+	private boolean isGetAroundStatus;
+	
+	@Column(name = "isShowOnline", nullable = false)
+	private boolean isShowOnline;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idLanguage")
 	private Languages language;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private UserStates states;
 	
-	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	private List<UserRoles> roles;
 	
 	public Users() {
 		super();
 	}
+	
+	
+	
+	public Users(long idUser, String ssoId, String password, boolean isAnonymous, String nickName, Languages language,
+			UserStates states, List<UserRoles> roles) {
+		super();
+		this.idUser = idUser;
+		this.ssoId = ssoId;
+		this.password = password;
+		this.isAnonymous = isAnonymous;
+		this.nickName = nickName;
+		this.language = language;
+		this.states = states;
+		this.roles = roles;
+	}
+
+
 
 	public long getIdUser() {
 		return idUser;
@@ -109,6 +144,46 @@ public class Users implements Serializable {
 		this.birthday = birthday;
 	}
 	
+	public boolean isAnonymous() {
+		return isAnonymous;
+	}
+
+	public void setAnonymous(boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public boolean isGetAroundStatus() {
+		return isGetAroundStatus;
+	}
+
+	public void setGetAroundStatus(boolean isGetAroundStatus) {
+		this.isGetAroundStatus = isGetAroundStatus;
+	}
+
+	public boolean isShowOnline() {
+		return isShowOnline;
+	}
+
+	public void setShowOnline(boolean isShowOnline) {
+		this.isShowOnline = isShowOnline;
+	}
+
 	public Languages getLanguage() {
 		return language;
 	}

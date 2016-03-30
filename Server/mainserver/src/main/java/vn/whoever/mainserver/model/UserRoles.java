@@ -24,7 +24,7 @@ public class UserRoles implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idRole")
-	private int idRole;
+	private long idRole;
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "idUser")
@@ -37,18 +37,18 @@ public class UserRoles implements Serializable {
 		super();
 	}
 	
-	public UserRoles(int idRole, Users users, String role) {
+	public UserRoles(long idRole, Users users, String role) {
 		super();
 		this.idRole = idRole;
 		this.users = users;
 		this.role = role;
 	}
 
-	public int getIdRole() {
+	public long getIdRole() {
 		return idRole;
 	}
 
-	public void setIdRole(int idRole) {
+	public void setIdRole(long idRole) {
 		this.idRole = idRole;
 	}
 	

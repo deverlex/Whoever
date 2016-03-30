@@ -15,9 +15,9 @@ public class GenerateSsoID {
 		Random random = new Random();
 		Date date = new Date();
 		long time = date.getTime();
-		long intTime = (time%10000000);
-		int ird = random.nextInt(99999) + 10000;
-		long ssoId = intTime * 100000 + ird;
+		long intTime = (time%100000000);
+		int ird = random.nextInt(9998) + 1;
+		long ssoId = intTime * 10000L + ird;
 		return String.valueOf(ssoId);
 	}
 }

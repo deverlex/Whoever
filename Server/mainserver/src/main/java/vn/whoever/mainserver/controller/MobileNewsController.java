@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class NewsController {
+public class MobileNewsController {
 	
 	@RequestMapping(value = "/mobile/get_home", method = RequestMethod.GET)
 	public @ResponseBody String getHome(HttpServletResponse httpResponse,

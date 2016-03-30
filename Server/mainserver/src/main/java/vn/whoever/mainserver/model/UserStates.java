@@ -22,7 +22,7 @@ public class UserStates implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idUser", nullable = false)
-	private int idUser;
+	private long idUser;
 	
 	@Column(name = "state", length = 12, nullable = true)
 	private String state;
@@ -37,7 +37,7 @@ public class UserStates implements Serializable {
 		super();
 	}
 		
-	public UserStates(int idUser, String state, Date timeout, Date exp_date) {
+	public UserStates(long idUser, String state, Date timeout, Date exp_date) {
 		super();
 		this.idUser = idUser;
 		this.state = state;
@@ -45,11 +45,11 @@ public class UserStates implements Serializable {
 		this.exp_date = exp_date;
 	}
 
-	public int getIdUser() {
+	public long getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(int idUser) {
+	public void setIdUser(long idUser) {
 		this.idUser = idUser;
 	}
 
