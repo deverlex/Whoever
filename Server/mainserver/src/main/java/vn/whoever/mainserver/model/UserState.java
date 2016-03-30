@@ -5,10 +5,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import vn.whoever.support.model.utils.States;
 
 @Entity
 @Table(name = "User_State")
@@ -25,7 +29,8 @@ public class UserState implements Serializable {
 	private long idUser;
 	
 	@Column(name = "state", length = 12, nullable = true)
-	private String state;
+	@Enumerated(EnumType.STRING)
+	private States state;
 	
 	@Column(name = "timeout")
 	private Date timeout;
@@ -37,7 +42,7 @@ public class UserState implements Serializable {
 		super();
 	}
 		
-	public UserState(long idUser, String state, Date timeout, Date exp_date) {
+	public UserState(long idUser, States state, Date timeout, Date exp_date) {
 		super();
 		this.idUser = idUser;
 		this.state = state;
@@ -53,11 +58,11 @@ public class UserState implements Serializable {
 		this.idUser = idUser;
 	}
 
-	public String getState() {
+	public States getState() {
 		return state;
 	}
 	
-	public void setState(String state) {
+	public void setState(States state) {
 		this.state = state;
 	}
 	

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import vn.whoever.mainserver.model.supports.Genders;
+import vn.whoever.support.model.utils.Genders;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = 
@@ -56,7 +58,8 @@ public class Users implements Serializable {
 	private Date birthday;
 	
 	@Column(name = "sex", length = 32)
-	private String sex = Genders.UNKNOWN.getGender();
+	@Enumerated(EnumType.STRING)
+	private Genders genders;
 	
 	@Column(name = "isGetAroundStatus", nullable = false)
 	private boolean isGetAroundStatus;
@@ -68,11 +71,11 @@ public class Users implements Serializable {
 	@JoinColumn(name = "idLanguage")
 	private Languages language;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private UserState state;
 	
-	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	@OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY )
 	private List<UserRoles> roles;
 	
 	public Users() {
@@ -109,7 +112,7 @@ public class Users implements Serializable {
 	}
 
 	public Users(String ssoId, String password, boolean isAnonymous, String email, String mobile,
-			String nickName, Date birthday, String sex, boolean isGetAroundStatus, boolean isShowOnline) {
+			String nickName, Date birthday, Genders sex, boolean isGetAroundStatus, boolean isShowOnline) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;
@@ -118,13 +121,13 @@ public class Users implements Serializable {
 		this.mobile = mobile;
 		this.nickName = nickName;
 		this.birthday = birthday;
-		this.sex = sex;
+		this.genders = sex;
 		this.isGetAroundStatus = isGetAroundStatus;
 		this.isShowOnline = isShowOnline;
 	}
 
 	public Users(String ssoId, String password, boolean isAnonymous, String email, String mobile,
-			String nickName, Date birthday, String sex, boolean isGetAroundStatus, boolean isShowOnline,
+			String nickName, Date birthday, Genders sex, boolean isGetAroundStatus, boolean isShowOnline,
 			Languages language, UserState state, List<UserRoles> roles) {
 		super();
 		this.ssoId = ssoId;
@@ -134,7 +137,7 @@ public class Users implements Serializable {
 		this.mobile = mobile;
 		this.nickName = nickName;
 		this.birthday = birthday;
-		this.sex = sex;
+		this.genders = sex;
 		this.isGetAroundStatus = isGetAroundStatus;
 		this.isShowOnline = isShowOnline;
 		this.language = language;
@@ -206,12 +209,12 @@ public class Users implements Serializable {
 		this.mobile = mobile;
 	}
 
-	public String getSex() {
-		return sex;
+	public Genders getSex() {
+		return genders;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setSex(Genders sex) {
+		this.genders = sex;
 	}
 
 	public boolean isGetAroundStatus() {

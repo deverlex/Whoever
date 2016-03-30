@@ -41,7 +41,7 @@ public class WhoeverUserDetailService implements UserDetailsService{
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
 		for(UserRoles role : user.getRoles()){
-			authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRole()));
+			authorities.add(new SimpleGrantedAuthority("ROLE_"+ role.getRoles()));
 		}
 		System.out.print("authorities :"+authorities);
 		return authorities;

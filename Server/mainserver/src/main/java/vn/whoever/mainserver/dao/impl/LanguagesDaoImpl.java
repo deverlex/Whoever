@@ -7,11 +7,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import vn.whoever.mainserver.dao.AbstractDao;
-import vn.whoever.mainserver.dao.LanguageDao;
+import vn.whoever.mainserver.dao.LanguagesDao;
 import vn.whoever.mainserver.model.Languages;
 
 @Repository("langDao")
-public class LanguageDaoImpl extends AbstractDao<Integer, Languages> implements LanguageDao, Serializable {
+public class LanguagesDaoImpl extends AbstractDao<Integer, Languages> implements LanguagesDao, Serializable {
 
 	/**
 	 * 

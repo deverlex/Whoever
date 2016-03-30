@@ -1,4 +1,4 @@
-package vn.whoever.mainserver.model.supports;
+package vn.whoever.support.model.utils;
 
 public enum Interacts {
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.whoever.mainserver.dao.UsersDao;
+import vn.whoever.mainserver.model.UserRoles;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.utils.Roles;
@@ -23,6 +24,7 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	public void registerUser(Users users) {
+		//UserRoles roles = new UserRoles(users.getIdUser(), Roles.USER);
 		dao.registerUser(users);
 	}
 
@@ -31,7 +33,6 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	public void updateState(Users users, State state) {
-		// TODO Auto-generated method stub
 		
 	}
 	
