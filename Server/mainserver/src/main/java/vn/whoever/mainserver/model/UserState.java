@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "User_State")
-public class UserStates implements Serializable {
+public class UserState implements Serializable {
 
 	/**
 	 * 
@@ -33,11 +33,11 @@ public class UserStates implements Serializable {
 	@Column(name = "exp_date")
 	private Date exp_date;
 	
-	public UserStates() {
+	public UserState() {
 		super();
 	}
 		
-	public UserStates(long idUser, String state, Date timeout, Date exp_date) {
+	public UserState(long idUser, String state, Date timeout, Date exp_date) {
 		super();
 		this.idUser = idUser;
 		this.state = state;

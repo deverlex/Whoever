@@ -20,11 +20,11 @@ import vn.whoever.mainserver.model.Users;
 public class WhoeverUserDetailService implements UserDetailsService{
 
 	@Autowired
-	private UserService userService;
+	private UsersService usersService;
 	
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
-		Users user = userService.findBySso(ssoId);
+		Users user = usersService.findBySso(ssoId);
 		System.out.println("User : " + user);
 		if (user == null) {
 			System.out.println("User not found");
@@ -32,8 +32,8 @@ public class WhoeverUserDetailService implements UserDetailsService{
 		}
 		System.out.println("ssoId: " + user.getSsoId());
 		System.out.println("password: " + user.getPassword());
-		System.out.println("isActve: " + user.getStates().getState().equals("active"));
-		return new User(user.getSsoId(), user.getPassword(), user.getStates().getState().equals("active"), true, true, true,
+		System.out.println("isActve: " + user.getState().getState().equals("active"));
+		return new User(user.getSsoId(), user.getPassword(), user.getState().getState().equals("active"), true, true, true,
 				getGrantedAuthorities(user));
 	}
 	

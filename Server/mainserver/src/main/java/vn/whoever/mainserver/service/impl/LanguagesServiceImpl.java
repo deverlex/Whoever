@@ -5,19 +5,19 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.whoever.mainserver.dao.LanguageDao;
+import vn.whoever.mainserver.dao.LanguagesDao;
 import vn.whoever.mainserver.model.Languages;
-import vn.whoever.mainserver.service.LanguageService;
+import vn.whoever.mainserver.service.LanguagesService;
 
-@Service("languageService")
+@Service("languagesService")
 @Transactional
-public class LanguageServiceImpl implements LanguageService {
+public class LanguagesServiceImpl implements LanguagesService {
 
 	@Autowired
-	private LanguageDao languageDao;
+	private LanguagesDao dao;
 	
 	public Languages findByCode(String code) {
-		return languageDao.findByCode(code);
+		return dao.findByCode(code);
 	}
 
 }

@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import vn.whoever.mainserver.dao.LanguageDao;
+import vn.whoever.mainserver.dao.LanguagesDao;
 import vn.whoever.mainserver.model.Users;
-import vn.whoever.mainserver.service.LanguageService;
-import vn.whoever.mainserver.service.UserService;
+import vn.whoever.mainserver.service.LanguagesService;
+import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.RequestAcceptTerm;
 import vn.whoever.support.model.request.RequestLogin;
 import vn.whoever.support.model.request.RequestRegister;
@@ -37,10 +37,10 @@ public class MobileUserController {
 	protected AuthenticationManager authManager;
 	
 	@Autowired
-	private LanguageService langService;
+	private LanguagesService langsService;
 	
 	@Autowired
-	private UserService userService;
+	private UsersService usersService;
 	
 	
 	@RequestMapping(value = {"/mobile/login"}, method = RequestMethod.POST,
@@ -77,12 +77,12 @@ public class MobileUserController {
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void registerAccount(@RequestBody RequestRegister req) {
 		Users users = new Users(req.getSsoId(), req.getPassword(),
-				langService.findByCode(req.getLangCode()).getIdLanguage(),
+				langsService.findByCode(req.getLangCode()).getIdLanguage(),
 				req.getNickName(), req.getBirthday());
-		userService.registerUser(users);
+		usersService.registerUser(users);
 		
 		System.out.println("langCode: " + req.getLangCode());
-		System.out.println("findByLangcode: " + langService.findByCode(req.getLangCode()).getStandardName());
+		System.out.println("findByLangcode: " + langsService.findByCode(req.getLangCode()).getStandardName());
 	}
 	
 	@RequestMapping(value = {"/mobile/accept_term"}, method = RequestMethod.POST)

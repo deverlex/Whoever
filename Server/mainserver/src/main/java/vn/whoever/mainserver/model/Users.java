@@ -70,7 +70,7 @@ public class Users implements Serializable {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
-	private UserStates states;
+	private UserState state;
 	
 	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	private List<UserRoles> roles;
@@ -125,7 +125,7 @@ public class Users implements Serializable {
 
 	public Users(String ssoId, String password, boolean isAnonymous, String email, String mobile,
 			String nickName, Date birthday, String sex, boolean isGetAroundStatus, boolean isShowOnline,
-			Languages language, UserStates states, List<UserRoles> roles) {
+			Languages language, UserState state, List<UserRoles> roles) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;
@@ -138,7 +138,7 @@ public class Users implements Serializable {
 		this.isGetAroundStatus = isGetAroundStatus;
 		this.isShowOnline = isShowOnline;
 		this.language = language;
-		this.states = states;
+		this.state = state;
 		this.roles = roles;
 	}
 
@@ -238,12 +238,12 @@ public class Users implements Serializable {
 		this.language = language;
 	}
 
-	public UserStates getStates() {
-		return states;
+	public UserState getState() {
+		return state;
 	}
 
-	public void setStates(UserStates states) {
-		this.states = states;
+	public void setState(UserState state) {
+		this.state = state;
 	}
 
 	public List<UserRoles> getRoles() {
@@ -277,7 +277,7 @@ public class Users implements Serializable {
 	public String toString() {
 		return "User [id=" + idUser + ", ssoId=" + ssoId + ", password=" + password
 				+ ", email=" + email + ", nickName=" + nickName + ", birthday=" + birthday
-				+ ", language=" + language + ", state=" + states
+				+ ", language=" + language + ", state=" + state
 				+ ", roles=" + roles +"]";
 	}
 }
