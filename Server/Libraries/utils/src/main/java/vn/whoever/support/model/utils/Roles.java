@@ -2,12 +2,11 @@ package vn.whoever.support.model.utils;
 
 public enum Roles {
 
-	ANONYMOUS("anonymous"),
-	USER("user"),
-	ADMIN("admin"),
-	MODERATOR("moderator"),
-	EDITOR("editor"),
-	DBA("dba");
+	USER("USER"),
+	ADMIN("ADMIN"),
+	MODERATOR("MODERATOR"),
+	EDITOR("EDITOR"),
+	DBA("DBA");
 	
 	private String role;
 	

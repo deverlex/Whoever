@@ -19,7 +19,7 @@ public class Countries implements Serializable {
 	@Column(name = "idCountry")
 	private int idCountry;
 	
-	@Column(name = "postalCode", length = 6, nullable = false)
+	@Column(name = "postalCode", length = 8, nullable = false)
 	private String postalCode;
 	
 	@Column(name = "name", length = 32, nullable = false)

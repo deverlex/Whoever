@@ -11,7 +11,7 @@ import vn.whoever.mainserver.model.UserRoles;
 import vn.whoever.support.model.utils.Roles;
 
 @Repository("roleDao")
-public class UserRolesDaoImpl extends AbstractDao<Long, UserRoles> implements UserRolesDao, Serializable {
+public class UserRolesDaoImpl extends AbstractDao<String, UserRoles> implements UserRolesDao, Serializable {
 
 	/**
 	 * 

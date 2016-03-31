@@ -32,8 +32,8 @@ public class WhoeverUserDetailService implements UserDetailsService{
 		}
 		System.out.println("ssoId: " + user.getSsoId());
 		System.out.println("password: " + user.getPassword());
-		System.out.println("isActve: " + user.getState().getState().equals("active"));
-		return new User(user.getSsoId(), user.getPassword(), user.getState().getState().equals("active"), true, true, true,
+		//System.out.println("isActve: " + user.getState().getState().equals("active"));
+		return new User(user.getSsoId(), user.getPassword(), true, true, true, true,
 				getGrantedAuthorities(user));
 	}
 	

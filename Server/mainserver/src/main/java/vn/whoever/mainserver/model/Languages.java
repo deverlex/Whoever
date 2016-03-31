@@ -24,7 +24,7 @@ public class Languages implements Serializable {
 	@Column(name = "standardName", length = 32, nullable = false)
 	private String standardName;
 	
-	@Column(name = "nativeName", length = 64, nullable = true)
+	@Column(name = "nativeName", length = 64)
 	private String nativeName;
 
 	public Languages() {

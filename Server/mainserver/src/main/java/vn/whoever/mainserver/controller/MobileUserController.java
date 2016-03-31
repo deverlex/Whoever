@@ -76,13 +76,13 @@ public class MobileUserController {
 	@RequestMapping(value = {"/mobile/register"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void registerAccount(@RequestBody RequestRegister req) {
-		Users users = new Users(req.getSsoId(), req.getPassword(),
-				langsService.findByCode(req.getLangCode()).getIdLanguage(),
-				req.getNickName(), req.getBirthday());
-		usersService.registerUser(users);
+//		Users users = new Users(req.getSsoId(), req.getPassword(),
+//				langsService.findByCode(req.getLangCode()).getIdLanguage(),
+//				req.getNickName(), req.getBirthday());
+//		usersService.registerUser(users);
 		
-		System.out.println("langCode: " + req.getLangCode());
-		System.out.println("findByLangcode: " + langsService.findByCode(req.getLangCode()).getStandardName());
+//		System.out.println("langCode: " + req.getLangCode());
+//		System.out.println("findByLangcode: " + langsService.findByCode(req.getLangCode()).getStandardName());
 	}
 	
 	@RequestMapping(value = {"/mobile/accept_term"}, method = RequestMethod.POST)

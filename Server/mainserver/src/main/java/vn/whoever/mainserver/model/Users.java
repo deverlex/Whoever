@@ -2,7 +2,8 @@ package vn.whoever.mainserver.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,31 +11,25 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import vn.whoever.support.model.utils.Genders;
+import vn.whoever.support.model.utils.States;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = 
-	{@UniqueConstraint(columnNames = {"ssoId"}), 
-			@UniqueConstraint(columnNames = {"email"})})
+	{@UniqueConstraint(columnNames = {"ssoId"})})
 public class Users implements Serializable {
 
 	private static final long serialVersionUID = 167574463L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idUser", nullable = false)
-	private long idUser;
+	@Column(name = "idUser", nullable = false, length = 16)
+	private String idUser;
 	
 	@Column(name = "ssoId", length = 32, nullable = false)
 	private String ssoId;
@@ -42,114 +37,53 @@ public class Users implements Serializable {
 	@Column(name = "password", length = 32)
 	private String password;
 	
-	@Column(name = "isAnonymous", nullable = false)
-	private boolean isAnonymous;
-	
-	@Column(name = "email", length = 64)
-	private String email;
-	
-	@Column(name = "mobile", length = 32)
-	private String mobile;
-	
-	@Column(name = "nickName", length = 64)
-	private String nickName;
-	
-	@Column(name = "birthday")
-	private Date birthday;
-	
-	@Column(name = "sex", length = 32)
+	@Column(name = "state", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Genders genders;
+	private States state = States.inactive;
 	
-	@Column(name = "isGetAroundStatus", nullable = false)
-	private boolean isGetAroundStatus;
+	@Column(name = "xLoc", nullable = true)
+	private Double xLoc;
 	
-	@Column(name = "isShowOnline", nullable = false)
-	private boolean isShowOnline;
+	@Column(name = "yLoc", nullable = true)
+	private Double yLoc;
+	
+	@Column(name = "token", nullable = false)
+	private String token;
+	
+	@Column(name = "exp_token", nullable = false)
+	private Date exp_token;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idLanguage")
 	private Languages language;
-
-	@OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	private UserState state;
 	
-	@OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY )
-	private List<UserRoles> roles;
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	private Set<UserRoles> roles = new HashSet<UserRoles>();
 	
 	public Users() {
 		super();
 	}
 	
-	public Users(String ssoId, String password, boolean isAnonymous, boolean isGetAroundStatus, boolean isShowOnline) {
+	public Users(String idUser, String ssoId, String password, States state, Double xLoc, Double yLoc, String token,
+			Date exp_token, Languages language, Set<UserRoles> roles) {
 		super();
+		this.idUser = idUser;
 		this.ssoId = ssoId;
 		this.password = password;
-		this.isAnonymous = isAnonymous;
-		this.isGetAroundStatus = isGetAroundStatus;
-		this.isShowOnline = isShowOnline;
-	}
-	
-	/**
-	 * There are for register new user
-	 * @param ssoId
-	 * @param password
-	 * @param nickName
-	 * @param birthday
-	 */
-	public Users(String ssoId, String password, int idLanguage,String nickName,Date birthday) {
-		super();
-		this.ssoId = ssoId;
-		this.password = password;
-		this.nickName = nickName;
-		this.birthday = birthday;
-		this.language = new Languages();
-		language.setIdLanguage(idLanguage);
-		this.isAnonymous = false;
-		this.isGetAroundStatus = true;
-		this.isShowOnline = true;
-	}
-
-	public Users(String ssoId, String password, boolean isAnonymous, String email, String mobile,
-			String nickName, Date birthday, Genders sex, boolean isGetAroundStatus, boolean isShowOnline) {
-		super();
-		this.ssoId = ssoId;
-		this.password = password;
-		this.isAnonymous = isAnonymous;
-		this.email = email;
-		this.mobile = mobile;
-		this.nickName = nickName;
-		this.birthday = birthday;
-		this.genders = sex;
-		this.isGetAroundStatus = isGetAroundStatus;
-		this.isShowOnline = isShowOnline;
-	}
-
-	public Users(String ssoId, String password, boolean isAnonymous, String email, String mobile,
-			String nickName, Date birthday, Genders sex, boolean isGetAroundStatus, boolean isShowOnline,
-			Languages language, UserState state, List<UserRoles> roles) {
-		super();
-		this.ssoId = ssoId;
-		this.password = password;
-		this.isAnonymous = isAnonymous;
-		this.email = email;
-		this.mobile = mobile;
-		this.nickName = nickName;
-		this.birthday = birthday;
-		this.genders = sex;
-		this.isGetAroundStatus = isGetAroundStatus;
-		this.isShowOnline = isShowOnline;
-		this.language = language;
 		this.state = state;
+		this.xLoc = xLoc;
+		this.yLoc = yLoc;
+		this.token = token;
+		this.exp_token = exp_token;
+		this.language = language;
 		this.roles = roles;
 	}
 
-	public long getIdUser() {
+	public String getIdUser() {
 		return idUser;
 	}
-	
-	public void setIdUser(long idUser) {
+
+	public void setIdUser(String idUser) {
 		this.idUser = idUser;
 	}
 
@@ -160,77 +94,53 @@ public class Users implements Serializable {
 	public void setSsoId(String ssoId) {
 		this.ssoId = ssoId;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getNickName() {
-		return nickName;
+
+	public States getState() {
+		return state;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-	
-	public Date getBirthday() {
-		return birthday;
-	}
-	
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	
-	public boolean isAnonymous() {
-		return isAnonymous;
+	public void setState(States state) {
+		this.state = state;
 	}
 
-	public void setAnonymous(boolean isAnonymous) {
-		this.isAnonymous = isAnonymous;
+	public Double getxLoc() {
+		return xLoc;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public void setxLoc(Double xLoc) {
+		this.xLoc = xLoc;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public Double getyLoc() {
+		return yLoc;
 	}
 
-	public Genders getSex() {
-		return genders;
+	public void setyLoc(Double yLoc) {
+		this.yLoc = yLoc;
 	}
 
-	public void setSex(Genders sex) {
-		this.genders = sex;
+	public String getToken() {
+		return token;
 	}
 
-	public boolean isGetAroundStatus() {
-		return isGetAroundStatus;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
-	public void setGetAroundStatus(boolean isGetAroundStatus) {
-		this.isGetAroundStatus = isGetAroundStatus;
+	public Date getExp_token() {
+		return exp_token;
 	}
 
-	public boolean isShowOnline() {
-		return isShowOnline;
-	}
-
-	public void setShowOnline(boolean isShowOnline) {
-		this.isShowOnline = isShowOnline;
+	public void setExp_token(Date exp_token) {
+		this.exp_token = exp_token;
 	}
 
 	public Languages getLanguage() {
@@ -241,19 +151,11 @@ public class Users implements Serializable {
 		this.language = language;
 	}
 
-	public UserState getState() {
-		return state;
-	}
-
-	public void setState(UserState state) {
-		this.state = state;
-	}
-
-	public List<UserRoles> getRoles() {
+	public Set<UserRoles> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<UserRoles> roles) {
+	public void setRoles(Set<UserRoles> roles) {
 		this.roles = roles;
 	}
 	
@@ -276,11 +178,11 @@ public class Users implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + idUser + ", ssoId=" + ssoId + ", password=" + password
-				+ ", email=" + email + ", nickName=" + nickName + ", birthday=" + birthday
-				+ ", language=" + language + ", state=" + state
-				+ ", roles=" + roles +"]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [id=" + idUser + ", ssoId=" + ssoId + ", password=" + password
+//				+ ", state=" + state.getState() + ", xLoc=" + xLoc + ", yLoc=" + yLoc
+//				+ ", token=" + token + ", exp_token=" + exp_token
+//				+ ", language=" + language + ", roles=[" + roles + "]" + "]";
+//	}
 }

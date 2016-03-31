@@ -2,14 +2,13 @@ package vn.whoever.support.model.utils;
 
 public enum States {
 
-	ACTIVE("active"),
-	INACTIVE("inactive"),
-	DELETED("deleted"),
-	LOCKED("locked");
+	active("active"),
+	inactive("inactive"),
+	locked("locked");
 	
 	private String state;
 	
-	States(final String state) {
+	private States(final String state) {
 		this.state = state;
 	}
 	
