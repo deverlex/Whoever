@@ -2,9 +2,9 @@ package vn.whoever.support.model.utils;
 
 public enum Genders {
 	
-	MALE("male"),
-	FEMALE("female"),
-	UNKNOWN("unknown");
+	male("male"),
+	female("female"),
+	unknown("unknown");
 	
 	private String sex;
 	

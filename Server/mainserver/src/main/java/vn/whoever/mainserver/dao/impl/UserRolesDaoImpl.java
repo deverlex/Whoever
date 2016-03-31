@@ -7,18 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.UserRolesDao;
-import vn.whoever.mainserver.model.UserRoles;
+import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.support.model.utils.Roles;
 
 @Repository("roleDao")
-public class UserRolesDaoImpl extends AbstractDao<String, UserRoles> implements UserRolesDao, Serializable {
+public class UserRolesDaoImpl extends AbstractDao<String, SetRoles> implements UserRolesDao, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -14356542223L;
 
-	public void addRole(UserRoles roles) {
+	public void addRole(SetRoles roles) {
 		persist(roles);
 	}
 

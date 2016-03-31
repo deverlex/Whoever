@@ -206,7 +206,7 @@ index (point desc)
 ) engine = InnoDB ;
 
 create table reports (
-idReport varchar(16) primary key,
+idReport bigint unsigned auto_increment primary key,
 idUser varchar(16) not null,
 contentReport text not null,
 timeReport datetime default now() not null,

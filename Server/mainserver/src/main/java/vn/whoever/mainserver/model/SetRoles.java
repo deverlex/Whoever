@@ -21,7 +21,7 @@ import vn.whoever.support.model.utils.Roles;
 @Entity
 @Table(name = "Roles", uniqueConstraints = 
 	@UniqueConstraint(columnNames = {"idUser", "role"}))
-public class UserRoles implements Serializable {
+public class SetRoles implements Serializable {
 
 	private static final long serialVersionUID = 1687563455L;
 	
@@ -35,11 +35,11 @@ public class UserRoles implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Roles roles = Roles.USER;
 	
-	public UserRoles() {
+	public SetRoles() {
 		super();
 	}
 	
-	public UserRoles(Users users, Roles roles) {
+	public SetRoles(Users users, Roles roles) {
 		super();
 		this.users = users;
 		this.roles = roles;

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -58,14 +59,17 @@ public class Users implements Serializable {
 	private Languages language;
 	
 	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-	private Set<UserRoles> roles = new HashSet<UserRoles>();
+	private Set<SetRoles> roles = new HashSet<SetRoles>();
+	
+	@OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Profiles profiles;
 	
 	public Users() {
 		super();
 	}
 	
 	public Users(String idUser, String ssoId, String password, States state, Double xLoc, Double yLoc, String token,
-			Date exp_token, Languages language, Set<UserRoles> roles) {
+			Date exp_token, Languages language, Set<SetRoles> roles) {
 		super();
 		this.idUser = idUser;
 		this.ssoId = ssoId;
@@ -151,11 +155,11 @@ public class Users implements Serializable {
 		this.language = language;
 	}
 
-	public Set<UserRoles> getRoles() {
+	public Set<SetRoles> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<UserRoles> roles) {
+	public void setRoles(Set<SetRoles> roles) {
 		this.roles = roles;
 	}
 	
