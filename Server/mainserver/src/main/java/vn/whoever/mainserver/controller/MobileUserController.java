@@ -66,7 +66,7 @@ public class MobileUserController {
 	@RequestMapping(value = {"/mobile/anonymous/login"}, method = RequestMethod.GET)
 	public String loginAnonymous(@RequestParam(value = "langCode", defaultValue = "vi") String langCode,
 			@RequestParam(value = "birthday") @DateTimeFormat(pattern = "dd/MM/yyyy") Date birthday) {
-		String ssoId = GenerateSsoID.getInstance().getSsoId();
+		
 		
 		
 		
@@ -76,6 +76,7 @@ public class MobileUserController {
 	@RequestMapping(value = {"/mobile/register"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void registerAccount(@RequestBody RequestRegister req) {
+		
 //		Users users = new Users(req.getSsoId(), req.getPassword(),
 //				langsService.findByCode(req.getLangCode()).getIdLanguage(),
 //				req.getNickName(), req.getBirthday());

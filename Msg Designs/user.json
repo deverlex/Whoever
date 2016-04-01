@@ -22,12 +22,153 @@
 	"langCode" : ""
 }
 
-//
-
 {
-	"response" : "FAIL", //fail
-	"note" : "Account Unavailable"
+	"status" : [
+		{
+			"idStatus" : "",
+			"idPoster" : "",
+			"avatartPoster" : "",
+			"namePoster" : "",
+			"timePost" : "",
+			"content" : "",
+			"totalLike" : "",
+			"totalDislike" : "",
+			"comments" : [
+				{
+					"idComment" : "",
+					"idUserComment" : "",
+					"avatartCommentator" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				}
+			]
+		},
+		{
+			"idStatus" : "",
+			"idPoster" : "",
+			"namePoster" : "",
+			"timePost" : "",
+			"content" : "",
+			"totalLike" : "",
+			"totalDislike" : "",
+			"comments" : [
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				}
+			]
+		},
+		{
+			"idStatus" : "",
+			"idPoster" : "",
+			"namePoster" : "",
+			"timePost" : "",
+			"content" : "",
+			"totalLike" : "",
+			"totalDislike" : "",
+			"comments" : [
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				}
+			]
+		},
+		{
+			"idStatus" : "",
+			"idPoster" : "",
+			"namePoster" : "",
+			"timePost" : "",
+			"content" : "",
+			"totalLike" : "",
+			"totalDislike" : "",
+			"comments" : [
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				},
+				{
+					"idComment" : "",
+					"iduserComment" : "",
+					"content" : "",
+					"totalLike" : "",
+					"totalDislike" : ""
+				}
+			]
+		}
+	]
 }
+
+
+
+
+
+
 //B2:
 {
 	"ssoId" : "",

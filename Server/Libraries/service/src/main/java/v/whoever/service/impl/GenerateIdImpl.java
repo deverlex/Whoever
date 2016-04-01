@@ -1,4 +1,4 @@
-package vn.whoever.service.core;
+package v.whoever.service.impl;
 
 import java.util.Date;
 import java.util.Properties;

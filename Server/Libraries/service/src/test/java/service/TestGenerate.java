@@ -2,8 +2,8 @@ package service;
 
 import java.util.Date;
 
+import v.whoever.service.impl.GenerateIdImpl;
 import vn.whoever.service.GenerateId;
-import vn.whoever.service.core.GenerateIdImpl;
 
 public class TestGenerate {
 
@@ -21,7 +21,6 @@ public class TestGenerate {
 			System.out.println(code.getIdNotify());
 			System.out.println(code.getIdComment());
 		}
-		//0.0000000309% sau khi dat so 1 nghin ti ID
 		System.out.println((new Date()).getTime());
 	}	
 }
