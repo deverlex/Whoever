@@ -31,7 +31,7 @@ public class Comments implements Serializable {
 	@JoinColumn(name = "idUser")
 	private Users users;
 	
-	@OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.DETACH)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idStatus")
 	private Status status;
 	

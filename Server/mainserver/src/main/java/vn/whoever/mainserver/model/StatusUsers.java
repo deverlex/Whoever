@@ -2,7 +2,14 @@ package vn.whoever.mainserver.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -10,15 +17,26 @@ import vn.whoever.support.model.utils.Interacts;
 
 @Entity
 @Table(name = "status_users", uniqueConstraints = 
-	@UniqueConstraint(columnNames = {"idStatus", "idStatus"}))
+	@UniqueConstraint(columnNames = {"idStatus", "idUser"}))
 public class StatusUsers implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1939789373L;
+	
+	@Id
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "idStatus")
 	private Status status;
+	
+	@Id
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "idUser")
 	private Users users;
+	
+	@Column(name = "interact")
+	@Enumerated(EnumType.STRING)
 	private Interacts interacts = Interacts.normal;
 	
 	public StatusUsers() {

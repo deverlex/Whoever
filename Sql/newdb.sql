@@ -86,6 +86,7 @@ idUser varchar(16) not null,
 idStatus varchar(16) not null,
 timePost datetime default now() not null,
 content text not null,
+isUseAccount boolean default false not null, 
 constraint fk_comment_status foreign key (idStatus) references status (idStatus),
 constraint fk_comment_user foreign key (idUser) references users (idUser)
 ) engine = InnoDB;
