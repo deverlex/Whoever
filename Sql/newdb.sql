@@ -35,8 +35,8 @@ password varchar(32) not null,
 state varchar(12) default 'inactive' not null,
 xLoc double,
 yLoc double,
-token varchar(32) not null,
-exp_token datetime not null,
+isAnonymous boolean default false not null,
+isOnline boolean default false not null,
 constraint fk_user_language foreign key (idLanguage) references languages (idLanguage)
 ) engine = InnoDB;
 

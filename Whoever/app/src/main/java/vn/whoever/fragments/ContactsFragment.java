@@ -1,5 +1,6 @@
 package vn.whoever.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import vn.whoever.R;
+import vn.whoever.activities.SearchContactActivity;
 import vn.whoever.adapters.ContactsAdapter;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
@@ -25,6 +28,7 @@ public class ContactsFragment extends Fragment implements Initgc {
     private LinearLayout layoutToolBar;
     private FloatingActionButton buttonAddAccount;
     private ListView listContact;
+    private ImageButton btnSearchContacts;
 
     private ContactsAdapter contactsAdapter;
 
@@ -45,6 +49,8 @@ public class ContactsFragment extends Fragment implements Initgc {
 
         contactsAdapter = new ContactsAdapter(getActivity());
         listContact.setAdapter(contactsAdapter);
+
+        btnSearchContacts = (ImageButton) layoutToolBar.findViewById(R.id.btnSearchContact);
     }
 
     @Override
@@ -95,6 +101,14 @@ public class ContactsFragment extends Fragment implements Initgc {
             public boolean onTouch(View v, MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
                 return false;
+            }
+        });
+
+        btnSearchContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchContactActivity.class);
+                startActivity(intent);
             }
         });
     }

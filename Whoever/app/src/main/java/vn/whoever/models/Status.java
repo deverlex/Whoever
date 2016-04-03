@@ -21,13 +21,9 @@ public class Status {
     private int countDislike;
 
     private HashMap<String, Reply> comments; //idUser & Reply
-    private ArrayList<String> likes; //idUser
-    private ArrayList<String> dislikes; //idUser
 
     public Status() {
         comments = new HashMap<>();
-        likes = new ArrayList<>();
-        dislikes = new ArrayList<>();
     }
 
     public int getIdStatus() {
@@ -102,19 +98,4 @@ public class Status {
         this.comments = comments;
     }
 
-    public ArrayList<String> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(ArrayList<String> likes) {
-        this.likes = likes;
-    }
-
-    public ArrayList<String> getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(ArrayList<String> dislikes) {
-        this.dislikes = dislikes;
-    }
 }

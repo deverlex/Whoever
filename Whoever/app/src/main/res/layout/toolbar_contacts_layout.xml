@@ -55,25 +55,22 @@
                 android:track="@drawable/custom_track_switch"/>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/layoutSearchButtonContactList"
+        <ImageButton
+            android:id="@+id/btnSearchContact"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_search_red"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"/>
-        </RelativeLayout>
+            android:src="@drawable/icon_search_red"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/colorWhite"/>
+
 
         <View
             android:id="@+id/lineWhiteOnToolbarContact"
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/layoutSearchButtonContactList"
+            android:layout_toLeftOf="@+id/btnSearchContact"
             android:background="@color/colorRedMain"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>

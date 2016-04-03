@@ -1,7 +1,6 @@
 package vn.whoever.mainserver.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,11 +47,11 @@ public class Users implements Serializable {
 	@Column(name = "yLoc", nullable = true)
 	private Double yLoc;
 	
-	@Column(name = "token", nullable = false)
-	private String token;
+	@Column(name = "isAnonymous", nullable = false)
+	private Boolean isAnonymous;
 	
-	@Column(name = "exp_token", nullable = false)
-	private Date exp_token;
+	@Column(name = "isOnline", nullable = false)
+	private Boolean isOnline;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idLanguage")
@@ -67,9 +66,21 @@ public class Users implements Serializable {
 	public Users() {
 		super();
 	}
+
+	public Users(String idUser, String ssoId, String password, States state, Boolean isAnonymous, Boolean isOnline,
+			Languages language) {
+		super();
+		this.idUser = idUser;
+		this.ssoId = ssoId;
+		this.password = password;
+		this.state = state;
+		this.isAnonymous = isAnonymous;
+		this.isOnline = isOnline;
+		this.language = language;
+	}
 	
-	public Users(String idUser, String ssoId, String password, States state, Double xLoc, Double yLoc, String token,
-			Date exp_token, Languages language, Set<SetRoles> roles) {
+	public Users(String idUser, String ssoId, String password, States state, 
+				Double xLoc, Double yLoc, Languages language, Set<SetRoles> roles) {
 		super();
 		this.idUser = idUser;
 		this.ssoId = ssoId;
@@ -77,8 +88,6 @@ public class Users implements Serializable {
 		this.state = state;
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
-		this.token = token;
-		this.exp_token = exp_token;
 		this.language = language;
 		this.roles = roles;
 	}
@@ -130,21 +139,29 @@ public class Users implements Serializable {
 	public void setyLoc(Double yLoc) {
 		this.yLoc = yLoc;
 	}
-
-	public String getToken() {
-		return token;
+	
+	public Boolean getIsAnonymous() {
+		return isAnonymous;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setIsAnonymous(Boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
 	}
 
-	public Date getExp_token() {
-		return exp_token;
+	public Boolean getIsOnline() {
+		return isOnline;
 	}
 
-	public void setExp_token(Date exp_token) {
-		this.exp_token = exp_token;
+	public void setIsOnline(Boolean isOnline) {
+		this.isOnline = isOnline;
+	}
+
+	public Profiles getProfiles() {
+		return profiles;
+	}
+
+	public void setProfiles(Profiles profiles) {
+		this.profiles = profiles;
 	}
 
 	public Languages getLanguage() {

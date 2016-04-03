@@ -20,14 +20,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import vn.whoever.mainserver.dao.LanguagesDao;
+import vn.whoever.mainserver.model.Languages;
+import vn.whoever.mainserver.model.Profiles;
+import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.LanguagesService;
+import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.RequestAcceptTerm;
 import vn.whoever.support.model.request.RequestLogin;
 import vn.whoever.support.model.request.RequestRegister;
-import vn.whoever.support.utils.GenerateSsoID;
+import vn.whoever.support.model.utils.States;
 
 @Controller
 public class MobileUserController {
@@ -41,6 +44,9 @@ public class MobileUserController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	//@Autowired
+	//private ProfilesService profileService;
 	
 	
 	@RequestMapping(value = {"/mobile/login"}, method = RequestMethod.POST,
@@ -67,23 +73,21 @@ public class MobileUserController {
 	public String loginAnonymous(@RequestParam(value = "langCode", defaultValue = "vi") String langCode,
 			@RequestParam(value = "birthday") @DateTimeFormat(pattern = "dd/MM/yyyy") Date birthday) {
 		
-		
-		
-		
 		return "";
 	}
 
 	@RequestMapping(value = {"/mobile/register"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody void registerAccount(@RequestBody RequestRegister req) {
-		
-//		Users users = new Users(req.getSsoId(), req.getPassword(),
-//				langsService.findByCode(req.getLangCode()).getIdLanguage(),
-//				req.getNickName(), req.getBirthday());
-//		usersService.registerUser(users);
-		
-//		System.out.println("langCode: " + req.getLangCode());
-//		System.out.println("findByLangcode: " + langsService.findByCode(req.getLangCode()).getStandardName());
+	public @ResponseBody String registerAccount(@RequestBody RequestRegister req) {
+		Languages language = langsService.findByCode(req.getLangCode());
+		Users users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), States.active, false, true, language);
+		try {
+			usersService.registerUser(users);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Register fail!!!";
+		}
+		return "Register successful!!!";
 	}
 	
 	@RequestMapping(value = {"/mobile/accept_term"}, method = RequestMethod.POST)

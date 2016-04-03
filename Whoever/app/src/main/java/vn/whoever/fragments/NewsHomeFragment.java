@@ -84,7 +84,7 @@ public class NewsHomeFragment extends Fragment implements Initgc, AbsListView.On
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         if(firstVisibleItem + visibleItemCount == totalItemCount && !statusAdapter.endReached() && !hasCallback) {
-            mHandler.postDelayed(showMore, 1200);
+            mHandler.postDelayed(showMore, 1600);
             hasCallback = true;
         }
     }

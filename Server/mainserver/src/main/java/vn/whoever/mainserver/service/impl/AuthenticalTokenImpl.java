@@ -9,7 +9,7 @@ public class AuthenticalTokenImpl implements AuthenticalToken {
 
 	public String getToken(String ssoId) {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	public String getToken(String ssoId, Date exp_date) {

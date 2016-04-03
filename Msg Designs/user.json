@@ -13,7 +13,7 @@
 }
 
 //Đăng ký mới tài khoản
-// B1:
+//Nếu bỏ dở xác nhận birthday và langCode thì lưu trữ tại máy.
 {
 	"ssoId" : "",
 	"password" : "",
@@ -162,24 +162,6 @@
 			]
 		}
 	]
-}
-
-
-
-
-
-
-//B2:
-{
-	"ssoId" : "",
-	"langCode" : "",
-	"birthday" : ""
-}
-
-//xác nhận
-{
-	"response" : "",
-	"note" : ""
 }
 
 //Đăng nhập ẩn danh lần đầu - cái này dùng GET

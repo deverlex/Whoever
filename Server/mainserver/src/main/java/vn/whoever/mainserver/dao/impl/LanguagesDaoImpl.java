@@ -21,7 +21,6 @@ public class LanguagesDaoImpl extends AbstractDao<Integer, Languages> implements
 	public Languages findByCode(String langCode) {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("langCode", langCode));
-		System.out.println("find langCode by code");
 		return (Languages) crit.uniqueResult();
 	}
 

@@ -6,6 +6,7 @@ import vn.whoever.support.model.utils.States;
 
 public interface UsersService {
 
+	public String generateUserId();
 	public Users findBySso(String sso);
 	public void registerUser(Users users);
 	public void addRole(Users users, Roles roles);

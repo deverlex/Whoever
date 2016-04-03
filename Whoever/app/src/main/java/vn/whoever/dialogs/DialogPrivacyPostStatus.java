@@ -60,7 +60,7 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         /**
          * TODO: default selected privacy for post status
          */
-        btnAccount.setSelected(true);
+        btnAnonymous.setChecked(true);
         btnPublic.setChecked(true);
     }
 

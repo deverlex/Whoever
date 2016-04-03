@@ -33,7 +33,14 @@ public class GenerateIdImpl implements GenerateId {
 	
 	Random random = new Random();
 	Properties properties = IdConfig.getInstance().getProperties();
-
+	
+	private static GenerateId genToken = new GenerateIdImpl();
+	private GenerateIdImpl() {}
+	
+	public static GenerateId getId() {
+		return genToken;
+	}
+	
 	private synchronized String getId(String type) {
 		String id = properties.getProperty("id.Header") + type;
 		String strTime = String.valueOf((new Date()).getTime());
