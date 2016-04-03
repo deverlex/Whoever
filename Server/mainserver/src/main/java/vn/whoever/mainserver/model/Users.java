@@ -18,11 +18,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import vn.whoever.support.model.utils.States;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = 
 	{@UniqueConstraint(columnNames = {"ssoId"})})
+@DynamicUpdate(value = true)
+@DynamicInsert(value = true)
 public class Users implements Serializable {
 
 	private static final long serialVersionUID = 167574463L;

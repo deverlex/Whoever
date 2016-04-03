@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import v.whoever.service.impl.GenerateSsoIdImpl;
 import vn.whoever.mainserver.model.Languages;
 import vn.whoever.mainserver.model.Profiles;
 import vn.whoever.mainserver.model.SetRoles;
@@ -27,6 +28,7 @@ import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.LanguagesService;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
+import vn.whoever.service.GenerateSsoId;
 import vn.whoever.support.model.request.RequestAcceptTerm;
 import vn.whoever.support.model.request.RequestLogin;
 import vn.whoever.support.model.request.RequestRegister;
@@ -55,25 +57,32 @@ public class MobileUserController {
 		if(requestLogin.getPassword().equals(""))
 			return "login Fail";
 		
+		session.invalidate();
 		try {
 			UsernamePasswordAuthenticationToken authToken = 
 					new UsernamePasswordAuthenticationToken(requestLogin.getSsoId(), requestLogin.getPassword());
 			request.getSession();
 			authToken.setDetails(new WebAuthenticationDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			return "==> login fail";
 		}
-		
 		return "=>> Login Success !!";
 	}
 	
 	@RequestMapping(value = {"/mobile/anonymous/login"}, method = RequestMethod.GET)
-	public String loginAnonymous(@RequestParam(value = "langCode", defaultValue = "vi") String langCode,
-			@RequestParam(value = "birthday") @DateTimeFormat(pattern = "dd/MM/yyyy") Date birthday) {
-		
-		return "";
+	public @ResponseBody String loginAnonymous(@RequestParam(value = "langCode", defaultValue = "vi") String langCode,
+			@RequestParam(value = "birthday") @DateTimeFormat(pattern = "ddMMyyyy") Date birthday) {
+		/**
+		 * check birthday > 13 year old => oke
+		 */
+		Languages language = langsService.findByCode(langCode);
+		String ssoId = usersService.generateSsoId();
+		System.out.println(ssoId);
+	//	Users users = new Users(usersService.generateUserId(), re)
+		return "Register successful!!!";
 	}
 
 	@RequestMapping(value = {"/mobile/register"}, method = RequestMethod.POST,
@@ -94,6 +103,11 @@ public class MobileUserController {
 	public @ResponseBody String acceptTermWhoever(HttpSession session, @RequestBody RequestAcceptTerm acceptTerm) {
 
 		return "";
+	}
+	
+	public String logoutWhoever(HttpSession session) {
+		
+		return "Sucessful";
 	}
 	
 	

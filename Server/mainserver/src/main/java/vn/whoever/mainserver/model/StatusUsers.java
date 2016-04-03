@@ -13,11 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import vn.whoever.support.model.utils.Interacts;
 
 @Entity
 @Table(name = "status_users", uniqueConstraints = 
 	@UniqueConstraint(columnNames = {"idStatus", "idUser"}))
+@DynamicUpdate(value  = true)
 public class StatusUsers implements Serializable {
 
 	/**

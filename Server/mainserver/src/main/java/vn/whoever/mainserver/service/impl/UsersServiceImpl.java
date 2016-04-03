@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import v.whoever.service.impl.GenerateIdImpl;
+import v.whoever.service.impl.GenerateSsoIdImpl;
 import vn.whoever.mainserver.dao.SetRolesDao;
 import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.SetRoles;
@@ -27,6 +28,14 @@ public class UsersServiceImpl implements UsersService{
 	
 	@Autowired
 	private SetRolesDao roleDao;
+	
+	public String generateUserId() {
+		return GenerateIdImpl.getId().getIdUser();
+	}
+	
+	public String generateSsoId() {
+		return GenerateSsoIdImpl.getId().getSsoId();
+	}
 
 	public Users findBySso(String ssoId) {
 		return dao.findBySsoId(ssoId);
@@ -45,10 +54,6 @@ public class UsersServiceImpl implements UsersService{
 
 	public void updateState(Users users, States state) {
 		
-	}
-
-	public String generateUserId() {
-		return GenerateIdImpl.getId().getIdUser();
 	}
 	
 }

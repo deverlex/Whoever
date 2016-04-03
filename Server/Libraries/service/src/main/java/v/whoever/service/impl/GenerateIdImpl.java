@@ -5,6 +5,7 @@ import java.util.Properties;
 import java.util.Random;
 
 import vn.whoever.service.IdConfig;
+import vn.whoever.service.KeyCode;
 import vn.whoever.service.GenerateId;
 
 public class GenerateIdImpl implements GenerateId {
@@ -12,24 +13,6 @@ public class GenerateIdImpl implements GenerateId {
 	/**
 	 * Header: XX-XX-ABCD.EFGH.IKMN
 	 */
-	
-	final char[] normalCode = {'a','b','c','d',
-							'e','f','g','h',
-							'i','k','l','m',
-							'n','o','p','q',
-							'r','s','t','y',
-							'z','u','x','w',
-							'v','j'};
-	final char[] capitalCode = {'A','B','C','D',
-							'E','F','G','H',
-							'Y','K','L','M',
-							'N','O','P','Q',
-							'R','S','T','Y',
-							'Z','U','X','W',
-							'V','J'};
-	final char[] numberCode = {'6','7','2','3',
-							'9','0','5','1',
-							'8','4'};
 	
 	Random random = new Random();
 	Properties properties = IdConfig.getInstance().getProperties();
@@ -53,18 +36,18 @@ public class GenerateIdImpl implements GenerateId {
 			if (rdom > 9) {
 				choiceArr = random.nextInt(2);
 				if (choiceArr < 1) {
-					id += normalCode[rdom];
+					id += KeyCode.normalCode[rdom];
 				} else
-					id += capitalCode[rdom];
+					id += KeyCode.capitalCode[rdom];
 			} else
-				id += numberCode[rdom];
+				id += KeyCode.numberCode[rdom];
 		}
 		rdom = random.nextInt(7) + Integer.valueOf(strNumber[length - 1]) 
 									+ Integer.valueOf(strNumber[length - 2]);
 		choiceArr = random.nextInt(2);
 		if (choiceArr < 1) {
-			id += capitalCode[rdom];
-		} else id += normalCode[rdom];
+			id += KeyCode.capitalCode[rdom];
+		} else id += KeyCode.normalCode[rdom];
 		return id;
 	}
 	
