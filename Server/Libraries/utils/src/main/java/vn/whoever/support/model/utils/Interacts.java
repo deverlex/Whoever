@@ -16,6 +16,12 @@ public enum Interacts {
 		return this.interact;
 	}
 	
+
+	@Override
+	public String toString() {
+		return this.interact;
+	}
+	
 	public String getName() {
 		return this.getName();
 	}

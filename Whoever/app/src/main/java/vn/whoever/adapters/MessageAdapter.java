@@ -1,7 +1,6 @@
 package vn.whoever.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import vn.whoever.R;
-import vn.whoever.customviews.RoundedImageView;
+import vn.whoever.views.customviews.RoundedImageView;
 import vn.whoever.models.ArrayMessage;
 import vn.whoever.models.Message;
 

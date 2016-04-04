@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vn.whoever.R;
-import vn.whoever.activities.ReplyActivity;
-import vn.whoever.customviews.JTextView;
+import vn.whoever.views.activities.ReplyActivity;
+import vn.whoever.views.customviews.JTextView;
 import vn.whoever.models.ArrayStatus;
 import vn.whoever.models.Status;
 import vn.whoever.utils.TimeUtils;
@@ -72,7 +72,7 @@ public class StatusAdapter extends BaseAdapter {
         Log.d("count Comment", String.valueOf(status.getCountComment()));
 
         TextView nickName = (TextView) convertView.findViewById(R.id.nickNameAndExtendOnStatus);
-        nickName.setText(status.getSenderStatus().getNickName());
+        nickName.setText("Nguyễn Đô");
 
         TextView timeUp = (TextView) convertView.findViewById(R.id.timeUploadStatus);
         timeUp.setText(TimeUtils.getInstance().getTimeStatus(new Date()));

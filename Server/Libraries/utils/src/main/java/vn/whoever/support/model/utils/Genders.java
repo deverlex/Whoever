@@ -16,6 +16,11 @@ public enum Genders {
 		return this.sex;
 	}
 	
+	@Override
+	public String toString() {
+		return this.sex;
+	}
+	
 	public String getName() {
 		return this.getName();
 	}

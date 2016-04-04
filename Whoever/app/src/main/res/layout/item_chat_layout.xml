@@ -38,7 +38,7 @@
 
 
 
-    <vn.whoever.customviews.RoundedImageView
+    <vn.whoever.views.customviews.RoundedImageView
         android:id="@+id/avatarReceiverItemMessageChat"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -48,7 +48,7 @@
         android:layout_alignBottom="@+id/layoutBoderContentMessageItemChat"
         android:layout_marginLeft="8dp"/>
 
-    <vn.whoever.customviews.RoundedImageView
+    <vn.whoever.views.customviews.RoundedImageView
         android:id="@+id/avatarSenderItemMessageChat"
         android:layout_width="35dp"
         android:layout_height="35dp"

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorMain"
     android:orientation="vertical"
-    tools:context="vn.whoever.StartActivity">
+    tools:context=".views.activities.StartActivity">
 
     <TextView
         android:id="@+id/logoTextStart"

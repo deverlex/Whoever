@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-    <vn.whoever.customviews.RoundedImageView
+    <vn.whoever.views.customviews.RoundedImageView
         android:id="@+id/avatarItemOnCommentList"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -25,7 +25,7 @@
         android:textStyle="bold"
         android:layout_toRightOf="@+id/avatarItemOnCommentList"/>
 
-    <vn.whoever.customviews.JTextView
+    <vn.whoever.views.customviews.JTextView
         android:id="@+id/contentCommentDetailOnListComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

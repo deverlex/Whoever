@@ -2,8 +2,6 @@ package vn.whoever.models;
 
 import java.util.ArrayList;
 
-import vn.whoever.dao.ConnectionDB;
-
 /**
  * Created by spider man on 1/20/2016.
  */

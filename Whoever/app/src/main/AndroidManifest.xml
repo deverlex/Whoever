@@ -14,15 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".views.activities.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:parentActivityName=".StartActivity">
+            android:parentActivityName=".views.activities.StartActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="vn.whoever.MainActivity" />
+                android:value=".views.activities.MainActivity" />
         </activity>
 
-        <activity android:name=".StartActivity"
+        <activity android:name=".views.activities.StartActivity"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,43 +31,43 @@
         </activity>
 
 
-        <activity android:name=".activities.SearchActivity"
+        <activity android:name=".views.activities.SearchActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
 
-        <activity android:name=".activities.NotifyActivity"
+        <activity android:name=".views.activities.NotifyActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
-        <activity android:name=".activities.PostStatusActivity"
+        <activity android:name=".views.activities.PostStatusActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
 
-        <activity android:name=".activities.SearchContactActivity"
+        <activity android:name=".views.activities.SearchContactActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
 
-        <activity android:name=".activities.AppSettingActivity"
+        <activity android:name=".views.activities.AppSettingActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.AccountSettingActivity"
+        <activity android:name=".views.activities.AccountSettingActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         
-        <activity android:name=".activities.MessageActivity"
+        <activity android:name=".views.activities.MessageActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.HelpCenterActivity"
+        <activity android:name=".views.activities.HelpCenterActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.LogActivity"
+        <activity android:name=".views.activities.LogActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.PrivacyActivity"
+        <activity android:name=".views.activities.PrivacyActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.ReportActivity"
+        <activity android:name=".views.activities.ReportActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.ProifileActivity"
+        <activity android:name=".views.activities.ProifileActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activities.ReplyActivity"
+        <activity android:name=".views.activities.ReplyActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
 

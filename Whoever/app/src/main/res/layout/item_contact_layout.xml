@@ -14,7 +14,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp" />
 
-    <vn.whoever.customviews.RoundedImageView
+    <vn.whoever.views.customviews.RoundedImageView
         android:id="@+id/imageAvatarOnContacts"
         android:layout_width="60dp"
         android:layout_height="60dp"

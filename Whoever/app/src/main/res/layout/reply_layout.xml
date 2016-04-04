@@ -47,7 +47,7 @@
             android:layout_height="wrap_content">
 
             <!-- have a avatar, nickname, time upload, extend option button -->
-            <vn.whoever.customviews.RoundedImageView
+            <vn.whoever.views.customviews.RoundedImageView
                 android:id="@+id/imageAvatarOnStatusDetail"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <vn.whoever.customviews.JTextView
+            <vn.whoever.views.customviews.JTextView
                 android:id="@+id/contentStatusDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
