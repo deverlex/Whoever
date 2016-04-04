@@ -1,6 +1,5 @@
 package vn.whoever.models;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -12,7 +11,7 @@ public class Status {
     private int idStatus;
 
     private String contentStatus;
-    private User senderStatus;
+    private LocalAccount senderStatus;
 
     private Date dateWriterStatus;
     private String imageUpload;
@@ -42,11 +41,11 @@ public class Status {
         this.contentStatus = contentStatus;
     }
 
-    public User getSenderStatus() {
+    public LocalAccount getSenderStatus() {
         return senderStatus;
     }
 
-    public void setSenderStatus(User senderStatus) {
+    public void setSenderStatus(LocalAccount senderStatus) {
         this.senderStatus = senderStatus;
     }
 

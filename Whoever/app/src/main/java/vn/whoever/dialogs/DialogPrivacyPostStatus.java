@@ -1,7 +1,5 @@
 package vn.whoever.dialogs;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import vn.whoever.R;
-import vn.whoever.utils.PrivacyStatus;
 
 /**
  * Created by spider man on 3/7/2016.

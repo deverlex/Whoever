@@ -8,6 +8,7 @@ public interface UsersService {
 
 	public String generateUserId();
 	public String generateSsoId();
+	public String generatePassword();
 	public Users findBySso(String sso);
 	public void registerUser(Users users);
 	public void addRole(Users users, Roles roles);

@@ -6,17 +6,14 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import vn.whoever.dao.LanguageDao;
-import vn.whoever.models.ArrayLanguage;
 
 /**
  * Created by spider man on 2/24/2016.

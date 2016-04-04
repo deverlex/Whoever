@@ -36,6 +36,10 @@ public class UsersServiceImpl implements UsersService{
 	public String generateSsoId() {
 		return GenerateSsoIdImpl.getId().getSsoId();
 	}
+	
+	public String generatePassword() {
+		return GenerateSsoIdImpl.getId().getPassword();
+	}
 
 	public Users findBySso(String ssoId) {
 		return dao.findBySsoId(ssoId);

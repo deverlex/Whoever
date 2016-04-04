@@ -12,7 +12,7 @@ public class Reply {
     private Date timeUpload;
     private int countLike;
     private int countDislike;
-    private User userReply;
+    private LocalAccount userReply;
 
     public int getIdReply() {
         return idReply;
@@ -54,11 +54,11 @@ public class Reply {
         this.countDislike = countDislike;
     }
 
-    public User getUserReply() {
+    public LocalAccount getUserReply() {
         return userReply;
     }
 
-    public void setUserReply(User userReply) {
+    public void setUserReply(LocalAccount userReply) {
         this.userReply = userReply;
     }
 }

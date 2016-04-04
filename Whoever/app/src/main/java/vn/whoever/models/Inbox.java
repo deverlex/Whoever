@@ -8,17 +8,17 @@ import java.util.Date;
 public class Inbox {
 
     private long idMessage;
-    private User userSend;
+    private LocalAccount userSend;
     private Group groupSend;
     private boolean isRead;
     private Date lastTimeChat;
     private String lastMessage;
 
-    public User getUserSend() {
+    public LocalAccount getUserSend() {
         return userSend;
     }
 
-    public void setUserSend(User userSend) {
+    public void setUserSend(LocalAccount userSend) {
         this.userSend = userSend;
     }
 

@@ -1,11 +1,7 @@
 package vn.whoever.models;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import vn.whoever.models.Status;
-import vn.whoever.models.User;
 
 /**
  * Created by spider man on 1/17/2016.
@@ -21,8 +17,7 @@ public class ArrayStatus {
         status.setIdStatus(100);
         status.setContentStatus("Tất cả vì mục tiêu, ra trường đúng hạn !!!");
 
-        User user = new User();
-        user.setNickName("Nguyễn Đô");
+        LocalAccount user = new LocalAccount();
 
 
         status.setSenderStatus(user);

@@ -53,18 +53,12 @@ public class MobileUserController {
 	
 	@RequestMapping(value = {"/mobile/login"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody String loginWithAccount(HttpServletRequest request, HttpSession session,@RequestBody RequestLogin requestLogin) {
-		if(requestLogin.getPassword().equals(""))
+	public @ResponseBody String loginWithAccount(HttpServletRequest request, HttpSession session,@RequestBody RequestLogin req) {
+		if(req.getPassword().equals(""))
 			return "login Fail";
-		
-		session.invalidate();
+	
 		try {
-			UsernamePasswordAuthenticationToken authToken = 
-					new UsernamePasswordAuthenticationToken(requestLogin.getSsoId(), requestLogin.getPassword());
-			request.getSession();
-			authToken.setDetails(new WebAuthenticationDetails(request));
-			SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
-			
+			authenticalUser(request, session, req.getSsoId(), req.getPassword());
 		} catch(Exception e) {
 			e.printStackTrace();
 			return "==> login fail";
@@ -72,26 +66,37 @@ public class MobileUserController {
 		return "=>> Login Success !!";
 	}
 	
-	@RequestMapping(value = {"/mobile/anonymous/login"}, method = RequestMethod.GET)
-	public @ResponseBody String loginAnonymous(@RequestParam(value = "langCode", defaultValue = "vi") String langCode,
+	@RequestMapping(value = { "/mobile/anonymous/login" }, method = RequestMethod.GET)
+	public @ResponseBody String loginAnonymous(HttpServletRequest request, HttpSession session,@RequestParam(value = "langCode", defaultValue = "vi") String langCode,
 			@RequestParam(value = "birthday") @DateTimeFormat(pattern = "ddMMyyyy") Date birthday) {
 		/**
 		 * check birthday > 13 year old => oke
 		 */
 		Languages language = langsService.findByCode(langCode);
+
 		String ssoId = usersService.generateSsoId();
-		System.out.println(ssoId);
-	//	Users users = new Users(usersService.generateUserId(), re)
+		String password = usersService.generatePassword();
+		
+		Users users = new Users(usersService.generateUserId(), ssoId,
+				password, States.active, true, true, language);
+		try {
+			usersService.registerUser(users);
+			authenticalUser(request, session, ssoId, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Login with anonymous fails!!!";
+		}
 		return "Register successful!!!";
 	}
 
 	@RequestMapping(value = {"/mobile/register"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody String registerAccount(@RequestBody RequestRegister req) {
+	public @ResponseBody String registerAccount(HttpServletRequest request, HttpSession session,@RequestBody RequestRegister req) {
 		Languages language = langsService.findByCode(req.getLangCode());
 		Users users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), States.active, false, true, language);
 		try {
 			usersService.registerUser(users);
+			authenticalUser(request, session, req.getSsoId(), req.getPassword());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "Register fail!!!";
@@ -124,5 +129,13 @@ public class MobileUserController {
 		return userName;
 	}
 
+	private void authenticalUser(HttpServletRequest request, HttpSession session,String ssoId, String password) {
+		session.invalidate();
+		UsernamePasswordAuthenticationToken authToken = 
+				new UsernamePasswordAuthenticationToken(ssoId, password);
+		request.getSession();
+		authToken.setDetails(new WebAuthenticationDetails(request));
+		SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
+	}
 
 }

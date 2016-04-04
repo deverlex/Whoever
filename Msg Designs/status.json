@@ -4,12 +4,15 @@
 	"contentText" : "?",
 	"contentImage" : "?"
 	"privacy" : "?",
-	"identity" : "?",
+	"isUseAccount" : "?",
 	"location" : [ {
 		"xloc" : "?",
 		"yloc" : "?"
 	}]
 }
+
+
+
 
 //tải về trang chủ
 {

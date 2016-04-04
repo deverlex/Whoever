@@ -13,7 +13,7 @@ public class ArrayReply {
     public ArrayList<Reply> getReplies() {
         replies = new ArrayList<>();
 
-        User user = new User();
+        LocalAccount user = new LocalAccount();
 
         Reply reply = new Reply();
         reply.setIdReply(12345343);

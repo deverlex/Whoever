@@ -1,4 +1,4 @@
-package vn.whoever.transp;
+package vn.whoever.transactionlayer;
 
 import android.app.Activity;
 import android.util.Log;
@@ -9,12 +9,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import vn.whoever.models.User;
+import vn.whoever.models.LocalAccount;
 import vn.whoever.utils.LoginState;
 
 /**
@@ -28,7 +27,7 @@ public class LoginTransaction {
 
     private int fState = LoginState.FAIL;
 
-    private User user;
+    private LocalAccount user;
 
     private LoginTransaction() {}
 
@@ -49,31 +48,22 @@ public class LoginTransaction {
                 new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    user = new User();
-                //    user.setId(response.getInt("id"));
-                    user.setEmail(response.getString("name"));
-                //    user.setNickName(response.getString("nickName"));
-                    user.setPassword(response.getString("password"));
 
-                 //   Log.d("nickName: ", user.getNickName());
-                    Log.d("email: ", user.getEmail());
-                    Log.d("password: ", user.getPassword());
-                    if(true) {
-                        /**
-                         * TODO: Check response from server
-                         *
-                         */
-                        fState = LoginState.PASS;
-                    } else {
-                        fState = LoginState.WELCOME;
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    fState = LoginState.FAIL;
-
-                }
+//                    if(true) {
+//                        /**
+//                         * TODO: Check response from server
+//                         *
+//                         */
+//                        fState = LoginState.PASS;
+//                    } else {
+//                        fState = LoginState.WELCOME;
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    fState = LoginState.FAIL;
+//
+//                }
             }
         }, new Response.ErrorListener() {
             @Override

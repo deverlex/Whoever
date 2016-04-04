@@ -15,8 +15,7 @@ public class ArrayInbox {
 
         Inbox inbox = new Inbox();
 
-        User user = new User();
-        user.setNickName("Ngan Yeu");
+        LocalAccount user = new LocalAccount();
 
         inbox.setUserSend(user);
         inbox.setIsRead(true);

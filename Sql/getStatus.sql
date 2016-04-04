@@ -1,0 +1,1 @@
+select * from status where ((xLoc - 20.996282)*(xLoc - 20.996282) + (yLoc - 105.812490)*(yLoc - 105.812490)) < 0.0000025;
