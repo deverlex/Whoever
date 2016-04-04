@@ -71,7 +71,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         toolbar = (LinearLayout) view.findViewById(R.id.layoutToolBarWriteNewsFeed);
 
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
-        progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBar);
+        progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBarLoad);
         progressBarLoadMore.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
 
         listStatus = (ListView) view.findViewById(R.id.listViewNewsFeed);

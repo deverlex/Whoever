@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vn.whoever.views.activities.MainActivity;
+import vn.whoever.views.activities.LoadActivity;
 import vn.whoever.R;
 import vn.whoever.views.dialogs.DatePickerFragment;
 import vn.whoever.views.dialogs.LanguagePickerFragment;
@@ -96,7 +96,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                          */
                     }
 
-                    Intent intentMain = new Intent(getActivity(), MainActivity.class);
+                    Intent intentMain = new Intent(getActivity(), LoadActivity.class);
                     startActivity(intentMain);
                     getActivity().finish();
                 } else {

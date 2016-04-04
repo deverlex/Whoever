@@ -33,37 +33,7 @@
 			"content" : "",
 			"totalLike" : "",
 			"totalDislike" : "",
-			"comments" : [
-				{
-					"idComment" : "",
-					"idUserComment" : "",
-					"avatartCommentator" : "",
-					"content" : "",
-					"totalLike" : "",
-					"totalDislike" : ""
-				},
-				{
-					"idComment" : "",
-					"iduserComment" : "",
-					"content" : "",
-					"totalLike" : "",
-					"totalDislike" : ""
-				},
-				{
-					"idComment" : "",
-					"iduserComment" : "",
-					"content" : "",
-					"totalLike" : "",
-					"totalDislike" : ""
-				},
-				{
-					"idComment" : "",
-					"iduserComment" : "",
-					"content" : "",
-					"totalLike" : "",
-					"totalDislike" : ""
-				}
-			]
+			"totalComment" : ""
 		},
 		{
 			"idStatus" : "",

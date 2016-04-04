@@ -30,4 +30,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'com.google.code.gson:gson:2.2.4'
 }

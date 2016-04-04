@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * Created by spider man on 1/7/2016.
  */
-public class ApplicationController {
+public class TransactionQueue {
 
     public static final String TAG = "Whoever_Queue_Request";
 
@@ -21,9 +21,9 @@ public class ApplicationController {
 
     private RequestQueue mRequestQueue;
 
-    private static ApplicationController controller = new ApplicationController();
+    private static TransactionQueue controller = new TransactionQueue();
 
-    public static synchronized ApplicationController getsInstance(Context context) {
+    public static synchronized TransactionQueue getsInstance(Context context) {
         applicationContext = context;
         return controller;
     }

@@ -1,8 +1,5 @@
 package vn.whoever.support.response;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ResponseStatus {
 
 	private String idStatus;
@@ -12,15 +9,14 @@ public class ResponseStatus {
 	private String content;
 	private int totalLike;
 	private int totalDislike;
-	
-	private List<ResponseComment> comments = new ArrayList<ResponseComment>();
+	private int totalComment;
 
 	public ResponseStatus() {
 		super();
 	}
 
 	public ResponseStatus(String idStatus, String idPoster, String namePoster, String timePost, String content,
-			int totalLike, int totalDislike, List<ResponseComment> comments) {
+			int totalLike, int totalDislike, int totalComment) {
 		super();
 		this.idStatus = idStatus;
 		this.idPoster = idPoster;
@@ -29,7 +25,7 @@ public class ResponseStatus {
 		this.content = content;
 		this.totalLike = totalLike;
 		this.totalDislike = totalDislike;
-		this.comments = comments;
+		this.totalComment = totalComment;
 	}
 
 	public String getIdStatus() {
@@ -88,11 +84,11 @@ public class ResponseStatus {
 		this.totalDislike = totalDislike;
 	}
 
-	public List<ResponseComment> getComments() {
-		return comments;
+	public int getTotalComment() {
+		return totalComment;
 	}
 
-	public void setComments(List<ResponseComment> comments) {
-		this.comments = comments;
+	public void setTotalComment(int totalComment) {
+		this.totalComment = totalComment;
 	}
 }

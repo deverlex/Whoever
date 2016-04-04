@@ -8,8 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * return 10 item status for a request get status
+ * @author spider man
+ *
+ */
+
 @Controller
-public class MobileNewsController {
+public class MobileStatusController {
 	
 	@RequestMapping(value = "/mobile/gethome", method = RequestMethod.GET)
 	public @ResponseBody String getHome(HttpServletResponse httpResponse,

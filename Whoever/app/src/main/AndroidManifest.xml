@@ -70,6 +70,9 @@
         <activity android:name=".views.activities.ReplyActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
+        <activity android:name=".views.activities.LoadActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

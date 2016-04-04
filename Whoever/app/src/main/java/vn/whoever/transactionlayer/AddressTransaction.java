@@ -3,7 +3,7 @@ package vn.whoever.transactionlayer;
 /**
  * Created by spider man on 1/7/2016.
  */
-public class AddressTrans {
+public class AddressTransaction {
 
     public static String URL_ROOT = "http://localhost:8080/mainserver/mobile/";
 

@@ -19,7 +19,7 @@ import android.widget.Toast;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.R;
 import vn.whoever.views.activities.StartActivity;
-import vn.whoever.transactionlayer.LoginTransaction;
+import vn.whoever.transactionlayer.ConnectionTransaction;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.LoginState;
 import vn.whoever.utils.RegexUtils;
@@ -129,8 +129,7 @@ public class SignInFragment extends Fragment implements Initgc {
                  * TODO: get IMEI of phone send to server
                  */
 
-                //String serialNb = getSerialNumberUser();
-                //LoginTransaction.getInstance(getActivity(), null).getRequestLoginAnonymous(serialNb);
+
                 StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, false);
@@ -156,7 +155,7 @@ public class SignInFragment extends Fragment implements Initgc {
                 }
 
                 if(RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
-                    int stateLogin = LoginTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
+                    int stateLogin = ConnectionTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
 
                     if(LoginState.PASS == stateLogin){
                         Intent intent = new Intent(getActivity(), MainActivity.class);

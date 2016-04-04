@@ -55,7 +55,7 @@ public class ReplyActivity extends AppCompatActivity implements AppGc, AbsListVi
         nickNamePostStatus = (TextView) findViewById(R.id.nickNameAndExtendOnStatusDetail);
 
         View footer = getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
-        progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBar);
+        progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBarLoad);
         progressBarLoadMore.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
 
         listReply = (ListView) findViewById(R.id.listCommentOfStatusDetail);
