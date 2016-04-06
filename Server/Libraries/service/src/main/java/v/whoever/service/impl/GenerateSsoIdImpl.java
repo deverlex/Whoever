@@ -19,22 +19,22 @@ public class GenerateSsoIdImpl implements GenerateSsoId {
 	}
 
 	public String getSsoId() {
-		return generateId("us");
+		return generateId();
 	}
 
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return generateId("ps");
+		return generateId();
 	}
 	
-	private String generateId(String param) {
-		String id = param;
+	private synchronized String generateId() {
+		String id = "";
 		String strTime = String.valueOf((new Date()).getTime());
 		String[] strNumber = strTime.split("");
 		int length = strNumber.length;
 		int rdom;
 		int choiceArr;
-		for(int i = 0; i < 14; ++i) {
+		for(int i = 0; i < 16; ++i) {
 			if(i <  length) {
 				rdom = random.nextInt(16) + Integer.valueOf(strNumber[i]);
 				if (rdom > 9) {

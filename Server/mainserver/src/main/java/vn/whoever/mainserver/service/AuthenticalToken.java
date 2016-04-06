@@ -6,8 +6,25 @@ import vn.whoever.mainserver.model.Users;
 
 public interface AuthenticalToken {
 	
-	String getToken(String ssoId);
-	String getToken(String ssoId, Date exp_date);
-	boolean validate(String token);
-	Users getUserFromToken(String token);
+	/**
+	 * generate a token key
+	 * @param ssoId, exp
+	 * @return
+	 */
+	public String getToken(String ssoId);
+	public String getToken(String ssoId, Date timeExp);
+	
+	/**
+	 * check token in database
+	 * @param token
+	 * @return
+	 */
+	public boolean validate(String token);
+	
+	/**
+	 * get user information from token key
+	 * @param token
+	 * @return
+	 */
+	public Users getUserFromToken(String token);
 }

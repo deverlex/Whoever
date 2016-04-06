@@ -237,7 +237,7 @@ constraint fk_token_user foreign key (idUser) references Users(idUser)
 
 CREATE TRIGGER before_insert_on_token 
 BEFORE INSERT ON `token` 
-FOR EACH ROW SET new.timeExp = IFNULL(new.timeExp,DATE_ADD(NOW(), INTERVAL 1 DAY));
+FOR EACH ROW SET new.timeExp = IFNULL(new.timeExp,DATE_ADD(NOW(), INTERVAL 30 minute));
 
 commit;
 

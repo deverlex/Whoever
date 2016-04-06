@@ -28,7 +28,7 @@ public class UsersServiceImpl implements UsersService{
 	private SetRolesDao roleDao;
 	
 	public String generateUserId() {
-		return GenerateIdImpl.getId().getIdUser();
+		return GenerateIdImpl.generateId().getId();
 	}
 	
 	public String generateSsoId() {

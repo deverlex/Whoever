@@ -20,18 +20,22 @@ public class GenerateIdImpl implements GenerateId {
 	private static GenerateId genToken = new GenerateIdImpl();
 	private GenerateIdImpl() {}
 	
-	public static GenerateId getId() {
+	public static void main(String[] args) {
+		System.out.println(GenerateIdImpl.generateId().getId());
+	}
+	
+	public static GenerateId generateId() {
 		return genToken;
 	}
 	
-	private synchronized String getId(String type) {
-		String id = properties.getProperty("id.Header") + type;
+	public synchronized String getId() {
+		String id = properties.getProperty("id.Header");
 		String strTime = String.valueOf((new Date()).getTime());
 		String[] strNumber = strTime.split("");
 		int length = strNumber.length;
 		int rdom;
 		int choiceArr;
-		for (int i = length - 1; i > length - 12; --i) {
+		for (int i = length - 1; i > length - 14; --i) {
 			rdom = random.nextInt(16) + Integer.valueOf(strNumber[i]);
 			if (rdom > 9) {
 				choiceArr = random.nextInt(2);
@@ -50,41 +54,4 @@ public class GenerateIdImpl implements GenerateId {
 		} else id += KeyCode.normalCode[rdom];
 		return id;
 	}
-	
-	public synchronized String getIdUser() {
-		return getId(properties.getProperty("id.userId"));
-	}
-
-	public synchronized String getIdStatus() {
-		return getId(properties.getProperty("id.statusId"));
-	}
-
-	public synchronized String getIdComment() {
-		return getId(properties.getProperty("id.commentId"));
-	}
-
-	public synchronized String getIdPhoto() {
-		return getId(properties.getProperty("id.photoId"));
-	}
-
-	public synchronized String getIdprofile() {
-		return getId(properties.getProperty("id.profileId"));
-	}
-
-	public synchronized String getIdContact() {
-		return getId(properties.getProperty("id.contactId"));
-	}
-
-	public synchronized String getIdMessage() {
-		return getId(properties.getProperty("id.messageId"));
-	}
-
-	public synchronized String getIdGroup() {
-		return getId(properties.getProperty("id.groupId"));
-	}
-
-	public synchronized String getIdNotify() {
-		return getId(properties.getProperty("id.notifyId"));
-	}
-
 }

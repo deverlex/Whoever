@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import v.whoever.service.impl.GenerateSsoIdImpl;
+import v.whoever.service.impl.GenerateTokenImpl;
 import vn.whoever.mainserver.model.Languages;
 import vn.whoever.mainserver.model.Profiles;
 import vn.whoever.mainserver.model.SetRoles;
@@ -29,6 +30,7 @@ import vn.whoever.mainserver.service.LanguagesService;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.service.GenerateSsoId;
+import vn.whoever.service.GenerateToken;
 import vn.whoever.support.model.request.RequestAcceptTerm;
 import vn.whoever.support.model.request.RequestLogin;
 import vn.whoever.support.model.request.RequestRegister;
@@ -55,9 +57,9 @@ public class MobileUserController {
 	public @ResponseBody String loginWithAccount(HttpServletRequest request, HttpSession session,@RequestBody RequestLogin req) {
 		if(req.getPassword().equals(""))
 			return "login Fail";
-	
 		try {
 			authenticalUser(request, session, req.getSsoId(), req.getPassword());
+			String token = GenerateTokenImpl.getToken().getTokenId(req.getSsoId());
 		} catch(Exception e) {
 			e.printStackTrace();
 			return "==> login fail";
@@ -75,6 +77,7 @@ public class MobileUserController {
 
 		String ssoId = usersService.generateSsoId();
 		String password = usersService.generatePassword();
+		String token = GenerateTokenImpl.getToken().getTokenId(ssoId);
 		
 		Users users = new Users(usersService.generateUserId(), ssoId,
 				password, States.active, true, true, language);
