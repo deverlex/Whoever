@@ -1,0 +1,2 @@
+phương pháp cập nhật danh sách online
+Cứ 30s update gửi truy vấn danh sách online lại 1 lần

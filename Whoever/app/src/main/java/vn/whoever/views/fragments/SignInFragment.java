@@ -21,7 +21,6 @@ import vn.whoever.R;
 import vn.whoever.views.activities.StartActivity;
 import vn.whoever.transactionlayer.ConnectionTransaction;
 import vn.whoever.utils.Initgc;
-import vn.whoever.utils.LoginState;
 import vn.whoever.utils.RegexUtils;
 
 /**
@@ -147,8 +146,6 @@ public class SignInFragment extends Fragment implements Initgc {
                 /**
                  * TODO: after check password and email => demo
                  */
-              //  email = "nguyendo94vn@gmail.com";
-              //  password = "12345678";
 
                 if(toast != null) {
                     toast.cancel();
@@ -157,11 +154,11 @@ public class SignInFragment extends Fragment implements Initgc {
                 if(RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
                     int stateLogin = ConnectionTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
 
-                    if(LoginState.PASS == stateLogin){
+                    if(true){
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                         getActivity().finish();
-                    } else if(LoginState.WELCOME == stateLogin) {
+                    } else if(true) {
                         StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                         StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
                     } else {

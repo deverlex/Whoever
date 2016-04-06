@@ -66,10 +66,10 @@ public class StatusAdapter extends BaseAdapter {
                     inflate(R.layout.item_status_layout, null);
         }
 
-        Log.d("Content: ", status.getContentStatus());
-        Log.d("count Like", String.valueOf(status.getCountLike()));
-        Log.d("count Dislike", String.valueOf(status.getCountDislike()));
-        Log.d("count Comment", String.valueOf(status.getCountComment()));
+//        Log.d("Content: ", status.getContentStatus());
+//        Log.d("count Like", String.valueOf(status.getCountLike()));
+//        Log.d("count Dislike", String.valueOf(status.getCountDislike()));
+//        Log.d("count Comment", String.valueOf(status.getCountComment()));
 
         TextView nickName = (TextView) convertView.findViewById(R.id.nickNameAndExtendOnStatus);
         nickName.setText("Nguyễn Đô");

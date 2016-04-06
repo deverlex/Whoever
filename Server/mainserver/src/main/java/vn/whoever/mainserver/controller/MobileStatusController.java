@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * return 10 item status for a request get status
+ * 
  * @author spider man
  *
  */
@@ -24,11 +25,12 @@ public class MobileStatusController {
 		return "";
 	}
 	
-	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.GET)
+	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.GET,
+			produces = "application/json")
 	public @ResponseBody String getNews(HttpServletResponse httpResponse,
 			@RequestParam(value = "langCode", required = true, defaultValue = "en") String langCode) {
 
-		return "";
+		return "new status for you";
 	}
 	
 	@RequestMapping(value = "/mobile/post/status", method = RequestMethod.POST,

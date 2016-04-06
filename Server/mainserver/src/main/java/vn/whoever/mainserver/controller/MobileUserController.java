@@ -50,7 +50,6 @@ public class MobileUserController {
 	//@Autowired
 	//private ProfilesService profileService;
 	
-	
 	@RequestMapping(value = {"/mobile/login"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String loginWithAccount(HttpServletRequest request, HttpSession session,@RequestBody RequestLogin req) {
@@ -110,12 +109,11 @@ public class MobileUserController {
 		return "";
 	}
 	
-	public String logoutWhoever(HttpSession session) {
+	@RequestMapping(value = {"/mobile/logout"}, method = RequestMethod.GET)
+	public @ResponseBody String logoutWhoever(HttpSession session) {
 		
 		return "Sucessful";
 	}
-	
-	
 
 	private String getPrincipal(){
 		String userName = null;

@@ -5,7 +5,7 @@ package vn.whoever.transactionlayer;
  */
 public class AddressTransaction {
 
-    public static String URL_ROOT = "http://localhost:8080/mainserver/mobile/";
+    public static String URL_ROOT = "http://192.168.0.112:8080/mainserver/mobile/";
 
     public static String url_login = URL_ROOT + "login";
     public static String url_login_with_anonymous = URL_ROOT + "anonymous/login";

@@ -7,11 +7,6 @@
 	"password" : "?"
 }
 
-// ? làm cái response này sau
-{
-	
-}
-
 //Đăng ký mới tài khoản
 //Nếu bỏ dở xác nhận birthday và langCode thì lưu trữ tại máy.
 {
@@ -22,6 +17,10 @@
 	"langCode" : ""
 }
 
+//Đăng nhập ẩn danh lần đầu - cái này dùng GET
+// http..../mobile/login/anonymous?langCode=?&birthday=?
+
+// response
 {
 	"status" : [
 		{
@@ -134,63 +133,11 @@
 	]
 }
 
-//Đăng nhập ẩn danh lần đầu - cái này dùng GET
-// http..../mobile/login/anonymous?langCode=?&birthday=?
-
-//xác nhận như trên
-//lấy lại mật khẩu
-{
-	"ssoId" : "",
-	"inbox" : "" //email or mobile
-}
-
-//trả lại kết quả
-{
-	"response" : "FAIL",
-	"note" : "We not find your mobile number"
-}
-
 //lấy điều khoản người dùng
 // Sử dụng GET
 
-// xác thực lại đăng nhập chỉ cần request with sha:key
-{
-	"ssoId" : "",
-	"shaKey" : ""
+// xác thực lại đăng nhập = gửi xác thực token ID
+
+headers {
+	x-token: 
 }
-
-//lấy thông tin bảng tin
-//sử dụng GET
-
-
-//Bắt đầu phiên làm việc của ẩn danh
-{
-	"language" : "?",
-	"birthday" : "?",
-	"nickname" : "anonymous"
-}
-//note: hiện popup để người dùng ẩn danh có thể chọn lại nickname
-
-//Đăng ký người dùng
-
-{
-	"email" : "?",
-	"password" : "?",
-	"nickname" : "?"
-}
-
-//Hoàn tất thủ tục đăng ký
-{
-	"language" : "?",
-	"birthday" : "?"
-}
-
-Note: sau khi đăng nhập, thông tin server trả về xác nhận có thể tham gia phiên hay không
-{
-	"ssoId" : "?",
-	"note" : "?"
-}
-
-//if ssoId = null => đăng nhập thất bại
-// if ssoId != null => bắt đầu gửi request lên server để lấy thông tin newfeed, home....
-// Đối với người dùng đăng nhập lần đầu

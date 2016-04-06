@@ -214,11 +214,32 @@ timeReport datetime default now() not null,
 constraint fk_rp_user foreign key (idUser) references users (idUser) 
 ) engine = InnoDB;
 
+create table BlackList (
+idBlackList varchar(16) primary key,
+idUser varchar(16) unique not null,
+constraint fk_blacklist_user foreign key (idUser) references Users (idUser)    
+) engine = InnoDB;
+
+create table BlackList_Users (
+idBlackList varchar(16) not null,
+idUser varchar(16) not null,
+constraint fk_black_user foreign key (idBlackList) references BlackList(idBlackList),
+constraint fk_black_black foreign key (idUser) references Users (idUser)
+) engine = InnoDB;
+
+create table Token (
+idUser varchar(16) unique not null,
+token varchar(32) unique not null,
+timeCreate datetime default now() not null,
+timeExp datetime not null,
+constraint fk_token_user foreign key (idUser) references Users(idUser)
+);
+
+CREATE TRIGGER before_insert_on_token 
+BEFORE INSERT ON `token` 
+FOR EACH ROW SET new.timeExp = IFNULL(new.timeExp,DATE_ADD(NOW(), INTERVAL 1 DAY));
 
 commit;
-
-
-
 
 
 

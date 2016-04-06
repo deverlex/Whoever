@@ -1,0 +1,20 @@
+//get contacts online - sử dụng phương thức GET
+// http://..../mobile/getonline?ssoId=?&xLoc=?&yLoc=?
+
+//response
+{
+	"online" : [
+		{
+			"ssoId" : "",
+			"nickName" : "",
+			"avatarOnline" : "",
+			"distance" : ""
+		},
+		{
+			"ssoId" : "",
+			"nickName" : "",
+			"avatarOnline" : "",
+			"distance" : ""
+		}
+	]
+}

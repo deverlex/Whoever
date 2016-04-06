@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import vn.whoever.transactionlayer.ConnectionTransaction;
 import vn.whoever.views.activities.LoadActivity;
 import vn.whoever.R;
 import vn.whoever.views.dialogs.DatePickerFragment;
@@ -76,7 +77,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initListener(View view) {
+    public void initListener(final View view) {
         btnPushApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,10 +91,18 @@ public class WelcomeFragment extends Fragment implements Initgc {
                      * TODO: send infor to server
                      *
                      */
+                    //login to server
+
+
                     if (isAccount) {
                         /**
                          * TODO: saved clear start activity
                          */
+                        ConnectionTransaction.getInstance(getActivity(), view).registerUser("satthumaulanh", "12345678", "hoa hai anh", "10-03-1994", "en");
+                        Log.d("Date birthday", "register account!!!");
+                    } else {
+                        ConnectionTransaction.getInstance(getActivity(), view).getRequestLoginAnonymous("en", "10031994");
+                        Log.d("Date birthday", dateDialog.toString());
                     }
 
                     Intent intentMain = new Intent(getActivity(), LoadActivity.class);

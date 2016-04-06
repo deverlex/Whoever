@@ -11,35 +11,40 @@
 	}]
 }
 
-
-
-
-//tải về trang chủ
+//response
 {
-	"ssoId" : "?",
-	"type_request" "?"
-	"location" : [
-		{
-			"xloc" : "?",
-			"yloc" : "?"
-		}
-	]
-	
+	"idStatus" : "",
+	"timePost" : ""
 }
-//note: type_request : home/newfeed
 
+// get status cho news home và news feed  = sử dụng phương thức GET
+// localhost:8080/mainserver/mobile/gethome?ssoId=?&xLoc=&yLoc=?
 
+//response
+"status" : [
+	{
+		"idStatus" : "",
+		"ssoIdPoster" : "",
+		"avatartPoster" : "",
+		"namePoster" : "",
+		"timePost" : "",
+		"contentText" : "",
+		"contentImage" : ""
+		"totalLike" : "",
+		"totalDislike" : "",
+		"totalComment" : ""
+	}
+]
 
-//nhầm thông tin trả về từ server
-	"listStatus" : [
-		{
-			"post_ssoId_human" : "?",
-			"post_name_human" : "?",
-			"post_avatar_human" : "?"
-			"contentText" : "?",
-			"contentImage" : "?",
-			"post_time" : "",
-			"totalLike" : "?",
-			"totalDislike" : "?"
-		}
+//không được phép dùng idUser truyền tải trên mạng
+
+//update status
+{
+	"idStatus" : "",
+	"contentText" : "",
+	"contentImage" : "",
+	"location" : [
+		"xLoc" : "",
+		"yLoc" : ""
 	]
+}

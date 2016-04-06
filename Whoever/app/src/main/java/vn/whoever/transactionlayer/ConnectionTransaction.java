@@ -1,14 +1,17 @@
 package vn.whoever.transactionlayer;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONObject;
 
@@ -16,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import vn.whoever.models.LocalAccount;
-import vn.whoever.utils.LoginState;
+import vn.whoever.transactionlayer.request.GsonRequest;
 
 /**
  * Created by spider man on 1/7/2016.
@@ -27,7 +30,6 @@ public class ConnectionTransaction {
     private static Activity myActivity;
     private static View myView;
 
-    private int fState = LoginState.FAIL;
 
     private LocalAccount user;
 
@@ -43,6 +45,23 @@ public class ConnectionTransaction {
         jsonLogin.put("ssoId", ssoId);
         jsonLogin.put("password", password);
 
+        GsonRequest<Object> gsonRequest = new GsonRequest(Request.Method.GET,
+                "",
+                null,
+                createMyReqSuccessListener(),
+                createMyReqErrorListener()) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("user-agent", "some_bitch_ass_header");
+
+                return headers;
+            }
+        };
+
+
 //        JsonObjectRequest objectRequest = new JsonObjectRequest( Request.Method.GET ,urlQuery.getUrl(),
 //                new Response.Listener<JSONObject>(){
 //            @Override
@@ -53,14 +72,14 @@ public class ConnectionTransaction {
 ////                         * TODO: Check response from server
 ////                         *
 ////                         */
-////                        fState = LoginState.PASS;
+////                        fState = ResponseState.PASS;
 ////                    } else {
-////                        fState = LoginState.WELCOME;
+////                        fState = ResponseState.WELCOME;
 ////                    }
 ////
 ////                } catch (JSONException e) {
 ////                    e.printStackTrace();
-////                    fState = LoginState.FAIL;
+////                    fState = ResponseState.FAIL;
 ////
 ////                }
 //            }
@@ -68,12 +87,12 @@ public class ConnectionTransaction {
 //            @Override
 //            public void onErrorResponse(VolleyError error) {
 //                Log.d("RESPONSE: ", error.toString());
-//                fState = LoginState.FAIL;
+//                fState = ResponseState.FAIL;
 //            }
 //        });
 //        TransactionQueue.getsInstance(myActivity).addToRequestQueue(objectRequest);
 
-        return fState;
+        return 2;
     }
 
     public boolean registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
@@ -93,12 +112,13 @@ public class ConnectionTransaction {
                         /**
                          * Response status on home page
                          */
+                        Log.d("Response from server", response.toString());
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("Response from server", error.toString());
             }
         }) {
             @Override
@@ -108,6 +128,8 @@ public class ConnectionTransaction {
                 headers.put("User-agent", System.getProperty("http.agent"));
                 return headers;
             }
+
+
         };
         TransactionQueue.getsInstance(myActivity).addToRequestQueue(registerRequest);
         return true;
@@ -116,46 +138,59 @@ public class ConnectionTransaction {
     /**
      * @param langCode, birthday
      *
-     * TODO: using POST method upload IMEI mobile device
+     * TODO: using GET method
      */
+
     public void getRequestLoginAnonymous(String langCode, String birthday) {
 
         UrlQuery query = new UrlQuery(AddressTransaction.url_login_with_anonymous);
         query.putParam("langCode", langCode);
         query.putParam("birthday", birthday);
 
-        JsonObjectRequest loginAnonymousRequest = new JsonObjectRequest(Request.Method.GET, query.getUrl(), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        Log.d("URL login anonymous", query.getUrl());
 
-                    }
-                }, new Response.ErrorListener() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, query.getUrl(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Request login anonymous", response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Request login anonymous", error.toString());
+            }
+        }) {
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                Log.d("header response", response.headers.toString());
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        TransactionQueue.getsInstance(myActivity).addToRequestQueue(stringRequest);
+    }
+
+    private Response.Listener<Object> createMyReqSuccessListener() {
+        return new Response.Listener<Object>() {
+            @Override
+            public void onResponse(Object response) {
+                try {
+                    Log.d("Json Response", "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+        };
+    }
+
+    private Response.ErrorListener createMyReqErrorListener() {
+        return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
-
-//        HashMap<String, String> params = new HashMap<>();
-//        params.put("imei", serialUser);
-//
-//        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
-//                new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                // kết quả trả về khi đẩy lên server
-//
-//                Log.d("ANONYMOUS LOGIN: ", response.toString());
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.d("ANONYMOUS LOGIN: ", "ERROR");
-//            }
-//        });
-//        TransactionQueue.getsInstance(myActivity).addToRequestQueue(objectRequest);
+        };
     }
 
     public void createNewAccount(String name, String password, String birthday, String language) {
