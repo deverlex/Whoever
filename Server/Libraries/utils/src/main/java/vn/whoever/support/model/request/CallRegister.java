@@ -1,12 +1,22 @@
 package vn.whoever.support.model.request;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import vn.whoever.support.model.utils.Location;
 
 @XmlRootElement
+@XmlType(propOrder = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
+@JsonPropertyOrder(value = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
 public class CallRegister {
 	
 	@XmlElement(name = "ssoId", required = true)
@@ -25,21 +35,21 @@ public class CallRegister {
 	private String langCode;
 	
 	@XmlElement(name = "location")
-	private Location location = new Location();
+	private List<Location> locations = new ArrayList<Location>();
 	
 	public CallRegister() {
 		super();
 	}
 
 	public CallRegister(String ssoId, String password, String nickName, Date birthday, 
-			String langCode, Location location) {
+			String langCode, List<Location> locations) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;
 		this.nickName = nickName;
 		this.birthday = birthday;
 		this.langCode = langCode;
-		this.location = location;
+		this.locations = locations;
 	}
 
 	public String getSsoId() {
@@ -83,11 +93,11 @@ public class CallRegister {
 		this.langCode = langCode;
 	}
 
-	public Location getLocation() {
-		return location;
+	public List<Location> getLocations() {
+		return locations;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
 	}
 }

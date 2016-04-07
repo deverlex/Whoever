@@ -2,8 +2,13 @@ package vn.whoever.support.model.utils;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @XmlRootElement(name = "location")
+@XmlType(propOrder = {"xLoc", "yLoc"})
+@JsonPropertyOrder(value = {"xLoc", "yLoc"})
 public class Location {
 	
 	@XmlElement(name = "xLoc", required = true)
