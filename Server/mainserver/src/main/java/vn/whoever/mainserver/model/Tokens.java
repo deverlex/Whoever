@@ -14,6 +14,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import vn.whoever.support.utils.FormatDate;
+
 @Entity
 @Table(name = "Token", uniqueConstraints = { 
 		@UniqueConstraint(columnNames = {"idUser"}),
@@ -27,6 +29,8 @@ public class Tokens implements Serializable {
 	 */
 	private static final long serialVersionUID = 1876564544343566L;
 
+	FormatDate formatDate = new FormatDate();
+	
 	@Id
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idUser")
@@ -34,9 +38,6 @@ public class Tokens implements Serializable {
 	
 	@Column(name = "token", length = 32, nullable = false)
 	private String token;
-	
-	@Column(name = "timeCreate")
-	private Date timeCreate;
 	
 	@Column(name = "timeExp")
 	private Date timeExp;
@@ -68,19 +69,16 @@ public class Tokens implements Serializable {
 		this.token = token;
 	}
 
-	public Date getTimeCreate() {
-		return timeCreate;
+	public String getTimeExp() {
+		return formatDate.toDateString(timeExp);
 	}
 
-	public void setTimeCreate(Date timeCreate) {
-		this.timeCreate = timeCreate;
+	public void setTimeExp(String timeExp) {
+		this.timeExp = formatDate.toDate(timeExp);
 	}
-
-	public Date getTimeExp() {
-		return timeExp;
-	}
-
+	
 	public void setTimeExp(Date timeExp) {
 		this.timeExp = timeExp;
 	}
+	
 }

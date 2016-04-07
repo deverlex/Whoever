@@ -2,6 +2,7 @@ package vn.whoever.mainserver.service;
 
 import java.util.Date;
 
+import vn.whoever.mainserver.model.Tokens;
 import vn.whoever.mainserver.model.Users;
 
 public interface AuthenticalToken {
@@ -11,28 +12,16 @@ public interface AuthenticalToken {
 	 * @param ssoId, exp
 	 * @return
 	 */
-	public String getToken(Users users);
-	public String getToken(Users users, Date timeExp);
+	public String initToken(Users users);
+	public String initToken(Users users, Date timeExp);
 	
-	/**
-	 * check token in database
-	 * @param token
-	 * @return
-	 */
+	public Tokens getToken(String ssoId);
+	
 	public boolean validate(String token);
 	
-	/**
-	 * get user information from token key
-	 * @param token
-	 * @return
-	 */
 	public Users getUserFromToken(String token);
+
+	public String getUpdateToken(String oldToken, String timeExp);
 	
-	/**
-	 * update new token when it have expired time
-	 * @param oldToken
-	 * @param oldTimeExp
-	 * @return
-	 */
-	public String getUpdateToken(String oldToken, Date timeExp);
+	public String getTimeExpiration();
 }

@@ -107,7 +107,9 @@ urlImage varchar(254) not null,
 constraint fk_photo_status foreign key (idStatus) references status (idStatus) 
 ) engine = InnoDB ;
 
-create table avatartphotos (
+drop table avatartphotos ;
+
+create table avatarphotos (
 idPhoto varchar(16) unique not null,
 urlImageSmall varchar(254) not null,
 isCurrent boolean not null,
@@ -235,9 +237,7 @@ timeExp datetime not null,
 constraint fk_token_user foreign key (idUser) references Users(idUser)
 );
 
-CREATE TRIGGER before_insert_on_token 
-BEFORE INSERT ON `token` 
-FOR EACH ROW SET new.timeExp = IFNULL(new.timeExp,DATE_ADD(NOW(), INTERVAL 30 minute));
+
 
 commit;
 
