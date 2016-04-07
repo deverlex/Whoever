@@ -8,7 +8,7 @@ public class PostStatus {
 	private String ssoId;
 	private String contentText;
 	private String contenntImage;
-	private Privacies privacies;
+	private Privacies privacy;
 	private Boolean isUserAccount;
 	private Location location;
 	
@@ -16,13 +16,13 @@ public class PostStatus {
 		super();
 	}
 
-	public PostStatus(String ssoId, String contentText, String contenntImage, Privacies privacies,
+	public PostStatus(String ssoId, String contentText, String contenntImage, Privacies privacy,
 			Boolean isUserAccount, Location location) {
 		super();
 		this.ssoId = ssoId;
 		this.contentText = contentText;
 		this.contenntImage = contenntImage;
-		this.privacies = privacies;
+		this.privacy = privacy;
 		this.isUserAccount = isUserAccount;
 		this.location = location;
 	}
@@ -51,12 +51,12 @@ public class PostStatus {
 		this.contenntImage = contenntImage;
 	}
 	
-	public Privacies getPrivacies() {
-		return privacies;
+	public Privacies getPrivacy() {
+		return privacy;
 	}
 	
-	public void setPrivacies(Privacies privacies) {
-		this.privacies = privacies;
+	public void setPrivacy(Privacies privacy) {
+		this.privacy = privacy;
 	}
 	
 	public Boolean getIsUserAccount() {

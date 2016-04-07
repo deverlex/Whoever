@@ -46,7 +46,6 @@ public class AuthenticalTokenImpl implements AuthenticalToken {
 	
 	public Tokens getToken(String ssoId) {
 		Users users = usersDao.findBySsoId(ssoId);
-		// tam thoi chen token vao day
 		Tokens tokens = tokensDao.getTokenByIdUser(users.getIdUser());
 		if ((new FormatDate(tokens.getTimeExp())).toDate().getTime() - (new Date()).getTime() < 0) {
 			tokens.setTimeExp(getTimeExpiration());

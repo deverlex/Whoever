@@ -50,7 +50,7 @@ public class Status implements Serializable {
 	
 	@Column(name = "privacy", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Privacies privacies = Privacies.normal;
+	private Privacies privacy = Privacies.normal;
 	
 	@Column(name = "isUseAccount", nullable = false)
 	private Boolean isUseAccount;
@@ -60,7 +60,7 @@ public class Status implements Serializable {
 	}
 
 	public Status(String idStatus, Users users, String content, Date timePost, Double xLoc, Double yLoc,
-			Privacies privacies, Boolean isUseAccount) {
+			Privacies privacy, Boolean isUseAccount) {
 		super();
 		this.idStatus = idStatus;
 		this.users = users;
@@ -68,7 +68,7 @@ public class Status implements Serializable {
 		this.timePost = timePost;
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
-		this.privacies = privacies;
+		this.privacy = privacy;
 		this.isUseAccount = isUseAccount;
 	}
 
@@ -120,12 +120,12 @@ public class Status implements Serializable {
 		this.yLoc = yLoc;
 	}
 	
-	public Privacies getPrivacies() {
-		return privacies;
+	public Privacies getPrivacy() {
+		return privacy;
 	}
 	
-	public void setPrivacies(Privacies privacies) {
-		this.privacies = privacies;
+	public void setPrivacy(Privacies privacy) {
+		this.privacy = privacy;
 	}
 	
 	public Boolean getIsUseAccount() {

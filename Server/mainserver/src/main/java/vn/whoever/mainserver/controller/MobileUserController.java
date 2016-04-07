@@ -36,7 +36,7 @@ import vn.whoever.service.GenerateSsoId;
 import vn.whoever.service.GenerateToken;
 import vn.whoever.support.model.request.RequestAcceptTerm;
 import vn.whoever.support.model.request.RequestLogin;
-import vn.whoever.support.model.request.RequestRegister;
+import vn.whoever.support.model.request.CallRegister;
 import vn.whoever.support.model.utils.States;
 
 @Controller
@@ -62,8 +62,6 @@ public class MobileUserController {
 					consumes = "application/json", produces = "application/json")
 	public @ResponseBody String loginWithAccount(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session, @RequestBody RequestLogin req) {
-		if (req.getPassword().equals(""))
-			return "login Fail";
 		try {
 			authenticalUser(request, session, req.getSsoId(), req.getPassword());
 			Tokens tokens = authToken.getToken(req.getSsoId());
@@ -107,7 +105,9 @@ public class MobileUserController {
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String registerAccount(HttpServletRequest request, 
 			HttpServletResponse response, HttpSession session, 
-			@RequestBody RequestRegister req) {
+			@RequestBody CallRegister req) {
+		
+		System.out.println("call request user");
 		Languages language = langsService.findByCode(req.getLangCode());
 		Users users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), States.active, false,
 				true, language);

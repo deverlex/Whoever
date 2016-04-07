@@ -2,9 +2,11 @@ package vn.whoever.mainserver.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.whoever.mainserver.dao.StatusDao;
 import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.service.StatusService;
 
@@ -12,7 +14,17 @@ import vn.whoever.mainserver.service.StatusService;
 @Transactional
 public class StatusServiceImpl implements StatusService {
 
+	@Autowired
+	private StatusDao statusDao;
 	
+	public Boolean postStatus(Status status) {
+		try {
+			statusDao.upLoadStatus(status);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
 	public List<Status> getListStatus(String ssoId) {
 		// TODO Auto-generated method stub

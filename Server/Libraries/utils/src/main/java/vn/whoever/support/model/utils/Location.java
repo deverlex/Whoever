@@ -1,8 +1,16 @@
 package vn.whoever.support.model.utils;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "location")
 public class Location {
 	
-	private Double xLoc, yLoc;
+	@XmlElement(name = "xLoc", required = true)
+	private Double xLoc;
+	
+	@XmlElement(name = "yLoc", required = true)
+	private Double yLoc;
 	
 	public Location() {}
 	

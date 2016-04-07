@@ -1,26 +1,45 @@
 package vn.whoever.support.model.request;
 
 import java.util.Date;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class RequestRegister {
+import vn.whoever.support.model.utils.Location;
+
+@XmlRootElement
+public class CallRegister {
 	
+	@XmlElement(name = "ssoId", required = true)
 	private String ssoId;
+	
+	@XmlElement(name = "password", required = true)
 	private String password;
+	
+	@XmlElement(name = "nickName")
 	private String nickName;
+	
+	@XmlElement(name = "birthday")
 	private Date birthday;
+	
+	@XmlElement(name = "langCode", required = true)
 	private String langCode;
 	
-	public RequestRegister() {
+	@XmlElement(name = "location")
+	private Location location = new Location();
+	
+	public CallRegister() {
 		super();
 	}
 
-	public RequestRegister(String ssoId, String password, String nickName, Date birthday, String langCode) {
+	public CallRegister(String ssoId, String password, String nickName, Date birthday, 
+			String langCode, Location location) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;
 		this.nickName = nickName;
 		this.birthday = birthday;
 		this.langCode = langCode;
+		this.location = location;
 	}
 
 	public String getSsoId() {
@@ -63,5 +82,12 @@ public class RequestRegister {
 	public void setLangCode(String langCode) {
 		this.langCode = langCode;
 	}
-	
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 }

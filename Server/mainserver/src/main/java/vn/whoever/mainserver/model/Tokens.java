@@ -28,8 +28,6 @@ public class Tokens implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1876564544343566L;
-
-	FormatDate formatDate = new FormatDate();
 	
 	@Id
 	@OneToOne(fetch = FetchType.LAZY)
@@ -70,11 +68,11 @@ public class Tokens implements Serializable {
 	}
 
 	public String getTimeExp() {
-		return formatDate.toDateString(timeExp);
+		return (new FormatDate(timeExp)).toDateString();
 	}
 
 	public void setTimeExp(String timeExp) {
-		this.timeExp = formatDate.toDate(timeExp);
+		this.timeExp = (new FormatDate(timeExp)).toDate();
 	}
 	
 	public void setTimeExp(Date timeExp) {
