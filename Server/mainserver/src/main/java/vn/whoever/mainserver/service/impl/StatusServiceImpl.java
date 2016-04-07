@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import v.whoever.service.impl.GenerateIdImpl;
+import v.whoever.service.impl.GenerateSsoIdImpl;
 import vn.whoever.mainserver.dao.StatusDao;
 import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.service.StatusService;
@@ -17,9 +19,14 @@ public class StatusServiceImpl implements StatusService {
 	@Autowired
 	private StatusDao statusDao;
 	
-	public Boolean postStatus(Status status) {
+	public String generateStatusId() {
+		return GenerateIdImpl.generateId().getId();
+	}
+	
+	public boolean postStatus(Status status) {
 		try {
 			statusDao.upLoadStatus(status);
+			System.out.println("post status!!");
 			return true;
 		} catch (Exception e) {
 			return false;

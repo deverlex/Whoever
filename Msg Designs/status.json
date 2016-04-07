@@ -5,10 +5,10 @@
 	"contentImage" : "?"
 	"privacy" : "?",
 	"isUseAccount" : "?",
-	"location" : [ {
+	"location" : {
 		"xloc" : "?",
 		"yloc" : "?"
-	}]
+	}
 }
 
 //response

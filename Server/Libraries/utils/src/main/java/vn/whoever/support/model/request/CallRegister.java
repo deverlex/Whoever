@@ -1,10 +1,6 @@
 package vn.whoever.support.model.request;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,21 +31,21 @@ public class CallRegister {
 	private String langCode;
 	
 	@XmlElement(name = "location")
-	private List<Location> locations = new ArrayList<Location>();
+	private Location location;
 	
 	public CallRegister() {
 		super();
 	}
 
-	public CallRegister(String ssoId, String password, String nickName, Date birthday, 
-			String langCode, List<Location> locations) {
+	public CallRegister(String ssoId, String password, String nickName, Date birthday, String langCode,
+			Location location) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;
 		this.nickName = nickName;
 		this.birthday = birthday;
 		this.langCode = langCode;
-		this.locations = locations;
+		this.location = location;
 	}
 
 	public String getSsoId() {
@@ -93,11 +89,11 @@ public class CallRegister {
 		this.langCode = langCode;
 	}
 
-	public List<Location> getLocations() {
-		return locations;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setLocations(List<Location> locations) {
-		this.locations = locations;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 }

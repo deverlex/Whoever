@@ -1,8 +1,20 @@
 package vn.whoever.support.model.request;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@XmlRootElement(name = "requestLogin")
+@XmlType(propOrder = {"ssoId", "password"})
+@JsonPropertyOrder(value = {"ssoId", "password"})
 public class RequestLogin {
 	
+	@XmlElement(name = "ssoId", required = true)
 	private String ssoId;
+	
+	@XmlElement(name = "password", required = true)
 	private String password;
 	
 	public RequestLogin() {

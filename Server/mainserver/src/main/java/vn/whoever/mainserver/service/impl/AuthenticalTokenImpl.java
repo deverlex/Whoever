@@ -31,14 +31,14 @@ public class AuthenticalTokenImpl implements AuthenticalToken {
 
 	public String initToken(Users users) {
 		String token = GenerateTokenImpl.getToken().getTokenId(users.getSsoId());
-		Tokens tokens = new Tokens(users, token);
+		Tokens tokens = new Tokens(users.getIdUser(), token);
 		tokensDao.insertToken(tokens);
 		return token;
 	}
 
 	public String initToken(Users users, Date timeExp) {
 		String token = GenerateTokenImpl.getToken().getTokenId(users.getSsoId());
-		Tokens tokens = new Tokens(users, token);
+		Tokens tokens = new Tokens(users.getIdUser(), token);
 		tokens.setTimeExp(timeExp);
 		tokensDao.insertToken(tokens);
 		return token;
@@ -46,7 +46,9 @@ public class AuthenticalTokenImpl implements AuthenticalToken {
 	
 	public Tokens getToken(String ssoId) {
 		Users users = usersDao.findBySsoId(ssoId);
+		System.out.println("idUser: " + users.getIdUser());
 		Tokens tokens = tokensDao.getTokenByIdUser(users.getIdUser());
+		
 		if ((new FormatDate(tokens.getTimeExp())).toDate().getTime() - (new Date()).getTime() < 0) {
 			tokens.setTimeExp(getTimeExpiration());
 			String token = GenerateTokenImpl.getToken().getTokenId(ssoId);
@@ -62,16 +64,17 @@ public class AuthenticalTokenImpl implements AuthenticalToken {
 	}
 
 	public Users getUserFromToken(String token) {
-		return tokensDao.getTokenByToken(token).getUsers();
+		return  null;//tokensDao.getTokenByToken(token).getUsers();
 	}
 
 	public String getUpdateToken(String oldToken, String timeExp) {
-		Tokens tokens = tokensDao.getTokenByToken(oldToken);
-		String newToken = GenerateTokenImpl.getToken().getTokenId(tokens.getUsers().getSsoId());
-		tokens.setTimeExp(timeExp);
-		tokens.setToken(newToken);
-		tokensDao.updateToken(tokens);
-		return newToken;
+//		Tokens tokens = tokensDao.getTokenByToken(oldToken);
+//		String newToken = GenerateTokenImpl.getToken().getTokenId(tokens.getUsers().getSsoId());
+//		tokens.setTimeExp(timeExp);
+//		tokens.setToken(newToken);
+//		tokensDao.updateToken(tokens);
+//		return newToken;
+		return null;
 	}
 
 	/**

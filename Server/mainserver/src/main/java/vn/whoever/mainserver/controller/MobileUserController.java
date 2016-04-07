@@ -107,10 +107,16 @@ public class MobileUserController {
 			HttpServletResponse response, HttpSession session, 
 			@RequestBody CallRegister req) {
 		
-		System.out.println("call request user");
 		Languages language = langsService.findByCode(req.getLangCode());
-		Users users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), States.active, false,
-				true, language);
+		Users users;
+		if(req.getLocation() == null) {
+			users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), 
+					States.active, false, true, language);
+		} else {
+			users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), 
+					States.active, req.getLocation().getxLoc(), req.getLocation().getyLoc(), false, true, language);
+		}
+		
 		try {
 			usersService.registerUser(users);
 			authenticalUser(request, session, req.getSsoId(), req.getPassword());

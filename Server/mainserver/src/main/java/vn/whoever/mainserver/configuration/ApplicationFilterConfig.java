@@ -43,11 +43,11 @@ public class ApplicationFilterConfig implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		System.out.println(request.getRequestURI());
 		
-		if (!request.getRequestURI().equals("/mainserver/") && !request.getRequestURI().equals("/mainserver/home")) {
-			if (request.getRequestURI().indexOf("/login") > 1) {
-				filterChain.doFilter(req, res);
-			}
-			filterChain.doFilter(req, res);
+//		if (!request.getRequestURI().equals("/mainserver/") && !request.getRequestURI().equals("/mainserver/home")) {
+//			if (request.getRequestURI().indexOf("/login") > 1) {
+//				filterChain.doFilter(req, res);
+//			}
+//			filterChain.doFilter(req, res);
 //			else {
 //				/**
 //				 * TODO: check token of user
@@ -70,9 +70,9 @@ public class ApplicationFilterConfig implements Filter {
 //					}
 //				}
 //			}
-		} else {
+//		} else {
 			filterChain.doFilter(req, res);
-		}
+//		}
 	}
 	
 	

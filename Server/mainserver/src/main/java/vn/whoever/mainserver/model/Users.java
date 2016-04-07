@@ -84,6 +84,20 @@ public class Users implements Serializable {
 		this.language = language;
 	}
 	
+	public Users(String idUser, String ssoId, String password, States state, Double xLoc, Double yLoc,
+			Boolean isAnonymous, Boolean isOnline, Languages language) {
+		super();
+		this.idUser = idUser;
+		this.ssoId = ssoId;
+		this.password = password;
+		this.state = state;
+		this.xLoc = xLoc;
+		this.yLoc = yLoc;
+		this.isAnonymous = isAnonymous;
+		this.isOnline = isOnline;
+		this.language = language;
+	}
+
 	public Users(String idUser, String ssoId, String password, States state, 
 				Double xLoc, Double yLoc, Languages language, Set<SetRoles> roles) {
 		super();

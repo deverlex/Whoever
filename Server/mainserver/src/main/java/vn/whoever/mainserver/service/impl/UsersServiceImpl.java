@@ -22,7 +22,7 @@ import vn.whoever.support.model.utils.States;
 public class UsersServiceImpl implements UsersService{
 
 	@Autowired
-	private UsersDao dao;
+	private UsersDao userDao;
 	
 	@Autowired
 	private SetRolesDao roleDao;
@@ -39,14 +39,14 @@ public class UsersServiceImpl implements UsersService{
 		return GenerateSsoIdImpl.getId().getPassword();
 	}
 
-	public Users findBySso(String ssoId) {
-		return dao.findBySsoId(ssoId);
+	public Users findBySsoId(String ssoId) {
+		return userDao.findBySsoId(ssoId);
 	}
 
 	public void registerUser(Users users) {
 		Set<SetRoles> roles = new HashSet<SetRoles>();
 		roles.add(new SetRoles(users, Roles.USER));
-		dao.registerUser(users);
+		userDao.registerUser(users);
 		roleDao.addRole(roles);
 	}
 

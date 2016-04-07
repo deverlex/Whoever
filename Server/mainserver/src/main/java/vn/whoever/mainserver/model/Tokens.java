@@ -30,9 +30,8 @@ public class Tokens implements Serializable {
 	private static final long serialVersionUID = 1876564544343566L;
 	
 	@Id
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idUser")
-	private Users users;
+	@Column(name = "idUser", length = 16)
+	private String idUser;
 	
 	@Column(name = "token", length = 32, nullable = false)
 	private String token;
@@ -44,19 +43,19 @@ public class Tokens implements Serializable {
 	public Tokens() {
 		super();
 	}
-	
-	public Tokens(Users users, String token) {
+
+	public Tokens(String idUser, String token) {
 		super();
-		this.users = users;
+		this.idUser = idUser;
 		this.token = token;
 	}
 
-	public Users getUsers() {
-		return users;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getToken() {
