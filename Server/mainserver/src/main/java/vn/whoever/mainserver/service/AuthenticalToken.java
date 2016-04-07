@@ -11,8 +11,8 @@ public interface AuthenticalToken {
 	 * @param ssoId, exp
 	 * @return
 	 */
-	public String getToken(String ssoId);
-	public String getToken(String ssoId, Date timeExp);
+	public String getToken(Users users);
+	public String getToken(Users users, Date timeExp);
 	
 	/**
 	 * check token in database
@@ -27,4 +27,12 @@ public interface AuthenticalToken {
 	 * @return
 	 */
 	public Users getUserFromToken(String token);
+	
+	/**
+	 * update new token when it have expired time
+	 * @param oldToken
+	 * @param oldTimeExp
+	 * @return
+	 */
+	public String getUpdateToken(String oldToken, Date timeExp);
 }

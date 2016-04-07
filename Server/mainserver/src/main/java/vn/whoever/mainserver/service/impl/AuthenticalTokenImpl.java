@@ -4,8 +4,11 @@ import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import v.whoever.service.impl.GenerateTokenImpl;
+import vn.whoever.mainserver.dao.TokensDao;
 import vn.whoever.mainserver.model.Tokens;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.AuthenticalToken;
@@ -17,29 +20,46 @@ public class AuthenticalTokenImpl implements AuthenticalToken {
 	/**
 	 * Get token when login => saved to DB
 	 */
-	public String getToken(String ssoId) {
-		return "";
+	
+	@Autowired
+	private TokensDao tokensDao;
+	
+	public String getToken(Users users) {
+		String token = GenerateTokenImpl.getToken().getTokenId(users.getSsoId());
+		Tokens tokens = new Tokens(users, token);
+		tokensDao.insertToken(tokens);
+		return token;
 	}
 
 	/**
 	 * Get token and set time expiration for token
 	 */
-	public String getToken(String ssoId, Date timeExp) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getToken(Users users, Date timeExp) {
+		String token = GenerateTokenImpl.getToken().getTokenId(users.getSsoId());
+		Tokens tokens = new Tokens(users, token);
+		tokens.setTimeExp(timeExp);
+		tokensDao.insertToken(tokens);
+		return token;
 	}
 
 	/**
 	 * validate token
 	 */
 	public boolean validate(String token) {
-		// TODO Auto-generated method stub
-		return false;
+		return tokensDao.validateToken(token);
 	}
 
 	public Users getUserFromToken(String token) {
-		// TODO Auto-generated method stub
-		return null;
+		return tokensDao.getTokens(token).getUsers();
+	}
+
+	public String getUpdateToken(String oldToken, Date timeExp) {
+		Tokens tokens = tokensDao.getTokens(oldToken);
+		String newToken = GenerateTokenImpl.getToken().getTokenId(tokens.getUsers().getSsoId());
+		tokens.setTimeExp(timeExp);
+		tokens.setToken(newToken);
+		tokensDao.updateToken(tokens);
+		return newToken;
 	}
 	
 }

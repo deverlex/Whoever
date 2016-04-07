@@ -3,7 +3,6 @@ package vn.whoever.mainserver.configuration;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.management.RuntimeErrorException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -13,10 +12,17 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import vn.whoever.mainserver.service.AuthenticalToken;
+
 public class ApplicationFilterConfig implements Filter {
 
+	@Autowired
+	private AuthenticalToken authenticalToken;
+
 	public void destroy() {
-		
+
 	}
 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
@@ -24,28 +30,28 @@ public class ApplicationFilterConfig implements Filter {
 
 		HttpServletRequest request = getAsHttpServletRequest(req);
 		HttpServletResponse response = (HttpServletResponse) res;
-
-		Map<String, String[]> params = req.getParameterMap();
 		
-		System.out.println("URL request " + request.getRequestURL());
-		System.out.println("URI request " + request.getRequestURI());
-		System.out.println("Token: " + extractAuthTokenFromRequest(request));
-		
-		if(request.getRequestURI().indexOf("/login") > 1) {
-			
+		if (!request.getRequestURI().equals("/mainserver/") || !request.getRequestURI().equals("/mainserver/home")) {
+			if (request.getRequestURI().indexOf("/login") > 1) {
+				/**
+				 * TODO: generate token for user
+				 * 
+				 */
+			} else {
+				/**
+				 * TODO: check token of user
+				 * 
+				 */
+				String token = extractAuthTokenFromRequest(request);
+				
+			}
 		} else {
-			
-		}
-		
-		try {
 			filterChain.doFilter(req, res);
-		} catch(Exception e) {
-			
 		}
 	}
 
 	public void init(FilterConfig config) throws ServletException {
-		
+
 	}
 	
 	private HttpServletRequest getAsHttpServletRequest(ServletRequest req) {
@@ -57,12 +63,19 @@ public class ApplicationFilterConfig implements Filter {
 	
 	private String extractAuthTokenFromRequest(HttpServletRequest request) {
 		/* get Token from Headers */
-		String authToken = request.getHeader("Postman-Token");
+		String authToken = request.getHeader("Whoever-Token");
 		
 		if(authToken ==  null) {
-			authToken = request.getParameter("whoever-token");
+			authToken = request.getParameter("token");
 		}
 		return authToken;
+	}
+	
+	private Date exactAuthTokenTimeExpiredFromRequest(HttpServletRequest request) {
+		String strDate = request.getHeader("Token-expiration");
+		if(strDate == null) {
+			strDate = request.getParameter("expired");
+		}
 	}
 	
 

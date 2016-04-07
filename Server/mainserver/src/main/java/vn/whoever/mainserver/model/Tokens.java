@@ -12,11 +12,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 @Table(name = "Token", uniqueConstraints = { 
 		@UniqueConstraint(columnNames = {"idUser"}),
 		@UniqueConstraint(columnNames = {"token"})
 		})
+@DynamicUpdate(value = true)
 public class Tokens implements Serializable {
 
 	/**

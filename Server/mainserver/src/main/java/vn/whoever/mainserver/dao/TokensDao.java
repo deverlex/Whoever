@@ -7,5 +7,5 @@ public interface TokensDao {
 	public void insertToken(Tokens tokens);
 	public void updateToken(Tokens tokens);
 	public boolean validateToken(String token);
-	public Tokens getUserFromToken(String token);
+	public Tokens getTokens(String token);
 }

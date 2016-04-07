@@ -32,7 +32,7 @@ public class TokensDaoImpl extends AbstractDao<String, Tokens> implements Tokens
 		return crit.uniqueResult() != null;
 	}
 
-	public Tokens getUserFromToken(String token) {
+	public Tokens getTokens(String token) {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("token", token));
 		return (Tokens) crit.uniqueResult();

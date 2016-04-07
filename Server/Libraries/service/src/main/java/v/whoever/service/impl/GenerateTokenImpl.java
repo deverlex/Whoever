@@ -19,10 +19,6 @@ public class GenerateTokenImpl implements GenerateToken, Serializable {
 	
 	private static GenerateToken tokenImpl = new GenerateTokenImpl();
 	
-	public static void main(String[] args) {
-		System.out.println(GenerateTokenImpl.getToken().getTokenId("nguyendo"));
-	}
-	
 	public synchronized static GenerateToken getToken() {
 		return tokenImpl;
 	}
@@ -40,10 +36,10 @@ public class GenerateTokenImpl implements GenerateToken, Serializable {
                 hashtext = "0" + hashtext;
             }
             char[] arrToken = hashtext.toCharArray();
-            arrToken[7] = '-';
+            arrToken[6] = '-';
             arrToken[11] = '-';
-            arrToken[15] = '-';
-            arrToken[19] = '-';
+            arrToken[16] = '-';
+            arrToken[21] = '-';
             return String.copyValueOf(arrToken);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
