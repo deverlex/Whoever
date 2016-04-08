@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:background="@color/colorMain">
+    android:background="@color/colorMain"
+    android:id="@+id/termPoliciesFrame">
 
 
 </LinearLayout>

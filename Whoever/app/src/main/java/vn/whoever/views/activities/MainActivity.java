@@ -23,10 +23,8 @@ import vn.whoever.views.activities.AccountSettingActivity;
 import vn.whoever.views.activities.AppSettingActivity;
 import vn.whoever.views.activities.HelpCenterActivity;
 import vn.whoever.views.activities.LogActivity;
-import vn.whoever.views.activities.NotifyActivity;
 import vn.whoever.views.activities.PrivacyActivity;
 import vn.whoever.views.activities.ReportActivity;
-import vn.whoever.views.activities.SearchActivity;
 import vn.whoever.adapters.ListOnlineAdapter;
 import vn.whoever.views.fragments.SearchFragment;
 import vn.whoever.views.fragments.TabHomeFragment;
@@ -360,8 +358,8 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     }
 
     public void navigateToNotify() {
-        Intent intentNotify = new Intent(this, NotifyActivity.class);
-        startActivity(intentNotify);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new SearchFragment()).addToBackStack("searchInforFrame").commit();
     }
 
     public void navigateToSearch() {
@@ -413,5 +411,14 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     @Override
     public void initGc() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

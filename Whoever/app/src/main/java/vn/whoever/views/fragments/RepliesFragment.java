@@ -1,12 +1,13 @@
-package vn.whoever.views.activities;
+package vn.whoever.views.fragments;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,18 +15,16 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import android.os.Handler;
-
 import vn.whoever.R;
 import vn.whoever.adapters.ReplyAdapter;
+import vn.whoever.utils.Initgc;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.customviews.RoundedImageView;
-import vn.whoever.utils.AppGc;
 
 /**
- * Created by spider man on 1/30/2016.
+ * Created by spider man on 4/9/2016.
  */
-public class ReplyActivity extends AppCompatActivity implements AppGc, AbsListView.OnScrollListener {
+public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnScrollListener {
 
     private ListView listReply;
     private TextView nickNamePostStatus;
@@ -39,47 +38,46 @@ public class ReplyActivity extends AppCompatActivity implements AppGc, AbsListVi
     private ReplyAdapter replyAdapter;
     private Handler mHandler;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.replies_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.replies_layout, container, false);
 
-        init();
-        initListener();
-
+        init(view);
+        initListener(view);
+        return view;
     }
 
-    public void init() {
+    @Override
+    public void init(View view) {
         mHandler = new Handler();
-        btnBackActivity = (ImageButton) findViewById(R.id.btnBackHomeFromComment);
-        nickNamePostStatus = (TextView) findViewById(R.id.nickNameAndExtendOnStatusDetail);
+        btnBackActivity = (ImageButton) view.findViewById(R.id.btnBackHomeFromComment);
+        nickNamePostStatus = (TextView) view.findViewById(R.id.nickNameAndExtendOnStatusDetail);
 
-        View footer = getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
+        View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBarLoad);
         progressBarLoadMore.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
 
-        listReply = (ListView) findViewById(R.id.listCommentOfStatusDetail);
+        listReply = (ListView) view.findViewById(R.id.listCommentOfStatusDetail);
         listReply.addFooterView(footer);
 
-        replyAdapter = new ReplyAdapter(this, 10, 7);
+        replyAdapter = new ReplyAdapter(getActivity(), 10, 7);
         listReply.setAdapter(replyAdapter);
+
         listReply.setOnScrollListener(this);
         progressBarLoadMore.setVisibility((7 < replyAdapter.getSize()) ? View.VISIBLE : View.GONE);
 
-        contentStatus = (JTextView) findViewById(R.id.contentStatusDetail);
-        avatarPostStatus = (RoundedImageView) findViewById(R.id.imageAvatarOnStatusDetail);
-        timeUpStatus = (TextView) findViewById(R.id.timeUploadStatusDetail);
-        btnSendComment = (ImageButton) findViewById(R.id.btnSendComment);
-        inputCommentSend = (EditText)  findViewById(R.id.inputCommentSend);
+        contentStatus = (JTextView) view.findViewById(R.id.contentStatusDetail);
+        avatarPostStatus = (RoundedImageView) view.findViewById(R.id.imageAvatarOnStatusDetail);
+        timeUpStatus = (TextView) view.findViewById(R.id.timeUploadStatusDetail);
+        btnSendComment = (ImageButton) view.findViewById(R.id.btnSendComment);
+        inputCommentSend = (EditText)  view.findViewById(R.id.inputCommentSend);
     }
 
-    public void initListener() {
+    @Override
+    public void initListener(View view) {
         btnBackActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
-                hiddenSoftInput();
-                finish();
+                getActivity().onBackPressed();
             }
         });
 
@@ -91,18 +89,6 @@ public class ReplyActivity extends AppCompatActivity implements AppGc, AbsListVi
         });
     }
 
-    public void hiddenSoftInput() {
-        View view = this.getCurrentFocus();
-        if(view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    @Override
-    public void initGc() {
-
-    }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -124,4 +110,9 @@ public class ReplyActivity extends AppCompatActivity implements AppGc, AbsListVi
             hasCallback = false;
         }
     };
+
+    @Override
+    public void initGc() {
+
+    }
 }

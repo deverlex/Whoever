@@ -88,18 +88,19 @@ public class SearchFragment extends Fragment implements Initgc {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                getActivity().onBackPressed();
             }
         });
     }
-
-    public void onBackPressed() {
-        if (getActivity().getSupportFragmentManager().findFragmentByTag("searchInforFrame") != null) {
-            getActivity().getSupportFragmentManager().popBackStackImmediate("searchInforFrame",0);
-        } else {
-            getActivity().onBackPressed();
-        }
-    }
+//
+//    public void onBackPressed() {
+//
+//        if (getActivity().getSupportFragmentManager().findFragmentByTag("searchInforFrame") != null) {
+//            getActivity().getSupportFragmentManager().popBackStackImmediate("searchInforFrame",0);
+//        } else {
+//            getActivity().onBackPressed();
+//        }
+//    }
 
     @Override
     public void initGc() {

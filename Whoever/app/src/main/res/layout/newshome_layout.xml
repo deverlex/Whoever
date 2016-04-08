@@ -5,7 +5,8 @@
     android:background="@color/colorSilverWhite"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/newsHomeFrame">
 
     <ListView
         android:id="@+id/listViewNewsHome"

@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:id="@+id/itemChatFrame">
 
     <LinearLayout
         android:id="@+id/layoutBoderContentMessageItemChat"

@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorMain"
     android:orientation="vertical"
-    tools:context=".views.activities.StartActivity">
+    tools:context=".views.activities.StartActivity"
+    android:id="@+id/startMainFrame">
 
     <TextView
         android:id="@+id/logoTextStart"

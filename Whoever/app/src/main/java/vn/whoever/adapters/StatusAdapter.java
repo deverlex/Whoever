@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vn.whoever.R;
+import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.activities.ReplyActivity;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.models.ArrayStatus;
 import vn.whoever.models.Status;
 import vn.whoever.utils.TimeUtils;
+import vn.whoever.views.fragments.RepliesFragment;
 
 /**
  * Created by spider man on 1/13/2016.
@@ -85,8 +87,10 @@ public class StatusAdapter extends BaseAdapter {
         btnComent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, ReplyActivity.class);
-                activity.startActivity(intent);
+//                Intent intent = new Intent(activity, ReplyActivity.class);
+//                activity.startActivity(intent);
+                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new RepliesFragment()).addToBackStack("repliesFrame").commit();
             }
         });
 

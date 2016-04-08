@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:id="@+id/inboxFrame">
 
     <ListView
         android:id="@+id/listViewPreviewMessage"

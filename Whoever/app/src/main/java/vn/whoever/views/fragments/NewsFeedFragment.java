@@ -22,7 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
-import vn.whoever.views.activities.PostStatusActivity;
+import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.activities.ProifileActivity;
 import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.utils.Initgc;
@@ -182,24 +182,24 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         btnChoiceWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentNav.setClass(getContext(), PostStatusActivity.class);
-                startActivity(intentNav);
+                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
             }
         });
 
         btnChoiceUpPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentNav.setClass(getContext(), PostStatusActivity.class);
-                startActivity(intentNav);
+                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
             }
         });
 
         btnWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentNav.setClass(getContext(), PostStatusActivity.class);
-                startActivity(intentNav);
+                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
             }
         });
 

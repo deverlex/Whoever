@@ -6,7 +6,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/colorMain"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:id="@+id/signInFrame">
 
     <EditText
         android:id="@+id/inputSsoIdStart"
