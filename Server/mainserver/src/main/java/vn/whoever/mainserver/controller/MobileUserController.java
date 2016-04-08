@@ -78,9 +78,7 @@ public class MobileUserController {
 	public @ResponseBody String loginAnonymous(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session, @RequestParam(value = "langCode", defaultValue = "vi") String langCode,
 			@RequestParam(value = "birthday") @DateTimeFormat(pattern = "ddMMyyyy") Date birthday) {
-		/**
-		 * check birthday > 13 year old => oke
-		 */
+		
 		Languages language = langsService.findByCode(langCode);
 
 		String ssoId = usersService.generateSsoId();

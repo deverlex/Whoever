@@ -3,6 +3,7 @@ package vn.whoever.mainserver.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -17,10 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import vn.whoever.support.model.utils.Privacies;
 
 @Entity
 @Table(name = "Status")
+@DynamicInsert(value = true)
 public class Status implements Serializable {
 	
 	/**
@@ -29,17 +33,16 @@ public class Status implements Serializable {
 	private static final long serialVersionUID = -155579065L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idStatus", nullable = false, length = 16)
 	private String idStatus;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "idUser", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT))
-	private Users users;
+	@Column(name = "idUser", length = 16, nullable = false)
+	private String idUser;
 	
 	@Column(name = "content", nullable = false)
 	private String content;
 	
-	@Column(name = "timePost", nullable = false)
+	@Column(name = "timePost")
 	private Date timePost;
 	
 	@Column(name = "xLoc", nullable = false)
@@ -55,21 +58,38 @@ public class Status implements Serializable {
 	@Column(name = "isUseAccount", nullable = false)
 	private Boolean isUseAccount;
 	
+	@Column(name = "timeUp")
+	private Date timeUp;
+	
 	public Status() {
 		super();
 	}
 
-	public Status(String idStatus, Users users, String content, Date timePost, Double xLoc, Double yLoc,
+	public Status(String idStatus, String idUser, String content, Date timePost, Double xLoc, Double yLoc,
 			Privacies privacy, Boolean isUseAccount) {
 		super();
 		this.idStatus = idStatus;
-		this.users = users;
+		this.idUser = idUser;
 		this.content = content;
 		this.timePost = timePost;
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
 		this.privacy = privacy;
 		this.isUseAccount = isUseAccount;
+	}
+	
+	public Status(String idStatus, String idUser, String content, Date timePost, Double xLoc, Double yLoc,
+			Privacies privacy, Boolean isUseAccount, Date timeUp) {
+		super();
+		this.idStatus = idStatus;
+		this.idUser = idUser;
+		this.content = content;
+		this.timePost = timePost;
+		this.xLoc = xLoc;
+		this.yLoc = yLoc;
+		this.privacy = privacy;
+		this.isUseAccount = isUseAccount;
+		this.timeUp = timeUp;
 	}
 
 	public String getIdStatus() {
@@ -79,15 +99,15 @@ public class Status implements Serializable {
 	public void setIdStatus(String idStatus) {
 		this.idStatus = idStatus;
 	}
-	
-	public Users getUsers() {
-		return users;
+		
+	public String getIdUser() {
+		return idUser;
 	}
-	
-	public void setUsers(Users users) {
-		this.users = users;
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
-	
+
 	public String getContent() {
 		return content;
 	}
@@ -134,5 +154,13 @@ public class Status implements Serializable {
 	
 	public void setIsUseAccount(Boolean isUseAccount) {
 		this.isUseAccount = isUseAccount;
+	}
+
+	public Date getTimeUp() {
+		return timeUp;
+	}
+
+	public void setTimeUp(Date timeUp) {
+		this.timeUp = timeUp;
 	}
 }

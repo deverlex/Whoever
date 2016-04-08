@@ -19,7 +19,7 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 	 */
 	private static final long serialVersionUID = 164545334L;
 
-	public void upLoadStatus(Status status) {
+	public void postStatus(Status status) {
 		persist(status);
 	}
 

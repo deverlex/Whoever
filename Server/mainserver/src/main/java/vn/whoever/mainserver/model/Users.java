@@ -65,9 +65,6 @@ public class Users implements Serializable {
 	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	private Set<SetRoles> roles = new HashSet<SetRoles>();
 	
-	@OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Profiles profiles;
-	
 	public Users() {
 		super();
 	}
@@ -173,14 +170,6 @@ public class Users implements Serializable {
 
 	public void setIsOnline(Boolean isOnline) {
 		this.isOnline = isOnline;
-	}
-
-	public Profiles getProfiles() {
-		return profiles;
-	}
-
-	public void setProfiles(Profiles profiles) {
-		this.profiles = profiles;
 	}
 
 	public Languages getLanguage() {

@@ -10,8 +10,8 @@ import vn.whoever.support.model.utils.Location;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "status")
-@XmlType(propOrder = { "ssoId", "contentText", "contentImage", "privacy", "isUserAccount", "location" })
-@JsonPropertyOrder(value = { "ssoId", "contentText", "contentImage", "privacy", "isUserAccount", "location" })
+@XmlType(propOrder = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount", "location" })
+@JsonPropertyOrder(value = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount", "location" })
 public class PostStatus {
 
 	@XmlElement(name = "ssoId", required = true)
@@ -26,8 +26,8 @@ public class PostStatus {
 	@XmlElement(name = "privacy")
 	private Privacies privacy;
 
-	@XmlElement(name = "isUserAccount")
-	private Boolean isUserAccount;
+	@XmlElement(name = "isUseAccount")
+	private Boolean isUseAccount;
 
 	@XmlElement(name = "location")
 	private Location location;
@@ -36,14 +36,14 @@ public class PostStatus {
 		super();
 	}
 
-	public PostStatus(String ssoId, String contentText, String contentImage, Privacies privacy, Boolean isUserAccount,
+	public PostStatus(String ssoId, String contentText, String contentImage, Privacies privacy, Boolean isUseAccount,
 			Location location) {
 		super();
 		this.ssoId = ssoId;
 		this.contentText = contentText;
 		this.contentImage = contentImage;
 		this.privacy = privacy;
-		this.isUserAccount = isUserAccount;
+		this.isUseAccount = isUseAccount;
 		this.location = location;
 	}
 
@@ -79,12 +79,12 @@ public class PostStatus {
 		this.privacy = privacy;
 	}
 
-	public Boolean getIsUserAccount() {
-		return isUserAccount;
+	public Boolean getIsUseAccount() {
+		return isUseAccount;
 	}
 
-	public void setIsUserAccount(Boolean isUserAccount) {
-		this.isUserAccount = isUserAccount;
+	public void setIsUseAccount(Boolean isUseAccount) {
+		this.isUseAccount = isUseAccount;
 	}
 
 	public Location getLocation() {

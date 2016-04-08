@@ -54,10 +54,11 @@ public class MobileStatusController {
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
+		
 		Users users = userService.findBySsoId(postStatus.getSsoId());
-		Status status = new Status(statusService.generateStatusId(), users, postStatus.getContentText(),
+		Status status = new Status(statusService.generateStatusId(), users.getIdUser(), postStatus.getContentText(),
 				new Date(), postStatus.getLocation().getxLoc(), postStatus.getLocation().getyLoc(), 
-				postStatus.getPrivacy(), postStatus.getIsUserAccount());
+				postStatus.getPrivacy(), postStatus.getIsUseAccount());
 		boolean result = statusService.postStatus(status);
 		System.out.println("Result post: " + result);
 		if(result == true){
