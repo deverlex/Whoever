@@ -28,6 +28,7 @@ import vn.whoever.views.activities.PrivacyActivity;
 import vn.whoever.views.activities.ReportActivity;
 import vn.whoever.views.activities.SearchActivity;
 import vn.whoever.adapters.ListOnlineAdapter;
+import vn.whoever.views.fragments.SearchFragment;
 import vn.whoever.views.fragments.TabHomeFragment;
 import vn.whoever.utils.*;
 
@@ -364,8 +365,8 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     }
 
     public void navigateToSearch() {
-        Intent intentSearch = new Intent(this, SearchActivity.class);
-        startActivity(intentSearch);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new SearchFragment()).addToBackStack("searchInforFrame").commit();
     }
 
     public void navigateToAppSetting() {

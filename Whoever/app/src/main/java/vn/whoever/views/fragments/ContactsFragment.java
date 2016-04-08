@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import vn.whoever.R;
+import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.activities.SearchContactActivity;
 import vn.whoever.adapters.ContactsAdapter;
 import vn.whoever.utils.AlphaButton;
@@ -33,7 +35,7 @@ public class ContactsFragment extends Fragment implements Initgc {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.contacts_layout, null);
+        View view = inflater.inflate(R.layout.contacts_layout, container , false);
 
         init(view);
         initListener(view);
@@ -110,11 +112,25 @@ public class ContactsFragment extends Fragment implements Initgc {
                 startActivity(intent);
             }
         });
+
+        buttonAddAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+                MainActivity.frgTransactionMain.replace(R.id.contactFrame, new AddContactFragment()).commit();
+                buttonAddAccount.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    public void onResume() {
+        super.onResume();
+        buttonAddAccount.setVisibility(View.VISIBLE);
     }
 
     @Override

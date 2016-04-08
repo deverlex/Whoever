@@ -213,8 +213,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
                 // show a dialog
             }
         });
-
-        Log.d("Init()", "reInit()");
     }
 
     @Override

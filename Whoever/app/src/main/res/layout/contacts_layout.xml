@@ -6,7 +6,8 @@
     android:background="@color/colorWhite"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/contactFrame">
 
     <LinearLayout
         android:id="@+id/layoutHeaderContactList"

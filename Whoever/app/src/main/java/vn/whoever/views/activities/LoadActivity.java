@@ -72,7 +72,7 @@ public class LoadActivity extends AppCompatActivity implements AppGc {
                     });
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(400);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

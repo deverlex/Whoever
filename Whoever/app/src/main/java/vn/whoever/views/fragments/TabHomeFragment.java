@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +40,11 @@ public class TabHomeFragment extends Fragment implements Initgc {
 
     private ArrayList<String> titles;
 
-    private NewsHomeFragment newsHomeFragment;
-    private NewsFeedFragment newsFeedFragment;
-    private InboxFragment inboxFragment;
-    private ContactsFragment contactsFragment;
-
    // private int selectedItems = 0;
+    private Fragment homeFragment;
+    private Fragment newsFragment;
+    private Fragment inboxFragment;
+    private Fragment contactFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedStanceState) {
@@ -53,8 +54,10 @@ public class TabHomeFragment extends Fragment implements Initgc {
         init(view);
         initListener(view);
 
-        viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        final MyAdapter myAdapter = new MyAdapter(getChildFragmentManager());
 
+        viewPager.setAdapter(myAdapter);
+        viewPager.setOffscreenPageLimit(4);
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -78,16 +81,17 @@ public class TabHomeFragment extends Fragment implements Initgc {
     public void init(View view) {
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayoutHome);
         viewPager = (ViewPager) view.findViewById(R.id.viewPageHome);
-        newsHomeFragment  = new NewsHomeFragment();
-        newsFeedFragment = new NewsFeedFragment();
-        inboxFragment = new InboxFragment();
-        contactsFragment = new ContactsFragment();
 
         titles = new ArrayList<>();
         titles.add(0, getContext().getString(R.string.title_tab_home));
         titles.add(1, getContext().getString(R.string.title_tab_new));
         titles.add(2, getContext().getString(R.string.title_tab_inbox));
         titles.add(3, getContext().getString(R.string.title_tab_contact));
+
+        homeFragment = new NewsHomeFragment();
+        newsFragment = new NewsFeedFragment();
+        inboxFragment = new InboxFragment();
+        contactFragment = new ContactsFragment();
     }
 
     @Override
@@ -117,7 +121,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
         });
     }
 
-    class MyAdapter extends FragmentPagerAdapter {
+    class MyAdapter extends FragmentStatePagerAdapter {
 
         public MyAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -125,15 +129,16 @@ public class TabHomeFragment extends Fragment implements Initgc {
 
         @Override
         public Fragment getItem(int position) {
+            Fragment fragment = null;
             switch (position) {
                 case 0:
-                    return newsHomeFragment;
+                    return homeFragment;
                 case 1:
-                    return newsFeedFragment;
+                    return  newsFragment;
                 case 2:
                     return inboxFragment;
                 case 3:
-                    return contactsFragment;
+                    return contactFragment;
             }
             return  null;
         }
@@ -153,11 +158,6 @@ public class TabHomeFragment extends Fragment implements Initgc {
     public void onPause() {
         super.onPause();
         System.gc();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override

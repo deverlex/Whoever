@@ -117,19 +117,16 @@ public class InboxFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("Pause", "clear memory");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("Stop", "clear memory");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("Destroy", "clear memory");
     }
 
     @Override
