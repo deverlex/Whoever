@@ -10,7 +10,6 @@ public interface StatusDao {
 	public void updateStatus(Status status);
 	public List<Status> getListStatusByFriends(String idUser);
 	public List<Status> getListStatusContainNearby(String idUser);
-	public Status getDetailStatus(String idStatus);
 	public void deleteStatus(String idStatus);
 	
 }

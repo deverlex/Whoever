@@ -61,12 +61,15 @@ public class Status implements Serializable {
 	@Column(name = "timeUp")
 	private Date timeUp;
 	
+	@Column(name = "hasImage", nullable = false)
+	private Boolean hasImage;
+	
 	public Status() {
 		super();
 	}
 
 	public Status(String idStatus, String idUser, String content, Date timePost, Double xLoc, Double yLoc,
-			Privacies privacy, Boolean isUseAccount) {
+			Privacies privacy, Boolean isUseAccount, Boolean hasImage) {
 		super();
 		this.idStatus = idStatus;
 		this.idUser = idUser;
@@ -76,6 +79,7 @@ public class Status implements Serializable {
 		this.yLoc = yLoc;
 		this.privacy = privacy;
 		this.isUseAccount = isUseAccount;
+		this.hasImage = hasImage;
 	}
 	
 	public Status(String idStatus, String idUser, String content, Date timePost, Double xLoc, Double yLoc,
@@ -162,5 +166,13 @@ public class Status implements Serializable {
 
 	public void setTimeUp(Date timeUp) {
 		this.timeUp = timeUp;
+	}
+
+	public Boolean getHasImage() {
+		return hasImage;
+	}
+
+	public void setHasImage(Boolean hasImage) {
+		this.hasImage = hasImage;
 	}
 }

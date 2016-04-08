@@ -17,24 +17,47 @@
 	"timePost" : ""
 }
 
-// get status cho news home và news feed  = sử dụng phương thức GET
-// localhost:8080/mainserver/mobile/gethome?ssoId=?&xLoc=&yLoc=?
+// get status cho news home sử dụng phương thức GET
+// localhost:8080/mainserver/mobile/gethome?langCode=?
+
+// get status for newsfeed
+
+{
+	"ssoId" : "",
+	"order" : "",
+	"lastLevel" : "", //cho nay tuy vao so luong lan truoc de tinh ra khoảng cach can tang them
+	"location" : {
+		"xLoc" : "",
+		"yLoc" : ""
+	}
+}
+// lastLevel = 0 => lấy ở < 2km
+//vd: lastLevel
+// 1 = 2km, 2 = 4km, 3 = 6km, 4 = 8km, 5 = 10km, 6 = 12km, 7 = 14km, 
+// 8 = 18km, 9 = 24km, 10 = 32km, 11 = 48km, 12 = 64 km, 13 = 128km, 14 = 256km, 15 = 512km
+// ở phía server, mỗi lần lấy tối thiểu lấy thêm 20 status, nếu không phải tăng khoảng cách
+// increate distance to level 2
+
 
 //response
-"status" : [
-	{
-		"idStatus" : "",
-		"ssoIdPoster" : "",
-		"avatartPoster" : "",
-		"namePoster" : "",
-		"timePost" : "",
-		"contentText" : "",
-		"contentImage" : ""
-		"totalLike" : "",
-		"totalDislike" : "",
-		"totalComment" : ""
-	}
-]
+
+{
+	"level" : "",
+	"status" : [
+		{
+			"idStatus" : "",
+			"ssoIdPoster" : "",
+			"avatartPoster" : "",
+			"namePoster" : "",
+			"timePost" : "",
+			"contentText" : "",
+			"contentImage" : ""
+			"totalLike" : "",
+			"totalDislike" : "",
+			"totalComment" : ""
+		}
+	]
+}
 
 //không được phép dùng idUser truyền tải trên mạng
 

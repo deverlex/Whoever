@@ -17,6 +17,7 @@ import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
+import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.PostStatus;
 
 /**
@@ -42,11 +43,11 @@ public class MobileStatusController {
 		return "";
 	}
 	
-	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.GET,
-			produces = "application/json")
-	public @ResponseBody String getNews(HttpServletResponse httpResponse,
-			@RequestParam(value = "langCode", required = true, defaultValue = "en") String langCode) {
-
+	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.POST,
+			consumes = "application/json", produces = "application/json")
+	public @ResponseBody String getNews(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody GetStatus getStatus) {
+		
 		return "new status for you";
 	}
 	
@@ -54,15 +55,19 @@ public class MobileStatusController {
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
-		
+		Boolean hasImage = postStatus.getContentImage().equals("") ? false : true;
 		Users users = userService.findBySsoId(postStatus.getSsoId());
 		Status status = new Status(statusService.generateStatusId(), users.getIdUser(), postStatus.getContentText(),
 				new Date(), postStatus.getLocation().getxLoc(), postStatus.getLocation().getyLoc(), 
-				postStatus.getPrivacy(), postStatus.getIsUseAccount());
+				postStatus.getPrivacy(), postStatus.getIsUseAccount(), hasImage);
 		boolean result = statusService.postStatus(status);
 		System.out.println("Result post: " + result);
 		if(result == true){
 			return "Post Successfull!!";
+		}
+		if(hasImage) {
+			//TODO: insert image to DB in here
+			
 		}
 		return "post fail";
 	}

@@ -68,6 +68,8 @@ xLoc double not null,
 yLoc double not null,
 privacy varchar(12) default 'open' not null,
 isUseAccount boolean default false not null,
+timeUp datetime default now() not null,
+hasImage boolean default false not null,
 constraint fk_status_user foreign key (idUser) references users (idUser)
 ) engine = InnoDB;
 
