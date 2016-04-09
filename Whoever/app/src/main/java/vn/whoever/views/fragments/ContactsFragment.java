@@ -1,10 +1,8 @@
 package vn.whoever.views.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,7 +14,6 @@ import android.widget.ListView;
 
 import vn.whoever.R;
 import vn.whoever.views.activities.MainActivity;
-import vn.whoever.views.activities.SearchContactActivity;
 import vn.whoever.adapters.ContactsAdapter;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
@@ -108,8 +105,7 @@ public class ContactsFragment extends Fragment implements Initgc {
         btnSearchContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchContactActivity.class);
-                startActivity(intent);
+                navigateSearchContact();
             }
         });
 
@@ -123,6 +119,11 @@ public class ContactsFragment extends Fragment implements Initgc {
         });
     }
 
+    public void navigateSearchContact() {
+        MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+        MainActivity.frgTransactionMain.replace(R.id.mainFrame, new SearchContactFragment()).addToBackStack("searchContactFrame").commit();
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -130,7 +131,6 @@ public class ContactsFragment extends Fragment implements Initgc {
 
     public void onResume() {
         super.onResume();
-        buttonAddAccount.setVisibility(View.VISIBLE);
     }
 
     @Override

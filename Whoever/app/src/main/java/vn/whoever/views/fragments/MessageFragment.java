@@ -12,6 +12,7 @@ import android.widget.ListView;
 import vn.whoever.R;
 import vn.whoever.adapters.MessageAdapter;
 import vn.whoever.utils.Initgc;
+import vn.whoever.views.activities.MainActivity;
 
 /**
  * Created by spider man on 4/9/2016.
@@ -56,7 +57,8 @@ public class MessageFragment extends Fragment implements Initgc {
         btnQickViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onNavigateProfile();
+                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("msgFrame").commit();
             }
         });
 

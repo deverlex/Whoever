@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:background="@color/colorWhite"
-    android:orientation="vertical"
-    android:id="@+id/toolbarContactsFrame">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"

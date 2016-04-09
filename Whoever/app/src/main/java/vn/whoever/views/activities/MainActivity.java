@@ -19,13 +19,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import vn.whoever.R;
-import vn.whoever.views.activities.AccountSettingActivity;
-import vn.whoever.views.activities.AppSettingActivity;
-import vn.whoever.views.activities.HelpCenterActivity;
-import vn.whoever.views.activities.LogActivity;
-import vn.whoever.views.activities.PrivacyActivity;
-import vn.whoever.views.activities.ReportActivity;
 import vn.whoever.adapters.ListOnlineAdapter;
+import vn.whoever.views.fragments.AccountSettingFragment;
+import vn.whoever.views.fragments.AppSettingFragment;
+import vn.whoever.views.fragments.HelpCenterFragment;
+import vn.whoever.views.fragments.LogFragment;
+import vn.whoever.views.fragments.PrivacyFragment;
+import vn.whoever.views.fragments.ReportFragment;
 import vn.whoever.views.fragments.SearchFragment;
 import vn.whoever.views.fragments.TabHomeFragment;
 import vn.whoever.utils.*;
@@ -368,33 +368,33 @@ public class MainActivity extends AppCompatActivity implements AppGc {
     }
 
     public void navigateToAppSetting() {
-        Intent intentAppSet = new Intent(this, AppSettingActivity.class);
-        startActivity(intentAppSet);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new AppSettingFragment()).addToBackStack("mainToAppSetting").commit();
     }
 
     public void navigateToAccountSetting() {
-        Intent intentAccountSet = new Intent(this, AccountSettingActivity.class);
-        startActivity(intentAccountSet);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new AccountSettingFragment()).addToBackStack("mainToAccountSetting").commit();
     }
 
     public void navigateToActivityLog() {
-        Intent intentLog = new Intent(this, LogActivity.class);
-        startActivity(intentLog);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new LogFragment()).addToBackStack("log").commit();
     }
 
     public void navigateToPrivacy() {
-        Intent intentPrivacy = new Intent(this, PrivacyActivity.class);
-        startActivity(intentPrivacy);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new PrivacyFragment()).addToBackStack("privacy").commit();
     }
 
     public void navigateToHelpCenter() {
-        Intent intentHelp = new Intent(this, HelpCenterActivity.class);
-        startActivity(intentHelp);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new HelpCenterFragment()).addToBackStack("helpCenter").commit();
     }
 
     public void navigateToReport() {
-        Intent intentReport = new Intent(this, ReportActivity.class);
-        startActivity(intentReport);
+        frgTransactionMain = frgtManagerMain.beginTransaction();
+        frgTransactionMain.replace(R.id.mainFrame, new ReportFragment()).addToBackStack("report").commit();
     }
 
     @Override

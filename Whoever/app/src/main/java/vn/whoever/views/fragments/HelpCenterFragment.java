@@ -12,14 +12,12 @@ import vn.whoever.utils.Initgc;
 /**
  * Created by spider man on 4/9/2016.
  */
-public class SearchContactFragment extends Fragment implements Initgc {
+public class HelpCenterFragment extends Fragment implements Initgc {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.search_contact_layout, container, false);
+        View view = inflater.inflate(R.layout.help_center_layout, container, false);
 
-        init(view);
-        initListener(view);
         return view;
     }
 

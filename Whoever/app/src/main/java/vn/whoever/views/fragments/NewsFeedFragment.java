@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,7 +22,6 @@ import android.widget.RelativeLayout;
 
 import vn.whoever.R;
 import vn.whoever.views.activities.MainActivity;
-import vn.whoever.views.activities.ProifileActivity;
 import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.utils.Initgc;
 
@@ -173,9 +171,8 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         avatarInToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // navigate to profile layout
-                intentNav.setClass(getContext(), ProifileActivity.class);
-                startActivity(intentNav);
+                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
+                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("profileFrame").commit();
             }
         });
 

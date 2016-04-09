@@ -15,7 +15,6 @@ import java.util.Date;
 
 import vn.whoever.R;
 import vn.whoever.views.activities.MainActivity;
-import vn.whoever.views.activities.ReplyActivity;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.models.ArrayStatus;
 import vn.whoever.models.Status;
@@ -82,13 +81,11 @@ public class StatusAdapter extends BaseAdapter {
         final JTextView content = (JTextView) convertView.findViewById(R.id.contentStatus);
         content.setText(status.getContentStatus(), true);
 
-        LinearLayout btnComent = (LinearLayout) convertView.findViewById(R.id.btnCommentStatus);
+        LinearLayout btnComment = (LinearLayout) convertView.findViewById(R.id.btnCommentStatus);
 
-        btnComent.setOnClickListener(new View.OnClickListener() {
+        btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(activity, ReplyActivity.class);
-//                activity.startActivity(intent);
                 MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
                 MainActivity.frgTransactionMain.replace(R.id.mainFrame, new RepliesFragment()).addToBackStack("repliesFrame").commit();
             }
