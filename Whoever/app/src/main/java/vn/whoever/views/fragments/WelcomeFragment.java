@@ -1,9 +1,9 @@
 package vn.whoever.views.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import vn.whoever.transactionlayer.ConnectionTransaction;
-import vn.whoever.views.activities.LoadActivity;
 import vn.whoever.R;
+import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.dialogs.DatePickerFragment;
 import vn.whoever.views.dialogs.LanguagePickerFragment;
 import vn.whoever.utils.Initgc;
@@ -31,6 +31,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
     private Button btnPushApp;
     DatePickerFragment dateDialog;
     LanguagePickerFragment langDialog;
+    private TextView textLogoApp;
 
     public static final String KEY_USE_ACCOUNT = "isSignUp";
 
@@ -43,16 +44,13 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
         Bundle bundle = getArguments();
         if(bundle.getBoolean(KEY_USE_ACCOUNT)) {
-            Log.d("Check Welcome", "bbbbbbbb");
             isAccount = true;
         } else {
-            Log.d("Check Welcome", "aaaaaa");
             isAccount = false;
         }
 
         init(view);
         initListener(view);
-
         return view;
     }
 
@@ -74,6 +72,10 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
         langDialog  = new LanguagePickerFragment();
         langDialog.setTextLanguage(textViewLanguage);
+
+        textLogoApp = (TextView) view.findViewById(R.id.logoTextStartWelcome);
+        Typeface bauhau93_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bauhau93.ttf");
+        textLogoApp.setTypeface(bauhau93_font);
     }
 
     @Override
@@ -93,7 +95,6 @@ public class WelcomeFragment extends Fragment implements Initgc {
                      */
                     //login to server
 
-
                     if (isAccount) {
                         /**
                          * TODO: saved clear start activity
@@ -105,14 +106,11 @@ public class WelcomeFragment extends Fragment implements Initgc {
                         Log.d("Date birthday", dateDialog.toString());
                     }
 
-                    Intent intentMain = new Intent(getActivity(), LoadActivity.class);
-                    startActivity(intentMain);
-                    getActivity().finish();
+                    MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                    MainActivity.frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
                 } else {
                     Toast.makeText(getActivity(), "You haven't enough year old", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
 

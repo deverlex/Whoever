@@ -112,16 +112,16 @@ public class ContactsFragment extends Fragment implements Initgc {
         buttonAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-                MainActivity.frgTransactionMain.replace(R.id.contactFrame, new AddContactFragment()).commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.contactFrame, new AddContactFragment()).commit();
                 buttonAddAccount.setVisibility(View.GONE);
             }
         });
     }
 
     public void navigateSearchContact() {
-        MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-        MainActivity.frgTransactionMain.replace(R.id.mainFrame, new SearchContactFragment()).addToBackStack("searchContactFrame").commit();
+        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTransaction.replace(R.id.mainFrame, new SearchContactFragment()).addToBackStack("searchContactFrame").commit();
     }
 
     @Override

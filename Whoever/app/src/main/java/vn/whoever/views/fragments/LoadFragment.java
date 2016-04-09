@@ -1,28 +1,28 @@
-package vn.whoever.views.activities;
+package vn.whoever.views.fragments;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import vn.whoever.R;
-import vn.whoever.utils.AppGc;
 import vn.whoever.utils.Initgc;
+import vn.whoever.views.activities.MainActivity;
 
 /**
- * Created by spider man on 4/4/2016.
+ * Created by spider man on 4/9/2016.
  */
-public class LoadActivity extends AppCompatActivity implements AppGc {
+public class LoadFragment extends Fragment implements Initgc {
 
     private ProgressBar progressBar;
     private int progress = 0;
@@ -30,23 +30,32 @@ public class LoadActivity extends AppCompatActivity implements AppGc {
     private Thread thread;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.load_layout);
-        init();
-        initListener();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.load_layout, container, false);
+
+        init(view);
+        initListener(view);
+        return view;
     }
 
-    public void init() {
-        TextView logoLoad = (TextView) findViewById(R.id.logoTextLoad);
-        Typeface bauhau93_font = Typeface.createFromAsset(getAssets(), "fonts/bauhau93.ttf");
+    @Override
+    public void init(View view) {
+        TextView logoLoad = (TextView) view.findViewById(R.id.logoTextLoad);
+        Typeface bauhau93_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bauhau93.ttf");
         logoLoad.setTypeface(bauhau93_font);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBarLoadData);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBarLoadData);
         progressBar.getProgressDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#eb4949"));
+        }
     }
 
-    public void initListener() {
+    @Override
+    public void initListener(View view) {
         /**
          * TODO: load data for homepage and news
          * load data for profile
@@ -66,7 +75,8 @@ public class LoadActivity extends AppCompatActivity implements AppGc {
                         public void run() {
                             progressBar.setProgress(progress);
                             if(progress == progressBar.getMax()) {
-                                navigateMain();
+                                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                                MainActivity.frgTransaction.replace(R.id.mainFrame, new MainFragment()).commit();
                             }
                         }
                     });
@@ -82,19 +92,8 @@ public class LoadActivity extends AppCompatActivity implements AppGc {
         thread.start();
     }
 
-    public void navigateMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
     public void initGc() {
 
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }

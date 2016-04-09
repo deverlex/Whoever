@@ -57,8 +57,8 @@ public class MessageFragment extends Fragment implements Initgc {
         btnQickViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("msgFrame").commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("msgFrame").commit();
             }
         });
 

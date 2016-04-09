@@ -171,32 +171,32 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         avatarInToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("profileFrame").commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("profileFrame").commit();
             }
         });
 
         btnChoiceWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
             }
         });
 
         btnChoiceUpPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
             }
         });
 
         btnWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
             }
         });
 

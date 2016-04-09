@@ -1,10 +1,8 @@
 package vn.whoever.views.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -110,8 +108,8 @@ public class InboxFragment extends Fragment implements Initgc {
     }
 
     public void navigateChatActivity() {
-        MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-        MainActivity.frgTransactionMain.replace(R.id.mainFrame, new MessageFragment()).addToBackStack("messageFrame").commit();
+        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTransaction.replace(R.id.mainFrame, new MessageFragment()).addToBackStack("messageFrame").commit();
     }
 
     @Override

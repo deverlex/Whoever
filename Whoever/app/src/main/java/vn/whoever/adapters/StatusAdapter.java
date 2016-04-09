@@ -1,8 +1,6 @@
 package vn.whoever.adapters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,8 +84,8 @@ public class StatusAdapter extends BaseAdapter {
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransactionMain = MainActivity.frgtManagerMain.beginTransaction();
-                MainActivity.frgTransactionMain.replace(R.id.mainFrame, new RepliesFragment()).addToBackStack("repliesFrame").commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, new RepliesFragment()).addToBackStack("repliesFrame").commit();
             }
         });
 

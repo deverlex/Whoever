@@ -8,6 +8,16 @@
     android:id="@+id/welcomeFrame">
 
     <TextView
+        android:id="@+id/logoTextStartWelcome"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="w"
+        android:textColor="@color/colorWhite"
+        android:textSize="98sp"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -15,14 +25,15 @@
         android:text="@string/text_view_welcome0"
         android:textColor="@color/colorWhite"
         android:layout_centerHorizontal="true"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:layout_below="@+id/logoTextStartWelcome"/>
 
     <TextView
+        android:id="@+id/textViewWelcome1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/textViewWelcome0"
-        android:id="@+id/textViewWelcome1"
         android:text="@string/text_view_welcome1"
         android:textColor="@color/colorWhite"
         android:layout_centerHorizontal="true"

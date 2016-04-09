@@ -49,7 +49,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedStanceState) {
 
-        View view = inflater.inflate(R.layout.tab_home_layout, null);
+        View view = inflater.inflate(R.layout.tab_home_layout, container, false);
 
         init(view);
         initListener(view);

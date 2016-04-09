@@ -1,16 +1,19 @@
 package vn.whoever.views.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.v4.app.Fragment;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +21,6 @@ import android.widget.Toast;
 
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.R;
-import vn.whoever.views.activities.StartActivity;
 import vn.whoever.transactionlayer.ConnectionTransaction;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.RegexUtils;
@@ -37,6 +39,7 @@ public class SignInFragment extends Fragment implements Initgc {
     private TextView textTerm;
     private Button btnSignin;
     private Button btnSkipSignIn;
+    private TextView logoText;
 
     private Toast toast;
 
@@ -60,6 +63,16 @@ public class SignInFragment extends Fragment implements Initgc {
         btnSkipSignIn = (Button) view.findViewById(R.id.skipSignInButton);
         btnSignin = (Button) view.findViewById(R.id.signInButton);
         textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
+
+        logoText = (TextView) view.findViewById(R.id.logoTextStartSignIn);
+        Typeface bauhau93_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bauhau93.ttf");
+        logoText.setTypeface(bauhau93_font);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#eb4949"));
+        }
     }
 
     @Override
@@ -67,8 +80,8 @@ public class SignInFragment extends Fragment implements Initgc {
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
-                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new SignUpFragment()).commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, new SignUpFragment()).addToBackStack("toSignUp").commit();
             }
         });
 
@@ -76,7 +89,6 @@ public class SignInFragment extends Fragment implements Initgc {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // check key input
-
                 return false;
             }
         });
@@ -129,12 +141,14 @@ public class SignInFragment extends Fragment implements Initgc {
                  */
 
 
-                StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
+                //StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, false);
                 WelcomeFragment welcomeFragment = new WelcomeFragment();
                 welcomeFragment.setArguments(bundle);
-                StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, welcomeFragment).commit();
+                //StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, welcomeFragment).commit();
+                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTransaction.replace(R.id.mainFrame, welcomeFragment).commit();
             }
         });
 
@@ -153,14 +167,16 @@ public class SignInFragment extends Fragment implements Initgc {
 
                 if(RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
                     int stateLogin = ConnectionTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
-
+                    /**
+                     * Account avaiable => Activity
+                     * else
+                     * => create new account
+                     */
                     if(true){
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                        getActivity().onBackPressed();
                     } else if(true) {
-                        StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
-                        StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, new WelcomeFragment()).commit();
+                        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                        MainActivity.frgTransaction.replace(R.id.mainFrame, new SignUpFragment()).commit();
                     } else {
                         toast = Toast.makeText(getActivity(), "Check your connection or your Acccount ID", Toast.LENGTH_LONG);
                         toast.show();
@@ -177,12 +193,6 @@ public class SignInFragment extends Fragment implements Initgc {
     public String getSerialNumberUser() {
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         return telephonyManager.getDeviceId();
-    }
-
-    public void navigateToMain() {
-        Intent intentMain = new Intent(getActivity(), MainActivity.class);
-        startActivity(intentMain);
-        getActivity().finish();
     }
 
     @Override
