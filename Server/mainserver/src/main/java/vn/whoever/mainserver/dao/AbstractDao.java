@@ -6,6 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractDao<PK extends Serializable, T> {
@@ -22,6 +23,10 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 
 	protected Session getSession(){
 		return sessionFactory.getCurrentSession();
+	}
+	
+	protected Transaction getTransaction() {
+		return getSession().beginTransaction();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -48,6 +53,18 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 	
 	protected Criteria createEntityCriteria(){
 		return getSession().createCriteria(persistentClass);
+	}
+	
+	protected void close() {
+		getSession().close();
+	}
+	
+	protected void commit() {
+		getTransaction().commit();
+	}
+	
+	protected void rollback() {
+		getTransaction().rollback();
 	}
 }
 

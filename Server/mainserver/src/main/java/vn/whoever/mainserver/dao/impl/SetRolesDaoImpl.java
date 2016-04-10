@@ -25,7 +25,7 @@ public class SetRolesDaoImpl extends AbstractDao<String, SetRoles> implements Se
 		}
 	}
 
-	public void deleteRole(long idRole) {
+	public void deleteRole(long idUser) {
 		// TODO Auto-generated method stub
 		
 	}

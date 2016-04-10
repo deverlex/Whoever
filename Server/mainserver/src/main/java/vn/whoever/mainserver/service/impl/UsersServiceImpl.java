@@ -13,6 +13,7 @@ import vn.whoever.mainserver.dao.SetRolesDao;
 import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.mainserver.model.Users;
+import vn.whoever.mainserver.service.ContactsService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.utils.Roles;
 import vn.whoever.support.model.utils.States;
@@ -26,6 +27,9 @@ public class UsersServiceImpl implements UsersService{
 	
 	@Autowired
 	private SetRolesDao roleDao;
+	
+	@Autowired
+	private ContactsService contactService;
 	
 	public String generateUserId() {
 		return GenerateIdImpl.generateId().getId();
@@ -43,11 +47,15 @@ public class UsersServiceImpl implements UsersService{
 		return userDao.findBySsoId(ssoId);
 	}
 
-	public void registerUser(Users users) {
+	public boolean registerUser(Users users) {
 		Set<SetRoles> roles = new HashSet<SetRoles>();
 		roles.add(new SetRoles(users, Roles.USER));
+		
 		userDao.registerUser(users);
-		roleDao.addRole(roles);
+		roleDao.addRole(roles, users.getIdUser());
+		contactService.createContact(users.getIdUser());
+		
+		return false;
 	}
 
 	public void addRole(Users users, Roles roles) {

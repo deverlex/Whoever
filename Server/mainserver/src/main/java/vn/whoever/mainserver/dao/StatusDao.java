@@ -2,7 +2,6 @@ package vn.whoever.mainserver.dao;
 
 import java.util.List;
 
-import vn.whoever.mainserver.model.Contacts;
 import vn.whoever.mainserver.model.Status;
 
 public interface StatusDao {

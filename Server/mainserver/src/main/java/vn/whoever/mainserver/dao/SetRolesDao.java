@@ -9,7 +9,7 @@ import vn.whoever.support.model.utils.Roles;
 public interface SetRolesDao {
 
 	public void addRole(Set<SetRoles> roles);
-	public void deleteRole(long idRole);
+	public void deleteRole(long idUser);
 	public long getIdRole(long idUser, String role);
 	public List<Roles> getListRole(long idUser);
 }

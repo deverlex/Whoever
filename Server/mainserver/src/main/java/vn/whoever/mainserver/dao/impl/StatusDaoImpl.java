@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.StatusDao;
+import vn.whoever.mainserver.model.Contacts;
 import vn.whoever.mainserver.model.Status;
 
 @Repository("statusDao")
@@ -37,27 +38,24 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		deleteByKey(idStatus);
 	}
 
-	public List<Status> getListStatusByFriends(String idUser) {
+	public List<Status> getListStatusByFriends(List<String> listFriends, int levelGet) {
 		
 		return null;
 	}
-
-	public List<Status> getListStatusContainNearby(String idUser) {
+	
+	public List<Status> getListStatusContainNearby(List<String> listFriends, double xLoc, double yLoc, int levelGet) {
 		// TODO contain: friend and nearby
-		//do get by friends
+		// do get by friends
 		Map<String, Status> mapStatus = new ConcurrentHashMap<String, Status>();
-		for (Status status : getListStatusByFriends(idUser)) {
+		for (Status status : getListStatusByFriends(listFriends, levelGet)) {
 			mapStatus.put(status.getIdStatus(), status);
 		}
 		// get status nearby
 		Criteria crit = createEntityCriteria();
-		
+
 		// xLoc & yLoc grow by level
-		crit.add(Restrictions.between("xLoc", 10, 100))
-		.add(Restrictions.between("yLoc", 10, 100));
-		
-		
-		
+		crit.add(Restrictions.between("xLoc", 10, 100)).add(Restrictions.between("yLoc", 10, 100));
+
 		return getList(mapStatus);
 	}
 	
@@ -66,5 +64,7 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		List<Status> status = new ArrayList<Status>(values);
 		return status;
 	}
+
+
 
 }

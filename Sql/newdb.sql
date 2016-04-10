@@ -228,7 +228,8 @@ create table BlackList_Users (
 idBlackList varchar(16) not null,
 idUser varchar(16) not null,
 constraint fk_black_user foreign key (idBlackList) references BlackList(idBlackList),
-constraint fk_black_black foreign key (idUser) references Users (idUser)
+constraint fk_black_black foreign key (idUser) references Users (idUser),
+unique key (idBlackList, idUser)
 ) engine = InnoDB;
 
 create table Token (

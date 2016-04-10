@@ -11,8 +11,6 @@ public interface UsersDao {
 	
 	public void registerUser(Users users);
 	public void updateUser(Users users);
-	public void destroyUser(String ssoId);
-	
+	public void destroyUser(String ssoId);	
 	public void updateLocation(String idUser, Location location);
-	
 }

@@ -3,6 +3,7 @@ package vn.whoever.mainserver.dao.impl;
 import java.io.Serializable;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -22,33 +23,34 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 		crit.add(Restrictions.eq("ssoId", ssoId));
 		return (Users) crit.uniqueResult();
 	}
+	
+	public String findIdUser(String ssoId) {
+		String sql = "select idUser from Users where ssoId = '" + ssoId + "'";
+		Query query = getSession().createQuery(sql);
+		return query.getQueryString();
+	}
+	
+	public boolean checkIsOnline(String ssoId) {
+		// TODO Auto-generated method stub
+		
+		return false;
+	}
 
-	public void registerUser(Users users) {	
+	public void registerUser(Users users) {
 		persist(users);
 	}
 
 	public void updateUser(Users users) {
-	
+		persist(users);
 	}
 
 	public void destroyUser(String ssoId) {
-		
-	}
-
-	public String findIdUser(String ssoId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean checkIsOnline(String ssoId) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "delete from Users where ssoId = '" + ssoId + "'";
+		Query query = getSession().createQuery(sql);
+		query.executeUpdate();
 	}
 
 	public void updateLocation(String idUser, Location location) {
 		// TODO Auto-generated method stub
-		
 	}
-	
-	
 }
