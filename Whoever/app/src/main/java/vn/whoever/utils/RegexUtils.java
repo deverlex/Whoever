@@ -7,7 +7,7 @@ package vn.whoever.utils;
 public class RegexUtils {
 
     public static final String emailPattern = "^([a-zA-Z0-9])+([a-zA-Z0-9_])+@([a-zA-Z])+(\\.[a-zA-Z]+)*(\\.[a-zA-Z]+)$";
-    public static final String nickNamePattern = "^(\\p{L}+)+(\\s\\p{L}+)*(\\s\\p{L}+)$";
+    public static final String nickNamePattern = "^(\\p{L}+)*(\\s\\p{L}*)*$";
     public static final String passWordPattern = "([^\\s]{8,32})$";
     public static final String ssoIdPattern = "^([a-zA-Z0-9])+([a-zA-Z0-9_])*([a-zA-Z0-9])+$";
 
@@ -38,7 +38,7 @@ public class RegexUtils {
 
     public boolean checkNickName(String nickName) {
         nickName = standardizeString(nickName);
-        return nickName.matches(nickNamePattern) && nickName.length() > 7;
+        return nickName.matches(nickNamePattern) && nickName.length() > 3;
     }
 
     public String standardizeString(String str) {

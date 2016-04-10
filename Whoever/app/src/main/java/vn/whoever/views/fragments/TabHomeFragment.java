@@ -54,7 +54,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
         init(view);
         initListener(view);
 
-        final MyAdapter myAdapter = new MyAdapter(getChildFragmentManager());
+        final MyAdapter myAdapter = new MyAdapter(getParentFragment().getChildFragmentManager());
 
         viewPager.setAdapter(myAdapter);
         viewPager.setOffscreenPageLimit(4);

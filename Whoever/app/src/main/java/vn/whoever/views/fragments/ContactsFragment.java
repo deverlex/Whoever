@@ -105,23 +105,29 @@ public class ContactsFragment extends Fragment implements Initgc {
         btnSearchContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateSearchContact();
+                navigateToSearchContact(new SearchContactFragment(), "contactFrameToSearchContact");
             }
         });
 
         buttonAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.contactFrame, new AddContactFragment()).commit();
+                navigateToAddContact(new AddContactFragment(), "contactFrameToAddContact");
                 buttonAddAccount.setVisibility(View.GONE);
             }
         });
     }
 
-    public void navigateSearchContact() {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, new SearchContactFragment()).addToBackStack("searchContactFrame").commit();
+    public void navigateToSearchContact(Fragment fragment, String strStack) {
+        getParentFragment().getChildFragmentManager().beginTransaction()
+                .replace(R.id.majorFrame, fragment).addToBackStack(strStack).commit();
+        getParentFragment().getChildFragmentManager().executePendingTransactions();
+    }
+
+    public void navigateToAddContact(Fragment fragment, String strStack) {
+        getParentFragment().getChildFragmentManager().beginTransaction()
+                .replace(R.id.contactFrame, fragment).addToBackStack(strStack).commit();
+        getParentFragment().getChildFragmentManager().executePendingTransactions();
     }
 
     @Override

@@ -85,13 +85,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_search_red"
-            android:background="@color/colorWhite"
+            android:background="@color/colorSilverWhite"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:paddingRight="15dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="15dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp" />
 
     </RelativeLayout>
 

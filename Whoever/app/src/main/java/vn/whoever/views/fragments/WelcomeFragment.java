@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,6 +108,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                     }
 
                     MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+                    MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     MainActivity.frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
                 } else {
                     Toast.makeText(getActivity(), "You haven't enough year old", Toast.LENGTH_LONG).show();

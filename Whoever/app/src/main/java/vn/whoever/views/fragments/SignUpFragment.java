@@ -74,9 +74,6 @@ public class SignUpFragment extends Fragment implements Initgc {
         textViewSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * TODO: naviagte to login layout
-                 */
                 getActivity().onBackPressed();
             }
         });
@@ -98,14 +95,11 @@ public class SignUpFragment extends Fragment implements Initgc {
                         && RegexUtils.getInstance().checkNickName(nickName)) {
                     if(checkBoxAgreeTerm.isChecked()) {
 
-                     //   StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                         Bundle bundle = new Bundle();
                         bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, true);
                         WelcomeFragment welcomeFragment = new WelcomeFragment();
                         welcomeFragment.setArguments(bundle);
-                     //   StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, welcomeFragment).commit();
-                        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                        MainActivity.frgTransaction.replace(R.id.mainFrame, welcomeFragment).commit();
+                        navigateToWelcome(welcomeFragment, "signupFrameToWelcome");
 
                     } else {
                         toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
@@ -171,7 +165,7 @@ public class SignUpFragment extends Fragment implements Initgc {
                         if(toast != null) {
                             toast.cancel();
                         }
-                        toast = Toast.makeText(getActivity(), "Email isn't standard of Account ID", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(getActivity(), "Account ID isn't standard of Account ID", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }
@@ -193,6 +187,12 @@ public class SignUpFragment extends Fragment implements Initgc {
                 }
             }
         });
+    }
+
+
+    private void navigateToWelcome(Fragment fragment, String strStack) {
+        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
     }
 
     @Override

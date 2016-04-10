@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,7 +135,6 @@ public class MainFragment extends Fragment implements Initgc {
         /**
          * TODO: init() for overview layout
          */
-
         directAppSetting = (RelativeLayout) view.findViewById(R.id.layoutAppSettingOverview);
         directAccountSetting = (RelativeLayout) view.findViewById(R.id.layoutAccountSettingOverview);
         directActivityLog = (RelativeLayout) view.findViewById(R.id.layoutLogActivityOverview);
@@ -251,8 +251,6 @@ public class MainFragment extends Fragment implements Initgc {
          * TODO: listener for online list layout
          */
 
-
-
         /**
          * TODO: Listener for overview layout
          */
@@ -281,21 +279,21 @@ public class MainFragment extends Fragment implements Initgc {
         directPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToPrivacy();
+                navigateFragment(new PrivacyFragment(), "majorFrameToPrivacy");
             }
         });
 
         directHelpCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToHelpCenter();
+                navigateFragment(new HelpCenterFragment(), "majorFrameToHelp");
             }
         });
 
         directReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToReport();
+                navigateFragment(new ReportFragment(), "majorFrameToReport");
             }
         });
 
@@ -311,7 +309,9 @@ public class MainFragment extends Fragment implements Initgc {
         directAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                /**
+                 * Todo somethings
+                 */
             }
         });
 
@@ -336,26 +336,7 @@ public class MainFragment extends Fragment implements Initgc {
         getChildFragmentManager().executePendingTransactions();
     }
 
-    public void navigateToPrivacy() {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, new PrivacyFragment()).addToBackStack("privacy").commit();
-    }
-
-    public void navigateToHelpCenter() {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, new HelpCenterFragment()).addToBackStack("helpCenter").commit();
-    }
-
-    public void navigateToReport() {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, new ReportFragment()).addToBackStack("report").commit();
-    }
-
     public void openRightListenerClick() {
-        /**
-         * TODO: layout listener on right main layout
-         * | L|
-         */
         listenerPrams = (FrameLayout.LayoutParams) listenerClick.getLayoutParams();
         listenerPrams.width = (int) (metrics.widthPixels * 0.15);
         listenerPrams.leftMargin = (int) (metrics.widthPixels * 0.85);
@@ -363,10 +344,6 @@ public class MainFragment extends Fragment implements Initgc {
     }
 
     public void openLeftListenerClick() {
-        /**
-         * TODO: layout listener on left main layout
-         * |L |
-         */
         listenerPrams = (FrameLayout.LayoutParams) listenerClick.getLayoutParams();
         listenerPrams.width = (int) (metrics.widthPixels * 0.15);
         listenerPrams.rightMargin = (int) (metrics.widthPixels * 0.85);

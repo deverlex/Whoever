@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import vn.whoever.R;
-import vn.whoever.views.activities.MainActivity;
 import vn.whoever.adapters.InboxAdapter;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
@@ -94,8 +93,7 @@ public class InboxFragment extends Fragment implements Initgc {
         listInbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                navigateChatActivity();
+                navigateToMessage(new MessageFragment(), "inboxFrameToMessage");
             }
         });
 
@@ -107,24 +105,15 @@ public class InboxFragment extends Fragment implements Initgc {
         });
     }
 
-    public void navigateChatActivity() {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, new MessageFragment()).addToBackStack("messageFrame").commit();
+    public void navigateToMessage(Fragment fragment, String strStack) {
+        getParentFragment().getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, fragment)
+                .addToBackStack(strStack).commit();
+        getParentFragment().getChildFragmentManager().executePendingTransactions();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override

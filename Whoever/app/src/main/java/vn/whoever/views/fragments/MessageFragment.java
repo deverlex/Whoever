@@ -27,7 +27,7 @@ public class MessageFragment extends Fragment implements Initgc {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.chat_layout, container, false);
+        View view = inflater.inflate(R.layout.chat_layout, null);
 
         init(view);
         initListener(view);
@@ -57,8 +57,7 @@ public class MessageFragment extends Fragment implements Initgc {
         btnQickViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("msgFrame").commit();
+                navigateToProfile(new ProfileFragment(), "messageFrameToProfile");
             }
         });
 
@@ -68,6 +67,12 @@ public class MessageFragment extends Fragment implements Initgc {
 
             }
         });
+    }
+
+    public void navigateToProfile(Fragment fragment, String strStack) {
+        getParentFragment().getChildFragmentManager().beginTransaction()
+                .replace(R.id.majorFrame, fragment).addToBackStack(strStack).commit();
+        getParentFragment().getChildFragmentManager().executePendingTransactions();
     }
 
     @Override

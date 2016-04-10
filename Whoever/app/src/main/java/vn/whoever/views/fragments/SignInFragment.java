@@ -80,8 +80,7 @@ public class SignInFragment extends Fragment implements Initgc {
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, new SignUpFragment()).addToBackStack("toSignUp").commit();
+                navigateToSignUp(new SignUpFragment(), "signinFrameToSignUp");
             }
         });
 
@@ -140,15 +139,11 @@ public class SignInFragment extends Fragment implements Initgc {
                  * TODO: get IMEI of phone send to server
                  */
 
-
-                //StartActivity.frgStartTransaction = StartActivity.frgStartManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, false);
                 WelcomeFragment welcomeFragment = new WelcomeFragment();
                 welcomeFragment.setArguments(bundle);
-                //StartActivity.frgStartTransaction.replace(R.id.layoutStartApp, welcomeFragment).commit();
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, welcomeFragment).commit();
+                navigateToWelcome(welcomeFragment, "signinFrameToWelcome");
             }
         });
 
@@ -161,22 +156,26 @@ public class SignInFragment extends Fragment implements Initgc {
                  * TODO: after check password and email => demo
                  */
 
-                if(toast != null) {
+                if (toast != null) {
                     toast.cancel();
                 }
 
-                if(RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
+                if (RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
                     int stateLogin = ConnectionTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
                     /**
                      * Account avaiable => Activity
                      * else
                      * => create new account
                      */
-                    if(true){
-                        getActivity().onBackPressed();
-                    } else if(true) {
-                        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                        MainActivity.frgTransaction.replace(R.id.mainFrame, new SignUpFragment()).commit();
+                    if (true) {
+                        //chuyen sang mainFragment
+                    } else if (true) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ssoId", ssoId);
+                        bundle.putString("password", password);
+                        SignUpFragment signUpFragment = new SignUpFragment();
+                        signUpFragment.setArguments(bundle);
+                        navigateToSignUp(signUpFragment, "signinFrameToSignUp");
                     } else {
                         toast = Toast.makeText(getActivity(), "Check your connection or your Acccount ID", Toast.LENGTH_LONG);
                         toast.show();
@@ -193,6 +192,16 @@ public class SignInFragment extends Fragment implements Initgc {
     public String getSerialNumberUser() {
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         return telephonyManager.getDeviceId();
+    }
+
+    private void navigateToWelcome(Fragment fragment, String strStack) {
+        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
+    }
+
+    private void navigateToSignUp(Fragment fragment, String strStack) {
+        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
     }
 
     @Override

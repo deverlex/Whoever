@@ -1,24 +1,17 @@
 package vn.whoever.views.activities;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.RelativeLayout;
 
 import vn.whoever.R;
 import vn.whoever.utils.*;
 import vn.whoever.views.fragments.LoadFragment;
-import vn.whoever.views.fragments.MainFragment;
 import vn.whoever.views.fragments.SignInFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             frgTransaction.replace(R.id.mainFrame, new SignInFragment()).commit();
         }
-
         hiddenSoftInput();
     }
 

@@ -179,24 +179,27 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         btnChoiceWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
+//                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+//                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
+                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
+                getChildFragmentManager().executePendingTransactions();
+
             }
         });
 
         btnChoiceUpPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
+                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
+                getChildFragmentManager().executePendingTransactions();
             }
         });
 
         btnWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
+                getParentFragment().getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
+                getParentFragment().getChildFragmentManager().executePendingTransactions();
             }
         });
 
