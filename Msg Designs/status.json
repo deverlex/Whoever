@@ -21,11 +21,11 @@
 // localhost:8080/mainserver/mobile/gethome?langCode=?
 
 // get status for newsfeed
-
+////cho nay tuy vao so luong lan truoc de tinh ra khoảng cach can tang them
 {
 	"ssoId" : "",
 	"order" : "",
-	"lastLevel" : "", //cho nay tuy vao so luong lan truoc de tinh ra khoảng cach can tang them
+	"offset" : "", 
 	"location" : {
 		"xLoc" : "",
 		"yLoc" : ""

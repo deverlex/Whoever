@@ -8,8 +8,8 @@ public interface StatusDao {
 	
 	public void postStatus(Status status);
 	public void updateStatus(Status status);
-	public List<Status> getListStatusByFriends(List<String> idFriends, int levelGet);
-	public List<Status> getListStatusContainNearby(List<String> idFriends, double xLoc, double yLoc, int levelGet);
+	public List<Status> getListStatusByFriends(List<String> idFriends, int offset);
+	public List<Status> getListStatusContainNearby(List<String> idFriends, double xLoc, double yLoc, int offset);
 	public void deleteStatus(String idStatus);
 	
 }

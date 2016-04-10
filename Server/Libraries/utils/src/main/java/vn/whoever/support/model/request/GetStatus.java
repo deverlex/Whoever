@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import vn.whoever.support.model.utils.Location;
 import vn.whoever.support.model.utils.Order;
 
 @XmlRootElement(name = "getStatus")
-
+@XmlType(propOrder = {"ssoId", "order", "offset", "location"})
+@JsonPropertyOrder(value = {"ssoId", "order", "offset", "location"})
 public class GetStatus implements Serializable {
 
 	/**
@@ -23,8 +27,8 @@ public class GetStatus implements Serializable {
 	@XmlElement(name = "order")
 	private Order order = Order.nearby;
 	
-	@XmlElement(name = "lastLevel")
-	private int lastLevel;
+	@XmlElement(name = "offset")
+	private int offset = 0;
 	
 	@XmlElement(name = "location")
 	private Location location;
@@ -33,11 +37,11 @@ public class GetStatus implements Serializable {
 		super();
 	}
 
-	public GetStatus(String ssoId, Order order, int lastLevel, Location location) {
+	public GetStatus(String ssoId, Order order, int offset, Location location) {
 		super();
 		this.ssoId = ssoId;
 		this.order = order;
-		this.lastLevel = lastLevel;
+		this.offset = offset;
 		this.location = location;
 	}
 
@@ -57,12 +61,12 @@ public class GetStatus implements Serializable {
 		this.order = order;
 	}
 
-	public int getLastLevel() {
-		return lastLevel;
+	public int getOffset() {
+		return offset;
 	}
 
-	public void setLastLevel(int lastLevel) {
-		this.lastLevel = lastLevel;
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 
 	public Location getLocation() {
