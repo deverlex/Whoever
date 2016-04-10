@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 					"totalLike", "totalDislike", "totalComment"})
 @JsonPropertyOrder(value = {"idStatus", "idPoster", "namePoster", "timePost", "contentText", "contentImage", 
 					"totalLike", "totalDislike", "totalComment"})
-public class ReturnGetStatus implements Serializable {
+public class ReturnStatus implements Serializable {
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class ReturnGetStatus implements Serializable {
 	@XmlElement(name = "idStatus", required = true)
 	private String idStatus;
 	
-	@XmlElement(name = "ssoIdPoster", required = true)
+	@XmlElement(name = "ssoIdPoster")
 	private String ssoIdPoster;
 	
 	@XmlElement(name = "avatarPoster")
@@ -50,11 +50,11 @@ public class ReturnGetStatus implements Serializable {
 	@XmlElement(name = "totalComment", required = true)
 	private int totalComment;
 
-	public ReturnGetStatus() {
+	public ReturnStatus() {
 		super();
 	}
 
-	public ReturnGetStatus(String idStatus, String ssoIdPoster, String avatarPoster, String namePoster, String timePost,
+	public ReturnStatus(String idStatus, String ssoIdPoster, String avatarPoster, String namePoster, String timePost,
 			String contentText, String contentImage, int totalLike, int totalDislike, int totalComment) {
 		super();
 		this.idStatus = idStatus;

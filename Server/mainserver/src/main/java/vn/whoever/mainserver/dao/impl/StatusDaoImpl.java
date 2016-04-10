@@ -46,43 +46,27 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		crit.add(Restrictions.in("idUser", listFriends));
 		crit.addOrder(Order.desc("timeUp"));
 		crit.setFirstResult(offset);
-		crit.setMaxResults(100);
+		crit.setMaxResults(12);
 		return (List<Status>) crit.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Status> getListStatusContainNearby(List<String> listFriends, double xLoc, double yLoc, int offset) {
-		// TODO contain: friend and nearby
-		Criteria crit = createEntityCriteria();
-		Criterion critFr = Restrictions.in("idUser", listFriends);
+		final double ratio = 0.0003;
 		
+		Criteria crit = createEntityCriteria();
+		
+		Criterion critFr = Restrictions.in("idUser", listFriends);
 		Criterion critNearX = Restrictions.and(
-				Restrictions.between("xLoc", xLoc - 20, xLoc + 20),
-				Restrictions.between("yLoc", yLoc - 40, yLoc + 40));
+				Restrictions.between("xLoc", xLoc - offset*ratio, xLoc +  offset*ratio),
+				Restrictions.between("yLoc", yLoc - offset*ratio, yLoc + offset*ratio));
 		
 		crit.add(Restrictions.or(critNearX, critFr));
-		
-//		ProjectionList projList = Projections.projectionList();
-//		projList.add(Projections.property("idStatus"));
-//		projList.add(Projections.property("content"));
-//		projList.add(Projections.groupProperty("idStatus"));
-//		
-//		crit.setProjection(projList);
 		crit.addOrder(Order.desc("timeUp"));
 		crit.setFirstResult(offset);
-		crit.setMaxResults(100);
-		
-//		Map<String, Status> mapStatus = new ConcurrentHashMap<String, Status>();
-//		for (Status status : getListStatusByFriends(listFriends, offset)) {
-//			mapStatus.put(status.getIdStatus(), status);
-//		}
-//		// get status nearby
-//		
-//
-//		// xLoc & yLoc grow by level
-//		crit.add(Restrictions.between("xLoc", 10, 100)).add(Restrictions.between("yLoc", 10, 100));
+		crit.setMaxResults(12);
 
-		return (List<Status>) crit.list();//getList(mapStatus);
+		return (List<Status>) crit.list();
 	}
 	
 //	private List<Status> getList(Map<String, Status> map) {

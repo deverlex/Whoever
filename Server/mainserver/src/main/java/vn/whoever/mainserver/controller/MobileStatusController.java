@@ -24,7 +24,7 @@ import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.PostStatus;
-import vn.whoever.support.response.ReturnGetStatus;
+import vn.whoever.support.response.ReturnStatus;
 
 /**
  * return 10 item status for a request get status
@@ -54,7 +54,7 @@ public class MobileStatusController {
 			consumes = "application/json" ,produces = "application/json")
 	public @ResponseBody List<Status> getNews(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody GetStatus getStatus) {
-		List<ReturnGetStatus> listStatus = new ArrayList<ReturnGetStatus>();
+		List<ReturnStatus> listStatus = new ArrayList<ReturnStatus>();
 		List<Status> listTemp = statusService.getListStatus(getStatus);
 		
 		return listTemp;

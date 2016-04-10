@@ -12,17 +12,17 @@ public class ResponseLoginAnonymous implements Serializable {
 	private String ssoId;
 	private String password;
 	
-	private List<ReturnGetStatus> returnGetStatus;
+	private List<ReturnStatus> returnStatus;
 	
 	public ResponseLoginAnonymous() {
 		super();
 	}
 
-	public ResponseLoginAnonymous(String ssoId, String password, List<ReturnGetStatus> returnGetStatus) {
+	public ResponseLoginAnonymous(String ssoId, String password, List<ReturnStatus> returnStatus) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;
-		this.returnGetStatus = returnGetStatus;
+		this.returnStatus = returnStatus;
 	}
 
 	public String getSsoId() {
@@ -41,12 +41,12 @@ public class ResponseLoginAnonymous implements Serializable {
 		this.password = password;
 	}
 
-	public List<ReturnGetStatus> getResponseStatus() {
-		return returnGetStatus;
+	public List<ReturnStatus> getResponseStatus() {
+		return returnStatus;
 	}
 
-	public void setResponseStatus(List<ReturnGetStatus> returnGetStatus) {
-		this.returnGetStatus = returnGetStatus;
+	public void setResponseStatus(List<ReturnStatus> returnStatus) {
+		this.returnStatus = returnStatus;
 	}
 	
 }
