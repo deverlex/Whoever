@@ -1,5 +1,7 @@
 package vn.whoever.support.model.request;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -12,7 +14,12 @@ import vn.whoever.support.model.utils.Privacies;
 @XmlRootElement(name = "postStatus")
 @XmlType(propOrder = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount", "location" })
 @JsonPropertyOrder(value = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount", "location" })
-public class PostStatus {
+public class PostStatus implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 900995382611L;
 
 	@XmlElement(name = "ssoId", required = true)
 	private String ssoId;

@@ -1,5 +1,7 @@
 package vn.whoever.support.response;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -11,7 +13,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 					"totalLike", "totalDislike", "totalComment"})
 @JsonPropertyOrder(value = {"idStatus", "idPoster", "namePoster", "timePost", "contentText", "contentImage", 
 					"totalLike", "totalDislike", "totalComment"})
-public class ReturnGetStatus {
+public class ReturnGetStatus implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1993263526373823L;
 
 	@XmlElement(name = "idStatus", required = true)
 	private String idStatus;
@@ -69,7 +76,7 @@ public class ReturnGetStatus {
 	public void setIdStatus(String idStatus) {
 		this.idStatus = idStatus;
 	}
-	
+
 	public String getSsoIdPoster() {
 		return ssoIdPoster;
 	}

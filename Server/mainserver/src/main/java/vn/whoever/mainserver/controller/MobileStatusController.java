@@ -1,12 +1,15 @@
 package vn.whoever.mainserver.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +22,9 @@ import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
+import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.PostStatus;
+import vn.whoever.support.response.ReturnGetStatus;
 
 /**
  * return 10 item status for a request get status
@@ -45,11 +50,14 @@ public class MobileStatusController {
 		return "";
 	}
 	
-	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.GET, 
-			produces = "application/json")
-	public @ResponseBody String getNews(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.POST, 
+			consumes = "application/json" ,produces = "application/json")
+	public @ResponseBody List<Status> getNews(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody GetStatus getStatus) {
+		List<ReturnGetStatus> listStatus = new ArrayList<ReturnGetStatus>();
+		List<Status> listTemp = statusService.getListStatus(getStatus);
 		
-		return "new status for you";
+		return listTemp;
 	}
 	
 	@RequestMapping(value = "/mobile/post/status", method = RequestMethod.POST, 

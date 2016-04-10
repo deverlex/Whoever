@@ -1,5 +1,7 @@
 package vn.whoever.support.model.request;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -11,6 +13,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder(value = {"ssoId", "password"})
 public class CallLogin {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -655678899031L;
+
 	@XmlElement(name = "ssoId", required = true)
 	private String ssoId;
 	

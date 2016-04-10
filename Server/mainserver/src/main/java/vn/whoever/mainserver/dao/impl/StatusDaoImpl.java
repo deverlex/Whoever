@@ -3,19 +3,16 @@ package vn.whoever.mainserver.dao.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.StatusDao;
-import vn.whoever.mainserver.model.Contacts;
 import vn.whoever.mainserver.model.Status;
 
 @Repository("statusDao")
@@ -38,9 +35,11 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		deleteByKey(idStatus);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Status> getListStatusByFriends(List<String> listFriends, int levelGet) {
-		
-		return null;
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.in("idUser", listFriends));
+		return (List<Status>) crit.list();
 	}
 	
 	public List<Status> getListStatusContainNearby(List<String> listFriends, double xLoc, double yLoc, int levelGet) {

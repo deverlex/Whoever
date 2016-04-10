@@ -4,15 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "Contacts_Users", uniqueConstraints = 
+@Table(name = " Contacts_Users", uniqueConstraints = 
 	@UniqueConstraint(columnNames = {"idContact", "idUser"}))
 public class ContactUsers implements Serializable {
 	
@@ -22,13 +19,13 @@ public class ContactUsers implements Serializable {
 	 */
 	private static final long serialVersionUID = 80799786671L;
 
+	@Id
 	@Column(name = "idContact", length = 16, nullable = false)
 	private String idContact;
 	
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idUser")
-	private Users users;
+	@Column(name = "idUser", length = 16, nullable = false)
+	private String idUser;
 	
 	@Column(name = "followed")
 	private Boolean followed;
@@ -37,13 +34,13 @@ public class ContactUsers implements Serializable {
 		super();
 	}
 	
-	public ContactUsers(String idContact, Users users, Boolean followed) {
+	public ContactUsers(String idContact, String idUser, Boolean followed) {
 		super();
 		this.idContact = idContact;
-		this.users = users;
+		this.idUser = idUser;
 		this.followed = followed;
 	}
-	
+
 	public String getIdContact() {
 		return idContact;
 	}
@@ -52,12 +49,12 @@ public class ContactUsers implements Serializable {
 		this.idContact = idContact;
 	}
 	
-	public Users getUsers() {
-		return users;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
 	public Boolean getFollowed() {

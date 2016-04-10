@@ -48,12 +48,10 @@ public class ContactsServiceImpl implements ContactsService {
 
 	public boolean addFriend(String ssoId, String ssoIdFriend) {
 		String idUser = usersDao.findIdUser(ssoId);
-		Users friend = usersDao.findBySsoId(ssoIdFriend);
-		System.out.println("idUser add: "+idUser);
+		String idFriend = usersDao.findIdUser(ssoIdFriend);
 		String idContact = contactsDao.getIdContact(idUser);
-		
 		try {
-			contactUserDao.addContactUser(new ContactUsers(idContact, friend, true));
+			contactUserDao.addContactUser(new ContactUsers(idContact, idFriend, true));
 			return true;
 		} catch (Exception e) {
 			

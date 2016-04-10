@@ -1,5 +1,6 @@
 package vn.whoever.support.model.request;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,8 +14,13 @@ import vn.whoever.support.model.utils.Location;
 @XmlRootElement(name = "callRegister")
 @XmlType(propOrder = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
 @JsonPropertyOrder(value = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
-public class CallRegister {
+public class CallRegister implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1585882942332L;
+
 	@XmlElement(name = "ssoId", required = true)
 	private String ssoId;
 	
