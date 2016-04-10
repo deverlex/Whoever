@@ -1,7 +1,6 @@
-package vn.whoever.transactionlayer;
+package vn.whoever.transactionconn;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 
@@ -19,21 +18,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import vn.whoever.models.LocalAccount;
-import vn.whoever.transactionlayer.request.GsonRequest;
+import vn.whoever.transactionconn.request.GsonRequest;
 
 /**
  * Created by spider man on 1/7/2016.
  */
-public class ConnectionTransaction {
+public class BeginTransaction {
 
-    private static ConnectionTransaction transaction = new ConnectionTransaction();
+    private static BeginTransaction transaction = new BeginTransaction();
     private static Activity myActivity;
     private static View myView;
 
-
     private LocalAccount user;
 
-    public static ConnectionTransaction getInstance(Activity acctivity, View view) {
+    public static BeginTransaction getInstance(Activity acctivity, View view) {
         myActivity = acctivity;
         myView = view;
         return transaction;
@@ -46,17 +44,16 @@ public class ConnectionTransaction {
         jsonLogin.put("password", password);
 
         GsonRequest<Object> gsonRequest = new GsonRequest(Request.Method.GET,
-                "",
+                AddressConn.url_login,
                 null,
                 createMyReqSuccessListener(),
                 createMyReqErrorListener()) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("user-agent", "some_bitch_ass_header");
-
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("User-agent", System.getProperty("http.agent"));
                 return headers;
             }
         };
@@ -104,7 +101,7 @@ public class ConnectionTransaction {
         jsonRegister.put("birthday", birthday);
         jsonRegister.put("langCode", langCode);
 
-        JsonObjectRequest registerRequest = new JsonObjectRequest(Request.Method.POST, AddressTransaction.url_register,
+        JsonObjectRequest registerRequest = new JsonObjectRequest(Request.Method.POST, AddressConn.url_register,
                 new JSONObject(jsonRegister),
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -143,7 +140,7 @@ public class ConnectionTransaction {
 
     public void getRequestLoginAnonymous(String langCode, String birthday) {
 
-        UrlQuery query = new UrlQuery(AddressTransaction.url_login_with_anonymous);
+        UrlQuery query = new UrlQuery(AddressConn.url_login_with_anonymous);
         query.putParam("langCode", langCode);
         query.putParam("birthday", birthday);
 
@@ -200,7 +197,7 @@ public class ConnectionTransaction {
     }
 
     public void getTermUser() {
-        String urlQuery = AddressTransaction.URL_USER + "/term";
+        String urlQuery = AddressConn.URL_USER + "/term";
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, urlQuery, new Response.Listener<JSONObject>() {
             @Override

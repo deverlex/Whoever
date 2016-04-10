@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vn.whoever.transactionlayer.ConnectionTransaction;
+import vn.whoever.transactionconn.BeginTransaction;
 import vn.whoever.R;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.dialogs.DatePickerFragment;
@@ -100,10 +100,10 @@ public class WelcomeFragment extends Fragment implements Initgc {
                         /**
                          * TODO: saved clear start activity
                          */
-                        ConnectionTransaction.getInstance(getActivity(), view).registerUser("satthumaulanh", "12345678", "hoa hai anh", "10-03-1994", "en");
+                        BeginTransaction.getInstance(getActivity(), view).registerUser("satthumaulanh", "12345678", "hoa hai anh", "10-03-1994", "en");
                         Log.d("Date birthday", "register account!!!");
                     } else {
-                        ConnectionTransaction.getInstance(getActivity(), view).getRequestLoginAnonymous("en", "10031994");
+                        BeginTransaction.getInstance(getActivity(), view).getRequestLoginAnonymous("en", "10031994");
                         Log.d("Date birthday", dateDialog.toString());
                     }
 

@@ -74,7 +74,6 @@ public class PostStatusFragment extends Fragment implements Initgc {
                 privacyPost = new DialogPrivacyPostStatus();
                 Bundle bundle = new Bundle();
 
-
                 privacyPost.show(getActivity().getFragmentManager(), "Privacy Post Status");
             }
         });

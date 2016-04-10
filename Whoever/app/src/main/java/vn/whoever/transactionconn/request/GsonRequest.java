@@ -1,6 +1,4 @@
-package vn.whoever.transactionlayer.request;
-
-import android.util.Log;
+package vn.whoever.transactionconn.request;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -73,7 +71,6 @@ public class GsonRequest<T> extends Request<T> {
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
-        Log.d("Headers Response" , response.headers.toString());
         try {
             String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
             return Response.success(mGson.fromJson(json, clazz), HttpHeaderParser.parseCacheHeaders(response));

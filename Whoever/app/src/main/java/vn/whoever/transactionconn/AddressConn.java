@@ -1,9 +1,9 @@
-package vn.whoever.transactionlayer;
+package vn.whoever.transactionconn;
 
 /**
  * Created by spider man on 1/7/2016.
  */
-public class AddressTransaction {
+public class AddressConn {
 
     public static String URL_ROOT = "http://192.168.0.112:8080/mainserver/mobile/";
 
