@@ -27,7 +27,7 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 	public String findIdUser(String ssoId) {
 		String sql = "select idUser from Users where ssoId = '" + ssoId + "'";
 		Query query = getSession().createQuery(sql);
-		return query.getQueryString();
+		return (String) query.uniqueResult();
 	}
 	
 	public boolean checkIsOnline(String ssoId) {

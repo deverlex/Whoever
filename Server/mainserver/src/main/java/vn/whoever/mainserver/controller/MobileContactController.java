@@ -23,6 +23,10 @@ public class MobileContactController {
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String addFriend(HttpServletResponse response, @RequestBody AddContact addContact) {
 		
-		return "add friend successfull";
+		if(contactService.addFriend(addContact.getSsoId(), addContact.getSsoIdFriend())) {
+			return "add friend successfull";
+		}
+		return "add friend false";
 	}
+	
 }

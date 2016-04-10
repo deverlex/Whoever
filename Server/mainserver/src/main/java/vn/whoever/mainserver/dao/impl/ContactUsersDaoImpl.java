@@ -2,12 +2,14 @@ package vn.whoever.mainserver.dao.impl;
 
 import java.io.Serializable;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.ContactUserDao;
 import vn.whoever.mainserver.model.ContactUsers;
 
+@Repository
 public class ContactUsersDaoImpl extends AbstractDao<String, ContactUsers> implements ContactUserDao, Serializable {
 
 	/**
