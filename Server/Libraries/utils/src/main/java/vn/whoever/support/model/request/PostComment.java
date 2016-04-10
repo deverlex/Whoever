@@ -1,15 +1,15 @@
 package vn.whoever.support.model.request;
 
-public class RequestComment {
+public class PostComment {
 	
 	private String content;
 	private String date;
 	
-	public RequestComment() {
+	public PostComment() {
 		super();
 	}
 
-	public RequestComment(String content, String date) {
+	public PostComment(String content, String date) {
 		super();
 		this.content = content;
 		this.date = date;

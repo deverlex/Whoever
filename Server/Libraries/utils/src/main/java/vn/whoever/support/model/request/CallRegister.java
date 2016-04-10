@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import vn.whoever.support.model.utils.Location;
 
-@XmlRootElement
+@XmlRootElement(name = "callRegister")
 @XmlType(propOrder = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
 @JsonPropertyOrder(value = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
 public class CallRegister {

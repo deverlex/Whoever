@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Location;
 import vn.whoever.support.model.utils.Privacies;
 
-@XmlRootElement(name = "status")
+@XmlRootElement(name = "postStatus")
 @XmlType(propOrder = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount", "location" })
 @JsonPropertyOrder(value = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount", "location" })
 public class PostStatus {

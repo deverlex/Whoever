@@ -88,6 +88,12 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+        
+        <dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
 
 		<!-- END SPRINGFRAMEWORK -->
 

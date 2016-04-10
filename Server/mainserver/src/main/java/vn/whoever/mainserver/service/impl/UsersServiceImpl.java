@@ -18,6 +18,12 @@ import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.utils.Roles;
 import vn.whoever.support.model.utils.States;
 
+/**
+ * For interact with user, role, token, contact
+ * @author spider man
+ * @date 3/2016
+ */
+
 @Service("usersService")
 @Transactional
 public class UsersServiceImpl implements UsersService{
@@ -51,10 +57,14 @@ public class UsersServiceImpl implements UsersService{
 		Set<SetRoles> roles = new HashSet<SetRoles>();
 		roles.add(new SetRoles(users, Roles.USER));
 		
-		userDao.registerUser(users);
-		roleDao.addRole(roles, users.getIdUser());
-		contactService.createContact(users.getIdUser());
-		
+		try {
+			userDao.registerUser(users);
+			roleDao.addRole(roles);
+			contactService.createContact(users.getIdUser());
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

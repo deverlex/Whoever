@@ -15,27 +15,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import v.whoever.service.impl.GenerateSsoIdImpl;
-import v.whoever.service.impl.GenerateTokenImpl;
 import vn.whoever.mainserver.model.Languages;
-import vn.whoever.mainserver.model.Profiles;
-import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.mainserver.model.Tokens;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.AuthenticalToken;
 import vn.whoever.mainserver.service.LanguagesService;
-import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
-import vn.whoever.service.GenerateSsoId;
-import vn.whoever.service.GenerateToken;
-import vn.whoever.support.model.request.RequestAcceptTerm;
-import vn.whoever.support.model.request.RequestLogin;
+import vn.whoever.support.model.request.CallLogin;
 import vn.whoever.support.model.request.CallRegister;
 import vn.whoever.support.model.utils.States;
 
@@ -58,15 +51,19 @@ public class MobileUserController {
 	// @Autowired
 	// private ProfilesService profileService;
 
-	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST, 
-					consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST,
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String loginWithAccount(HttpServletRequest request, HttpServletResponse response,
-			HttpSession session, @RequestBody RequestLogin req) {
+			@RequestBody CallLogin login) {
+		
+		HttpSession session = request.getSession();
 		try {
-			authenticalUser(request, session, req.getSsoId(), req.getPassword());
-			Tokens tokens = authToken.getToken(req.getSsoId());
+			authenticalUser(request, session, login.getSsoId(), login.getPassword());
+			
+			Tokens tokens = authToken.getToken(login.getSsoId());
 			response.setHeader("Whoever-Token", tokens.getToken());
 			response.setHeader("Token-expiration", tokens.getTimeExp());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "==> login fail";
@@ -74,24 +71,27 @@ public class MobileUserController {
 		return "=>> Login Success !!";
 	}
 
-	@RequestMapping(value = { "/mobile/anonymous/register" }, method = RequestMethod.GET)
-	public @ResponseBody String loginAnonymous(HttpServletRequest request, HttpServletResponse response,
-			HttpSession session, @RequestParam(value = "langCode", defaultValue = "vi") String langCode,
-			@RequestParam(value = "birthday") @DateTimeFormat(pattern = "ddMMyyyy") Date birthday) {
+	@RequestMapping(value = { "/mobile/anonymous/{langCode}" }, method = RequestMethod.GET,
+			produces = "application/json")
+	public @ResponseBody String loginAnonymous(HttpServletRequest request, HttpServletResponse response, @PathVariable("langCode") String langCode) {
 		
 		Languages language = langsService.findByCode(langCode);
 
 		String ssoId = usersService.generateSsoId();
 		String password = usersService.generatePassword();
-
-		Users users = new Users(usersService.generateUserId(), ssoId, password, States.active, true, true, language);
+		String idUser = usersService.generateUserId();
+		HttpSession session = request.getSession();
+		
+		Users users = new Users(idUser, ssoId, password, States.active, true, true, language);
 		try {
 			usersService.registerUser(users);
 			authenticalUser(request, session, ssoId, password);
+			
 			String token = authToken.initToken(users);
 			String date = authToken.getTimeExpiration();
 			response.setHeader("Whoever-Token", token);
 			response.setHeader("Token-expiration", date);
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "Login with anonymous fails!!!";
@@ -102,22 +102,25 @@ public class MobileUserController {
 	@RequestMapping(value = {"/mobile/register" }, method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String registerAccount(HttpServletRequest request, 
-			HttpServletResponse response, HttpSession session, 
-			@RequestBody CallRegister req) {
+			HttpServletResponse response, @RequestBody CallRegister req) {
 		
 		Languages language = langsService.findByCode(req.getLangCode());
-		Users users;
+		String idUser = usersService.generateUserId();
+		HttpSession session = request.getSession();
+		
+		Users users = null;
 		if(req.getLocation() == null) {
-			users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), 
+			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
 					States.active, false, true, language);
 		} else {
-			users = new Users(usersService.generateUserId(), req.getSsoId(), req.getPassword(), 
+			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
 					States.active, req.getLocation().getxLoc(), req.getLocation().getyLoc(), false, true, language);
 		}
 		
 		try {
 			usersService.registerUser(users);
 			authenticalUser(request, session, req.getSsoId(), req.getPassword());
+			
 			String token = authToken.initToken(users);
 			String date = authToken.getTimeExpiration();
 			response.setHeader("Whoever-Token", token);
@@ -126,17 +129,20 @@ public class MobileUserController {
 			e.printStackTrace();
 			return "Register fail!!!";
 		}
+		
 		return "Register successful!!!";
 	}
 
-	@RequestMapping(value = { "/mobile/accept_term" }, method = RequestMethod.POST)
-	public @ResponseBody String acceptTermWhoever(HttpSession session, @RequestBody RequestAcceptTerm acceptTerm) {
-
+	@RequestMapping(value = { "/mobile/get/term" }, method = RequestMethod.GET,
+			produces = "application/json")
+	public @ResponseBody String acceptTermWhoever(@RequestParam(value = "lang", defaultValue = "en") String langCode) {
+		
 		return "";
 	}
 
 	@RequestMapping(value = { "/mobile/logout" }, method = RequestMethod.GET)
-	public @ResponseBody String logoutWhoever(HttpSession session) {
+	public @ResponseBody String logoutWhoever(HttpSession session, 
+			@RequestParam(value = "ssoId", required = true) String ssoId) {
 		session.invalidate();
 		return "Sucessful";
 	}

@@ -12,7 +12,6 @@ import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.StatusService;
-import vn.whoever.support.model.request.GetStatus;
 
 @Service("statusService")
 @Transactional
@@ -29,12 +28,18 @@ public class StatusServiceImpl implements StatusService {
 	}
 	
 	public boolean postStatus(Status status) {
-		return statusDao.postStatus(status);
+		try {
+			statusDao.postStatus(status);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
-	public List<Status> getListStatus(GetStatus getStatus) {
-		String ssoId = getStatus.getSsoId();
-		Users users = usersDao.findBySsoId(ssoId);
+	public List<Status> getListStatus(String str) {
+		//String ssoId = getStatus.getSsoId();
+		//Users users = usersDao.findBySsoId(ssoId);
 //		if(getStatus.getOrder() == Order.friends) {
 //			statusDao.getListStatusByFriends(users.getIdUser());
 //		} else {
