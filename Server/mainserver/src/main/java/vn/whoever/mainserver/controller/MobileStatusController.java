@@ -1,5 +1,6 @@
 package vn.whoever.mainserver.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.model.Status;
@@ -22,6 +24,7 @@ import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.PostStatus;
+import vn.whoever.support.model.utils.Interacts;
 import vn.whoever.support.response.ReturnStatus;
 import vn.whoever.support.utils.TimePost;
 
@@ -92,21 +95,34 @@ public class MobileStatusController {
 				new Date(), postStatus.getLocation().getxLoc(), postStatus.getLocation().getyLoc(), 
 				postStatus.getPrivacy(), postStatus.getIsUseAccount(), hasImage);
 		boolean result = statusService.postStatus(status);
-		
-		System.out.println("Result post: " + result);
-		if(result == true){
-			return "Post Successfull!!";
-		}
 		if(hasImage) {
 			//TODO: insert image to DB in here
 			
 		}
+		if(result == true){
+			return "Post Successfull!!";
+		}
 		return "post fail";
 	}
 
-	@RequestMapping(value = "/mobile/interact/status", method = RequestMethod.POST,
+	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
-	public void likeStatus(HttpServletResponse response) {
-		// Can chu y xu ly chi dc like/dislike - 1 lan, xu ly tren ca server
+	public void interactStatus(HttpServletResponse response, @PathVariable(value = "idStatus") String idStatus,
+			@RequestParam(value = "action") String action) {
+		if(action.equals(Interacts.like)) {
+			
+		} else if(action.equals(Interacts.dislike)) {
+			
+		} else {
+			try {
+				/**
+				 * Notify: don't have this content
+				 * 
+				 */
+				response.sendError(HttpServletResponse.SC_NO_CONTENT);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
