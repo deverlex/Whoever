@@ -6,16 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.model.Status;
@@ -26,6 +23,7 @@ import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.PostStatus;
 import vn.whoever.support.response.ReturnStatus;
+import vn.whoever.support.utils.TimePost;
 
 /**
  * return 10 item status for a request get status
@@ -56,9 +54,9 @@ public class MobileStatusController {
 	
 	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.POST, 
 			consumes = "application/json" ,produces = "application/json")
-	public @ResponseBody List<Status> getNews(HttpServletRequest request, HttpServletResponse response,
+	public @ResponseBody List<ReturnStatus> getNews(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody GetStatus getStatus) {
-		List<ReturnStatus> listStatus = new ArrayList<ReturnStatus>();
+		List<ReturnStatus> listReturn = new ArrayList<ReturnStatus>();
 		List<Status> listTemp = statusService.getListStatus(getStatus);
 		
 		for (Status status : listTemp) {
@@ -69,14 +67,20 @@ public class MobileStatusController {
 			// set avatar = null, develop later
 			rStatus.setAvatarPoster(null);
 			String nickName = profileService.getNickName(status.getIdUser());
-			
-			
+			rStatus.setNamePoster(nickName);
+			String timePost = TimePost.getTimePost(status.getTimePost());
+			rStatus.setTimePost(timePost);
+			rStatus.setContentText(status.getContent());
+			rStatus.setContentImage(null);
+			rStatus.setTotalLike(0);
+			rStatus.setTotalDislike(10);
+			rStatus.setTotalComment(5);
+			listReturn.add(rStatus);
 		}
-		
-		return listTemp;
+		return listReturn;
 	}
 	
-	@RequestMapping(value = "/mobile/post/status", method = RequestMethod.POST, 
+	@RequestMapping(value = "/mobile/status", method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {

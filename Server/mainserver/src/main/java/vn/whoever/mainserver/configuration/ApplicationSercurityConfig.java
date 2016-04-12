@@ -39,11 +39,15 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/login", "/mobile/login").permitAll()
 	  	.antMatchers("/mobile/register").permitAll()
 	  	.antMatchers("/mobile/anonymous").permitAll()
+	  	
 	  	.antMatchers("/mobile/getnews").access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/post/status").access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/add/friend").access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/status").access("hasRole('ROLE_USER')")
+	  	
+	  	.antMatchers("/mobile/friends").access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/profiles").access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/profiles/*").access("hasRole('ROLE_USER')")
+	  	
+	  	.antMatchers("/mobile/comments").access("hasRole('ROLE_USER')")
 //	  	.antMatchers("/admin/**").access("hasRole('ADMIN')")
 //	  	.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 //	  	.and().formLogin().loginPage("/login")
