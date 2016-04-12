@@ -25,11 +25,23 @@ public class ProfilesDaoImpl extends AbstractDao<String, Profiles> implements Pr
 	}
 
 	public void updateProfiles(Profiles profiles) {
-		persist(profiles);
+		update(profiles);
 	}
 
 	public void setProfiles(Profiles profiles) {
 		persist(profiles);
+	}
+
+	public String getIdUser(String idProfile) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("idProfile", idProfile));
+		return ((Profiles) crit.uniqueResult()).getIdUser();
+	}
+
+	public String getIdProfile(String idUser) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("idUser", idUser));
+		return ((Profiles) crit.uniqueResult()).getIdProfile();
 	}
 
 }

@@ -71,11 +71,11 @@ public class Profiles implements Serializable {
 		this.privacy = privacy;
 	}
 
-	protected String getIdProfile() {
+	public String getIdProfile() {
 		return idProfile;
 	}
 
-	protected void setIdProfile(String idProfile) {
+	public void setIdProfile(String idProfile) {
 		this.idProfile = idProfile;
 	}
 

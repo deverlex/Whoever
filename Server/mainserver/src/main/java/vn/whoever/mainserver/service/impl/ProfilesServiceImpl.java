@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import v.whoever.service.impl.GenerateIdImpl;
 import vn.whoever.mainserver.dao.ProfilesDao;
-import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.Profiles;
 import vn.whoever.mainserver.service.ProfilesService;
 
@@ -43,6 +42,14 @@ public class ProfilesServiceImpl implements ProfilesService {
 
 	public Profiles getProfile(String idUser) {
 		return profilesDao.getProfiles(idUser);
+	}
+
+	public String getIdUser(String idProfile) {
+		return profilesDao.getIdUser(idProfile);
+	}
+
+	public String getIdProfile(String idUser) {
+		return profilesDao.getIdProfile(idUser);
 	}
 	
 

@@ -43,6 +43,7 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/mobile/post/status").access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/add/friend").access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/profiles").access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/profiles/*").access("hasRole('ROLE_USER')")
 //	  	.antMatchers("/admin/**").access("hasRole('ADMIN')")
 //	  	.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 //	  	.and().formLogin().loginPage("/login")

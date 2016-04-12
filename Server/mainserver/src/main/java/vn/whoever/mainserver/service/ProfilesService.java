@@ -8,4 +8,6 @@ public interface ProfilesService {
 	public boolean updateProfile(Profiles profile);
 	public boolean setProfile(Profiles profile);
 	public Profiles getProfile(String idUser);
+	public String getIdUser(String idProfile);
+	public String getIdProfile(String idUser);
 }
