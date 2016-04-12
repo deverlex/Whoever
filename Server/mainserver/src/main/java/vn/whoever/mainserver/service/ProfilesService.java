@@ -4,7 +4,8 @@ import vn.whoever.mainserver.model.Profiles;
 
 public interface ProfilesService {
 	
-	public void updateProfile(Profiles profile);
-	public void setProfile(Profiles profile);
-	public Profiles getProfile(String ssoId);
+	public String generateIdProfile();
+	public boolean updateProfile(Profiles profile);
+	public boolean setProfile(Profiles profile);
+	public Profiles getProfile(String idUser);
 }

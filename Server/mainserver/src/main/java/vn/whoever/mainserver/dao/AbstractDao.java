@@ -42,6 +42,10 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 		getSession().delete(entity);
 	}
 	
+	public void update(T entity) {
+		getSession().update(entity);
+	}
+	
 	public boolean deleteByKey(PK key) {
 		Object object = getSession().load(persistentClass, key);
 		if(object != null) {

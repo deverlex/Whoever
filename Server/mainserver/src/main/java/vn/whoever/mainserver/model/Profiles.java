@@ -29,12 +29,10 @@ public class Profiles implements Serializable {
 	private static final long serialVersionUID = 17074287424L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String idProfile;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idUser", nullable = false)
-	private Users users;
+	@Column(name = "idUser", length = 16, nullable = false)
+	private String idUser;
 
 	@Column(name = "nickName", length = 32)
 	private String nickName;
@@ -60,11 +58,11 @@ public class Profiles implements Serializable {
 		super();
 	}
 
-	public Profiles(String idProfile, Users users, String nickName, Date birthday, Genders genders, String mobile,
+	public Profiles(String idProfile, String idUser, String nickName, Date birthday, Genders genders, String mobile,
 			String email, Privacies privacy) {
 		super();
 		this.idProfile = idProfile;
-		this.users = users;
+		this.idUser = idUser;
 		this.nickName = nickName;
 		this.birthday = birthday;
 		this.genders = genders;
@@ -81,12 +79,12 @@ public class Profiles implements Serializable {
 		this.idProfile = idProfile;
 	}
 
-	protected Users getUsers() {
-		return users;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	protected void setUsers(Users users) {
-		this.users = users;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
 	protected String getNickName() {

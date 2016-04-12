@@ -10,6 +10,7 @@ public interface UsersService {
 	public String generateSsoId();
 	public String generatePassword();
 	public Users findBySsoId(String ssoId);
+	public String findIdUser(String ssoId);
 	
 	public boolean registerUser(Users users);
 	public void addRole(Users users, Roles roles);

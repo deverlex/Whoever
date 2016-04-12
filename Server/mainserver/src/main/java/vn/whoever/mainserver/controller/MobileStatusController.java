@@ -57,6 +57,7 @@ public class MobileStatusController {
 		List<ReturnStatus> listStatus = new ArrayList<ReturnStatus>();
 		List<Status> listTemp = statusService.getListStatus(getStatus);
 		
+		
 		return listTemp;
 	}
 	

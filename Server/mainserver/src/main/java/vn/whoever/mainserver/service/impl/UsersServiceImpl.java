@@ -75,5 +75,9 @@ public class UsersServiceImpl implements UsersService{
 	public void updateState(Users users, States state) {
 		
 	}
+
+	public String findIdUser(String ssoId) {
+		return userDao.findIdUser(ssoId);
+	}
 	
 }

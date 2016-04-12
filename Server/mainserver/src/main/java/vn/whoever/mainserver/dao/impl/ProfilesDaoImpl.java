@@ -2,6 +2,8 @@ package vn.whoever.mainserver.dao.impl;
 
 import java.io.Serializable;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import vn.whoever.mainserver.dao.AbstractDao;
@@ -17,8 +19,9 @@ public class ProfilesDaoImpl extends AbstractDao<String, Profiles> implements Pr
 	private static final long serialVersionUID = 19947384934L;
 
 	public Profiles getProfiles(String idUser) {
-	
-		return null;
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("idUser", idUser));
+		return (Profiles) crit.uniqueResult();
 	}
 
 	public void updateProfiles(Profiles profiles) {
