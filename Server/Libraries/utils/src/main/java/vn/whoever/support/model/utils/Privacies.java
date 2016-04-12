@@ -2,7 +2,7 @@ package vn.whoever.support.model.utils;
 
 public enum Privacies {
 	
-	secret("secret"),
+	close("close"),
 	normal("normal"),
 	open("open");
 

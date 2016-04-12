@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.model.Languages;
+import vn.whoever.mainserver.model.Profiles;
 import vn.whoever.mainserver.model.Tokens;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.AuthenticalToken;
 import vn.whoever.mainserver.service.LanguagesService;
+import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.CallLogin;
 import vn.whoever.support.model.request.CallRegister;
@@ -45,8 +47,8 @@ public class MobileUserController {
 	@Autowired
 	private AuthenticalToken authToken;
 
-	// @Autowired
-	// private ProfilesService profileService;
+	 @Autowired
+	 private ProfilesService profileService;
 
 	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
@@ -104,6 +106,7 @@ public class MobileUserController {
 		Languages language = langsService.findByCode(req.getLangCode());
 		String idUser = usersService.generateUserId();
 		HttpSession session = request.getSession();
+		String idProfile = profileService.generateIdProfile();
 		
 		Users users = null;
 		if(req.getLocation() == null) {
@@ -114,9 +117,13 @@ public class MobileUserController {
 					States.active, req.getLocation().getxLoc(), req.getLocation().getyLoc(), false, true, language);
 		}
 		
+		Profiles profile = new Profiles(idProfile, idUser, req.getNickName(), req.getBirthday());
+		
 		try {
 			usersService.registerUser(users);
 			authenticalUser(request, session, req.getSsoId(), req.getPassword());
+			
+			profileService.setProfile(profile);
 			
 			String token = authToken.initToken(users);
 			String date = authToken.getTimeExpiration();

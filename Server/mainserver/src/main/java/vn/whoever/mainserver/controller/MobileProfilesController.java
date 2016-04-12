@@ -13,6 +13,13 @@ import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.SetProfile;
 import vn.whoever.support.model.request.UpdateProfile;
+import vn.whoever.support.response.ReturnProfile;
+
+/**
+ * can kiem tra token cua cac yeu cau update thong tin, chong hack
+ * @author spider man
+ *
+ */
 
 @Controller
 public class MobileProfilesController {
@@ -34,14 +41,42 @@ public class MobileProfilesController {
 
 		return  profileService.setProfile(profile);
 	}
+	
+	@RequestMapping(value = {"/mobile/profiles/{ssoId}"}, method = RequestMethod.GET,
+			produces = "application/json")
+	public @ResponseBody ReturnProfile getProfile(@PathVariable("ssoId") String ssoId) {
+		String idUser = userService.findIdUser(ssoId);
+		Profiles profile = profileService.getProfile(idUser);
+		return (new ReturnProfile(profile.getNickName(), profile.getBirthday(), profile.getGenders(), 
+				profile.getMobile(), profile.getEmail(), profile.getPrivacy()));
+	}
 
 	@RequestMapping(value = {"/mobile/profiles/{ssoId}"}, method = RequestMethod.PUT,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody Boolean updateProfile(@PathVariable("ssoId") String ssoId, 
 			@RequestBody UpdateProfile upProfile) {
 		String idUser = userService.findIdUser(ssoId);
-		String idProfile = profileService.getIdProfile(idUser);
-		Profiles profile = new Profiles(idProfile, idUser, upProfile.getNickName(), upProfile.getBirthday(), 
+		Profiles old = profileService.getProfile(idUser);
+		
+		if(upProfile.getNickName() == null) {
+			upProfile.setNickName(old.getNickName());
+		}
+		if(upProfile.getBirthday() == null){
+			upProfile.setBirthday(old.getBirthday());
+		}
+		if(upProfile.getGender() == null) {
+			upProfile.setGender(old.getGenders());
+		}
+		if(upProfile.getMobile() == null) {
+			upProfile.setMobile(old.getMobile());
+		}
+		if(upProfile.getEmail() == null) {
+			upProfile.setEmail(old.getEmail());
+		}
+		if(upProfile.getPrivacy() == null) {
+			upProfile.setPrivacy(old.getPrivacy());
+		}
+		Profiles profile = new Profiles(old.getIdProfile(), idUser, upProfile.getNickName(), upProfile.getBirthday(), 
 				upProfile.getGender(), upProfile.getMobile(), upProfile.getEmail(), upProfile.getPrivacy());
 		return profileService.updateProfile(profile);
 	}

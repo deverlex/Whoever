@@ -20,7 +20,8 @@ import vn.whoever.support.model.utils.Genders;
 import vn.whoever.support.model.utils.Privacies;
 
 @Entity
-@Table(name = "Profiles", uniqueConstraints = @UniqueConstraint(columnNames = { "idUser" }))
+@Table(name = "Profiles", uniqueConstraints = 
+		@UniqueConstraint(columnNames = { "idUser" }))
 public class Profiles implements Serializable {
 
 	/**
@@ -58,6 +59,14 @@ public class Profiles implements Serializable {
 		super();
 	}
 
+	public Profiles(String idProfile, String idUser, String nickName, Date birthday) {
+		super();
+		this.idProfile = idProfile;
+		this.idUser = idUser;
+		this.nickName = nickName;
+		this.birthday = birthday;
+	}
+
 	public Profiles(String idProfile, String idUser, String nickName, Date birthday, Genders genders, String mobile,
 			String email, Privacies privacy) {
 		super();
@@ -87,51 +96,51 @@ public class Profiles implements Serializable {
 		this.idUser = idUser;
 	}
 
-	protected String getNickName() {
+	public String getNickName() {
 		return nickName;
 	}
 
-	protected void setNickName(String nickName) {
+	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
 
-	protected Date getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	protected void setBirthday(Date birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
-	protected Genders getGenders() {
+	public Genders getGenders() {
 		return genders;
 	}
 
-	protected void setGenders(Genders genders) {
+	public void setGenders(Genders genders) {
 		this.genders = genders;
 	}
 
-	protected String getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	protected void setMobile(String mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
-	protected String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	protected void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	protected Privacies getPrivacy() {
+	public Privacies getPrivacy() {
 		return privacy;
 	}
 
-	protected void setPrivacy(Privacies privacy) {
+	public void setPrivacy(Privacies privacy) {
 		this.privacy = privacy;
 	}
 }

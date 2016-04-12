@@ -56,12 +56,12 @@ public class StatusServiceImpl implements StatusService {
 		List<String> lIdFriend = contactUserDao.getListIdFriend(contactsDao.getIdContact(idUser));
 		List<Status> listStatus = null;
 		if(getStatus.getOrder() == Order.friends) {
-			listStatus = statusDao.getListStatusByFriends(lIdFriend, getStatus.getOffset());
+			listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser,getStatus.getOffset());
 		} else {
-			listStatus = statusDao.getListStatusContainNearby(lIdFriend, 
+			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser,
 					getStatus.getLocation().getxLoc(), getStatus.getLocation().getyLoc(), getStatus.getOffset());
 		}
-		System.out.println("Do lon chuoi: " + listStatus.size());
+		System.out.println("Do lon mang Status: " + listStatus.size());
 		return listStatus;
 	}
 
