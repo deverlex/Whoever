@@ -1,8 +1,11 @@
 package vn.whoever.mainserver.dao.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +45,12 @@ public class ProfilesDaoImpl extends AbstractDao<String, Profiles> implements Pr
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("idUser", idUser));
 		return ((Profiles) crit.uniqueResult()).getIdProfile();
+	}
+
+	public String getNickname(String idUser) {
+		String sql = "select nickName from Profiles where idUser = '" + idUser + "'";
+		Query query = getSession().createQuery(sql);
+		return (String) query.uniqueResult();
 	}
 
 }

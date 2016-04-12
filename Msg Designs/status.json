@@ -42,21 +42,16 @@
 //response
 
 {
-	"level" : "",
-	"status" : [
-		{
-			"idStatus" : "",
-			"ssoIdPoster" : "",
-			"avatartPoster" : "",
-			"namePoster" : "",
-			"timePost" : "",
-			"contentText" : "",
-			"contentImage" : ""
-			"totalLike" : "",
-			"totalDislike" : "",
-			"totalComment" : ""
-		}
-	]
+	"idStatus" : "",
+	"ssoIdPoster" : "",
+	"avatartPoster" : "",
+	"namePoster" : "",
+	"timePost" : "",
+	"contentText" : "",
+	"contentImage" : ""
+	"totalLike" : "",
+	"totalDislike" : "",
+	"totalComment" : ""
 }
 
 //không được phép dùng idUser truyền tải trên mạng

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.model.Users;
+import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.GetStatus;
@@ -42,6 +43,9 @@ public class MobileStatusController {
 	@Autowired
 	private StatusService statusService;
 	
+	@Autowired
+	private ProfilesService profileService;
+	
 	@RequestMapping(value = "/mobile/gethome/{langCode}", method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String getHome(HttpServletResponse httpResponse,
@@ -57,6 +61,17 @@ public class MobileStatusController {
 		List<ReturnStatus> listStatus = new ArrayList<ReturnStatus>();
 		List<Status> listTemp = statusService.getListStatus(getStatus);
 		
+		for (Status status : listTemp) {
+			ReturnStatus rStatus = new ReturnStatus();
+			rStatus.setIdStatus(status.getIdStatus());
+			String ssoIdPoster = userService.findSsoIdbyIdUser(status.getIdUser());
+			rStatus.setSsoIdPoster(ssoIdPoster);
+			// set avatar = null, develop later
+			rStatus.setAvatarPoster(null);
+			String nickName = profileService.getNickName(status.getIdUser());
+			
+			
+		}
 		
 		return listTemp;
 	}

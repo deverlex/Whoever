@@ -1,5 +1,7 @@
 package vn.whoever.mainserver.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +53,9 @@ public class ProfilesServiceImpl implements ProfilesService {
 	public String getIdProfile(String idUser) {
 		return profilesDao.getIdProfile(idUser);
 	}
-	
+
+	public String getNickName(String idUser) {
+		return profilesDao.getNickname(idUser);
+	}	
 
 }

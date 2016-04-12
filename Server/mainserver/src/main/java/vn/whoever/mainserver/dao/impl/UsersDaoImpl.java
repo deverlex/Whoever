@@ -53,4 +53,10 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 	public void updateLocation(String idUser, Location location) {
 		// TODO Auto-generated method stub
 	}
+
+	public String findSsoId(String idUser) {
+		String sql = "select ssoId from Users where idUser = '" + idUser + "'";
+		Query query = getSession().createQuery(sql);
+		return (String) query.uniqueResult();
+	}
 }

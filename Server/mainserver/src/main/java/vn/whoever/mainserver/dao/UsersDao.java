@@ -7,6 +7,7 @@ public interface UsersDao {
 	
 	public Users findBySsoId(String ssoId);
 	public String findIdUser(String ssoId);
+	public String findSsoId(String idUser);
 	public boolean checkIsOnline(String ssoId);
 	
 	public void registerUser(Users users);

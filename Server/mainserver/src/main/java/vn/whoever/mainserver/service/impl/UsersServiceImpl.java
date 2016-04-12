@@ -79,5 +79,9 @@ public class UsersServiceImpl implements UsersService{
 	public String findIdUser(String ssoId) {
 		return userDao.findIdUser(ssoId);
 	}
+
+	public String findSsoIdbyIdUser(String idUser) {
+		return userDao.findSsoId(idUser);
+	}
 	
 }
