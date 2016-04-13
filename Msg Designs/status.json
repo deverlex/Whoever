@@ -43,7 +43,7 @@
 
 {
 	"idStatus" : "",
-	"ssoIdPoster" : "",
+	"ssoIdPoster" : "", //thành phần này cho phép xem profile
 	"avatartPoster" : "",
 	"namePoster" : "",
 	"timePost" : "",

@@ -1,7 +1,17 @@
+
+//Gửi comments
+{
+	"idStatus" : "",
+	"ssoId" : "",
+	"interact" : ""
+}
+
+
 "comments" : [
 	{
 		"idComment" : "",
-		"idUserComment" : "",
+		"ssoId" : "",
+		"nickName" : "",
 		"content" : "",
 		"totalLike" : "",
 		"totalDislike" : ""

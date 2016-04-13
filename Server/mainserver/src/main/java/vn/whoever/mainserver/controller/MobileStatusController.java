@@ -65,12 +65,18 @@ public class MobileStatusController {
 		for (Status status : listTemp) {
 			ReturnStatus rStatus = new ReturnStatus();
 			rStatus.setIdStatus(status.getIdStatus());
-			String ssoIdPoster = userService.findSsoIdbyIdUser(status.getIdUser());
-			rStatus.setSsoIdPoster(ssoIdPoster);
-			// set avatar = null, develop later
-			rStatus.setAvatarPoster(null);
-			String nickName = profileService.getNickName(status.getIdUser());
-			rStatus.setNamePoster(nickName);
+			if(status.getIsUseAccount()) {
+				String ssoIdPoster = userService.findSsoIdbyIdUser(status.getIdUser());
+				rStatus.setSsoIdPoster(ssoIdPoster);
+				// set avatar = null, develop later
+				rStatus.setAvatarPoster(null);
+				String nickName = profileService.getNickName(status.getIdUser());
+				rStatus.setNamePoster(nickName);
+			} else {
+				rStatus.setSsoIdPoster("null");
+				rStatus.setAvatarPoster("null");
+				rStatus.setNamePoster("anonymous");
+			}
 			String timePost = TimePost.getTimePost(status.getTimePost());
 			rStatus.setTimePost(timePost);
 			rStatus.setContentText(status.getContent());

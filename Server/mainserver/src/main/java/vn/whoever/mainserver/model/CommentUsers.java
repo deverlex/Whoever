@@ -37,7 +37,7 @@ public class CommentUsers implements Serializable {
 	
 	@Column(name = "interact", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Interacts interacts = Interacts.normal;
+	private Interacts interacts;
 	
 	public CommentUsers() {
 		super();

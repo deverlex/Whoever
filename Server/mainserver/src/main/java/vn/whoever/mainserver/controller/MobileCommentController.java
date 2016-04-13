@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/mobile/status")
 public class MobileCommentController {
 
-	@RequestMapping(value = {"/mobile/comments"}, method = RequestMethod.POST,
+//	public String getListComment() {
+//		
+//	}
+	
+	@RequestMapping(value = {"/comments"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void postComment() {
 		
 	}
-	
-	public void getListComment() {
-		
-	}
+
 }

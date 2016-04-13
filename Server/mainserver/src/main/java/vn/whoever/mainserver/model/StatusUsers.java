@@ -38,9 +38,9 @@ public class StatusUsers implements Serializable {
 	@JoinColumn(name = "idUser")
 	private Users users;
 	
-	@Column(name = "interact")
+	@Column(name = "interact", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Interacts interacts = Interacts.normal;
+	private Interacts interacts;
 	
 	public StatusUsers() {
 		super();
