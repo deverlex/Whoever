@@ -171,18 +171,20 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         avatarInToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("profileFrame").commit();
+                navigateFragment(new ProfileFragment(), "newsFrameToprofile");
+//                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+//                MainActivity.frgTransaction.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("profileFrame").commit();
             }
         });
 
         btnChoiceWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                navigateFragment(new PostStatusFragment(), "newsFrameToPostStatus");
 //                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
 //                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
-                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
-                getChildFragmentManager().executePendingTransactions();
+//                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
+//                getChildFragmentManager().executePendingTransactions();
 
             }
         });
@@ -190,16 +192,19 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         btnChoiceUpPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
-                getChildFragmentManager().executePendingTransactions();
+                navigateFragment(new PostStatusFragment(), "newsFrameToPostPhoto");
+//                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
+//                getChildFragmentManager().executePendingTransactions();
             }
         });
 
         btnWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getParentFragment().getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
-                getParentFragment().getChildFragmentManager().executePendingTransactions();
+
+                navigateFragment(new PostStatusFragment(), "newsFrameToPostStatus");
+//                getParentFragment().getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
+//                getParentFragment().getChildFragmentManager().executePendingTransactions();
             }
         });
 
@@ -213,6 +218,12 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
                 // show a dialog
             }
         });
+    }
+
+    public void navigateFragment(Fragment fragment, String strStack) {
+        getParentFragment().getChildFragmentManager().beginTransaction()
+                .replace(R.id.majorFrame, fragment).addToBackStack(strStack).commit();
+        getParentFragment().getChildFragmentManager().executePendingTransactions();
     }
 
     @Override

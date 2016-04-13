@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
@@ -40,8 +41,10 @@ public class SignInFragment extends Fragment implements Initgc {
     private Button btnSignin;
     private Button btnSkipSignIn;
     private TextView logoText;
+    private Handler handler = new Handler();
 
     private Toast toast;
+    private int timeout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,11 +79,11 @@ public class SignInFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initListener(View view) {
+    public void initListener(final View view) {
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToSignUp(new SignUpFragment(), "signinFrameToSignUp");
+                navigateFrame(new SignUpFragment(), "signinFrameToSignUp");
             }
         });
 
@@ -135,15 +138,13 @@ public class SignInFragment extends Fragment implements Initgc {
         btnSkipSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * TODO: get IMEI of phone send to server
-                 */
-
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, false);
+
                 WelcomeFragment welcomeFragment = new WelcomeFragment();
                 welcomeFragment.setArguments(bundle);
-                navigateToWelcome(welcomeFragment, "signinFrameToWelcome");
+
+                navigateFrame(welcomeFragment, "signinFrameToWelcome");
             }
         });
 
@@ -153,7 +154,7 @@ public class SignInFragment extends Fragment implements Initgc {
                 ssoId = editTextSsoId.getText().toString();
                 password = editTextPassword.getText().toString();
                 /**
-                 * TODO: after check password and email => demo
+                 * TODO: after check password and ssoId => demo
                  */
 
                 if (toast != null) {
@@ -161,12 +162,33 @@ public class SignInFragment extends Fragment implements Initgc {
                 }
 
                 if (RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
-                    int stateLogin = BeginTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
+                    //int stateLogin = BeginTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
                     /**
                      * Account avaiable => Activity
                      * else
                      * => create new account
                      */
+                    timeout = 10;
+
+                    BeginTransaction.getTransaction(getActivity()).getRequestLogin(ssoId, password);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (timeout > 0) {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                    }
+                                });
+
+                                try {
+                                    Thread.sleep(250);
+                                } catch (InterruptedException e) {}
+                            }
+                        }
+                    }).start();
+
                     if (true) {
                         //chuyen sang mainFragment
                     } else if (true) {
@@ -175,14 +197,15 @@ public class SignInFragment extends Fragment implements Initgc {
                         bundle.putString("password", password);
                         SignUpFragment signUpFragment = new SignUpFragment();
                         signUpFragment.setArguments(bundle);
-                        navigateToSignUp(signUpFragment, "signinFrameToSignUp");
+                        navigateFrame(signUpFragment, "signinFrameToSignUp");
                     } else {
                         toast = Toast.makeText(getActivity(), "Check your connection or your Acccount ID", Toast.LENGTH_LONG);
                         toast.show();
                     }
+
                 } else {
                     // TODO: show a toast alert: standard of email & password input fails
-                    toast = Toast.makeText(getActivity(), "Try check Account ID or Password, please", Toast.LENGTH_LONG);
+                    toast = Toast.makeText(getActivity(), "Check format for Account ID or Password, please", Toast.LENGTH_LONG);
                     toast.show();
                 }
             }
@@ -194,12 +217,7 @@ public class SignInFragment extends Fragment implements Initgc {
         return telephonyManager.getDeviceId();
     }
 
-    private void navigateToWelcome(Fragment fragment, String strStack) {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
-    }
-
-    private void navigateToSignUp(Fragment fragment, String strStack) {
+    private void navigateFrame(Fragment fragment, String strStack) {
         MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
         MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
     }

@@ -50,9 +50,8 @@ public class MobileUserController {
 	 @Autowired
 	 private ProfilesService profileService;
 
-	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST,
-			consumes = "application/json", produces = "application/json")
-	public @ResponseBody String loginWithAccount(HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST)
+	public @ResponseBody void loginWithAccount(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody CallLogin login) {
 		
 		HttpSession session = request.getSession();
@@ -63,26 +62,33 @@ public class MobileUserController {
 			response.setHeader("Whoever-Token", tokens.getToken());
 			response.setHeader("Token-expiration", tokens.getTimeExp());
 			
+			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "==> login fail";
+			String idUser = usersService.findIdUser(login.getSsoId());
+			if(idUser != null) {
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			} else {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			}
 		}
-		return "=>> Login Success !!";
 	}
 
 	@RequestMapping(value = { "/mobile/anonymous/{langCode}" }, method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String loginAnonymous(HttpServletRequest request, HttpServletResponse response, @PathVariable("langCode") String langCode) {
-		
 		Languages language = langsService.findByCode(langCode);
-
+		if(language == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
 		String ssoId = usersService.generateSsoId();
 		String password = usersService.generatePassword();
 		String idUser = usersService.generateUserId();
 		HttpSession session = request.getSession();
-		
-		Users users = new Users(idUser, ssoId, password, States.active, true, true, language);
 		try {
+	
+			Users users = new Users(idUser, ssoId, password, States.active, true, true, language);
+			
 			usersService.registerUser(users);
 			authenticalUser(request, session, ssoId, password);
 			
@@ -90,12 +96,13 @@ public class MobileUserController {
 			String date = authToken.getTimeExpiration();
 			response.setHeader("Whoever-Token", token);
 			response.setHeader("Token-expiration", date);
-				
+			
+			response.setStatus(HttpServletResponse.SC_CREATED);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "Login with anonymous fails!!!";
+			response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+			return null;
 		}
-		return "Register successful!!!";
+		return ssoId;
 	}
 
 	@RequestMapping(value = {"/mobile/register" }, method = RequestMethod.POST, 

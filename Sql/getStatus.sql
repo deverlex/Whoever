@@ -1,1 +1,1 @@
-select * from status where ((xLoc - 20.996282)*(xLoc - 20.996282) + (yLoc - 105.812490)*(yLoc - 105.812490)) < 50 && privacy = 'normal';
+select * from status where xLoc between 20.114327 and 20.134327 and yLoc between 121.970508 and 121.990508;

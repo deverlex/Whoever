@@ -71,7 +71,12 @@ public class ApplicationFilterConfig implements Filter {
 //				}
 //			}
 //		} else {
+		try {
 			filterChain.doFilter(req, res);
+		} catch (Exception e) {
+			System.out.println("filter exception!!!!");
+		}
+			
 //		}
 	}
 	

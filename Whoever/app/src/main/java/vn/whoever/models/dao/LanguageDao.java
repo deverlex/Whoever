@@ -44,9 +44,6 @@ public class LanguageDao {
 
     public synchronized HashMap<String, String> getArrayLanguageSupport() {
         listLanguage = new LinkedHashMap<>();
-        listLanguage.put("en","English");
-        listLanguage.put("vi","Tiếng Việt");
-
         try {
             InputStream inputStream = context.getAssets().open(DB_LANGUAGE);
 
@@ -70,6 +67,10 @@ public class LanguageDao {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(listLanguage.size() ==0) {
+            listLanguage.put("en","English");
+            listLanguage.put("vi","Tiếng Việt");
         }
 
         return listLanguage;

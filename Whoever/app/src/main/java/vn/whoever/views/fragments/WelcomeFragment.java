@@ -1,8 +1,13 @@
 package vn.whoever.views.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -11,11 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import vn.whoever.transactionconn.BeginTransaction;
 import vn.whoever.R;
+import vn.whoever.transactionconn.HttpStatus;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.dialogs.DatePickerFragment;
 import vn.whoever.views.dialogs.LanguagePickerFragment;
@@ -33,14 +42,19 @@ public class WelcomeFragment extends Fragment implements Initgc {
     DatePickerFragment dateDialog;
     LanguagePickerFragment langDialog;
     private TextView textLogoApp;
+    private ProgressDialog dialog;
+
+    private Handler handler = new Handler();
+    private int timeout;
 
     public static final String KEY_USE_ACCOUNT = "isSignUp";
 
     private boolean isAccount = false; // for use register account
+    private String langCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.welcome_layout, null);
+        View view = inflater.inflate(R.layout.welcome_layout, container, false);
         hiddenSoftInput(view);
 
         Bundle bundle = getArguments();
@@ -64,6 +78,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
     @Override
     public void init(View view) {
+        langCode = Locale.getDefault().getISO3Language().substring(0, 2);
         textViewBirthday = (TextView) view.findViewById(R.id.textBirthDayWelcome);
         textViewLanguage = (TextView) view.findViewById(R.id.textLanguageWelcome);
         btnPushApp = (Button) view.findViewById(R.id.buttonPushApp);
@@ -73,6 +88,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
         langDialog  = new LanguagePickerFragment();
         langDialog.setTextLanguage(textViewLanguage);
+        textViewLanguage.setText(langDialog.getLangName(langCode));
 
         textLogoApp = (TextView) view.findViewById(R.id.logoTextStartWelcome);
         Typeface bauhau93_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bauhau93.ttf");
@@ -83,33 +99,61 @@ public class WelcomeFragment extends Fragment implements Initgc {
     public void initListener(final View view) {
         btnPushApp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 /**
                  * In this, need push to server a schedule contain:
                  * birth day, language, user name and password
                  * -> update infor of user
                  */
+                if (langDialog.getLangCode() != null) {
+                    langCode = langDialog.getLangCode();
+                }
+                Log.d("langCode", langCode);
+
                 if (TimeUtils.getInstance().isOldEnough(dateDialog.getYear(), dateDialog.getMonth(), dateDialog.getDayOfMonth())) {
-                    /**
-                     * TODO: send infor to server
-                     *
-                     */
-                    //login to server
+
+                    String strDate = dateDialog.getDateString();
+
+
 
                     if (isAccount) {
                         /**
                          * TODO: saved clear start activity
                          */
-                        BeginTransaction.getInstance(getActivity(), view).registerUser("satthumaulanh", "12345678", "hoa hai anh", "10-03-1994", "en");
-                        Log.d("Date birthday", "register account!!!");
-                    } else {
-                        BeginTransaction.getInstance(getActivity(), view).getRequestLoginAnonymous("en", "10031994");
-                        Log.d("Date birthday", dateDialog.toString());
-                    }
+                        //BeginTransaction.getInstance(getActivity(), view).registerUser("satthumaulanh", "12345678", "hoa hai anh", "10-03-1994", "en");
 
-                    MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                    MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    MainActivity.frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
+                    } else {
+                        timeout = 10;
+                        BeginTransaction.getTransaction(getActivity()).getRequestLoginAnonymous(langCode);
+                        dialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
+                        dialog.show();
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (timeout > 0) {
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Integer httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
+                                            if (httpCode != null) {
+                                                if (HttpStatus.getStatus(getActivity()).code(httpCode)) {
+                                                    loadDataActive();
+                                                }
+                                                timeout = 0;
+                                            }
+                                        }
+                                    });
+                                    --timeout;
+                                    try {
+                                        Thread.sleep(100);
+                                    } catch (InterruptedException e) {}
+                                }
+                                dialog.dismiss();
+                            }
+                        }).start();
+
+                    }
                 } else {
                     Toast.makeText(getActivity(), "You haven't enough year old", Toast.LENGTH_LONG).show();
                 }
@@ -148,6 +192,12 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
             }
         });
+    }
+
+    public void loadDataActive() {
+        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        MainActivity.frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
     }
 
     @Override

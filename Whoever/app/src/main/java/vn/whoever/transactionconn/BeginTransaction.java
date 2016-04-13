@@ -3,11 +3,17 @@ package vn.whoever.transactionconn;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -17,7 +23,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.whoever.models.LocalAccount;
 import vn.whoever.transactionconn.request.GsonRequest;
 
 /**
@@ -27,27 +32,41 @@ public class BeginTransaction {
 
     private static BeginTransaction transaction = new BeginTransaction();
     private static Activity myActivity;
-    private static View myView;
 
-    private LocalAccount user;
+    // LocalAccount user;
+    private Integer httpStatusCode = null;
 
-    public static BeginTransaction getInstance(Activity acctivity, View view) {
+    public static BeginTransaction getTransaction(Activity acctivity) {
         myActivity = acctivity;
-        myView = view;
         return transaction;
     }
 
-    public final int getRequestLogin(final String ssoId, final String password) {
+    public void getRequestLogin(final String ssoId, final String password) {
 
         Map<String, String> jsonLogin = new HashMap<>();
         jsonLogin.put("ssoId", ssoId);
         jsonLogin.put("password", password);
 
-        GsonRequest<Object> gsonRequest = new GsonRequest(Request.Method.GET,
+        GsonRequest<Object> requestLogin = new GsonRequest(Request.Method.GET,
                 AddressConn.url_login,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener()) {
+                String.class,
+                jsonLogin,
+                new Response.Listener<Object>() {
+                    @Override
+                    public void onResponse(Object response) {
+                        try {
+                            Log.d("Json Response", "");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    };
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -58,7 +77,7 @@ public class BeginTransaction {
             }
         };
 
-
+        TransactionQueue.getsInstance(myActivity).addToRequestQueue(requestLogin);
 //        JsonObjectRequest objectRequest = new JsonObjectRequest( Request.Method.GET ,urlQuery.getUrl(),
 //                new Response.Listener<JSONObject>(){
 //            @Override
@@ -88,8 +107,6 @@ public class BeginTransaction {
 //            }
 //        });
 //        TransactionQueue.getsInstance(myActivity).addToRequestQueue(objectRequest);
-
-        return 2;
     }
 
     public boolean registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
@@ -138,56 +155,44 @@ public class BeginTransaction {
      * TODO: using GET method
      */
 
-    public void getRequestLoginAnonymous(String langCode, String birthday) {
-
-        UrlQuery query = new UrlQuery(AddressConn.url_login_with_anonymous);
-        query.putParam("langCode", langCode);
-        query.putParam("birthday", birthday);
-
-        Log.d("URL login anonymous", query.getUrl());
+    public void getRequestLoginAnonymous(String langCode) {
+        httpStatusCode = null;
+        UrlQuery query = new UrlQuery(AddressConn.url_login_anonymous);
+        query.putVariable(langCode);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, query.getUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Request login anonymous", response);
+                Log.d("ssoId", response);
+                /**
+                 * TODO: need stored ssoId into database
+                 *
+                 */
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Request login anonymous", error.toString());
+                Log.d("error", error.toString());
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    httpStatusCode = HttpStatus.SC_BAD_REQUEST;
+                } else if (error instanceof AuthFailureError) {
+                    //TODO
+                } else if (error instanceof ServerError) {
+                    httpStatusCode = HttpStatus.SC_SERVICE_UNAVAIABLE;
+                } else if (error instanceof NetworkError) {
+                    httpStatusCode = HttpStatus.SC_BAD_REQUEST;
+                } else if (error instanceof ParseError) {
+                    //TODO
+                }
             }
         }) {
-
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                Log.d("header response", response.headers.toString());
+                httpStatusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
             }
         };
-
         TransactionQueue.getsInstance(myActivity).addToRequestQueue(stringRequest);
-    }
-
-    private Response.Listener<Object> createMyReqSuccessListener() {
-        return new Response.Listener<Object>() {
-            @Override
-            public void onResponse(Object response) {
-                try {
-                    Log.d("Json Response", "");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-        };
-    }
-
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        };
     }
 
     public void createNewAccount(String name, String password, String birthday, String language) {
@@ -212,6 +217,10 @@ public class BeginTransaction {
         });
 
         TransactionQueue.getsInstance(myActivity).addToRequestQueue(objectRequest);
+    }
+
+    public Integer getHttpStatusCode() {
+        return httpStatusCode;
     }
 
 }

@@ -11,12 +11,16 @@ public class UrlQuery {
     public UrlQuery() {}
 
     public UrlQuery(String url) {
-        this.url = url + "?";
+        this.url = url;
+    }
+
+    public void putVariable(String value) {
+        url += ("/" + value);
     }
 
     public void putParam(String key, String value) {
         if(countParam ==0) {
-            url+=(key + "=" + value);
+            url+=("?" + key + "=" + value);
             countParam+=1;
         } else {
             url+=("&" + key + "=" + value);

@@ -53,19 +53,13 @@ public class UsersServiceImpl implements UsersService{
 		return userDao.findBySsoId(ssoId);
 	}
 
-	public boolean registerUser(Users users) {
+	public void registerUser(Users users) {
 		Set<SetRoles> roles = new HashSet<SetRoles>();
 		roles.add(new SetRoles(users, Roles.USER));
 		
-		try {
-			userDao.registerUser(users);
-			roleDao.addRole(roles);
-			contactService.createContact(users.getIdUser());
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+		userDao.registerUser(users);
+		roleDao.addRole(roles);
+		contactService.createContact(users.getIdUser());
 	}
 
 	public void addRole(Users users, Roles roles) {

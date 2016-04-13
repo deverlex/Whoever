@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class LanguagePickerFragment extends DialogFragment {
     private CharSequence[] cs;
     private AlertDialog.Builder dialog;
 
+    private String langCode;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Resources res = getActivity().getResources();
@@ -38,21 +41,17 @@ public class LanguagePickerFragment extends DialogFragment {
         dialog.setTitle("Please Select");
         dialog.setPositiveButton("Cancel", new PositiveButton());
 
-        mapLanguage = LanguageDao.getInstance(getActivity()).getArrayLanguageSupport();
 
         String sysCodeLanguage = Locale.getDefault().getISO3Language().substring(0, 2);
+        getLangName(sysCodeLanguage);
 
         for (Map.Entry<String, String> select : mapLanguage.entrySet()) {
             listLanguage.add(select.getValue());
             listkey.add(select.getKey());
         }
 
-        if(position == 0) {
+        if(position == 0 || position == -1) {
             position = listkey.indexOf(sysCodeLanguage);
-        }
-
-        if(position == -1) {
-            position = listkey.indexOf("en");
         }
 
         cs = listLanguage.toArray(new CharSequence[listLanguage.size()]);
@@ -74,6 +73,7 @@ public class LanguagePickerFragment extends DialogFragment {
         public void onClick(DialogInterface dialogInf, int selected) {
             position = selected;
             textLanguage.setText(listLanguage.get(position));
+            langCode = listkey.get(position);
             dialogInf.dismiss();
         }
     };
@@ -82,4 +82,12 @@ public class LanguagePickerFragment extends DialogFragment {
         this.textLanguage = textView;
     }
 
+    public String getLangCode() {
+        return langCode;
+    }
+
+    public String getLangName(String langCode) {
+        mapLanguage = LanguageDao.getInstance(getActivity()).getArrayLanguageSupport();
+        return mapLanguage.get(langCode);
+    }
 }

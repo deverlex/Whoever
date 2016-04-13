@@ -82,9 +82,9 @@ public class LoadFragment extends Fragment implements Initgc {
                             }
                         }
                     });
-
+                    // TODO gi do
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

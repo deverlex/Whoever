@@ -14,7 +14,7 @@ public interface UsersService {
 	public String findIdUser(String ssoId);
 	public String findSsoIdbyIdUser(String idUser);
 	
-	public boolean registerUser(Users users);
+	public void registerUser(Users users);
 	public void addRole(Users users, Roles roles);
 	public void updateState(Users users, States state);
 }
