@@ -1,9 +1,10 @@
 package vn.whoever.transactionconn;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -18,12 +19,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-import vn.whoever.transactionconn.request.GsonRequest;
+import vn.whoever.models.supports.Position;
+import vn.whoever.transactionconn.utils.GPSLocation;
 
 /**
  * Created by spider man on 1/7/2016.
@@ -33,6 +38,7 @@ public class BeginTransaction {
     private static BeginTransaction transaction = new BeginTransaction();
     private static Activity myActivity;
 
+    private BeginTransaction() {}
     // LocalAccount user;
     private Integer httpStatusCode = null;
 
@@ -42,111 +48,41 @@ public class BeginTransaction {
     }
 
     public void getRequestLogin(final String ssoId, final String password) {
+        httpStatusCode = null;
 
         Map<String, String> jsonLogin = new HashMap<>();
         jsonLogin.put("ssoId", ssoId);
         jsonLogin.put("password", password);
 
-        GsonRequest<Object> requestLogin = new GsonRequest(Request.Method.GET,
-                AddressConn.url_login,
-                String.class,
-                jsonLogin,
-                new Response.Listener<Object>() {
-                    @Override
-                    public void onResponse(Object response) {
-                        try {
-                            Log.d("Json Response", "");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    };
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+       JsonObjectRequest requestLogin = new JsonObjectRequest(Request.Method.POST, AddressConnection.url_login, new JSONObject(jsonLogin) ,new Response.Listener<JSONObject>() {
+           @Override
+           public void onResponse(JSONObject response) {
+                String str = response.toString();
+               Log.d("responseLog", str);
+           }
+       }, new Response.ErrorListener() {
+           @Override
+           public void onErrorResponse(VolleyError error) {
+               exTractError(error);
+           }
+       }){
 
-                    }
-                }) {
+           @Override
+           public Map<String, String> getHeaders() throws AuthFailureError {
+               HashMap<String, String> headers = new HashMap<String, String>();
+               headers.put("Content-Type", "application/json; charset=utf-8");
+               headers.put("User-agent", System.getProperty("http.agent"));
+               return headers;
+           }
 
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("User-agent", System.getProperty("http.agent"));
-                return headers;
-            }
-        };
+           @Override
+           protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+               httpStatusCode = response.statusCode;
+               return super.parseNetworkResponse(response);
+           }
+       };
 
         TransactionQueue.getsInstance(myActivity).addToRequestQueue(requestLogin);
-//        JsonObjectRequest objectRequest = new JsonObjectRequest( Request.Method.GET ,urlQuery.getUrl(),
-//                new Response.Listener<JSONObject>(){
-//            @Override
-//            public void onResponse(JSONObject response) {
-//
-////                    if(true) {
-////                        /**
-////                         * TODO: Check response from server
-////                         *
-////                         */
-////                        fState = ResponseState.PASS;
-////                    } else {
-////                        fState = ResponseState.WELCOME;
-////                    }
-////
-////                } catch (JSONException e) {
-////                    e.printStackTrace();
-////                    fState = ResponseState.FAIL;
-////
-////                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.d("RESPONSE: ", error.toString());
-//                fState = ResponseState.FAIL;
-//            }
-//        });
-//        TransactionQueue.getsInstance(myActivity).addToRequestQueue(objectRequest);
-    }
-
-    public boolean registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
-
-        Map<String, String> jsonRegister = new HashMap<>();
-        jsonRegister.put("ssoId", ssoId);
-        jsonRegister.put("password", password);
-        jsonRegister.put("nickName", nickName);
-        jsonRegister.put("birthday", birthday);
-        jsonRegister.put("langCode", langCode);
-
-        JsonObjectRequest registerRequest = new JsonObjectRequest(Request.Method.POST, AddressConn.url_register,
-                new JSONObject(jsonRegister),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        /**
-                         * Response status on home page
-                         */
-                        Log.d("Response from server", response.toString());
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Response from server", error.toString());
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("User-agent", System.getProperty("http.agent"));
-                return headers;
-            }
-
-
-        };
-        TransactionQueue.getsInstance(myActivity).addToRequestQueue(registerRequest);
-        return true;
     }
 
     /**
@@ -157,7 +93,7 @@ public class BeginTransaction {
 
     public void getRequestLoginAnonymous(String langCode) {
         httpStatusCode = null;
-        UrlQuery query = new UrlQuery(AddressConn.url_login_anonymous);
+        UrlQuery query = new UrlQuery(AddressConnection.url_login_anonymous);
         query.putVariable(langCode);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, query.getUrl(), new Response.Listener<String>() {
@@ -172,18 +108,7 @@ public class BeginTransaction {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error", error.toString());
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    httpStatusCode = HttpStatus.SC_BAD_REQUEST;
-                } else if (error instanceof AuthFailureError) {
-                    //TODO
-                } else if (error instanceof ServerError) {
-                    httpStatusCode = HttpStatus.SC_SERVICE_UNAVAIABLE;
-                } else if (error instanceof NetworkError) {
-                    httpStatusCode = HttpStatus.SC_BAD_REQUEST;
-                } else if (error instanceof ParseError) {
-                    //TODO
-                }
+                exTractError(error);
             }
         }) {
             @Override
@@ -195,14 +120,108 @@ public class BeginTransaction {
         TransactionQueue.getsInstance(myActivity).addToRequestQueue(stringRequest);
     }
 
-    public void createNewAccount(String name, String password, String birthday, String language) {
+    public void registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
 
-        String url = "";
+        Map<String, Object> jsonRegister = new LinkedHashMap<>();
+        jsonRegister.put("ssoId", ssoId);
+        jsonRegister.put("password", password);
+        jsonRegister.put("nickName", nickName);
+        jsonRegister.put("birthday", birthday);
+        jsonRegister.put("langCode", langCode);
 
+        JSONObject profile = new JSONObject(jsonRegister);
+
+        Map<String, Double> loc = new LinkedHashMap<>();
+
+        try {
+            Position position = (new GPSLocation(myActivity)).getLocation();
+
+            position.setX(Math.round(position.getX()*1000000)/1000000.0);
+            position.setY(Math.round(position.getY()*1000000)/1000000.0);
+
+            loc.put("xLoc", position.getX());
+            loc.put("yLoc", position.getY());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jsonLoc = new JSONObject(loc);
+
+        try {
+            profile.put("location",jsonLoc);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("json request", profile.toString());
+
+        JsonObjectRequest registerRequest = new JsonObjectRequest(Request.Method.POST, AddressConnection.url_register,
+                profile,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /**
+                         * Response status on home page
+                         */
+                        Log.d("Response from server", response.toString());
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                exTractError(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("User-agent", System.getProperty("http.agent"));
+                return headers;
+            }
+
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                httpStatusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+
+        };
+        TransactionQueue.getsInstance(myActivity).addToRequestQueue(registerRequest);
+    }
+
+    /**
+     * For register new user
+     * @param ssoId
+     */
+
+    public String resultQuerySsoId;
+
+    public String findSsoIdAvaiable(String ssoId) {
+        resultQuerySsoId = null;
+        UrlQuery urlQuery = new UrlQuery(AddressConnection.url_query_ssoId);
+        urlQuery.putParam("ssoId", ssoId);
+
+        Log.d("urlQuery", urlQuery.getUrl());
+
+        StringRequest findSsoId = new StringRequest(Request.Method.GET, urlQuery.getUrl(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                resultQuerySsoId = response;
+                Log.d("querySsoId", response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                exTractError(error);
+            }
+        });
+        TransactionQueue.getsInstance(myActivity).addToRequestQueue(findSsoId);
+        return resultQuerySsoId;
     }
 
     public void getTermUser() {
-        String urlQuery = AddressConn.URL_USER + "/term";
+        String urlQuery = AddressConnection.URL_USER + "/term";
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, urlQuery, new Response.Listener<JSONObject>() {
             @Override
@@ -215,12 +234,33 @@ public class BeginTransaction {
 
             }
         });
-
         TransactionQueue.getsInstance(myActivity).addToRequestQueue(objectRequest);
+    }
+
+    public String getQuerySsoId() {
+        return resultQuerySsoId;
     }
 
     public Integer getHttpStatusCode() {
         return httpStatusCode;
     }
 
+    private void exTractError(VolleyError error) {
+        NetworkResponse networkResponse = error.networkResponse;
+        if(networkResponse != null) {
+            httpStatusCode = networkResponse.statusCode;
+        }
+
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            httpStatusCode = HttpStatus.SC_BAD_REQUEST;
+        } else if (error instanceof AuthFailureError) {
+            //TODO
+        } else if (error instanceof ServerError) {
+            httpStatusCode = HttpStatus.SC_SERVICE_UNAVAIABLE;
+        } else if (error instanceof NetworkError) {
+            httpStatusCode = HttpStatus.SC_BAD_REQUEST;
+        } else if (error instanceof ParseError) {
+            //TODO
+        }
+    }
 }

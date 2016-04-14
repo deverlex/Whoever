@@ -74,6 +74,7 @@ public class ApplicationFilterConfig implements Filter {
 		try {
 			filterChain.doFilter(req, res);
 		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			System.out.println("filter exception!!!!");
 		}
 			

@@ -1,16 +1,16 @@
-package vn.whoever.utils;
+package vn.whoever.models.supports;
 
 /**
  * Created by spider man on 1/10/2016.
  */
-public class Point {
+public class Position {
 
     private double x;
     private double y;
 
-    public Point() {}
+    public Position() {}
 
-    public Point(double x, double y) {
+    public Position(double x, double y) {
         this.x = x;
         this.y = y;
     }

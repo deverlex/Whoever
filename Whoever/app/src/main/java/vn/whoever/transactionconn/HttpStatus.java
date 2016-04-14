@@ -29,7 +29,7 @@ public class HttpStatus {
         return httpStatus;
     }
 
-    public boolean code(Integer httpCode) {
+    public boolean codeSignInAnonymous(Integer httpCode) {
         if(httpCode == SC_BAD_REQUEST || httpCode == SC_REQUEST_TIMEOUT) {
             if(toast != null) toast.cancel();
             toast = Toast.makeText(context, "Check your connection, please!", Toast.LENGTH_SHORT);
@@ -45,9 +45,26 @@ public class HttpStatus {
                 if(toast != null) toast.cancel();
                 toast = Toast.makeText(context, "Server is temporarily overloaded", Toast.LENGTH_SHORT);
                 toast.show();
+            }
+        }
+        return false;
+    }
+
+    public boolean codeSignIn(Integer httpCode) {
+        if(httpCode == SC_BAD_REQUEST || httpCode == SC_REQUEST_TIMEOUT) {
+            if(toast != null) toast.cancel();
+            toast = Toast.makeText(context, "Check your connection, please!", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            if(httpCode == SC_OK) {
+                return true;
+            } else if(httpCode == SC_SERVICE_UNAVAIABLE) {
+                if(toast != null) toast.cancel();
+                toast = Toast.makeText(context, "Server is temporarily overloaded", Toast.LENGTH_SHORT);
+                toast.show();
             } else if(httpCode == SC_UNAUTHORIZED) {
                 if(toast != null) toast.cancel();
-                toast = Toast.makeText(context, "Please check your password", Toast.LENGTH_SHORT);
+                toast = Toast.makeText(context, "Please check your password or ID account!", Toast.LENGTH_SHORT);
                 toast.show();
             }
         }

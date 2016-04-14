@@ -1,5 +1,6 @@
 package vn.whoever.views.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,7 +9,9 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import vn.whoever.transactionconn.HttpStatus;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.R;
 import vn.whoever.transactionconn.BeginTransaction;
@@ -42,6 +46,8 @@ public class SignInFragment extends Fragment implements Initgc {
     private Button btnSkipSignIn;
     private TextView logoText;
     private Handler handler = new Handler();
+
+    private ProgressDialog progressDialog;
 
     private Toast toast;
     private int timeout;
@@ -83,7 +89,12 @@ public class SignInFragment extends Fragment implements Initgc {
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateFrame(new SignUpFragment(), "signinFrameToSignUp");
+                Bundle bundle = new Bundle();
+                bundle.putString("ssoId", ssoId);
+                bundle.putString("password", password);
+                SignUpFragment signUpFragment = new SignUpFragment();
+                signUpFragment.setArguments(bundle);
+                navigateFrame(signUpFragment, "signinFrameToSignUp");
             }
         });
 
@@ -168,9 +179,10 @@ public class SignInFragment extends Fragment implements Initgc {
                      * else
                      * => create new account
                      */
-                    timeout = 10;
-
+                    timeout = 40;
                     BeginTransaction.getTransaction(getActivity()).getRequestLogin(ssoId, password);
+                    progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -178,30 +190,33 @@ public class SignInFragment extends Fragment implements Initgc {
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Integer httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
+                                        if (httpCode != null) {
+                                            Log.d("httpCodeLogin",String.valueOf(httpCode));
+                                            if(httpCode == HttpStatus.SC_NOT_FOUND) {
+                                                navigateFrame(new SignUpFragment(), "signInFrameToSignUp");
+                                            }
 
+                                            if (HttpStatus.getStatus(getActivity()).codeSignIn(httpCode)) {
+                                                loadDataActive();
+                                            }
+                                            timeout = 0;
+                                            progressDialog.dismiss();
+                                        }
+                                        if(timeout == 1) {
+                                            progressDialog.dismiss();
+                                            HttpStatus.getStatus(getActivity()).codeSignIn(HttpStatus.SC_SERVICE_UNAVAIABLE);
+                                        }
                                     }
                                 });
-
+                                --timeout;
                                 try {
-                                    Thread.sleep(250);
-                                } catch (InterruptedException e) {}
+                                    Thread.sleep(150);
+                                } catch (InterruptedException e) {
+                                }
                             }
                         }
                     }).start();
-
-                    if (true) {
-                        //chuyen sang mainFragment
-                    } else if (true) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("ssoId", ssoId);
-                        bundle.putString("password", password);
-                        SignUpFragment signUpFragment = new SignUpFragment();
-                        signUpFragment.setArguments(bundle);
-                        navigateFrame(signUpFragment, "signinFrameToSignUp");
-                    } else {
-                        toast = Toast.makeText(getActivity(), "Check your connection or your Acccount ID", Toast.LENGTH_LONG);
-                        toast.show();
-                    }
 
                 } else {
                     // TODO: show a toast alert: standard of email & password input fails
@@ -220,6 +235,12 @@ public class SignInFragment extends Fragment implements Initgc {
     private void navigateFrame(Fragment fragment, String strStack) {
         MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
         MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
+    }
+
+    public void loadDataActive() {
+        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        MainActivity.frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
     }
 
     @Override

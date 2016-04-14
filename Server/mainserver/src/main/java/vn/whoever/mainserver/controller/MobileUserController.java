@@ -30,6 +30,7 @@ import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.CallLogin;
 import vn.whoever.support.model.request.CallRegister;
 import vn.whoever.support.model.utils.States;
+import vn.whoever.support.response.ReturnCallLogin;
 
 @Controller
 public class MobileUserController {
@@ -50,13 +51,28 @@ public class MobileUserController {
 	 @Autowired
 	 private ProfilesService profileService;
 
-	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST)
-	public @ResponseBody void loginWithAccount(HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST,
+			produces = "application/json", consumes = "application/json")
+	public @ResponseBody ReturnCallLogin loginWithAccount(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody CallLogin login) {
 		
+		System.out.println(login.getSsoId());
+		System.out.println(login.getPassword());
+		
+		ReturnCallLogin rCLogin = null;
 		HttpSession session = request.getSession();
 		try {
 			authenticalUser(request, session, login.getSsoId(), login.getPassword());
+			
+			Users user = usersService.findBySsoId(login.getSsoId());
+			System.out.println("user login: " + user);
+			Profiles profile = profileService.getProfile(user.getIdUser());
+			
+			String langName = langsService.findNativeNameById(user.getIdLanguage());
+			
+			rCLogin = new ReturnCallLogin(langName, 
+					profile.getNickName(), profile.getBirthday(), profile.getGenders(), 
+					profile.getMobile(), profile.getEmail(), user.getIsOnline(), profile.getPrivacy());
 			
 			Tokens tokens = authToken.getToken(login.getSsoId());
 			response.setHeader("Whoever-Token", tokens.getToken());
@@ -64,13 +80,10 @@ public class MobileUserController {
 			
 			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
-			String idUser = usersService.findIdUser(login.getSsoId());
-			if(idUser != null) {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			} else {
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			}
+			System.out.println("return status: " + response.getStatus());
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		}
+		return rCLogin;
 	}
 
 	@RequestMapping(value = { "/mobile/anonymous/{langCode}" }, method = RequestMethod.GET,
@@ -87,7 +100,7 @@ public class MobileUserController {
 		HttpSession session = request.getSession();
 		try {
 	
-			Users users = new Users(idUser, ssoId, password, States.active, true, true, language);
+			Users users = new Users(idUser, ssoId, password, States.active, true, true, language.getIdLanguage());
 			
 			usersService.registerUser(users);
 			authenticalUser(request, session, ssoId, password);
@@ -110,7 +123,14 @@ public class MobileUserController {
 	public @ResponseBody String registerAccount(HttpServletRequest request, 
 			HttpServletResponse response, @RequestBody CallRegister req) {
 		
-		Languages language = langsService.findByCode(req.getLangCode());
+		System.out.println("register: " + req.getSsoId());
+		
+		//Languages language = langsService.findByCode(req.getLangCode());
+		Integer idLanguage = langsService.findIdByCode(req.getLangCode());
+		if(idLanguage == null) {
+			idLanguage = 16;
+		}
+		
 		String idUser = usersService.generateUserId();
 		HttpSession session = request.getSession();
 		String idProfile = profileService.generateIdProfile();
@@ -118,10 +138,10 @@ public class MobileUserController {
 		Users users = null;
 		if(req.getLocation() == null) {
 			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
-					States.active, false, true, language);
+					States.active, false, true, idLanguage);
 		} else {
 			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
-					States.active, req.getLocation().getxLoc(), req.getLocation().getyLoc(), false, true, language);
+					States.active, req.getLocation().getxLoc(), req.getLocation().getyLoc(), false, true, idLanguage);
 		}
 		
 		Profiles profile = new Profiles(idProfile, idUser, req.getNickName(), req.getBirthday());
@@ -136,12 +156,26 @@ public class MobileUserController {
 			String date = authToken.getTimeExpiration();
 			response.setHeader("Whoever-Token", token);
 			response.setHeader("Token-expiration", date);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "Register fail!!!";
 		}
 		
 		return "Register successful!!!";
+	}
+	
+	@RequestMapping(value = {"/mobile/query"}, method = RequestMethod.GET,
+			produces = "application/json")
+	public @ResponseBody String findSsoIdAvaiable(HttpServletResponse response,
+			@RequestParam(value = "ssoId", required = true) String ssoId) {
+		String idUser = usersService.findIdUser(ssoId);
+		if(idUser == null) {
+			return "unavaiable";
+		}
+		System.out.println("find users: " + idUser);
+		return "avaiable";
 	}
 
 	@RequestMapping(value = { "/mobile/get/term" }, method = RequestMethod.GET,

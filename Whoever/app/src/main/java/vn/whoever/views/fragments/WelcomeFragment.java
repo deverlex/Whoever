@@ -2,10 +2,7 @@ package vn.whoever.views.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,15 +38,19 @@ public class WelcomeFragment extends Fragment implements Initgc {
     DatePickerFragment dateDialog;
     LanguagePickerFragment langDialog;
     private TextView textLogoApp;
-    private ProgressDialog dialog;
+    private ProgressDialog progressDialog;
 
     private Handler handler = new Handler();
     private int timeout;
+    private Integer httpCode = null;
 
     public static final String KEY_USE_ACCOUNT = "isSignUp";
 
     private boolean isAccount = false; // for use register account
     private String langCode;
+    private String ssoId;
+    private String password;
+    private String nickName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +60,9 @@ public class WelcomeFragment extends Fragment implements Initgc {
         Bundle bundle = getArguments();
         if(bundle.getBoolean(KEY_USE_ACCOUNT)) {
             isAccount = true;
+            ssoId = bundle.getString("ssoId");
+            password = bundle.getString("password");
+            nickName = bundle.getString("nickName");
         } else {
             isAccount = false;
         }
@@ -114,20 +117,11 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                     String strDate = dateDialog.getDateString();
 
-
-
                     if (isAccount) {
-                        /**
-                         * TODO: saved clear start activity
-                         */
-                        //BeginTransaction.getInstance(getActivity(), view).registerUser("satthumaulanh", "12345678", "hoa hai anh", "10-03-1994", "en");
+                        timeout = 50;
+                        BeginTransaction.getTransaction(getActivity()).registerUser(ssoId, password, nickName, strDate, langCode);
 
-                    } else {
-                        timeout = 10;
-                        BeginTransaction.getTransaction(getActivity()).getRequestLoginAnonymous(langCode);
-                        dialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
-                        dialog.show();
-
+                        progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -135,24 +129,60 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Integer httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
+                                            httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
                                             if (httpCode != null) {
-                                                if (HttpStatus.getStatus(getActivity()).code(httpCode)) {
+                                                if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
                                                     loadDataActive();
                                                 }
                                                 timeout = 0;
+                                                progressDialog.dismiss();
+                                            }
+                                            if(timeout == 1) {
+                                                progressDialog.dismiss();
+                                                HttpStatus.getStatus(getActivity()).codeSignInAnonymous(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                             }
                                         }
                                     });
                                     --timeout;
                                     try {
-                                        Thread.sleep(100);
+                                        Thread.sleep(150);
                                     } catch (InterruptedException e) {}
                                 }
-                                dialog.dismiss();
                             }
                         }).start();
 
+                    } else {
+                        timeout = 40;
+                        BeginTransaction.getTransaction(getActivity()).getRequestLoginAnonymous(langCode);
+                        progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (timeout > 0) {
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
+                                            if (httpCode != null) {
+                                                if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
+                                                    loadDataActive();
+                                                }
+                                                timeout = 0;
+                                                progressDialog.dismiss();
+                                            }
+                                            if(timeout == 1) {
+                                                progressDialog.dismiss();
+                                                HttpStatus.getStatus(getActivity()).codeSignInAnonymous(HttpStatus.SC_SERVICE_UNAVAIABLE);
+                                            }
+                                        }
+                                    });
+                                    --timeout;
+                                    try {
+                                        Thread.sleep(150);
+                                    } catch (InterruptedException e) {}
+                                }
+                            }
+                        }).start();
                     }
                 } else {
                     Toast.makeText(getActivity(), "You haven't enough year old", Toast.LENGTH_LONG).show();
@@ -176,18 +206,6 @@ public class WelcomeFragment extends Fragment implements Initgc {
                 /**
                  * TODO: popup menus language
                  */
-                // DialogFragment newFragment = new LanguagePickerFragment();
-                // newFragment.show(getActivity().getFragmentManager(), "languagePicker");
-
-                //LanguageDao languageDao = new LanguageDao(getActivity());
-                //languageDao.getArrayLanguageSupport();
-
-                /*
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList(LanguagePickerFragment.DATA, getItems());
-                bundle.putInt(LanguagePickerFragment.SELECTED, 0);
-                dialog.setArguments(bundle);
-                */
                 langDialog.show(getActivity().getFragmentManager(), "Dialog");
 
             }

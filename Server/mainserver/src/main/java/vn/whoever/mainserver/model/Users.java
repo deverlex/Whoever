@@ -1,6 +1,7 @@
 package vn.whoever.mainserver.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,10 +58,16 @@ public class Users implements Serializable {
 	
 	@Column(name = "isOnline", nullable = false)
 	private Boolean isOnline;
+	
+	@Column(name = "timeUp")
+	private Date timeUp;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idLanguage")
-	private Languages language;
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "idLanguage")
+//	private Languages language;
+	
+	@Column(name = "idLanguage", nullable = false, length = 4)
+	private Integer idLanguage;
 	
 	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	private Set<SetRoles> roles = new HashSet<SetRoles>();
@@ -70,7 +77,7 @@ public class Users implements Serializable {
 	}
 
 	public Users(String idUser, String ssoId, String password, States state, Boolean isAnonymous, Boolean isOnline,
-			Languages language) {
+			Integer idLanguage) {
 		super();
 		this.idUser = idUser;
 		this.ssoId = ssoId;
@@ -78,11 +85,11 @@ public class Users implements Serializable {
 		this.state = state;
 		this.isAnonymous = isAnonymous;
 		this.isOnline = isOnline;
-		this.language = language;
+		this.idLanguage = idLanguage;
 	}
 	
 	public Users(String idUser, String ssoId, String password, States state, Double xLoc, Double yLoc,
-			Boolean isAnonymous, Boolean isOnline, Languages language) {
+			Boolean isAnonymous, Boolean isOnline, Integer idLanguage) {
 		super();
 		this.idUser = idUser;
 		this.ssoId = ssoId;
@@ -92,11 +99,11 @@ public class Users implements Serializable {
 		this.yLoc = yLoc;
 		this.isAnonymous = isAnonymous;
 		this.isOnline = isOnline;
-		this.language = language;
+		this.idLanguage = idLanguage;
 	}
 
 	public Users(String idUser, String ssoId, String password, States state, 
-				Double xLoc, Double yLoc, Languages language, Set<SetRoles> roles) {
+				Double xLoc, Double yLoc, Integer idLanguage, Set<SetRoles> roles) {
 		super();
 		this.idUser = idUser;
 		this.ssoId = ssoId;
@@ -104,7 +111,23 @@ public class Users implements Serializable {
 		this.state = state;
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
-		this.language = language;
+		this.idLanguage = idLanguage;
+		this.roles = roles;
+	}
+
+	public Users(String idUser, String ssoId, String password, States state, Double xLoc, Double yLoc,
+			Boolean isAnonymous, Boolean isOnline, Date timeUp, Integer idLanguage, Set<SetRoles> roles) {
+		super();
+		this.idUser = idUser;
+		this.ssoId = ssoId;
+		this.password = password;
+		this.state = state;
+		this.xLoc = xLoc;
+		this.yLoc = yLoc;
+		this.isAnonymous = isAnonymous;
+		this.isOnline = isOnline;
+		this.timeUp = timeUp;
+		this.idLanguage = idLanguage;
 		this.roles = roles;
 	}
 
@@ -172,12 +195,20 @@ public class Users implements Serializable {
 		this.isOnline = isOnline;
 	}
 
-	public Languages getLanguage() {
-		return language;
+	public Date getTimeUp() {
+		return timeUp;
 	}
 
-	public void setLanguage(Languages language) {
-		this.language = language;
+	public void setTimeUp(Date timeUp) {
+		this.timeUp = timeUp;
+	}
+	
+	public Integer getIdLanguage() {
+		return idLanguage;
+	}
+
+	public void setIdLanguage(Integer idLanguage) {
+		this.idLanguage = idLanguage;
 	}
 
 	public Set<SetRoles> getRoles() {

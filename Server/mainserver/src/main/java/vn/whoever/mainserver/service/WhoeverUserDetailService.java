@@ -26,7 +26,6 @@ public class WhoeverUserDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
 		Users user = usersService.findBySsoId(ssoId);
 		if (user == null) {
-			System.out.println("User not found");
 			throw new UsernameNotFoundException("Username not found");
 		}
 		return new User(user.getSsoId(), user.getPassword(), user.getState().getState().equals("active"), true, true,

@@ -7,6 +7,19 @@
 	"password" : "?"
 }
 
+// response
+
+{
+	"langName" : "",
+	"nickName" : "",
+	"birthday" : "",
+	"gender" : "",
+	"mobile" : "",
+	"email" : "",
+	"isOnline" : "",
+	"privacy" : ""
+}
+
 //Đăng ký mới tài khoản
 //Nếu bỏ dở xác nhận birthday và langCode thì lưu trữ tại máy.
 {

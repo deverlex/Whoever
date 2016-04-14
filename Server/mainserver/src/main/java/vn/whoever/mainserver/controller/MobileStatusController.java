@@ -47,7 +47,7 @@ public class MobileStatusController {
 	@Autowired
 	private ProfilesService profileService;
 	
-	@RequestMapping(value = "/mobile/gethome/{langCode}", method = RequestMethod.GET,
+	@RequestMapping(value = "/mobile/home/{langCode}", method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String getHome(HttpServletResponse httpResponse,
 			@PathVariable("langCode") String langCode) {
@@ -55,7 +55,7 @@ public class MobileStatusController {
 		return "";
 	}
 	
-	@RequestMapping(value = "/mobile/getnews", method = RequestMethod.POST, 
+	@RequestMapping(value = "/mobile/news", method = RequestMethod.POST, 
 			consumes = "application/json" ,produces = "application/json")
 	public @ResponseBody List<ReturnStatus> getNews(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody GetStatus getStatus) {
