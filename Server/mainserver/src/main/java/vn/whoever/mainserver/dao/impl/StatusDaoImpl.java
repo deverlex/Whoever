@@ -66,7 +66,7 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Status> getListStatusContainNearby(List<String> listFriends, String idUser, double xLoc, double yLoc, int offset) {
+	public List<Status> getListStatusContainNearby(List<String> listFriends, String idUser, Double xLoc, Double yLoc, int offset) {
 		final double ratio = 10; //0.0003;
 		
 		Criteria crit = createEntityCriteria();

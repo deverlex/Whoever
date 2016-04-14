@@ -136,11 +136,13 @@ public class BeginTransaction {
         try {
             Position position = (new GPSLocation(myActivity)).getLocation();
 
-            position.setX(Math.round(position.getX()*1000000)/1000000.0);
-            position.setY(Math.round(position.getY()*1000000)/1000000.0);
+            if(position != null) {
+                position.setX(Math.round(position.getX()*1000000)/1000000.0);
+                position.setY(Math.round(position.getY()*1000000)/1000000.0);
+                loc.put("xLoc", position.getX());
+                loc.put("yLoc", position.getY());
+            }
 
-            loc.put("xLoc", position.getX());
-            loc.put("yLoc", position.getY());
         } catch (SecurityException e) {
             e.printStackTrace();
         }

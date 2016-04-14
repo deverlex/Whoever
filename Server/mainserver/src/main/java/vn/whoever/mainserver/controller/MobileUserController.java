@@ -25,8 +25,10 @@ import vn.whoever.mainserver.model.Tokens;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.AuthenticalToken;
 import vn.whoever.mainserver.service.LanguagesService;
+import vn.whoever.mainserver.service.LocationIPService;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
+import vn.whoever.mainserver.service.utils.ClientLocation;
 import vn.whoever.support.model.request.CallLogin;
 import vn.whoever.support.model.request.CallRegister;
 import vn.whoever.support.model.utils.States;
@@ -50,14 +52,14 @@ public class MobileUserController {
 
 	 @Autowired
 	 private ProfilesService profileService;
+	 
+	 @Autowired
+	 private LocationIPService locationService;
 
 	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST,
 			produces = "application/json", consumes = "application/json")
 	public @ResponseBody ReturnCallLogin loginWithAccount(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody CallLogin login) {
-		
-		System.out.println(login.getSsoId());
-		System.out.println(login.getPassword());
 		
 		ReturnCallLogin rCLogin = null;
 		HttpSession session = request.getSession();
@@ -89,11 +91,22 @@ public class MobileUserController {
 	@RequestMapping(value = { "/mobile/anonymous/{langCode}" }, method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String loginAnonymous(HttpServletRequest request, HttpServletResponse response, @PathVariable("langCode") String langCode) {
+		
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if (ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
+		}
+		ClientLocation location = locationService.getLocation(ipAddress);
+		
+		System.out.println("xLoc: " + location.getLatitude());
+		System.out.println("yLoc: " + location.getLongitude());
+		
 		Languages language = langsService.findByCode(langCode);
 		if(language == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			return null;
 		}
+		
 		String ssoId = usersService.generateSsoId();
 		String password = usersService.generatePassword();
 		String idUser = usersService.generateUserId();
@@ -123,9 +136,16 @@ public class MobileUserController {
 	public @ResponseBody String registerAccount(HttpServletRequest request, 
 			HttpServletResponse response, @RequestBody CallRegister req) {
 		
-		System.out.println("register: " + req.getSsoId());
+		if(req.getLocation().getxLoc() == null) {
+			String ipAddress = request.getHeader("X-FORWARDED-FOR");  
+			   if (ipAddress == null) {  
+				   ipAddress = request.getRemoteAddr();  
+			   }
+			ClientLocation location = locationService.getLocation(ipAddress);
+			req.getLocation().setxLoc(location.getLatitude());
+			req.getLocation().setyLoc(location.getLongitude());
+		}
 		
-		//Languages language = langsService.findByCode(req.getLangCode());
 		Integer idLanguage = langsService.findIdByCode(req.getLangCode());
 		if(idLanguage == null) {
 			idLanguage = 16;

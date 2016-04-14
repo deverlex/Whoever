@@ -45,8 +45,7 @@ public class GPSLocation {
             lat = location.getLatitude();
             lon = location.getLongitude();
         } catch (NullPointerException e) {
-            lat = -1.0;
-            lon = -1.0;
+            return null;
         }
         return  new Position(lat, lon);
     }

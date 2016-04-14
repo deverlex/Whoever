@@ -57,6 +57,9 @@ public class StatusServiceImpl implements StatusService {
 		String idUser = usersDao.findIdUser(getStatus.getSsoId());
 		List<String> lIdFriend = contactUserDao.getListIdFriend(contactsDao.getIdContact(idUser));
 		List<Status> listStatus = null;
+		if(getStatus.getLocation().getxLoc() == null) {
+			
+		}
 		if(getStatus.getOrder() == Order.friends) {
 			listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser,getStatus.getOffset());
 		} else {

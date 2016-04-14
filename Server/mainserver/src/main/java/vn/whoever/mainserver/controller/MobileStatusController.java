@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.model.Users;
+import vn.whoever.mainserver.service.LocationIPService;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
+import vn.whoever.mainserver.service.utils.ClientLocation;
 import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.PostStatus;
 import vn.whoever.support.model.utils.Interacts;
@@ -47,6 +49,9 @@ public class MobileStatusController {
 	@Autowired
 	private ProfilesService profileService;
 	
+	@Autowired
+	private LocationIPService locationService;
+	
 	@RequestMapping(value = "/mobile/home/{langCode}", method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String getHome(HttpServletResponse httpResponse,
@@ -59,6 +64,17 @@ public class MobileStatusController {
 			consumes = "application/json" ,produces = "application/json")
 	public @ResponseBody List<ReturnStatus> getNews(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody GetStatus getStatus) {
+		
+		if(getStatus.getLocation().getxLoc() == null) {
+			String ipAddress = request.getHeader("X-FORWARDED-FOR");
+			if(ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+			ClientLocation location = locationService.getLocation(ipAddress);
+			getStatus.getLocation().setxLoc(location.getLatitude());
+			getStatus.getLocation().setyLoc(location.getLongitude());
+		}
+		
 		List<ReturnStatus> listReturn = new ArrayList<ReturnStatus>();
 		List<Status> listTemp = statusService.getListStatus(getStatus);
 		
@@ -93,6 +109,16 @@ public class MobileStatusController {
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
+		
+		if(postStatus.getLocation().getxLoc() == null) {
+			String ipAddress = request.getHeader("X-FORWARDED-FOR");
+			if(ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+			ClientLocation location = locationService.getLocation(ipAddress);
+			postStatus.getLocation().setxLoc(location.getLatitude());
+			postStatus.getLocation().setyLoc(location.getLongitude());
+		}
 		
 		Boolean hasImage = postStatus.getContentImage().equals("") ? false : true;
 		Users users = userService.findBySsoId(postStatus.getSsoId());
