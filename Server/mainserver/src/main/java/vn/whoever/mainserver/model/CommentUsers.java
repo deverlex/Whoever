@@ -6,24 +6,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.DynamicUpdate;
 
 import vn.whoever.support.model.utils.Interacts;
 
 @Entity
 @Table(name = "comment_users", uniqueConstraints = 
 	@UniqueConstraint(columnNames = {"idUser", "idComment"}))
+@DynamicUpdate(value  = true)
 public class CommentUsers implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -165453L;
+	private static final long serialVersionUID = 99897776165453L;
 	
 	@Id
 	@Column(name = "idComment", nullable = false)
@@ -33,19 +33,19 @@ public class CommentUsers implements Serializable {
 	@Column(name = "idUser", nullable = false)
 	private String idUser;
 	
-	@Column(name = "interact", nullable = false)
+	@Column(name = "interact")
 	@Enumerated(EnumType.STRING)
-	private Interacts interacts;
+	private Interacts interact = Interacts.normal;
 	
 	public CommentUsers() {
 		super();
 	}
 	
-	public CommentUsers(String idComment, String idUser, Interacts interacts) {
+	public CommentUsers(String idComment, String idUser, Interacts interact) {
 		super();
 		this.idComment = idComment;
 		this.idUser = idUser;
-		this.interacts = interacts;
+		this.interact = interact;
 	}
 
 	public String getIdComment() {
@@ -65,10 +65,10 @@ public class CommentUsers implements Serializable {
 	}
 
 	public Interacts getInteracts() {
-		return interacts;
+		return interact;
 	}
 	
 	public void setInteracts(Interacts interacts) {
-		this.interacts = interacts;
+		this.interact = interacts;
 	}
 }

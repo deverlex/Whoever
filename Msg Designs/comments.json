@@ -10,7 +10,8 @@
 	{
 		"idComment" : "",
 		"ssoId" : "",
-		"nickName" : "",
+		"namePoster" : "",
+		"avatarPoster" : "",
 		"content" : "",
 		"timePost" : "",
 		"totalLike" : "",

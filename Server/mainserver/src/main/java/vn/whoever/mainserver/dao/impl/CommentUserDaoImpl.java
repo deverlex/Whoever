@@ -52,10 +52,14 @@ public class CommentUserDaoImpl extends AbstractDao<String, CommentUsers> implem
 	}
 
 	public int getTotalInteract(String idComment, Interacts interact) {
+		System.out.println("idComment: " + idComment);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.and(Restrictions.eq("idComment", idComment), 
 				Restrictions.eq("interact", interact)));
+		System.out.println("With interact: " + interact);
 		crit.setProjection(Projections.rowCount());
-		return ((Number) crit.uniqueResult()).intValue();
+		int number = ((Number) crit.uniqueResult()).intValue();
+				
+		return number;
 	}
 }

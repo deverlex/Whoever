@@ -54,14 +54,12 @@ public class MobileCommentController {
 			@PathVariable(value = "idStatus") String idStatus,
 			@RequestBody PostComment postComment) throws IOException {
 		
-		System.out.println("idUser comment: " + authToken.getIdUserHttp(request));
 		try {
 			Status status = statusService.getStatus(idStatus);
 			status.setTimeUp(new Date());
 			statusService.updateStatus(status);
 			commentService.postNewComment(idStatus, authToken.getIdUserHttp(request), postComment);
 		} catch (Exception e) {
-			System.out.println("Co loi xay ra trong he thong!!!");
 			response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
 		}
 		
@@ -94,19 +92,34 @@ public class MobileCommentController {
 		
 		List<Comments> listCmt = commentService.getListComment(idStatus);
 		List<ReturnComment> lReturnCmt = new LinkedList<ReturnComment>();
-		
 		for (Comments comment : listCmt) {
 			ReturnComment returnCmt = new ReturnComment();
 			returnCmt.setIdComment(comment.getIdComment());
 			returnCmt.setContent(comment.getContent());
 			returnCmt.setTimePost(TimePost.getTimePost(comment.getTimePost()));
 			if(comment.getIsUseAccount()) {
+				
 				String ssoId = userService.findSsoIdbyIdUser(comment.getIdUser());
 				String nickName = profileService.getNickName(comment.getIdUser());
+				
+				System.out.println("ssoId: " + ssoId);
+				System.out.println("nickName: " + nickName);
+				
+				returnCmt.setSsoIdPoster(ssoId);
+				returnCmt.setNamePoster(nickName);
+				returnCmt.setAvatarPoster("haven't a avatar");
+			} else {
+				returnCmt.setAvatarPoster("null");
+				returnCmt.setNamePoster("null");
+				returnCmt.setSsoIdPoster("null");
 			}
+			
+			returnCmt.setTotalLike(commentService.getTotalLikeComment(comment.getIdComment()));
+			returnCmt.setTotalDislike(commentService.getTotalDislikeComment(comment.getIdComment()));
+			returnCmt.setTimePost(TimePost.getTimePost(comment.getTimePost()));
+			lReturnCmt.add(returnCmt);
 		}
-		
-		return null;
+		return lReturnCmt;
 	}
 	
 	

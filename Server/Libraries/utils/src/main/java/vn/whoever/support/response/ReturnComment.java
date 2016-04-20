@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Interacts;
 
 @XmlRootElement(name = "returnComment")
-@XmlType(propOrder = {"idComment", "ssoId", "nickName", "content", "timePost", "totalLike", "totalDislike"})
-@JsonPropertyOrder(value = {"idComment", "ssoId", "nickName", "content", "timePost", "totalLike", "totalDislike"})
+@XmlType(propOrder = {"idComment", "ssoIdPoster", "namePoster", "avatarPoster", "content", "timePost", "totalLike", "totalDislike"})
+@JsonPropertyOrder(value = {"idComment", "ssoIdPoster", "namePoster", "avatarPoster", "content", "timePost", "totalLike", "totalDislike"})
 public class ReturnComment implements Serializable {
 
 	/**
@@ -23,11 +23,14 @@ public class ReturnComment implements Serializable {
 	@XmlElement(name = "idComment", required = true)
 	private String idComment;
 	
-	@XmlElement(name = "ssoId")
-	private String ssoId;
+	@XmlElement(name = "ssoIdPoster")
+	private String ssoIdPoster;
 	
-	@XmlElement(name = "nickName")
-	private String nickName;
+	@XmlElement(name = "namePoster")
+	private String namePoster;
+	
+	@XmlElement(name = "avatarPoster")
+	private String avatarPoster;
 	
 	@XmlElement(name = "content", required = true)
 	private String content;
@@ -36,10 +39,10 @@ public class ReturnComment implements Serializable {
 	private String timePost;
 	
 	@XmlElement(name = "totalLike", defaultValue = "0")
-	private int totalLike;
+	private Integer totalLike;
 	
 	@XmlElement(name = "totalDislike", defaultValue = "0")
-	private int totalDislike;
+	private Integer totalDislike;
 	
 	@XmlElement(name = "interact", defaultValue = "normal")
 	private Interacts interact;
@@ -48,12 +51,13 @@ public class ReturnComment implements Serializable {
 		super();
 	}
 
-	public ReturnComment(String idComment, String ssoId, String nickName, String content, String timePost,
-			int totalLike, int totalDislike, Interacts interact) {
+	public ReturnComment(String idComment, String ssoIdPoster, String namePoster, String avatarPoster, String content,
+			String timePost, Integer totalLike, Integer totalDislike, Interacts interact) {
 		super();
 		this.idComment = idComment;
-		this.ssoId = ssoId;
-		this.nickName = nickName;
+		this.ssoIdPoster = ssoIdPoster;
+		this.namePoster = namePoster;
+		this.avatarPoster = avatarPoster;
 		this.content = content;
 		this.timePost = timePost;
 		this.totalLike = totalLike;
@@ -69,20 +73,28 @@ public class ReturnComment implements Serializable {
 		this.idComment = idComment;
 	}
 
-	public String getSsoId() {
-		return ssoId;
+	public String getSsoIdPoster() {
+		return ssoIdPoster;
 	}
 
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
+	public void setSsoIdPoster(String ssoIdPoster) {
+		this.ssoIdPoster = ssoIdPoster;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNamePoster() {
+		return namePoster;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNamePoster(String namePoster) {
+		this.namePoster = namePoster;
+	}
+
+	public String getAvatarPoster() {
+		return avatarPoster;
+	}
+
+	public void setAvatarPoster(String avatarPoster) {
+		this.avatarPoster = avatarPoster;
 	}
 
 	public String getContent() {
@@ -101,19 +113,19 @@ public class ReturnComment implements Serializable {
 		this.content = content;
 	}
 
-	public int getTotalLike() {
+	public Integer getTotalLike() {
 		return totalLike;
 	}
 
-	public void setTotalLike(int totalLike) {
+	public void setTotalLike(Integer totalLike) {
 		this.totalLike = totalLike;
 	}
 
-	public int getTotalDislike() {
+	public Integer getTotalDislike() {
 		return totalDislike;
 	}
 
-	public void setTotalDislike(int totalDislike) {
+	public void setTotalDislike(Integer totalDislike) {
 		this.totalDislike = totalDislike;
 	}
 

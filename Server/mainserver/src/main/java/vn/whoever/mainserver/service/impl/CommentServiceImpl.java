@@ -45,4 +45,12 @@ public class CommentServiceImpl implements CommentService {
 	public Interacts getInteractCommentState(String idComment, String idUser) {
 		return commentUserDao.getInteractStateComment(idComment, idUser);
 	}
+
+	public int getTotalLikeComment(String idComment) {
+		return commentUserDao.getTotalInteract(idComment, Interacts.like);
+	}
+
+	public int getTotalDislikeComment(String idComment) {
+		return commentUserDao.getTotalInteract(idComment, Interacts.dislike);
+	}
 }

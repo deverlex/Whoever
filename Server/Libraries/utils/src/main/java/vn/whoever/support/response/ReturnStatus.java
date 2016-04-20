@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Interacts;
 
 @XmlRootElement(name = "returnGetStatus")
-@XmlType(propOrder = {"idStatus", "idPoster", "namePoster", "timePost", "contentText", "contentImage", 
+@XmlType(propOrder = {"idStatus", "ssoIdPoster", "namePoster", "timePost", "contentText", "contentImage", 
 					"totalLike", "totalDislike", "totalComment"})
-@JsonPropertyOrder(value = {"idStatus", "idPoster", "namePoster", "timePost", "contentText", "contentImage", 
+@JsonPropertyOrder(value = {"idStatus", "ssoIdPoster", "namePoster", "timePost", "contentText", "contentImage", 
 					"totalLike", "totalDislike", "totalComment"})
 public class ReturnStatus implements Serializable {
 

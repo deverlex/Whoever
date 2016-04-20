@@ -88,7 +88,7 @@ public class MobileStatusController {
 				String ssoIdPoster = userService.findSsoIdbyIdUser(status.getIdUser());
 				rStatus.setSsoIdPoster(ssoIdPoster);
 				// set avatar = null, develop later
-				rStatus.setAvatarPoster(null);
+				rStatus.setAvatarPoster("haven't avatar now");
 				String nickName = profileService.getNickName(status.getIdUser());
 				rStatus.setNamePoster(nickName);
 			} else {
