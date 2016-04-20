@@ -3,7 +3,6 @@ package vn.whoever.mainserver.dao.impl;
 import java.io.Serializable;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -44,6 +43,4 @@ public class TokensDaoImpl extends AbstractDao<String, Tokens> implements Tokens
 		crit.add(Restrictions.eq("idUser", idUser));
 		return (Tokens) crit.uniqueResult();
 	}
-
-
 }

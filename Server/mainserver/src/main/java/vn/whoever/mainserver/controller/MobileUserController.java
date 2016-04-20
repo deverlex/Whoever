@@ -23,7 +23,7 @@ import vn.whoever.mainserver.model.Languages;
 import vn.whoever.mainserver.model.Profiles;
 import vn.whoever.mainserver.model.Tokens;
 import vn.whoever.mainserver.model.Users;
-import vn.whoever.mainserver.service.AuthenticalToken;
+import vn.whoever.mainserver.service.AuthToken;
 import vn.whoever.mainserver.service.LanguagesService;
 import vn.whoever.mainserver.service.LocationIPService;
 import vn.whoever.mainserver.service.ProfilesService;
@@ -48,7 +48,7 @@ public class MobileUserController {
 	private UsersService usersService;
 
 	@Autowired
-	private AuthenticalToken authToken;
+	private AuthToken authToken;
 
 	 @Autowired
 	 private ProfilesService profileService;
@@ -77,7 +77,7 @@ public class MobileUserController {
 					profile.getMobile(), profile.getEmail(), user.getIsOnline(), profile.getPrivacy());
 			
 			Tokens tokens = authToken.getToken(login.getSsoId());
-			response.setHeader("Whoever-Token", tokens.getToken());
+			response.setHeader("Whoever-token", tokens.getToken());
 			response.setHeader("Token-expiration", tokens.getTimeExp());
 			
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -120,7 +120,7 @@ public class MobileUserController {
 			
 			String token = authToken.initToken(users);
 			String date = authToken.getTimeExpiration();
-			response.setHeader("Whoever-Token", token);
+			response.setHeader("Whoever-token", token);
 			response.setHeader("Token-expiration", date);
 			
 			response.setStatus(HttpServletResponse.SC_CREATED);
@@ -171,7 +171,7 @@ public class MobileUserController {
 			
 			String token = authToken.initToken(users);
 			String date = authToken.getTimeExpiration();
-			response.setHeader("Whoever-Token", token);
+			response.setHeader("Whoever-token", token);
 			response.setHeader("Token-expiration", date);
 			
 			
@@ -179,7 +179,7 @@ public class MobileUserController {
 			e.printStackTrace();
 			return "Register fail!!!";
 		}
-		
+	
 		return "Register successful!!!";
 	}
 	

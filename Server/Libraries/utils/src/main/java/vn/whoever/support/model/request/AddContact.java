@@ -6,17 +6,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
+
 @XmlRootElement(name = "addContact")
-@XmlType(propOrder = {"ssoId", "ssoIdFriend"})
+@XmlType(propOrder = {"ssoIdFriend"})
+@JsonPropertyOrder(value = {"ssoIdFriend"})
 public class AddContact implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8962553222971L;
-
-	@XmlElement(name = "ssoId", required = true)
-	private String ssoId;
 	
 	@XmlElement(name = "ssoIdFriend", required = true)
 	private String ssoIdFriend;
@@ -25,18 +25,9 @@ public class AddContact implements Serializable {
 		super();
 	}
 
-	public AddContact(String ssoId, String ssoIdFriend) {
+	public AddContact(String ssoIdFriend) {
 		super();
-		this.ssoId = ssoId;
 		this.ssoIdFriend = ssoIdFriend;
-	}
-
-	public String getSsoId() {
-		return ssoId;
-	}
-
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
 	}
 
 	public String getSsoIdFriend() {

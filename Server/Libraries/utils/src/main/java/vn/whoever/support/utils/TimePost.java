@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimePost {
-
 	
 	private static TimePost tpost = new TimePost();
 	

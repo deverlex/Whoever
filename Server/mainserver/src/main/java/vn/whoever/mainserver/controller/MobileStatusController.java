@@ -92,7 +92,7 @@ public class MobileStatusController {
 				rStatus.setAvatarPoster("null");
 				rStatus.setNamePoster("anonymous");
 			}
-			String timePost = TimePost.getTimePost(status.getTimePost());
+			String timePost = TimePost.getTimePost(status.getTimeUp());
 			rStatus.setTimePost(timePost);
 			rStatus.setContentText(status.getContent());
 			rStatus.setContentImage(null);

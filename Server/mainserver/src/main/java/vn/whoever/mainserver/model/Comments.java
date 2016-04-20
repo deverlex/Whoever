@@ -1,6 +1,7 @@
 package vn.whoever.mainserver.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,9 @@ public class Comments implements Serializable {
 	@Column(name = "idStatus", nullable = false, length = 16)
 	private String idStatus;
 	
+	@Column(name = "timePost", nullable = false)
+	private Date timePost;
+	
 	@Column(name = "content", nullable = false)
 	private String content;
 	
@@ -41,6 +45,17 @@ public class Comments implements Serializable {
 		this.idComment = idComment;
 		this.idUser = idUser;
 		this.idStatus = idStatus;
+		this.content = content;
+		this.isUseAccount = isUseAccount;
+	}
+
+	public Comments(String idComment, String idUser, String idStatus, Date timePost, String content,
+			Boolean isUseAccount) {
+		super();
+		this.idComment = idComment;
+		this.idUser = idUser;
+		this.idStatus = idStatus;
+		this.timePost = timePost;
 		this.content = content;
 		this.isUseAccount = isUseAccount;
 	}
@@ -77,6 +92,14 @@ public class Comments implements Serializable {
 		this.content = content;
 	}
 	
+	public Date getTimePost() {
+		return timePost;
+	}
+
+	public void setTimePost(Date timePost) {
+		this.timePost = timePost;
+	}
+
 	public Boolean getIsUseAccount() {
 		return isUseAccount;
 	}

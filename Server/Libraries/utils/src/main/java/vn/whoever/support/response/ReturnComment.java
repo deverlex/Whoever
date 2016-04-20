@@ -1,6 +1,6 @@
 package vn.whoever.support.response;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,9 +13,14 @@ import vn.whoever.support.model.utils.Interacts;
 @XmlRootElement(name = "returnComment")
 @XmlType(propOrder = {"idComment", "ssoId", "nickName", "content", "timePost", "totalLike", "totalDislike"})
 @JsonPropertyOrder(value = {"idComment", "ssoId", "nickName", "content", "timePost", "totalLike", "totalDislike"})
-public class ReturnComment {
+public class ReturnComment implements Serializable {
 
-	@XmlElement(name = "idComment")
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1484837783364L;
+
+	@XmlElement(name = "idComment", required = true)
 	private String idComment;
 	
 	@XmlElement(name = "ssoId")
@@ -24,11 +29,11 @@ public class ReturnComment {
 	@XmlElement(name = "nickName")
 	private String nickName;
 	
-	@XmlElement(name = "content")
+	@XmlElement(name = "content", required = true)
 	private String content;
 	
-	@XmlElement(name = "timePost")
-	private Date timePost;
+	@XmlElement(name = "timePost", required = true)
+	private String timePost;
 	
 	@XmlElement(name = "totalLike", defaultValue = "0")
 	private int totalLike;
@@ -43,15 +48,17 @@ public class ReturnComment {
 		super();
 	}
 
-	public ReturnComment(String idComment, String ssoId, String nickName, 
-						String content, int totalLike, int totalDislike) {
+	public ReturnComment(String idComment, String ssoId, String nickName, String content, String timePost,
+			int totalLike, int totalDislike, Interacts interact) {
 		super();
 		this.idComment = idComment;
 		this.ssoId = ssoId;
 		this.nickName = nickName;
 		this.content = content;
+		this.timePost = timePost;
 		this.totalLike = totalLike;
 		this.totalDislike = totalDislike;
+		this.interact = interact;
 	}
 
 	public String getIdComment() {
@@ -82,6 +89,14 @@ public class ReturnComment {
 		return content;
 	}
 
+	public String getTimePost() {
+		return timePost;
+	}
+
+	public void setTimePost(String timePost) {
+		this.timePost = timePost;
+	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -100,5 +115,13 @@ public class ReturnComment {
 
 	public void setTotalDislike(int totalDislike) {
 		this.totalDislike = totalDislike;
+	}
+
+	public Interacts getInteract() {
+		return interact;
+	}
+
+	public void setInteract(Interacts interact) {
+		this.interact = interact;
 	}
 }
