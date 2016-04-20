@@ -1,5 +1,7 @@
 package vn.whoever.support.response;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -9,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Interacts;
 
 @XmlRootElement(name = "returnComment")
-@XmlType(propOrder = {"idComment", "ssoId", "nickName", "content", "totalLike", "totalDislike"})
-@JsonPropertyOrder(value = {"idComment", "ssoId", "nickName", "content", "totalLike", "totalDislike"})
+@XmlType(propOrder = {"idComment", "ssoId", "nickName", "content", "timePost", "totalLike", "totalDislike"})
+@JsonPropertyOrder(value = {"idComment", "ssoId", "nickName", "content", "timePost", "totalLike", "totalDislike"})
 public class ReturnComment {
 
 	@XmlElement(name = "idComment")
@@ -24,6 +26,9 @@ public class ReturnComment {
 	
 	@XmlElement(name = "content")
 	private String content;
+	
+	@XmlElement(name = "timePost")
+	private Date timePost;
 	
 	@XmlElement(name = "totalLike", defaultValue = "0")
 	private int totalLike;

@@ -34,7 +34,7 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 	}
 
 	public void updateStatus(Status status) {
-		persist(status);
+		update(status);
 	}
 
 	public void deleteStatus(String idStatus) {
@@ -95,5 +95,11 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		crit.setMaxResults(120);
 
 		return (List<Status>) crit.list();
+	}
+
+	public Status getStatus(String idStatus) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("idStatus", idStatus));
+		return (Status) crit.uniqueResult();
 	}
 }

@@ -13,6 +13,7 @@
 		"ssoId" : "",
 		"nickName" : "",
 		"content" : "",
+		"timePost" : "",
 		"totalLike" : "",
 		"totalDislike" : "",
 		"interact" : ""

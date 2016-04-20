@@ -2,19 +2,19 @@ package vn.whoever.mainserver.service;
 
 import java.util.List;
 
-import org.springframework.aop.IntroductionInterceptor;
-
 import vn.whoever.mainserver.model.Status;
-import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.InteractStatus;
 import vn.whoever.support.model.utils.Interacts;
-import vn.whoever.support.model.utils.Location;
 import vn.whoever.support.model.utils.Order;
 
 public interface StatusService {
 
 	public String generateStatusId();
-	public boolean postStatus(Status status);
+	public void postStatus(Status status);
+	
+	public void updateStatus(Status status);
+	public Status getStatus(String idStatus);
+	
 	
 	public List<Status> getListStatus(String idUser, Order order, int offset, double xLoc, double yLoc);
 	

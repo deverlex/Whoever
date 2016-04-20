@@ -8,12 +8,11 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import vn.whoever.support.model.utils.Location;
 import vn.whoever.support.model.utils.Order;
 
 @XmlRootElement(name = "getStatus")
-@XmlType(propOrder = {"ssoId", "order", "offset", "location"})
-@JsonPropertyOrder(value = {"ssoId", "order", "offset", "location"})
+@XmlType(propOrder = {"ssoId", "order", "offset"})
+@JsonPropertyOrder(value = {"ssoId", "order", "offset"})
 public class GetStatus implements Serializable {
 
 	/**

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @XmlRootElement(name = "callLogin")
 @XmlType(propOrder = {"ssoId", "password"})
 @JsonPropertyOrder(value = {"ssoId", "password"})
-public class CallLogin {
+public class CallLogin implements Serializable {
 	
 	/**
 	 * 

@@ -31,7 +31,7 @@ public class CommentsDaoImpl extends AbstractDao<String, Comments> implements Co
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Comments> getComments(String idStatus) {
+	public List<Comments> getListComments(String idStatus) {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("idStatus", idStatus));
 		return (List<Comments>) crit.list();

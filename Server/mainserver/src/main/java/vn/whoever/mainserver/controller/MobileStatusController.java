@@ -109,7 +109,7 @@ public class MobileStatusController {
 	
 	@RequestMapping(value = "/mobile/status", method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
+	public @ResponseBody void postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
 		
 		String ipAddress = request.getHeader("X-FORWARDED-FOR");
@@ -124,15 +124,11 @@ public class MobileStatusController {
 		Status status = new Status(statusService.generateStatusId(), users.getIdUser(), postStatus.getContentText(),
 				new Date(), location.getLatitude(), location.getLongitude(), 
 				postStatus.getPrivacy(), postStatus.getIsUseAccount(), hasImage);
-		boolean result = statusService.postStatus(status);
 		if(hasImage) {
 			//TODO: insert image to DB in here
 			
 		}
-		if(result == true){
-			return "Post Successfull!!";
-		}
-		return "post fail";
+		statusService.postStatus(status);
 	}
 
 	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.PUT,

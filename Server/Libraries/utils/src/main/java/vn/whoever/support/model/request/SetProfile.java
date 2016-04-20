@@ -48,8 +48,8 @@ public class SetProfile implements Serializable {
 		super();
 	}
 
-	public SetProfile(String ssoId, String nickName, Date birthday, Genders gender, String mobile, String email,
-			Privacies privacy) {
+	public SetProfile(String ssoId, String nickName, Date birthday, Genders gender, 
+			String mobile, String email, Privacies privacy) {
 		super();
 		this.ssoId = ssoId;
 		this.nickName = nickName;

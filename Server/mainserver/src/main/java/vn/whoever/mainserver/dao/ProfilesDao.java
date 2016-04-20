@@ -1,7 +1,5 @@
 package vn.whoever.mainserver.dao;
 
-import java.util.List;
-
 import vn.whoever.mainserver.model.Profiles;
 
 public interface ProfilesDao {

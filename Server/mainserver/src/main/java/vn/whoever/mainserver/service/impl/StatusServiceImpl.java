@@ -1,5 +1,6 @@
 package vn.whoever.mainserver.service.impl;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,15 +52,18 @@ public class StatusServiceImpl implements StatusService {
 		return GenerateIdImpl.generateId().getId();
 	}
 	
-	public boolean postStatus(Status status) {
-		try {
-			statusDao.postStatus(status);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	public void postStatus(Status status) {
+		statusDao.postStatus(status);
 	}
+	
+	public void updateStatus(Status status) {
+		statusDao.updateStatus(status);
+	}
+
+	public Status getStatus(String idStatus) {
+		return statusDao.getStatus(idStatus);
+	}
+	
 	/**
 	 * This is heart of Whoever project.
 	 * @param getStatus
@@ -82,6 +86,9 @@ public class StatusServiceImpl implements StatusService {
 	public void interactStatus(String idStatus, InteractStatus interactStt) {
 		String idUser = usersDao.findIdUser(interactStt.getSsoId());
 		statusUserDao.addInteractStatus(idStatus, idUser, interactStt.getInteract());
+		Status status = statusDao.getStatus(idStatus);
+		status.setTimeUp(new Date());
+		statusDao.updateStatus(status);
 	}
 
 	public Interacts getInteractStatusState(String idStatus, String idUser) {

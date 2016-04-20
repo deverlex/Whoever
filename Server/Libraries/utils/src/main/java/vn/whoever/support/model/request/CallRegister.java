@@ -9,11 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import vn.whoever.support.model.utils.Location;
-
 @XmlRootElement(name = "callRegister")
-@XmlType(propOrder = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
-@JsonPropertyOrder(value = {"ssoId", "password", "nickName", "birthday", "langCode", "location"})
+@XmlType(propOrder = {"ssoId", "password", "nickName", "birthday", "langCode"})
+@JsonPropertyOrder(value = {"ssoId", "password", "nickName", "birthday", "langCode"})
 public class CallRegister implements Serializable {
 	
 	/**

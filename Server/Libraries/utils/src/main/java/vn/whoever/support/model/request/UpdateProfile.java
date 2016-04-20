@@ -44,8 +44,8 @@ public class UpdateProfile implements Serializable {
 		super();
 	}
 
-	public UpdateProfile(String nickName, Date birthday, Genders gender, String mobile, String email,
-			Privacies privacy) {
+	public UpdateProfile(String nickName, Date birthday, Genders gender, String mobile, 
+			String email, Privacies privacy) {
 		super();
 		this.nickName = nickName;
 		this.birthday = birthday;
