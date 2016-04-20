@@ -9,17 +9,14 @@ import javax.xml.bind.annotation.XmlType;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 @XmlRootElement(name = "postComment")
-@XmlType(propOrder = {"ssoId", "content", "isUseAccount"})
-@JsonPropertyOrder(value = {"ssoId", "content", "isUseAccount"})
+@XmlType(propOrder = {"content", "isUseAccount"})
+@JsonPropertyOrder(value = {"content", "isUseAccount"})
 public class PostComment implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 100449020987462234L;
-
-	@XmlElement(name = "ssoId", required = true)
-	private String ssoId;
 	
 	@XmlElement(name = "content", required = true)
 	private String content;
@@ -31,19 +28,10 @@ public class PostComment implements Serializable {
 		super();
 	}
 
-	public PostComment(String ssoId, String content, Boolean isUseAccount) {
+	public PostComment(String content, Boolean isUseAccount) {
 		super();
-		this.ssoId = ssoId;
 		this.content = content;
 		this.isUseAccount = isUseAccount;
-	}
-
-	public String getSsoId() {
-		return ssoId;
-	}
-
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
 	}
 
 	public String getContent() {

@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import vn.whoever.mainserver.service.AuthenticalToken;
+import vn.whoever.mainserver.service.AuthToken;
 import vn.whoever.support.utils.FormatDate;
 
 public class ApplicationFilterConfig implements Filter {
 
 	@Autowired
-	private AuthenticalToken authenticalToken;
+	private AuthToken authToken;
 	
 	private FormatDate formatDate = new FormatDate();
 

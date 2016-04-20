@@ -13,8 +13,8 @@ import vn.whoever.support.model.utils.Genders;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "setProfile")
-@XmlType(propOrder = {"ssoId", "nickName", "birthday", "gender", "mobile", "email", "privacy"})
-@JsonPropertyOrder(value = {"ssoId", "nickName", "birthday", "gender", "mobile", "email", "privacy"})
+@XmlType(propOrder = {"nickName", "birthday", "gender", "mobile", "email", "privacy"})
+@JsonPropertyOrder(value = {"nickName", "birthday", "gender", "mobile", "email", "privacy"})
 public class SetProfile implements Serializable {
 
 	
@@ -22,9 +22,6 @@ public class SetProfile implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@XmlElement(name = "ssoId", required = true)
-	private String ssoId;
 	
 	@XmlElement(name = "nickName")
 	private String nickName;
@@ -48,24 +45,15 @@ public class SetProfile implements Serializable {
 		super();
 	}
 
-	public SetProfile(String ssoId, String nickName, Date birthday, Genders gender, 
+	public SetProfile(String nickName, Date birthday, Genders gender, 
 			String mobile, String email, Privacies privacy) {
 		super();
-		this.ssoId = ssoId;
 		this.nickName = nickName;
 		this.birthday = birthday;
 		this.gender = gender;
 		this.mobile = mobile;
 		this.email = email;
 		this.privacy = privacy;
-	}
-
-	public String getSsoId() {
-		return ssoId;
-	}
-
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
 	}
 
 	public String getNickName() {

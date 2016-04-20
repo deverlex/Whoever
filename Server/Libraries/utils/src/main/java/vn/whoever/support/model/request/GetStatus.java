@@ -11,17 +11,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Order;
 
 @XmlRootElement(name = "getStatus")
-@XmlType(propOrder = {"ssoId", "order", "offset"})
-@JsonPropertyOrder(value = {"ssoId", "order", "offset"})
+@XmlType(propOrder = {"order", "offset"})
+@JsonPropertyOrder(value = {"order", "offset"})
 public class GetStatus implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1546756534145678L;
-
-	@XmlElement(name = "ssoId", required = true)
-	private String ssoId;
 	
 	@XmlElement(name = "order")
 	private Order order = Order.nearby;
@@ -33,19 +30,10 @@ public class GetStatus implements Serializable {
 		super();
 	}
 
-	public GetStatus(String ssoId, Order order, int offset) {
+	public GetStatus(Order order, int offset) {
 		super();
-		this.ssoId = ssoId;
 		this.order = order;
 		this.offset = offset;
-	}
-
-	public String getSsoId() {
-		return ssoId;
-	}
-
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
 	}
 
 	public Order getOrder() {

@@ -27,7 +27,7 @@ public class Comments implements Serializable {
 	@Column(name = "idStatus", nullable = false, length = 16)
 	private String idStatus;
 	
-	@Column(name = "timePost", nullable = false)
+	@Column(name = "timePost")
 	private Date timePost;
 	
 	@Column(name = "content", nullable = false)

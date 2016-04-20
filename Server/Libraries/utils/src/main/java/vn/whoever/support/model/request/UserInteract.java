@@ -11,37 +11,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Interacts;
 
 @XmlRootElement(name = "interactStatus")
-@XmlType(propOrder = {"ssoId", "interact"})
-@JsonPropertyOrder(value = {"ssoId", "interact"})
-public class InteractStatus implements Serializable {
+@XmlType(propOrder = {"interact"})
+@JsonPropertyOrder(value = {"interact"})
+public class UserInteract implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 188477922874593L;
 	
-	@XmlElement(name = "ssoId", required = true)
-	private String ssoId;
-	
 	@XmlElement(name = "interact", required = true)
 	private Interacts interact;
 
-	public InteractStatus() {
+	public UserInteract() {
 		super();
 	}
 
-	public InteractStatus(String ssoId, Interacts interact) {
+	public UserInteract(Interacts interact) {
 		super();
-		this.ssoId = ssoId;
 		this.interact = interact;
-	}
-
-	public String getSsoId() {
-		return ssoId;
-	}
-
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
 	}
 
 	public Interacts getInteract() {

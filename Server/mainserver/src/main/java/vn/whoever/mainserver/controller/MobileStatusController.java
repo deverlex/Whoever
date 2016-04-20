@@ -19,13 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.model.Status;
 import vn.whoever.mainserver.model.Users;
+import vn.whoever.mainserver.service.AuthToken;
 import vn.whoever.mainserver.service.LocationIPService;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.mainserver.service.utils.ClientLocation;
 import vn.whoever.support.model.request.GetStatus;
-import vn.whoever.support.model.request.InteractStatus;
+import vn.whoever.support.model.request.UserInteract;
 import vn.whoever.support.model.request.PostStatus;
 import vn.whoever.support.model.utils.Interacts;
 import vn.whoever.support.response.ReturnStatus;
@@ -53,6 +54,9 @@ public class MobileStatusController {
 	@Autowired
 	private LocationIPService locationService;
 	
+	@Autowired
+	private AuthToken authToken;
+	
 	@RequestMapping(value = "/mobile/home/{langCode}", method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String getHome(HttpServletResponse httpResponse,
@@ -73,7 +77,7 @@ public class MobileStatusController {
 		ClientLocation location = locationService.getLocation(ipAddress);
 		
 		List<ReturnStatus> listReturn = new ArrayList<ReturnStatus>();
-		String idUser = userService.findIdUser(getStatus.getSsoId());
+		String idUser = authToken.getIdUserHttp(request);
 		List<Status> listTemp = statusService.getListStatus(idUser, getStatus.getOrder(), 
 				getStatus.getOffset(), location.getLatitude(), location.getLongitude());
 		
@@ -119,11 +123,11 @@ public class MobileStatusController {
 		ClientLocation location = locationService.getLocation(ipAddress);
 		
 		Boolean hasImage = postStatus.getContentImage().equals("") ? false : true;
-		Users users = userService.findBySsoId(postStatus.getSsoId());
 		
-		Status status = new Status(statusService.generateStatusId(), users.getIdUser(), postStatus.getContentText(),
-				new Date(), location.getLatitude(), location.getLongitude(), 
+		Status status = new Status(statusService.generateStatusId(), authToken.getIdUserHttp(request), 
+				postStatus.getContentText(), new Date(), location.getLatitude(), location.getLongitude(), 
 				postStatus.getPrivacy(), postStatus.getIsUseAccount(), hasImage);
+		
 		if(hasImage) {
 			//TODO: insert image to DB in here
 			
@@ -133,11 +137,11 @@ public class MobileStatusController {
 
 	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.PUT,
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody void interactStatus(HttpServletResponse response, @PathVariable(value = "idStatus") String idStatus,
-			@RequestBody InteractStatus interact) {
+	public @ResponseBody void userInteract(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "idStatus") String idStatus,
+			@RequestBody UserInteract interact) {
 		if(interact.getInteract().equals(Interacts.like) ||
 				interact.getInteract().equals(Interacts.dislike)) {
-			statusService.interactStatus(idStatus, interact);
+			statusService.statusInteract(idStatus, authToken.getIdUserHttp(request), interact);
 		} else {
 			try {
 				/**

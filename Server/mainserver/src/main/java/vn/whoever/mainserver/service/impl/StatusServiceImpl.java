@@ -21,7 +21,7 @@ import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.support.model.request.GetStatus;
-import vn.whoever.support.model.request.InteractStatus;
+import vn.whoever.support.model.request.UserInteract;
 import vn.whoever.support.model.utils.Interacts;
 import vn.whoever.support.model.utils.Location;
 import vn.whoever.support.model.utils.Order;
@@ -83,8 +83,7 @@ public class StatusServiceImpl implements StatusService {
 		return listStatus;
 	}
 
-	public void interactStatus(String idStatus, InteractStatus interactStt) {
-		String idUser = usersDao.findIdUser(interactStt.getSsoId());
+	public void statusInteract(String idStatus, String idUser,UserInteract interactStt) {
 		statusUserDao.addInteractStatus(idStatus, idUser, interactStt.getInteract());
 		Status status = statusDao.getStatus(idStatus);
 		status.setTimeUp(new Date());

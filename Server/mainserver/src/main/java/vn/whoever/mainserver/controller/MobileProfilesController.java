@@ -1,5 +1,7 @@
 package vn.whoever.mainserver.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.model.Profiles;
+import vn.whoever.mainserver.service.AuthToken;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.support.model.request.SetProfile;
@@ -16,7 +19,6 @@ import vn.whoever.support.model.request.UpdateProfile;
 import vn.whoever.support.response.ReturnProfile;
 
 /**
- * can kiem tra token cua cac yeu cau update thong tin, chong hack
  * @author spider man
  *
  */
@@ -29,11 +31,14 @@ public class MobileProfilesController {
 	
 	@Autowired
 	private ProfilesService profileService;
+	
+	@Autowired
+	private AuthToken authToken;
 
 	@RequestMapping(value = {"/mobile/profiles"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody Boolean setProfile(@RequestBody SetProfile setProfile) {
-		String idUser = userService.findIdUser(setProfile.getSsoId());
+	public @ResponseBody Boolean setProfile(HttpServletRequest request, @RequestBody SetProfile setProfile) {
+		String idUser = authToken.getIdUserHttp(request);
 		String idProfile = profileService.generateIdProfile();
 		System.out.println("gender: " + setProfile.getGender());
 		Profiles profile = new Profiles(idProfile, idUser, setProfile.getNickName(), setProfile.getBirthday(), 

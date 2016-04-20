@@ -12,8 +12,8 @@ import vn.whoever.mainserver.dao.CommentsDao;
 import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.Comments;
 import vn.whoever.mainserver.service.CommentService;
-import vn.whoever.support.model.request.InteractComment;
 import vn.whoever.support.model.request.PostComment;
+import vn.whoever.support.model.request.UserInteract;
 import vn.whoever.support.model.utils.Interacts;
 
 @Service("commentService")
@@ -26,19 +26,15 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentUserDao commentUserDao;
 	
-	@Autowired
-	private UsersDao usersDao;
-	
-	public void postComment(String idStatus, PostComment postComment) {
-		String idUser = usersDao.findIdUser(postComment.getSsoId());
+	public void postNewComment(String idStatus, String idUser,PostComment postComment) {
 		String idComment = GenerateIdImpl.generateId().getId();
+		System.out.println("Chen vào DB comments@@@@");
 		Comments comments = new Comments(idComment, idUser, idStatus, 
 				postComment.getContent(), postComment.getIsUseAccount());
 		commentsDao.createComment(comments);
 	}
 
-	public void interactComment(String idComment, InteractComment interactCmt) {
-		String idUser = usersDao.findIdUser(interactCmt.getSsoId());
+	public void commentInteract(String idComment, String idUser,UserInteract interactCmt) {
 		commentUserDao.addInteractComment(idComment, idUser, interactCmt.getInteract());
 	}
 

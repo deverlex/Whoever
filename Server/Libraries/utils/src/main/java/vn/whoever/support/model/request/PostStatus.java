@@ -11,17 +11,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "postStatus")
-@XmlType(propOrder = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount"})
-@JsonPropertyOrder(value = { "ssoId", "contentText", "contentImage", "privacy", "isUseAccount"})
+@XmlType(propOrder = {"contentText", "contentImage", "privacy", "isUseAccount"})
+@JsonPropertyOrder(value = {"contentText", "contentImage", "privacy", "isUseAccount"})
 public class PostStatus implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 900995382611L;
-
-	@XmlElement(name = "ssoId", required = true)
-	private String ssoId;
 
 	@XmlElement(name = "contentText")
 	private String contentText;
@@ -39,21 +36,12 @@ public class PostStatus implements Serializable {
 		super();
 	}
 
-	public PostStatus(String ssoId, String contentText, String contentImage, Privacies privacy, Boolean isUseAccount) {
+	public PostStatus(String contentText, String contentImage, Privacies privacy, Boolean isUseAccount) {
 		super();
-		this.ssoId = ssoId;
 		this.contentText = contentText;
 		this.contentImage = contentImage;
 		this.privacy = privacy;
 		this.isUseAccount = isUseAccount;
-	}
-
-	public String getSsoId() {
-		return ssoId;
-	}
-
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
 	}
 
 	public String getContentText() {
