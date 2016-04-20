@@ -4,12 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,18 +17,16 @@ public class Comments implements Serializable {
 	private static final long serialVersionUID = 109849757293L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idComment", nullable = false, length = 16)
 	private String idComment;
 	
-	@ManyToOne(fetch =  FetchType.LAZY)
-	@JoinColumn(name = "idUser")
-	private Users users;
+	@Column(name = "idUser", nullable = false, length = 16)
+	private String idUser;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idStatus")
-	private Status status;
+	@Column(name = "idStatus", nullable = false, length = 16)
+	private String idStatus;
 	
-	@Column(name = "conntent", nullable = false)
+	@Column(name = "content", nullable = false)
 	private String content;
 	
 	@Column(name = "isUseAccount", nullable = false)
@@ -43,11 +36,11 @@ public class Comments implements Serializable {
 		super();
 	}
 
-	public Comments(String idComment, Users users, Status status, String content, Boolean isUseAccount) {
+	public Comments(String idComment, String idUser, String idStatus, String content, Boolean isUseAccount) {
 		super();
 		this.idComment = idComment;
-		this.users = users;
-		this.status = status;
+		this.idUser = idUser;
+		this.idStatus = idStatus;
 		this.content = content;
 		this.isUseAccount = isUseAccount;
 	}
@@ -60,22 +53,22 @@ public class Comments implements Serializable {
 		this.idComment = idComment;
 	}
 	
-	public Users getUsers() {
-		return users;
+	public String getIdUser() {
+		return idUser;
 	}
-	
-	public void setUsers(Users users) {
-		this.users = users;
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
-	
-	public Status getStatus() {
-		return status;
+
+	public String getIdStatus() {
+		return idStatus;
 	}
-	
-	public void setStatus(Status status) {
-		this.status = status;
+
+	public void setIdStatus(String idStatus) {
+		this.idStatus = idStatus;
 	}
-	
+
 	public String getContent() {
 		return content;
 	}

@@ -1,33 +1,64 @@
 package vn.whoever.support.model.request;
 
-public class PostComment {
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
+
+@XmlRootElement(name = "postComment")
+@XmlType(propOrder = {"ssoId", "content", "isUseAccount"})
+@JsonPropertyOrder(value = {"ssoId", "content", "isUseAccount"})
+public class PostComment implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 100449020987462234L;
+
+	@XmlElement(name = "ssoId", required = true)
+	private String ssoId;
+	
+	@XmlElement(name = "content", required = true)
 	private String content;
-	private String date;
+	
+	@XmlElement(name = "isUserAccount", defaultValue = "false")
+	private Boolean isUseAccount;
 	
 	public PostComment() {
 		super();
 	}
 
-	public PostComment(String content, String date) {
+	public PostComment(String ssoId, String content, Boolean isUseAccount) {
 		super();
+		this.ssoId = ssoId;
 		this.content = content;
-		this.date = date;
+		this.isUseAccount = isUseAccount;
+	}
+
+	public String getSsoId() {
+		return ssoId;
+	}
+
+	public void setSsoId(String ssoId) {
+		this.ssoId = ssoId;
 	}
 
 	public String getContent() {
 		return content;
 	}
-	
+
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	public String getDate() {
-		return date;
+
+	public Boolean getIsUseAccount() {
+		return isUseAccount;
 	}
-	
-	public void setDate(String date) {
-		this.date = date;
+
+	public void setIsUseAccount(Boolean isUseAccount) {
+		this.isUseAccount = isUseAccount;
 	}
 }

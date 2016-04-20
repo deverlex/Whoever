@@ -1,9 +1,9 @@
 
 //Gửi comments
 {
-	"idStatus" : "",
 	"ssoId" : "",
-	"interact" : ""
+	"content" : "",
+	"isUseAccount" : ""
 }
 
 
