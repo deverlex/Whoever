@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import v.whoever.service.impl.GenerateIdImpl;
+import vn.whoever.mainserver.dao.CommentsDao;
 import vn.whoever.mainserver.dao.ContactUserDao;
 import vn.whoever.mainserver.dao.ContactsDao;
 import vn.whoever.mainserver.dao.StatusDao;
@@ -43,6 +44,9 @@ public class StatusServiceImpl implements StatusService {
 	@Autowired
 	private StatusUserDao statusUserDao;
 	
+	@Autowired
+	private CommentsDao commentsDao;
+	
 	public String generateStatusId() {
 		return GenerateIdImpl.generateId().getId();
 	}
@@ -70,6 +74,7 @@ public class StatusServiceImpl implements StatusService {
 			if(lIdFriend.size() > 0)
 				listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser, offset);
 		} else {
+			System.out.println("Lay status quanh: " + location.getxLoc() + ", " + location.getyLoc());
 			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser,
 					location.getxLoc(), location.getyLoc(), offset);
 		}
@@ -85,16 +90,15 @@ public class StatusServiceImpl implements StatusService {
 		return statusUserDao.getInteractStateStatus(idStatus, idUser);
 	}
 
-	public Integer getTotalLikes(String idStatus) {
+	public int getTotalLikes(String idStatus) {
 		return statusUserDao.getTotalInteract(idStatus, Interacts.like);
 	}
 
-	public Integer getTotalDislikes(String idStatus) {
+	public int getTotalDislikes(String idStatus) {
 		return statusUserDao.getTotalInteract(idStatus, Interacts.dislike);
 	}
 
-	public Integer getTotalComments(String idStatus) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getTotalComments(String idStatus) {
+		return commentsDao.getTotalCommentStatus(idStatus);
 	}
 }

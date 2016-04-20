@@ -39,7 +39,6 @@ public class ContactUsersDaoImpl extends AbstractDao<String, ContactUsers> imple
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("idContact", idContact));
 		List<String> listIdFriend = new ArrayList<String>();
-		System.out.println("iUser: " + idUser + ", IdContact: " + idContact);
 		for (ContactUsers friend : (List<ContactUsers>) crit.list()) {
 			if(isFriend(idUser, friend.getIdUser())) {
 				listIdFriend.add(friend.getIdUser());
@@ -54,7 +53,6 @@ public class ContactUsersDaoImpl extends AbstractDao<String, ContactUsers> imple
 		crit.add(Restrictions.and(
 				Restrictions.eq("idContact", idContact), 
 				Restrictions.eq("idUser", idUser)));
-		System.out.println("result: " + crit.uniqueResult());
 		return crit.uniqueResult() != null? true : false;
 	}
 	

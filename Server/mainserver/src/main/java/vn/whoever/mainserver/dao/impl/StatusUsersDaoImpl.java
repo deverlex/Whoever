@@ -61,12 +61,12 @@ public class StatusUsersDaoImpl extends AbstractDao<String, StatusUsers> impleme
 		persist(statusUsers);
 	}
 
-	public Integer getTotalInteract(String idStatus, Interacts interact) {
+	public int getTotalInteract(String idStatus, Interacts interact) {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.and(Restrictions.eq("idStatus", idStatus), 
 				Restrictions.eq("interact", interact)));
 		crit.setProjection(Projections.rowCount());
-		return (Integer) crit.uniqueResult();
+		return ((Number) crit.uniqueResult()).intValue();
 	}
 
 }

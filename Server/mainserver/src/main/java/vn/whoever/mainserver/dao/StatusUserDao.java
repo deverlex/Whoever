@@ -8,5 +8,5 @@ public interface StatusUserDao {
 
 	public Interacts getInteractStateStatus(String idStatus, String idUser);
 	
-	public Integer getTotalInteract(String idStatus, Interacts interact);
+	public int getTotalInteract(String idStatus, Interacts interact);
 }

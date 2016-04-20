@@ -11,5 +11,5 @@ public interface CommentsDao {
 	public List<Comments> getComments(String idStatus);
 	public void deleteComment(String idComment);
 	
-	public Integer getTotalCommentStatus(String idStatus);
+	public int getTotalCommentStatus(String idStatus);
 }

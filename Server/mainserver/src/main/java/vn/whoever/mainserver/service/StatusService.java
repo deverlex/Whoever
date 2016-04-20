@@ -20,7 +20,7 @@ public interface StatusService {
 	
 	public void interactStatus(String idStatus, InteractStatus interact);
 	public Interacts getInteractStatusState(String idStatus, String idUser);
-	public Integer getTotalLikes(String idStatus);
-	public Integer getTotalDislikes(String idStatus);
-	public Integer getTotalComments(String idStatus);
+	public int getTotalLikes(String idStatus);
+	public int getTotalDislikes(String idStatus);
+	public int getTotalComments(String idStatus);
 }

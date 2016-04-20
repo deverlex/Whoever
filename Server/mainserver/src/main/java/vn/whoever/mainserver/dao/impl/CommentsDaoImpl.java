@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -42,4 +43,10 @@ public class CommentsDaoImpl extends AbstractDao<String, Comments> implements Co
 		query.executeUpdate();
 	}
 
+	public int getTotalCommentStatus(String idStatus) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("idStatus", idStatus));
+		crit.setProjection(Projections.rowCount());
+		return ((Number) crit.uniqueResult()).intValue();
+	}
 }
