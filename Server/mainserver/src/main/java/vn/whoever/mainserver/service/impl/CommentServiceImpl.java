@@ -9,6 +9,7 @@ import vn.whoever.mainserver.dao.CommentsDao;
 import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.Comments;
 import vn.whoever.mainserver.service.CommentService;
+import vn.whoever.support.model.request.InteractComment;
 import vn.whoever.support.model.request.PostComment;
 
 @Service("commentService")
@@ -27,6 +28,10 @@ public class CommentServiceImpl implements CommentService {
 		Comments comments = new Comments(idComment, idUser, idStatus, 
 				postComment.getContent(), postComment.getIsUseAccount());
 		commentsDao.createComment(comments);
+	}
+
+	public void interactComment(String idComment, InteractComment interactCmt) {
+		
 	}
 
 }

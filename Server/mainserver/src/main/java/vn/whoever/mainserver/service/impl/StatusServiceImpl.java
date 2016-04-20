@@ -79,9 +79,9 @@ public class StatusServiceImpl implements StatusService {
 		return listStatus;
 	}
 
-	public void interactStatus(String idStatus, InteractStatus interact) {
-		String idUser = usersDao.findIdUser(interact.getSsoId());
-		statusUserDao.addInteractStatus(idStatus, idUser, interact.getInteract());
+	public void interactStatus(String idStatus, InteractStatus interactStt) {
+		String idUser = usersDao.findIdUser(interactStt.getSsoId());
+		statusUserDao.addInteractStatus(idStatus, idUser, interactStt.getInteract());
 	}
 
 	public Interacts getInteractStatusState(String idStatus, String idUser) {

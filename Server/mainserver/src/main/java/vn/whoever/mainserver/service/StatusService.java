@@ -18,7 +18,7 @@ public interface StatusService {
 	
 	public List<Status> getListStatus(String idUser, Order order, int offset, double xLoc, double yLoc);
 	
-	public void interactStatus(String idStatus, InteractStatus interact);
+	public void interactStatus(String idStatus, InteractStatus interactStt);
 	public Interacts getInteractStatusState(String idStatus, String idUser);
 	public int getTotalLikes(String idStatus);
 	public int getTotalDislikes(String idStatus);

@@ -4,11 +4,7 @@
 	"contentText" : "?",
 	"contentImage" : "?"
 	"privacy" : "?",
-	"isUseAccount" : "?",
-	"location" : {
-		"xloc" : "?",
-		"yloc" : "?"
-	}
+	"isUseAccount" : "?"
 }
 
 //response
@@ -25,11 +21,7 @@
 {
 	"ssoId" : "",
 	"order" : "",
-	"offset" : "", 
-	"location" : {
-		"xLoc" : "",
-		"yLoc" : ""
-	}
+	"offset" : ""
 }
 // lastLevel = 0 => lấy ở < 2km
 //vd: lastLevel
@@ -61,10 +53,6 @@
 	"idStatus" : "",
 	"contentText" : "",
 	"contentImage" : "",
-	"location" : [
-		"xLoc" : "",
-		"yLoc" : ""
-	]
 }
 
 //status interact

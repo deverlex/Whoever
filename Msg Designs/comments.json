@@ -17,18 +17,5 @@
 		"totalDislike" : "",
 		"interact" : ""
 	},
-	{
-		"idComment" : "",
-		"idUserComment" : "",
-		"content" : "",
-		"totalLike" : "",
-		"totalDislike" : ""
-	},
-	{
-		"idComment" : "",
-		"idUserComment" : "",
-		"content" : "",
-		"totalLike" : "",
-		"totalDislike" : ""
-	}
+	
 ]

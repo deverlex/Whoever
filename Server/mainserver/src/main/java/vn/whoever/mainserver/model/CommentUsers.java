@@ -26,14 +26,12 @@ public class CommentUsers implements Serializable {
 	private static final long serialVersionUID = -165453L;
 	
 	@Id
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "idComment")
-	private Comments comments;
+	@Column(name = "idComment", nullable = false)
+	private String idComment;
 	
 	@Id
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "idUser")
-	private Users users;
+	@Column(name = "idUser", nullable = false)
+	private String idUser;
 	
 	@Column(name = "interact", nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -42,30 +40,30 @@ public class CommentUsers implements Serializable {
 	public CommentUsers() {
 		super();
 	}
-
-	public CommentUsers(Users users, Comments comments, Interacts interacts) {
+	
+	public CommentUsers(String idComment, String idUser, Interacts interacts) {
 		super();
-		this.users = users;
-		this.comments = comments;
+		this.idComment = idComment;
+		this.idUser = idUser;
 		this.interacts = interacts;
 	}
 
-	public Users getUsers() {
-		return users;
+	public String getIdComment() {
+		return idComment;
 	}
-	
-	public void setUsers(Users users) {
-		this.users = users;
+
+	public void setIdComment(String idComment) {
+		this.idComment = idComment;
 	}
-	
-	public Comments getComments() {
-		return comments;
+
+	public String getIdUser() {
+		return idUser;
 	}
-	
-	public void setComments(Comments comments) {
-		this.comments = comments;
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
-	
+
 	public Interacts getInteracts() {
 		return interacts;
 	}
