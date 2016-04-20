@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import vn.whoever.support.model.utils.Interacts;
+
 @XmlRootElement(name = "returnGetStatus")
 @XmlType(propOrder = {"idStatus", "idPoster", "namePoster", "timePost", "contentText", "contentImage", 
 					"totalLike", "totalDislike", "totalComment"})
@@ -41,21 +43,25 @@ public class ReturnStatus implements Serializable {
 	@XmlElement(name = "contentImage")
 	private String contentImage;
 	
-	@XmlElement(name = "totalLike", required = true)
+	@XmlElement(name = "totalLike", defaultValue = "0")
 	private int totalLike;
 	
-	@XmlElement(name = "totalDislike", required = true)
+	@XmlElement(name = "totalDislike", defaultValue = "0")
 	private int totalDislike;
 	
-	@XmlElement(name = "totalComment", required = true)
+	@XmlElement(name = "totalComment", defaultValue = "0")
 	private int totalComment;
+	
+	@XmlElement(name = "interact", defaultValue = "normal")
+	private Interacts interact;
 
 	public ReturnStatus() {
 		super();
 	}
 
 	public ReturnStatus(String idStatus, String ssoIdPoster, String avatarPoster, String namePoster, String timePost,
-			String contentText, String contentImage, int totalLike, int totalDislike, int totalComment) {
+			String contentText, String contentImage, int totalLike, int totalDislike, int totalComment,
+			Interacts interact) {
 		super();
 		this.idStatus = idStatus;
 		this.ssoIdPoster = ssoIdPoster;
@@ -67,6 +73,7 @@ public class ReturnStatus implements Serializable {
 		this.totalLike = totalLike;
 		this.totalDislike = totalDislike;
 		this.totalComment = totalComment;
+		this.interact = interact;
 	}
 
 	public String getIdStatus() {
@@ -148,4 +155,13 @@ public class ReturnStatus implements Serializable {
 	public void setTotalComment(int totalComment) {
 		this.totalComment = totalComment;
 	}
+
+	public Interacts getInteract() {
+		return interact;
+	}
+
+	public void setInteract(Interacts interact) {
+		this.interact = interact;
+	}
+	
 }

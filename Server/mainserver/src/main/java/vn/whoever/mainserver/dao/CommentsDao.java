@@ -10,4 +10,6 @@ public interface CommentsDao {
 	public void updateComment(Comments comment);
 	public List<Comments> getComments(String idStatus);
 	public void deleteComment(String idComment);
+	
+	public Integer getTotalCommentStatus(String idStatus);
 }

@@ -77,7 +77,9 @@ public class MobileStatusController {
 		}
 		
 		List<ReturnStatus> listReturn = new ArrayList<ReturnStatus>();
-		List<Status> listTemp = statusService.getListStatus(getStatus);
+		String idUser = userService.findIdUser(getStatus.getSsoId());
+		List<Status> listTemp = statusService.getListStatus(idUser, getStatus.getOrder(), 
+				getStatus.getOffset(), getStatus.getLocation());
 		
 		for (Status status : listTemp) {
 			ReturnStatus rStatus = new ReturnStatus();
@@ -98,9 +100,12 @@ public class MobileStatusController {
 			rStatus.setTimePost(timePost);
 			rStatus.setContentText(status.getContent());
 			rStatus.setContentImage(null);
-			rStatus.setTotalLike(0);
-			rStatus.setTotalDislike(10);
-			rStatus.setTotalComment(5);
+			
+			rStatus.setTotalLike(statusService.getTotalLikes(status.getIdStatus()));
+			rStatus.setTotalDislike(statusService.getTotalDislikes(status.getIdStatus()));
+			rStatus.setTotalComment(statusService.getTotalComments(status.getIdStatus()));
+			
+			rStatus.setInteract(statusService.getInteractStatusState(status.getIdStatus(), idUser));
 			listReturn.add(rStatus);
 		}
 		return listReturn;

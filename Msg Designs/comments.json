@@ -14,7 +14,8 @@
 		"nickName" : "",
 		"content" : "",
 		"totalLike" : "",
-		"totalDislike" : ""
+		"totalDislike" : "",
+		"interact" : ""
 	},
 	{
 		"idComment" : "",

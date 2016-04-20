@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.whoever.mainserver.service.CommentService;
+import vn.whoever.support.model.request.InteractComment;
 import vn.whoever.support.model.request.PostComment;
 
 @Controller
@@ -39,9 +40,10 @@ public class MobileCommentController {
 	
 	@RequestMapping(value = {"/{idStatus}/comments/{idComment}"}, method = RequestMethod.PUT,
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody String interactComment(@PathVariable(value = "idStatus") String idStatus, 
-			@PathVariable(value = "idComment") String idComment) {
-		return new String("aaaaa");
+	public @ResponseBody void interactComment(@PathVariable(value = "idStatus") String idStatus, 
+			@PathVariable(value = "idComment") String idComment, @RequestBody InteractComment interactComment) {
+		
+		
 	}
 
 }

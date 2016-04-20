@@ -20,6 +20,8 @@ import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.InteractStatus;
+import vn.whoever.support.model.utils.Interacts;
+import vn.whoever.support.model.utils.Location;
 import vn.whoever.support.model.utils.Order;
 
 @Service("statusService")
@@ -59,29 +61,40 @@ public class StatusServiceImpl implements StatusService {
 	 * @param getStatus
 	 * @return
 	 */
-	public List<Status> getListStatus(GetStatus getStatus) {
-		String idUser = usersDao.findIdUser(getStatus.getSsoId());
+	
+	public List<Status> getListStatus(String idUser, Order order, int offset, Location location) {
 		List<String> lIdFriend = contactUserDao.getListIdFriend(idUser, contactsDao.getIdContact(idUser));
 		List<Status> listStatus = new LinkedList<Status>();
 		
-		if(getStatus.getOrder() == Order.friends) {
+		if(order == Order.friends) {
 			if(lIdFriend.size() > 0)
-				listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser,getStatus.getOffset());
+				listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser, offset);
 		} else {
 			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser,
-					getStatus.getLocation().getxLoc(), getStatus.getLocation().getyLoc(), getStatus.getOffset());
+					location.getxLoc(), location.getyLoc(), offset);
 		}
 		return listStatus;
 	}
 
-	public Status getDetailStatus(String idStatus) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void interactStatus(String idStatus, InteractStatus interact) {
 		String idUser = usersDao.findIdUser(interact.getSsoId());
-		statusUserDao.interactStatus(idStatus, idUser, interact.getInteract());
+		statusUserDao.addInteractStatus(idStatus, idUser, interact.getInteract());
 	}
 
+	public Interacts getInteractStatusState(String idStatus, String idUser) {
+		return statusUserDao.getInteractStateStatus(idStatus, idUser);
+	}
+
+	public Integer getTotalLikes(String idStatus) {
+		return statusUserDao.getTotalInteract(idStatus, Interacts.like);
+	}
+
+	public Integer getTotalDislikes(String idStatus) {
+		return statusUserDao.getTotalInteract(idStatus, Interacts.dislike);
+	}
+
+	public Integer getTotalComments(String idStatus) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

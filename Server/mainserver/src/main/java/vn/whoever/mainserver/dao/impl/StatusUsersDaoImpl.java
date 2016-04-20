@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.Criteria;
 import org.hibernate.annotations.Entity;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,7 @@ public class StatusUsersDaoImpl extends AbstractDao<String, StatusUsers> impleme
 	
 	private static final long serialVersionUID = 165687654369903L;
 
-	public void interactStatus(String idStatus, String idUser, Interacts interact) {
+	public void addInteractStatus(String idStatus, String idUser, Interacts interact) {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.and(
 				Restrictions.eq("idStatus", idStatus), 
@@ -41,6 +42,17 @@ public class StatusUsersDaoImpl extends AbstractDao<String, StatusUsers> impleme
 		}
 	}
 	
+	public Interacts getInteractStateStatus(String idStatus, String idUser) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.and(Restrictions.eq("idStatus", idStatus), 
+				Restrictions.eq("idUser", idUser)));
+		StatusUsers statusUsers = (StatusUsers) crit.uniqueResult();
+		if(statusUsers != null) {
+			return statusUsers.getInteract();
+		}
+		return Interacts.normal;
+	}
+	
 	private void updateInteract(StatusUsers statusUsers) {
 		update(statusUsers);
 	}
@@ -48,4 +60,13 @@ public class StatusUsersDaoImpl extends AbstractDao<String, StatusUsers> impleme
 	private void createInteract(StatusUsers statusUsers) {
 		persist(statusUsers);
 	}
+
+	public Integer getTotalInteract(String idStatus, Interacts interact) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.and(Restrictions.eq("idStatus", idStatus), 
+				Restrictions.eq("interact", interact)));
+		crit.setProjection(Projections.rowCount());
+		return (Integer) crit.uniqueResult();
+	}
+
 }

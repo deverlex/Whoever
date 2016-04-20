@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import vn.whoever.support.model.utils.Interacts;
+
 @XmlRootElement(name = "returnComment")
 @XmlType(propOrder = {"idComment", "ssoId", "nickName", "content", "totalLike", "totalDislike"})
 @JsonPropertyOrder(value = {"idComment", "ssoId", "nickName", "content", "totalLike", "totalDislike"})
@@ -23,11 +25,14 @@ public class ReturnComment {
 	@XmlElement(name = "content")
 	private String content;
 	
-	@XmlElement(name = "totalLike")
+	@XmlElement(name = "totalLike", defaultValue = "0")
 	private int totalLike;
 	
-	@XmlElement(name = "totalDislike")
+	@XmlElement(name = "totalDislike", defaultValue = "0")
 	private int totalDislike;
+	
+	@XmlElement(name = "interact", defaultValue = "normal")
+	private Interacts interact;
 
 	public ReturnComment() {
 		super();
