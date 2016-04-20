@@ -36,22 +36,17 @@ public class PostStatus implements Serializable {
 	@XmlElement(name = "isUseAccount")
 	private Boolean isUseAccount;
 
-	@XmlElement(name = "location")
-	private Location location;
-
 	public PostStatus() {
 		super();
 	}
 
-	public PostStatus(String ssoId, String contentText, String contentImage, Privacies privacy, Boolean isUseAccount,
-			Location location) {
+	public PostStatus(String ssoId, String contentText, String contentImage, Privacies privacy, Boolean isUseAccount) {
 		super();
 		this.ssoId = ssoId;
 		this.contentText = contentText;
 		this.contentImage = contentImage;
 		this.privacy = privacy;
 		this.isUseAccount = isUseAccount;
-		this.location = location;
 	}
 
 	public String getSsoId() {
@@ -92,13 +87,5 @@ public class PostStatus implements Serializable {
 
 	public void setIsUseAccount(Boolean isUseAccount) {
 		this.isUseAccount = isUseAccount;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
 	}
 }

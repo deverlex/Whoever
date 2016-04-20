@@ -66,7 +66,7 @@ public class StatusServiceImpl implements StatusService {
 	 * @return
 	 */
 	
-	public List<Status> getListStatus(String idUser, Order order, int offset, Location location) {
+	public List<Status> getListStatus(String idUser, Order order, int offset, double xLoc, double yLoc) {
 		List<String> lIdFriend = contactUserDao.getListIdFriend(idUser, contactsDao.getIdContact(idUser));
 		List<Status> listStatus = new LinkedList<Status>();
 		
@@ -74,9 +74,7 @@ public class StatusServiceImpl implements StatusService {
 			if(lIdFriend.size() > 0)
 				listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser, offset);
 		} else {
-			System.out.println("Lay status quanh: " + location.getxLoc() + ", " + location.getyLoc());
-			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser,
-					location.getxLoc(), location.getyLoc(), offset);
+			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser, xLoc, yLoc, offset);
 		}
 		return listStatus;
 	}

@@ -66,20 +66,16 @@ public class MobileStatusController {
 	public @ResponseBody List<ReturnStatus> getNews(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody GetStatus getStatus) {
 		
-		if(getStatus.getLocation().getxLoc() == null) {
-			String ipAddress = request.getHeader("X-FORWARDED-FOR");
-			if(ipAddress == null) {
-				ipAddress = request.getRemoteAddr();
-			}
-			ClientLocation location = locationService.getLocation(ipAddress);
-			getStatus.getLocation().setxLoc(location.getLatitude());
-			getStatus.getLocation().setyLoc(location.getLongitude());
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if(ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
 		}
+		ClientLocation location = locationService.getLocation(ipAddress);
 		
 		List<ReturnStatus> listReturn = new ArrayList<ReturnStatus>();
 		String idUser = userService.findIdUser(getStatus.getSsoId());
 		List<Status> listTemp = statusService.getListStatus(idUser, getStatus.getOrder(), 
-				getStatus.getOffset(), getStatus.getLocation());
+				getStatus.getOffset(), location.getLatitude(), location.getLongitude());
 		
 		for (Status status : listTemp) {
 			ReturnStatus rStatus = new ReturnStatus();
@@ -116,21 +112,17 @@ public class MobileStatusController {
 	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
 		
-		if(postStatus.getLocation().getxLoc() == null) {
-			String ipAddress = request.getHeader("X-FORWARDED-FOR");
-			if(ipAddress == null) {
-				ipAddress = request.getRemoteAddr();
-			}
-			ClientLocation location = locationService.getLocation(ipAddress);
-			postStatus.getLocation().setxLoc(location.getLatitude());
-			postStatus.getLocation().setyLoc(location.getLongitude());
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if(ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
 		}
+		ClientLocation location = locationService.getLocation(ipAddress);
 		
 		Boolean hasImage = postStatus.getContentImage().equals("") ? false : true;
 		Users users = userService.findBySsoId(postStatus.getSsoId());
 		
 		Status status = new Status(statusService.generateStatusId(), users.getIdUser(), postStatus.getContentText(),
-				new Date(), postStatus.getLocation().getxLoc(), postStatus.getLocation().getyLoc(), 
+				new Date(), location.getLatitude(), location.getLongitude(), 
 				postStatus.getPrivacy(), postStatus.getIsUseAccount(), hasImage);
 		boolean result = statusService.postStatus(status);
 		if(hasImage) {

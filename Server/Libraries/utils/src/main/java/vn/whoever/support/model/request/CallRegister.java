@@ -36,22 +36,17 @@ public class CallRegister implements Serializable {
 	@XmlElement(name = "langCode", required = true)
 	private String langCode;
 	
-	@XmlElement(name = "location")
-	private Location location;
-	
 	public CallRegister() {
 		super();
 	}
 
-	public CallRegister(String ssoId, String password, String nickName, Date birthday, String langCode,
-			Location location) {
+	public CallRegister(String ssoId, String password, String nickName, Date birthday, String langCode) {
 		super();
 		this.ssoId = ssoId;
 		this.password = password;
 		this.nickName = nickName;
 		this.birthday = birthday;
 		this.langCode = langCode;
-		this.location = location;
 	}
 
 	public String getSsoId() {
@@ -93,13 +88,5 @@ public class CallRegister implements Serializable {
 
 	public void setLangCode(String langCode) {
 		this.langCode = langCode;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
 	}
 }

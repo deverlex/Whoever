@@ -30,19 +30,15 @@ public class GetStatus implements Serializable {
 	@XmlElement(name = "offset")
 	private int offset = 0;
 	
-	@XmlElement(name = "location")
-	private Location location;
-	
 	public GetStatus() {
 		super();
 	}
 
-	public GetStatus(String ssoId, Order order, int offset, Location location) {
+	public GetStatus(String ssoId, Order order, int offset) {
 		super();
 		this.ssoId = ssoId;
 		this.order = order;
 		this.offset = offset;
-		this.location = location;
 	}
 
 	public String getSsoId() {
@@ -67,13 +63,5 @@ public class GetStatus implements Serializable {
 
 	public void setOffset(int offset) {
 		this.offset = offset;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
 	}
 }

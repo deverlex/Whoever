@@ -136,15 +136,12 @@ public class MobileUserController {
 	public @ResponseBody String registerAccount(HttpServletRequest request, 
 			HttpServletResponse response, @RequestBody CallRegister req) {
 		
-		if(req.getLocation().getxLoc() == null) {
-			String ipAddress = request.getHeader("X-FORWARDED-FOR");  
-			   if (ipAddress == null) {  
-				   ipAddress = request.getRemoteAddr();  
-			   }
-			ClientLocation location = locationService.getLocation(ipAddress);
-			req.getLocation().setxLoc(location.getLatitude());
-			req.getLocation().setyLoc(location.getLongitude());
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");  
+		if (ipAddress == null) {  
+			ipAddress = request.getRemoteAddr();  
 		}
+		ClientLocation location = locationService.getLocation(ipAddress);
+		
 		
 		Integer idLanguage = langsService.findIdByCode(req.getLangCode());
 		if(idLanguage == null) {
@@ -156,12 +153,12 @@ public class MobileUserController {
 		String idProfile = profileService.generateIdProfile();
 		
 		Users users = null;
-		if(req.getLocation() == null) {
+		if(location == null) {
 			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
 					States.active, false, true, idLanguage);
 		} else {
 			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
-					States.active, req.getLocation().getxLoc(), req.getLocation().getyLoc(), false, true, idLanguage);
+					States.active, location.getLatitude(), location.getLongitude(), false, true, idLanguage);
 		}
 		
 		Profiles profile = new Profiles(idProfile, idUser, req.getNickName(), req.getBirthday());

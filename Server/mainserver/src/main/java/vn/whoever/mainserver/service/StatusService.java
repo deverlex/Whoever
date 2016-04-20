@@ -16,7 +16,7 @@ public interface StatusService {
 	public String generateStatusId();
 	public boolean postStatus(Status status);
 	
-	public List<Status> getListStatus(String idUser, Order order, int offset, Location location);
+	public List<Status> getListStatus(String idUser, Order order, int offset, double xLoc, double yLoc);
 	
 	public void interactStatus(String idStatus, InteractStatus interact);
 	public Interacts getInteractStatusState(String idStatus, String idUser);
