@@ -29,51 +29,49 @@ public class StatusUsers implements Serializable {
 	private static final long serialVersionUID = 1939789373L;
 	
 	@Id
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "idStatus")
-	private Status status;
+	@Column(name = "idStatus", nullable = false)
+	private String idStatus;
 	
 	@Id
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "idUser")
-	private Users users;
+	@Column(name = "idUser", nullable = false)
+	private String idUser;
 	
 	@Column(name = "interact", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Interacts interacts;
+	private Interacts interact;
 	
 	public StatusUsers() {
 		super();
 	}
 
-	public StatusUsers(Status status, Users users, Interacts interacts) {
+	public StatusUsers(String idStatus, String idUser, Interacts interact) {
 		super();
-		this.status = status;
-		this.users = users;
-		this.interacts = interacts;
+		this.idStatus = idStatus;
+		this.idUser = idUser;
+		this.interact = interact;
 	}
 
-	public Status getStatus() {
-		return status;
+	public String getIdStatus() {
+		return idStatus;
 	}
-	
-	public void setStatus(Status status) {
-		this.status = status;
+
+	public void setIdStatus(String idStatus) {
+		this.idStatus = idStatus;
 	}
-	
-	public Users getUsers() {
-		return users;
+
+	public String getIdUser() {
+		return idUser;
 	}
-	
-	public void setUsers(Users users) {
-		this.users = users;
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
-	
-	public Interacts getInteracts() {
-		return interacts;
+
+	public Interacts getInteract() {
+		return interact;
 	}
-	
-	public void setInteracts(Interacts interacts) {
-		this.interacts = interacts;
+
+	public void setInteract(Interacts interact) {
+		this.interact = interact;
 	}
 }

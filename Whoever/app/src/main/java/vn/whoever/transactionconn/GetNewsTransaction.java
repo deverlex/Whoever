@@ -88,6 +88,7 @@ public class GetNewsTransaction {
                 return super.parseNetworkResponse(response);
             }
         };
+        TransactionQueue.getsInstance(activity).addToRequestQueue(newsRequest);
     }
 
     public Integer getHttpStatusCode() {

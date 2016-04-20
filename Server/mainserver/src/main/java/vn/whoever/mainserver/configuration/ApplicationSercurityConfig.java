@@ -41,16 +41,17 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/mobile/anonymous").permitAll()
 	  	.antMatchers("/mobile/query").permitAll()
 	  	
-	  	.antMatchers("/mobile/news").access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/status").access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/status/*").access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/news").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/status").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/status/*").permitAll() //access("hasRole('ROLE_USER')")
 	  	
-	  	.antMatchers("/mobile/friends").access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/friends").permitAll() //access("hasRole('ROLE_USER')")
 	  	
-	  	.antMatchers("/mobile/profiles").access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/profiles/*").access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/profiles").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/profiles/*").permitAll() //access("hasRole('ROLE_USER')")
 	  	
-	  	.antMatchers("/mobile/comments").access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/comments").permitAll() //access("hasRole('ROLE_USER')")
+	  	
 //	  	.antMatchers("/admin/**").access("hasRole('ADMIN')")
 //	  	.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 //	  	.and().formLogin().loginPage("/login")

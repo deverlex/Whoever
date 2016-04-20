@@ -1,5 +1,6 @@
 package vn.whoever.mainserver.service.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.support.model.request.GetStatus;
+import vn.whoever.support.model.request.InteractStatus;
 import vn.whoever.support.model.utils.Order;
 
 @Service("statusService")
@@ -55,17 +57,17 @@ public class StatusServiceImpl implements StatusService {
 	 */
 	public List<Status> getListStatus(GetStatus getStatus) {
 		String idUser = usersDao.findIdUser(getStatus.getSsoId());
-		List<String> lIdFriend = contactUserDao.getListIdFriend(contactsDao.getIdContact(idUser));
-		List<Status> listStatus = null;
-		if(getStatus.getLocation().getxLoc() == null) {
-			
-		}
+		List<String> lIdFriend = contactUserDao.getListIdFriend(idUser, contactsDao.getIdContact(idUser));
+		List<Status> listStatus = new LinkedList<Status>();
+		
 		if(getStatus.getOrder() == Order.friends) {
-			listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser,getStatus.getOffset());
+			if(lIdFriend.size() > 0)
+				listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser,getStatus.getOffset());
 		} else {
 			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser,
 					getStatus.getLocation().getxLoc(), getStatus.getLocation().getyLoc(), getStatus.getOffset());
 		}
+		
 		System.out.println("Do lon mang Status: " + listStatus.size());
 		return listStatus;
 	}
@@ -73,6 +75,10 @@ public class StatusServiceImpl implements StatusService {
 	public Status getDetailStatus(String idStatus) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void interactStatus(String idStatus, InteractStatus interact) {
+		
 	}
 
 }

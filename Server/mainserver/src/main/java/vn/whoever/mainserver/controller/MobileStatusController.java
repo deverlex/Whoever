@@ -25,6 +25,7 @@ import vn.whoever.mainserver.service.StatusService;
 import vn.whoever.mainserver.service.UsersService;
 import vn.whoever.mainserver.service.utils.ClientLocation;
 import vn.whoever.support.model.request.GetStatus;
+import vn.whoever.support.model.request.InteractStatus;
 import vn.whoever.support.model.request.PostStatus;
 import vn.whoever.support.model.utils.Interacts;
 import vn.whoever.support.response.ReturnStatus;
@@ -137,13 +138,14 @@ public class MobileStatusController {
 		return "post fail";
 	}
 
-	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.POST,
+	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.PUT,
 			consumes = "application/json", produces = "application/json")
 	public void interactStatus(HttpServletResponse response, @PathVariable(value = "idStatus") String idStatus,
-			@RequestParam(value = "action") String action) {
-		if(action.equals(Interacts.like)) {
+			@RequestParam(value = "action") InteractStatus interact) {
+		
+		if(interact.getInteract().equals(Interacts.like)) {
 			
-		} else if(action.equals(Interacts.dislike)) {
+		} else if(interact.getInteract().equals(Interacts.dislike)) {
 			
 		} else {
 			try {

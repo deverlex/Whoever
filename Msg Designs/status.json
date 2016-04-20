@@ -66,3 +66,10 @@
 		"yLoc" : ""
 	]
 }
+
+//status interact
+
+{
+	"idUser" : "",
+	"interact" : ""
+}

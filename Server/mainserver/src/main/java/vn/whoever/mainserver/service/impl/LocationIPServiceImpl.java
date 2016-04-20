@@ -24,6 +24,7 @@ public class LocationIPServiceImpl implements LocationIPService {
 		location.setLongitude(120.143567);
 		location.setPostalCode("84");
 		location.setCountryName("Vietname");
+		
 		return location;
 		//return getLocation(ipAddress, dataFile);
 	}
@@ -37,8 +38,6 @@ public class LocationIPServiceImpl implements LocationIPService {
 		ClientLocation location = null;
 		
 		URL url = getClass().getClassLoader().getResource(fileData);
-		
-		
 		
 		if(url == null) {
 			System.err.println("Location datafile is not found - " + fileData);

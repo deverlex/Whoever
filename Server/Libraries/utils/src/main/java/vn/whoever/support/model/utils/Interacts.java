@@ -3,7 +3,8 @@ package vn.whoever.support.model.utils;
 public enum Interacts {
 
 	like("like"),
-	dislike("dislike");
+	dislike("dislike"),
+	normal("normal");
 	
 	private String interact;
 	
@@ -15,7 +16,6 @@ public enum Interacts {
 		return this.interact;
 	}
 	
-
 	@Override
 	public String toString() {
 		return this.interact;

@@ -49,10 +49,10 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 	@SuppressWarnings("unchecked")
 	public List<Status> getListStatusByFriends(List<String> listFriends, String idUser, int offset) {
 		Criteria crit = createEntityCriteria();
-		
 		Criterion critPrivacy = Restrictions.or(
 				Restrictions.eq("privacy", Privacies.normal), 
 				Restrictions.eq("privacy", Privacies.open));
+		
 		Criterion critIsFriend = Restrictions.in("idUser", listFriends);
 		Criterion critByFriend = Restrictions.and(critPrivacy, critIsFriend);
 		
@@ -73,19 +73,23 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		
 		Criterion critBySelf = Restrictions.eq("idUser", idUser);
 		
-		Criterion critFriendPrivacy = Restrictions.or(
-				Restrictions.eq("privacy", Privacies.normal), 
-				Restrictions.eq("privacy", Privacies.open));
-		Criterion critByListFriend = Restrictions.in("idUser", listFriends);
-		Criterion critByFriend = Restrictions.and(critFriendPrivacy, critByListFriend);
-		
 		Criterion critNearX = Restrictions.and(
 				Restrictions.between("xLoc", xLoc - (offset+1)*ratio, xLoc +  (offset+1)*ratio),
 				Restrictions.between("yLoc", yLoc - (offset+1)*ratio, yLoc + (offset+1)*ratio));
 		Criterion critNearPrivacy = Restrictions.eq("privacy", Privacies.open);
 		Criterion critByNearby = Restrictions.and(critNearPrivacy, critNearX);
+		if(listFriends.size() > 0) {
+			Criterion critFriendPrivacy = Restrictions.or(
+					Restrictions.eq("privacy", Privacies.normal), 
+					Restrictions.eq("privacy", Privacies.open));
+			Criterion critByListFriend = Restrictions.in("idUser", listFriends);
+			Criterion critByFriend = Restrictions.and(critFriendPrivacy, critByListFriend);
+			
+			crit.add(Restrictions.or(critBySelf, critByFriend, critByNearby));
+		} else {
+			crit.add(Restrictions.or(critBySelf, critByNearby));
+		}
 		
-		crit.add(Restrictions.or(critBySelf, critByFriend, critByNearby));
 		crit.addOrder(Order.desc("timeUp"));
 		crit.setFirstResult(offset);
 		crit.setMaxResults(120);
