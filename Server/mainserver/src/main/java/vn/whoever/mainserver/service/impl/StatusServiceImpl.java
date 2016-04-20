@@ -11,6 +11,7 @@ import v.whoever.service.impl.GenerateIdImpl;
 import vn.whoever.mainserver.dao.ContactUserDao;
 import vn.whoever.mainserver.dao.ContactsDao;
 import vn.whoever.mainserver.dao.StatusDao;
+import vn.whoever.mainserver.dao.StatusUserDao;
 import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.Profiles;
 import vn.whoever.mainserver.model.Status;
@@ -36,6 +37,9 @@ public class StatusServiceImpl implements StatusService {
 	
 	@Autowired
 	private ContactUserDao contactUserDao;
+	
+	@Autowired
+	private StatusUserDao statusUserDao;
 	
 	public String generateStatusId() {
 		return GenerateIdImpl.generateId().getId();
@@ -67,8 +71,6 @@ public class StatusServiceImpl implements StatusService {
 			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser,
 					getStatus.getLocation().getxLoc(), getStatus.getLocation().getyLoc(), getStatus.getOffset());
 		}
-		
-		System.out.println("Do lon mang Status: " + listStatus.size());
 		return listStatus;
 	}
 
@@ -78,7 +80,8 @@ public class StatusServiceImpl implements StatusService {
 	}
 
 	public void interactStatus(String idStatus, InteractStatus interact) {
-		
+		String idUser = usersDao.findIdUser(interact.getSsoId());
+		statusUserDao.interactStatus(idStatus, idUser, interact.getInteract());
 	}
 
 }

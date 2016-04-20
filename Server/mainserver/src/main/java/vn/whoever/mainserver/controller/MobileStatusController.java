@@ -140,13 +140,11 @@ public class MobileStatusController {
 
 	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.PUT,
 			consumes = "application/json", produces = "application/json")
-	public void interactStatus(HttpServletResponse response, @PathVariable(value = "idStatus") String idStatus,
-			@RequestParam(value = "action") InteractStatus interact) {
-		
-		if(interact.getInteract().equals(Interacts.like)) {
-			
-		} else if(interact.getInteract().equals(Interacts.dislike)) {
-			
+	public @ResponseBody void interactStatus(HttpServletResponse response, @PathVariable(value = "idStatus") String idStatus,
+			@RequestBody InteractStatus interact) {
+		if(interact.getInteract().equals(Interacts.like) ||
+				interact.getInteract().equals(Interacts.dislike)) {
+			statusService.interactStatus(idStatus, interact);
 		} else {
 			try {
 				/**
