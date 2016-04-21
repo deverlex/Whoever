@@ -1,6 +1,7 @@
 package vn.whoever.views.activities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,31 +11,36 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import vn.whoever.R;
-import vn.whoever.utils.*;
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.fragments.LoadFragment;
 import vn.whoever.views.fragments.SignInFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     public static FragmentManager frgtManager;
-    public static FragmentTransaction frgTransaction;
-    public static final String START_SYSTEM = "SYSTEM_SETTING";
+    public static FragmentTransaction frgTrans;
+    public static SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Storage.setInstance(getSharedPreferences(START_SYSTEM, MODE_PRIVATE));
-        boolean isLogin = Storage.getInstance().getBoolean("isLogin", false);
+        sharedPref = getSharedPreferences("SETTING_SYSTEM", MODE_PRIVATE);
+        boolean isLogged = sharedPref.getBoolean("isLogged", false);
 
         frgtManager = getSupportFragmentManager();
-        frgTransaction = frgtManager.beginTransaction();
+        frgTrans = frgtManager.beginTransaction();
 
-        if(isLogin) {
-            frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
+        /**
+         * TODO: connection to DB
+         *
+         */
+        ConnDB.getConn(this);
+        if(isLogged) {
+            frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
         } else {
-            frgTransaction.replace(R.id.mainFrame, new SignInFragment()).commit();
+            frgTrans.replace(R.id.mainFrame, new SignInFragment()).commit();
         }
         hiddenSoftInput();
     }

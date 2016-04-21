@@ -1,9 +1,6 @@
-package vn.whoever.transactionconn;
+package vn.whoever.TransConn;
 
 import android.app.Activity;
-import android.content.Context;
-import android.location.Criteria;
-import android.location.LocationManager;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -22,13 +19,12 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import vn.whoever.models.supports.Position;
-import vn.whoever.transactionconn.utils.GPSLocation;
+import vn.whoever.TransConn.utils.GPSLocation;
 
 /**
  * Created by spider man on 1/7/2016.
@@ -45,44 +41,6 @@ public class BeginTransaction {
     public static BeginTransaction getTransaction(Activity acctivity) {
         myActivity = acctivity;
         return transaction;
-    }
-
-    public void getRequestLogin(final String ssoId, final String password) {
-        httpStatusCode = null;
-
-        Map<String, String> jsonLogin = new HashMap<>();
-        jsonLogin.put("ssoId", ssoId);
-        jsonLogin.put("password", password);
-
-       JsonObjectRequest requestLogin = new JsonObjectRequest(Request.Method.POST, AddressConnection.url_login, new JSONObject(jsonLogin) ,new Response.Listener<JSONObject>() {
-           @Override
-           public void onResponse(JSONObject response) {
-                String str = response.toString();
-               Log.d("responseLog", str);
-           }
-       }, new Response.ErrorListener() {
-           @Override
-           public void onErrorResponse(VolleyError error) {
-               exTractError(error);
-           }
-       }){
-
-           @Override
-           public Map<String, String> getHeaders() throws AuthFailureError {
-               HashMap<String, String> headers = new HashMap<String, String>();
-               headers.put("Content-Type", "application/json; charset=utf-8");
-               headers.put("User-agent", System.getProperty("http.agent"));
-               return headers;
-           }
-
-           @Override
-           protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-               httpStatusCode = response.statusCode;
-               return super.parseNetworkResponse(response);
-           }
-       };
-
-        TransactionQueue.getsInstance(myActivity).addToRequestQueue(requestLogin);
     }
 
     /**

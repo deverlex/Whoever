@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class SQLiteAccess extends SQLiteOpenHelper {
             this.getReadableDatabase();
             try {
                 copyDatabase();
+                Log.d("copyDB", "copy success!!!");
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new Error("Copy database to default file system error !");
@@ -46,16 +48,11 @@ public class SQLiteAccess extends SQLiteOpenHelper {
     }
 
     public void copyDatabase() throws IOException {
-        //Open local database as the input stream
         InputStream inputStream = myContext.getAssets().open(DB_NAME);
 
-        //path to just create empty database
         String outputFileNamme = DB_PATH + DB_NAME;
-
-        //open empty database as the output stream
         OutputStream outputStream = new FileOutputStream(outputFileNamme);
 
-        //transfer bytes from inputfile to outputfile
         byte[] buffer = new byte[516];
         int length;
         while ((length = inputStream.read(buffer)) > 0) {
@@ -80,6 +77,11 @@ public class SQLiteAccess extends SQLiteOpenHelper {
             }
             return database != null ? true :false;
         }
+    }
+
+    public void openDataBase() throws SQLiteException {
+        String myPath = DB_PATH + DB_NAME;
+        myDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     @Override

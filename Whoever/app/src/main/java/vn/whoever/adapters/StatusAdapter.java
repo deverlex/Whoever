@@ -84,8 +84,8 @@ public class StatusAdapter extends BaseAdapter {
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                MainActivity.frgTransaction.replace(R.id.mainFrame, new RepliesFragment()).addToBackStack("repliesFrame").commit();
+                MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                MainActivity.frgTrans.replace(R.id.mainFrame, new RepliesFragment()).addToBackStack("repliesFrame").commit();
             }
         });
 

@@ -1,5 +1,6 @@
 package vn.whoever.views.fragments;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -7,13 +8,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,6 +35,7 @@ public class LoadFragment extends Fragment implements Initgc {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.load_layout, container, false);
 
+        hiddenSoftInput();
         init(view);
         initListener(view);
         return view;
@@ -77,8 +78,8 @@ public class LoadFragment extends Fragment implements Initgc {
                         public void run() {
                             progressBar.setProgress(progress);
                             if(progress == progressBar.getMax()) {
-                                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-                                MainActivity.frgTransaction.replace(R.id.mainFrame, new MainFragment()).commit();
+                                MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                                MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                             }
                         }
                     });
@@ -94,8 +95,22 @@ public class LoadFragment extends Fragment implements Initgc {
         thread.start();
     }
 
+    public void hiddenSoftInput() {
+        View view = getActivity().getCurrentFocus();
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     @Override
     public void initGc() {
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler = null;
     }
 }

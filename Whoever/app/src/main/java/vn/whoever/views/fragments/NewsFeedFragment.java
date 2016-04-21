@@ -172,8 +172,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
             @Override
             public void onClick(View v) {
                 navigateFragment(new ProfileFragment(), "newsFrameToprofile");
-//                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-//                MainActivity.frgTransaction.replace(R.id.mainFrame, new ProfileFragment()).addToBackStack("profileFrame").commit();
             }
         });
 
@@ -181,11 +179,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
             @Override
             public void onClick(View v) {
                 navigateFragment(new PostStatusFragment(), "newsFrameToPostStatus");
-//                MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-//                MainActivity.frgTransaction.replace(R.id.mainFrame, new PostStatusFragment()).addToBackStack("postStatus").commit();
-//                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
-//                getChildFragmentManager().executePendingTransactions();
-
             }
         });
 
@@ -193,8 +186,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
             @Override
             public void onClick(View v) {
                 navigateFragment(new PostStatusFragment(), "newsFrameToPostPhoto");
-//                getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
-//                getChildFragmentManager().executePendingTransactions();
             }
         });
 
@@ -203,8 +194,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
             public void onClick(View v) {
 
                 navigateFragment(new PostStatusFragment(), "newsFrameToPostStatus");
-//                getParentFragment().getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, new PostStatusFragment()).addToBackStack("stackPost").commit();
-//                getParentFragment().getChildFragmentManager().executePendingTransactions();
             }
         });
 

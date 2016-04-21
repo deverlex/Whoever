@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,9 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-import vn.whoever.transactionconn.BeginTransaction;
+import vn.whoever.TransConn.BeginTransaction;
 import vn.whoever.R;
-import vn.whoever.transactionconn.HttpStatus;
+import vn.whoever.TransConn.HttpStatus;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.dialogs.DatePickerFragment;
 import vn.whoever.views.dialogs.LanguagePickerFragment;
@@ -44,8 +43,6 @@ public class WelcomeFragment extends Fragment implements Initgc {
     private int timeout;
     private Integer httpCode = null;
 
-    public static final String KEY_USE_ACCOUNT = "isSignUp";
-
     private boolean isAccount = false; // for use register account
     private String langCode;
     private String ssoId;
@@ -55,10 +52,9 @@ public class WelcomeFragment extends Fragment implements Initgc {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.welcome_layout, container, false);
-        hiddenSoftInput(view);
 
         Bundle bundle = getArguments();
-        if(bundle.getBoolean(KEY_USE_ACCOUNT)) {
+        if(bundle.getBoolean("isSignUp")) {
             isAccount = true;
             ssoId = bundle.getString("ssoId");
             password = bundle.getString("password");
@@ -67,16 +63,11 @@ public class WelcomeFragment extends Fragment implements Initgc {
             isAccount = false;
         }
 
+        hiddenSoftInput();
+
         init(view);
         initListener(view);
         return view;
-    }
-
-    public void hiddenSoftInput(View view) {;
-        if(view != null) {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     @Override
@@ -111,7 +102,6 @@ public class WelcomeFragment extends Fragment implements Initgc {
                 if (langDialog.getLangCode() != null) {
                     langCode = langDialog.getLangCode();
                 }
-                Log.d("langCode", langCode);
 
                 if (TimeUtils.getInstance().isOldEnough(dateDialog.getYear(), dateDialog.getMonth(), dateDialog.getDayOfMonth())) {
 
@@ -137,7 +127,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                                 timeout = 0;
                                                 progressDialog.dismiss();
                                             }
-                                            if(timeout == 1) {
+                                            if (timeout == 1) {
                                                 progressDialog.dismiss();
                                                 HttpStatus.getStatus(getActivity()).codeSignInAnonymous(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                             }
@@ -146,7 +136,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     --timeout;
                                     try {
                                         Thread.sleep(150);
-                                    } catch (InterruptedException e) {}
+                                    } catch (InterruptedException e) {
+                                    }
                                 }
                             }
                         }).start();
@@ -170,7 +161,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                                 timeout = 0;
                                                 progressDialog.dismiss();
                                             }
-                                            if(timeout == 1) {
+                                            if (timeout == 1) {
                                                 progressDialog.dismiss();
                                                 HttpStatus.getStatus(getActivity()).codeSignInAnonymous(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                             }
@@ -179,7 +170,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     --timeout;
                                     try {
                                         Thread.sleep(150);
-                                    } catch (InterruptedException e) {}
+                                    } catch (InterruptedException e) {
+                                    }
                                 }
                             }
                         }).start();
@@ -213,14 +205,23 @@ public class WelcomeFragment extends Fragment implements Initgc {
     }
 
     public void loadDataActive() {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
         MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        MainActivity.frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
+        MainActivity.frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
+    }
+
+    public void hiddenSoftInput() {
+        View view = getActivity().getCurrentFocus();
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        handler = null;
         System.gc();
     }
 
@@ -228,19 +229,4 @@ public class WelcomeFragment extends Fragment implements Initgc {
     public void initGc() {
 
     }
-
-    /*
-    private ArrayList<String> getItems()
-    {
-        ArrayList<String> ret_val = new ArrayList<String>();
-
-        ret_val.add("Mikasa");
-        ret_val.add("Crysta");
-        ret_val.add("Ani");
-        ret_val.add("Sasha");
-        ret_val.add("Yumiru");
-        return ret_val;
-    }
-
-    */
 }

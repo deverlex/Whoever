@@ -1,7 +1,10 @@
 package vn.whoever.views.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -10,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,10 +25,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vn.whoever.transactionconn.HttpStatus;
+import vn.whoever.TransConn.LoginTrans;
+import vn.whoever.models.dao.ConnDB;
+import vn.whoever.TransConn.HttpStatus;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.R;
-import vn.whoever.transactionconn.BeginTransaction;
+import vn.whoever.TransConn.BeginTransaction;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.RegexUtils;
 
@@ -51,6 +55,7 @@ public class SignInFragment extends Fragment implements Initgc {
 
     private Toast toast;
     private int timeout;
+    //private LoginTrans loginTrans;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +63,6 @@ public class SignInFragment extends Fragment implements Initgc {
 
         init(view);
         initListener(view);
-
         return view;
     }
 
@@ -109,7 +113,6 @@ public class SignInFragment extends Fragment implements Initgc {
         editTextPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-
                 return false;
             }
         });
@@ -150,8 +153,7 @@ public class SignInFragment extends Fragment implements Initgc {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, false);
-
+                bundle.putBoolean("isSignUp", false);
                 WelcomeFragment welcomeFragment = new WelcomeFragment();
                 welcomeFragment.setArguments(bundle);
 
@@ -173,14 +175,10 @@ public class SignInFragment extends Fragment implements Initgc {
                 }
 
                 if (RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
-                    //int stateLogin = BeginTransaction.getInstance(getActivity(), null).getRequestLogin(ssoId, password);
-                    /**
-                     * Account avaiable => Activity
-                     * else
-                     * => create new account
-                     */
+
                     timeout = 40;
-                    BeginTransaction.getTransaction(getActivity()).getRequestLogin(ssoId, password);
+                    final LoginTrans loginTrans = new LoginTrans(getActivity());
+                    loginTrans.getRequestLogin(ssoId, password);
                     progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
 
                     new Thread(new Runnable() {
@@ -190,14 +188,16 @@ public class SignInFragment extends Fragment implements Initgc {
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Integer httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
+                                        Integer httpCode = loginTrans.getHttpStatusCode();
                                         if (httpCode != null) {
-                                            Log.d("httpCodeLogin",String.valueOf(httpCode));
                                             if(httpCode == HttpStatus.SC_NOT_FOUND) {
                                                 navigateFrame(new SignUpFragment(), "signInFrameToSignUp");
                                             }
-
                                             if (HttpStatus.getStatus(getActivity()).codeSignIn(httpCode)) {
+                                                insertDB();
+                                            //    SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+                                            //    editor.putBoolean("isLogged", true);
+                                            //    editor.commit();
                                                 loadDataActive();
                                             }
                                             timeout = 0;
@@ -227,20 +227,20 @@ public class SignInFragment extends Fragment implements Initgc {
         });
     }
 
-    public String getSerialNumberUser() {
-        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        return telephonyManager.getDeviceId();
-    }
+//    public String getSerialNumberUser() {
+//        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+//        return telephonyManager.getDeviceId();
+//    }
 
     private void navigateFrame(Fragment fragment, String strStack) {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
+        MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTrans.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
     }
 
     public void loadDataActive() {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
         MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        MainActivity.frgTransaction.replace(R.id.mainFrame, new LoadFragment()).commit();
+        MainActivity.frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
     }
 
     @Override
@@ -260,5 +260,16 @@ public class SignInFragment extends Fragment implements Initgc {
     @Override
     public void initGc() {
 
+    }
+
+    private void insertDB() {
+        ConnDB.getConn().openDataBase();
+        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ssoId", ssoId);
+        values.put("password", password);
+        db.execSQL("delete from LocalAccount");
+        db.insert("LocalAccount", null, values);
+        ConnDB.getConn().close();
     }
 }

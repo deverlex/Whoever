@@ -1,7 +1,6 @@
-package vn.whoever.transactionconn;
+package vn.whoever.TransConn;
 
 import android.app.Activity;
-import android.location.Location;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -16,57 +15,42 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-import vn.whoever.models.supports.Position;
-import vn.whoever.transactionconn.utils.GPSLocation;
-
 /**
- * Created by spider man on 1/7/2016.
+ * Created by spider man on 4/21/2016.
  */
-public class GetNewsTransaction {
+public class LoginTrans {
 
-    private Integer httpStatusCode = null;
     private Activity activity;
+    private Integer httpStatusCode = null;
+    private String url_login = "http://192.168.1.112:8080/mainserver/mobile/login";
 
-    private GetNewsTransaction() {}
-
-    public GetNewsTransaction(Activity activity) {
+    public LoginTrans(Activity activity) {
         this.activity = activity;
     }
 
-    public void getNewsFeed(String ssoId, String order, int offset) {
-        Map<String, Object> mapGetStatus = new LinkedHashMap<>();
-        mapGetStatus.put("ssoId", ssoId);
-        mapGetStatus.put("order", order);
-        mapGetStatus.put("offset", offset);
+    public void getRequestLogin(final String ssoId, final String password) {
+        httpStatusCode = null;
 
-        JSONObject jsonReqStatus = new JSONObject(mapGetStatus);
+        Map<String, String> jsonLogin = new HashMap<>();
+        jsonLogin.put("ssoId", ssoId);
+        jsonLogin.put("password", password);
 
-        Map<String, Double> loc = new LinkedHashMap<>();
-        try {
-            Position position = (new GPSLocation(activity)).getLocation();
-            if(position != null) {
-                loc.put("xLoc", Math.round(position.getX()*1000000)/1000000.0);
-                loc.put("yLoc", Math.round(position.getY()*1000000)/1000000.0);
-            }
-        } catch (SecurityException e) {}
-
-        final JSONObject reqLoc = new JSONObject(loc);
-        try {
-            jsonReqStatus.put("location", reqLoc);
-        } catch (JSONException e) {}
-
-        JsonObjectRequest newsRequest = new JsonObjectRequest(Request.Method.POST, AddressConnection.url_news, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest requestLogin = new JsonObjectRequest(Request.Method.POST, url_login, new JSONObject(jsonLogin) ,new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("responseStatus", response.toString());
-                // TODO: insert DB status
+                Log.d("returnLogin", response.toString());
+                try {
+                    String lang = response.getString("langName");
+
+                } catch (Exception e) {
+
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -74,6 +58,7 @@ public class GetNewsTransaction {
                 exTractError(error);
             }
         }){
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -88,7 +73,8 @@ public class GetNewsTransaction {
                 return super.parseNetworkResponse(response);
             }
         };
-        TransactionQueue.getsInstance(activity).addToRequestQueue(newsRequest);
+
+        TransactionQueue.getsInstance(activity).addToRequestQueue(requestLogin);
     }
 
     public Integer getHttpStatusCode() {

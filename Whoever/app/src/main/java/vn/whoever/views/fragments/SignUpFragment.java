@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import vn.whoever.R;
-import vn.whoever.transactionconn.BeginTransaction;
+import vn.whoever.TransConn.BeginTransaction;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.RegexUtils;
 import vn.whoever.views.activities.MainActivity;
@@ -114,7 +114,7 @@ public class SignUpFragment extends Fragment implements Initgc {
                     if(checkBoxAgreeTerm.isChecked()) {
 
                         Bundle bundle = new Bundle();
-                        bundle.putBoolean(WelcomeFragment.KEY_USE_ACCOUNT, true);
+                        bundle.putBoolean("isSignUp", true);
                         bundle.putString("nickName", nickName);
                         bundle.putString("ssoId", ssoId);
                         bundle.putString("password", password);
@@ -248,8 +248,8 @@ public class SignUpFragment extends Fragment implements Initgc {
     }
 
     private void navigateToWelcome(Fragment fragment, String strStack) {
-        MainActivity.frgTransaction = MainActivity.frgtManager.beginTransaction();
-        MainActivity.frgTransaction.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
+        MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+        MainActivity.frgTrans.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
     }
 
     @Override

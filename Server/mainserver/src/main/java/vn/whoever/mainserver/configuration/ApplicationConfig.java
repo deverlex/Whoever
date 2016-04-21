@@ -24,6 +24,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ComponentScan(basePackages = "vn.whoever.mainserver")
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 	
+	/**
+	 * Config upload file Image in here
+	 * 
+	 */
+	
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

@@ -48,10 +48,13 @@
 //không được phép dùng idUser truyền tải trên mạng
 
 //update status
+//doi voi cac update phai check quen co duoc sua hay khong
 {
 	"idStatus" : "",
-	"contentText" : "",
-	"contentImage" : "",
+	"contentText" : "?",
+	"contentImage" : "?"
+	"privacy" : "?",
+	"isUseAccount" : "?"
 }
 
 //status interact

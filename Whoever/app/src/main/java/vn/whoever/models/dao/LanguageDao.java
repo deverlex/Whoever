@@ -41,7 +41,6 @@ public class LanguageDao {
      *
      * @return a list language supported by application
      */
-
     public synchronized HashMap<String, String> getArrayLanguageSupport() {
         listLanguage = new LinkedHashMap<>();
         try {
@@ -49,9 +48,7 @@ public class LanguageDao {
 
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(inputStream);
-
             document.getDocumentElement().normalize();
-            //get first element
             Element element = document.getDocumentElement();
 
             Node nodeLanguageSupport = element.getChildNodes().item(1);
@@ -61,7 +58,6 @@ public class LanguageDao {
                 if(nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Element element_val = (Element) nodeList.item(i);
                     listLanguage.put(element_val.getAttribute("id"), element_val.getTextContent());
-                    //Log.d("Attribute: ", element_val.getAttribute("id") + " " + element_val.getTextContent());
                 }
             }
 
