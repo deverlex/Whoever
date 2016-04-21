@@ -53,8 +53,6 @@ public class BeginTransaction {
         UrlQuery urlQuery = new UrlQuery(AddressConnection.url_query_ssoId);
         urlQuery.putRequestParam("ssoId", ssoId);
 
-        Log.d("urlQuery", urlQuery.getUrl());
-
         StringRequest findSsoId = new StringRequest(Request.Method.GET, urlQuery.getUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

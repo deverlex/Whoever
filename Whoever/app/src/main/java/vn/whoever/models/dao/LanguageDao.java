@@ -19,20 +19,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 public class LanguageDao {
 
-    private static String DB_LANGUAGE = "language/languages.xml";
     private Context context;
     private HashMap<String, String> listLanguage;
     private DocumentBuilderFactory factory;
 
-    private static LanguageDao languageDao = new LanguageDao();
-
-    public static LanguageDao getInstance(Context context) {
-        languageDao.context = context;
-        return languageDao;
-    }
-
-    public LanguageDao() {
-        // create new instance for document
+    public LanguageDao(Context context) {
+        this.context = context;
         factory = DocumentBuilderFactory.newInstance();
     }
 
@@ -44,7 +36,7 @@ public class LanguageDao {
     public synchronized HashMap<String, String> getArrayLanguageSupport() {
         listLanguage = new LinkedHashMap<>();
         try {
-            InputStream inputStream = context.getAssets().open(DB_LANGUAGE);
+            InputStream inputStream = context.getAssets().open("language/languages.xml");
 
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(inputStream);

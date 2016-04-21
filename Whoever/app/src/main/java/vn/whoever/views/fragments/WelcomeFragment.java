@@ -221,7 +221,6 @@ public class WelcomeFragment extends Fragment implements Initgc {
     }
 
     private void insertDB() {
-        ConnDB.getConn().openDataBase();
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id", 1);
@@ -234,16 +233,15 @@ public class WelcomeFragment extends Fragment implements Initgc {
         values.put("birthday", birthday);
         db.execSQL("delete from LocalProfile");
         db.insert("LocalProfile", null, values);
-        ConnDB.getConn().close();
+        db.close();
     }
 
     private void insertDbForAnnonymous() {
-        ConnDB.getConn().openDataBase();
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("birthday", birthday);
         db.update("LocalProfile", values, "id = 1", null);
-        ConnDB.getConn().close();
+        db.close();
     }
 
     public void hiddenSoftInput() {
@@ -263,6 +261,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
         nickName = null;
         langCode = null;
         birthday = null;
+        langDialog = null;
+        dateDialog = null;
         System.gc();
     }
 

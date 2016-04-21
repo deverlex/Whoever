@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
          * TODO: connection to DB
          *
          */
-        ConnDB.getConn(this);
         if(isLogged) {
             frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
         } else {
@@ -51,12 +50,6 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        System.gc();
     }
 
     @Override
@@ -79,4 +72,22 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.gc();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ConnDB.getConn(this);
+        ConnDB.getConn().openDataBase();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ConnDB.getConn().close();
+    }
 }

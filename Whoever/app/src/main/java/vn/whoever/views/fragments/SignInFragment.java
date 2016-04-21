@@ -265,7 +265,6 @@ public class SignInFragment extends Fragment implements Initgc {
     }
 
     private void insertDB() {
-        ConnDB.getConn().openDataBase();
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id", 1);
@@ -273,6 +272,5 @@ public class SignInFragment extends Fragment implements Initgc {
         values.put("password", password);
         db.execSQL("delete from LocalAccount");
         db.insert("LocalAccount", null, values);
-        ConnDB.getConn().close();
     }
 }

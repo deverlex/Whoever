@@ -59,7 +59,6 @@ public class LoginTrans {
                     String privacy = res.getString("privacy");
                     Boolean isOnline = res.getBoolean("isOnline");
 
-                    ConnDB.getConn().openDataBase();
                     SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                     ContentValues values = new ContentValues();
                     values.put("id", 1);
@@ -75,7 +74,7 @@ public class LoginTrans {
                     values.put("isOnline", isOnline);
                     db.execSQL("delete from LocalProfile");
                     db.insert("LocalProfile", null, values);
-                    ConnDB.getConn().close();
+                    db.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -100,13 +99,13 @@ public class LoginTrans {
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 Map<String, String> headers = response.headers;
-                ConnDB.getConn().openDataBase();
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("token", headers.get("Whoever-token"));
                 values.put("expTime", headers.get("Token-expiration"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
+                db.close();
                 return super.parseNetworkResponse(response);
             }
         };

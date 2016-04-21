@@ -49,19 +49,26 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 	@SuppressWarnings("unchecked")
 	public List<Status> getListStatusByFriends(List<String> listFriends, String idUser, int offset) {
 		Criteria crit = createEntityCriteria();
-		Criterion critPrivacy = Restrictions.or(
-				Restrictions.eq("privacy", Privacies.normal), 
-				Restrictions.eq("privacy", Privacies.open));
-		
-		Criterion critIsFriend = Restrictions.in("idUser", listFriends);
-		Criterion critByFriend = Restrictions.and(critPrivacy, critIsFriend);
 		
 		Criterion critSelf = Restrictions.eq("idUser", idUser);
+		System.out.println("idUser: " + idUser);
 		
-		crit.add(Restrictions.or(critByFriend, critSelf));
+		if(listFriends.size() > 0){
+			Criterion critPrivacy = Restrictions.or(
+					Restrictions.eq("privacy", Privacies.normal), 
+					Restrictions.eq("privacy", Privacies.open));
+			
+			Criterion critIsFriend = Restrictions.in("idUser", listFriends);
+			Criterion critByFriend = Restrictions.and(critPrivacy, critIsFriend);
+			crit.add(Restrictions.or(critByFriend, critSelf));
+		} else {
+			crit.add(critSelf);
+		}
+		System.out.println("list size friends: " + listFriends.size());
+		
 		crit.addOrder(Order.desc("timeUp"));
 		crit.setFirstResult(offset);
-		crit.setMaxResults(120);
+		crit.setMaxResults(20);
 		return (List<Status>) crit.list();
 	}
 	
@@ -92,7 +99,7 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		
 		crit.addOrder(Order.desc("timeUp"));
 		crit.setFirstResult(offset);
-		crit.setMaxResults(120);
+		crit.setMaxResults(20);
 
 		return (List<Status>) crit.list();
 	}

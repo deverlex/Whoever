@@ -1,6 +1,8 @@
 package vn.whoever.TransConn;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -22,46 +24,34 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.models.supports.Position;
 import vn.whoever.TransConn.utils.GPSLocation;
 
 /**
  * Created by spider man on 1/7/2016.
  */
-public class GetNewsTransaction {
+public class NewsTrans {
 
     private Integer httpStatusCode = null;
     private Activity activity;
+    private String url_news = "http://192.168.1.112:8080/mainserver/mobile/news";
 
-    private GetNewsTransaction() {}
+    private NewsTrans() {}
 
-    public GetNewsTransaction(Activity activity) {
+    public NewsTrans(Activity activity) {
         this.activity = activity;
     }
 
-    public void getNewsFeed(String ssoId, String order, int offset) {
+    public void getNewsFeed(String order, int offset) {
         Map<String, Object> mapGetStatus = new LinkedHashMap<>();
-        mapGetStatus.put("ssoId", ssoId);
         mapGetStatus.put("order", order);
         mapGetStatus.put("offset", offset);
 
         JSONObject jsonReqStatus = new JSONObject(mapGetStatus);
 
-        Map<String, Double> loc = new LinkedHashMap<>();
-        try {
-            Position position = (new GPSLocation(activity)).getLocation();
-            if(position != null) {
-                loc.put("xLoc", Math.round(position.getX()*1000000)/1000000.0);
-                loc.put("yLoc", Math.round(position.getY()*1000000)/1000000.0);
-            }
-        } catch (SecurityException e) {}
-
-        final JSONObject reqLoc = new JSONObject(loc);
-        try {
-            jsonReqStatus.put("location", reqLoc);
-        } catch (JSONException e) {}
-
-        JsonObjectRequest newsRequest = new JsonObjectRequest(Request.Method.POST, AddressConnection.url_news, new Response.Listener<JSONObject>() {
+        JsonObjectRequest newsRequest = new JsonObjectRequest(Request.Method.POST, url_news,
+                new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("responseStatus", response.toString());
@@ -77,6 +67,18 @@ public class GetNewsTransaction {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/json; charset=utf-8");
+                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                Cursor cursor = db.rawQuery("Select token, expTime from Auth", null);
+                String token = "";
+                String expTime = "";
+                while (cursor.moveToNext()) {
+                    token = cursor.getString(0);
+                    expTime = cursor.getString(1);
+                }
+                cursor.close();
+                db.close();
+                headers.put("Whoever-token", token);
+                headers.put("Token-expiration", expTime);
                 headers.put("User-agent", System.getProperty("http.agent"));
                 return headers;
             }
@@ -84,6 +86,8 @@ public class GetNewsTransaction {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
+                Map<String, String> headers = response.headers;
+
                 return super.parseNetworkResponse(response);
             }
         };

@@ -14,7 +14,7 @@ public class ArrayContact {
 
         Contact contact = new Contact();
 
-        for(int i = 0 ; i < 15; ++i) {
+        for(int i = 0 ; i < 1; ++i) {
             contacts.add(contact);
         }
 

@@ -22,8 +22,8 @@ import vn.whoever.models.dao.LanguageDao;
 public class LanguagePickerFragment extends DialogFragment {
 
     private HashMap<String, String> mapLanguage;
-    private ArrayList<String> listLanguage = new ArrayList<>();
-    private ArrayList<String> listkey = new ArrayList<>();
+    private ArrayList<String> listLanguage;
+    private ArrayList<String> listkey;
     private TextView textLanguage;
     private int position = 0;
     private CharSequence[] cs;
@@ -33,9 +33,6 @@ public class LanguagePickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Resources res = getActivity().getResources();
-        //Bundle bundle = getArguments();
-
         dialog = new AlertDialog.Builder(getActivity());
 
         dialog.setTitle("Please Select");
@@ -44,6 +41,9 @@ public class LanguagePickerFragment extends DialogFragment {
 
         String sysCodeLanguage = Locale.getDefault().getISO3Language().substring(0, 2);
         getLangName(sysCodeLanguage);
+
+        listkey = new ArrayList<>();
+        listLanguage = new ArrayList<>();
 
         for (Map.Entry<String, String> select : mapLanguage.entrySet()) {
             listLanguage.add(select.getValue());
@@ -87,7 +87,7 @@ public class LanguagePickerFragment extends DialogFragment {
     }
 
     public String getLangName(String langCode) {
-        mapLanguage = LanguageDao.getInstance(getActivity()).getArrayLanguageSupport();
+        mapLanguage = (new LanguageDao(getActivity())).getArrayLanguageSupport();
         return mapLanguage.get(langCode);
     }
 }

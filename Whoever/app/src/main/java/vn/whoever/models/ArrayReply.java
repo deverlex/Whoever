@@ -23,7 +23,7 @@ public class ArrayReply {
         reply.setCountDislike(10);
         reply.setCountLike(24);
 
-        for(int i = 0 ; i < 16; ++i) {
+        for(int i = 0 ; i < 1; ++i) {
             replies.add(reply);
         }
         return replies;

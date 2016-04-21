@@ -54,12 +54,11 @@ public class RegisterTrans {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        ConnDB.getConn().openDataBase();
                         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                         ContentValues values = new ContentValues();
                         values.put("langName", response.toString());
                         db.update("LocalProfile", values, "id = 1", null);
-                        ConnDB.getConn().close();
+                        db.close();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -79,14 +78,13 @@ public class RegisterTrans {
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 Map<String, String> headers = response.headers;
-                ConnDB.getConn().openDataBase();
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("token", headers.get("Whoever-token"));
                 values.put("expTime", headers.get("Token-expiration"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
-                ConnDB.getConn().close();
+                db.close();
                 return super.parseNetworkResponse(response);
             }
 

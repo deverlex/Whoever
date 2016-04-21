@@ -74,9 +74,8 @@ public class StatusServiceImpl implements StatusService {
 		List<String> lIdFriend = contactUserDao.getListIdFriend(idUser, contactsDao.getIdContact(idUser));
 		List<Status> listStatus = new LinkedList<Status>();
 		
-		if(order == Order.friends) {
-			if(lIdFriend.size() > 0)
-				listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser, offset);
+		if(order == Order.friends) {	
+			listStatus = statusDao.getListStatusByFriends(lIdFriend, idUser, offset);
 		} else {
 			listStatus = statusDao.getListStatusContainNearby(lIdFriend, idUser, xLoc, yLoc, offset);
 		}

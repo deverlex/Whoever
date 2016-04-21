@@ -23,7 +23,7 @@ public class ArrayInbox {
 
         inbox.setLastTimeChat(new Date());
 
-        for(int i = 0; i < 10; ++i) {
+        for(int i = 0; i < 1; ++i) {
             arrayList.add(inbox);
         }
 

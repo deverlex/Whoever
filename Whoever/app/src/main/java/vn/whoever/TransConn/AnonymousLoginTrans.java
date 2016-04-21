@@ -42,7 +42,6 @@ public class AnonymousLoginTrans {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, query.getUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String res) {
-                ConnDB.getConn().openDataBase();
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("id", 1);
@@ -50,7 +49,7 @@ public class AnonymousLoginTrans {
                 Log.d("language", res);
                 db.execSQL("delete from LocalProfile");
                 db.insert("LocalProfile", null, values);
-                ConnDB.getConn().close();
+                db.close();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -62,7 +61,6 @@ public class AnonymousLoginTrans {
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 Map<String, String> headers = response.headers;
-                ConnDB.getConn().openDataBase();
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("token", headers.get("Whoever-token"));
@@ -70,7 +68,7 @@ public class AnonymousLoginTrans {
                 Log.d("token", headers.get("Whoever-token"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
-                ConnDB.getConn().close();
+                db.close();
                 return super.parseNetworkResponse(response);
             }
         };
