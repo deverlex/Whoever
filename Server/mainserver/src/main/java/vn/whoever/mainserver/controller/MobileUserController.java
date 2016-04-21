@@ -109,9 +109,6 @@ public class MobileUserController {
 		}
 		ClientLocation location = locationService.getLocation(ipAddress);
 		
-		System.out.println("xLoc: " + location.getLatitude());
-		System.out.println("yLoc: " + location.getLongitude());
-		
 		Languages language = langsService.findByCode(langCode);
 		if(language == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -124,7 +121,8 @@ public class MobileUserController {
 		HttpSession session = request.getSession();
 		try {
 	
-			Users users = new Users(idUser, ssoId, password, States.active, true, true, language.getIdLanguage());
+			Users users = new Users(idUser, ssoId, password, States.active, location.getLatitude(), location.getLongitude(),
+					true, true, language.getIdLanguage());
 			
 			usersService.registerUser(users);
 			authenticalUser(request, session, ssoId, password);
@@ -139,7 +137,7 @@ public class MobileUserController {
 			response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 			return null;
 		}
-		return ssoId;
+		return language.getNativeName();
 	}
 
 	@RequestMapping(value = {"/mobile/register" }, method = RequestMethod.POST, 
@@ -153,10 +151,9 @@ public class MobileUserController {
 		}
 		ClientLocation location = locationService.getLocation(ipAddress);
 		
-		
-		Integer idLanguage = langsService.findIdByCode(req.getLangCode());
-		if(idLanguage == null) {
-			idLanguage = 16;
+		Languages languages = langsService.findByCode(req.getLangCode());
+		if(languages == null) {
+			languages = langsService.findByCode("vi");
 		}
 		
 		String idUser = usersService.generateUserId();
@@ -166,10 +163,10 @@ public class MobileUserController {
 		Users users = null;
 		if(location == null) {
 			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
-					States.active, false, true, idLanguage);
+					States.active, false, true, languages.getIdLanguage());
 		} else {
 			users = new Users(idUser, req.getSsoId(), req.getPassword(), 
-					States.active, location.getLatitude(), location.getLongitude(), false, true, idLanguage);
+					States.active, location.getLatitude(), location.getLongitude(), false, true, languages.getIdLanguage());
 		}
 		
 		Profiles profile = new Profiles(idProfile, idUser, req.getNickName(), req.getBirthday());
@@ -184,14 +181,10 @@ public class MobileUserController {
 			String date = authToken.getTimeExpiration();
 			response.setHeader("Whoever-token", token);
 			response.setHeader("Token-expiration", date);
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "Register fail!!!";
 		}
-	
-		return "Register successful!!!";
+		return languages.getNativeName();
 	}
 	
 	@RequestMapping(value = {"/mobile/query"}, method = RequestMethod.GET,

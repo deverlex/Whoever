@@ -246,6 +246,8 @@ public class SignInFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
+        ssoId = null;
+        password = null;
         System.gc();
     }
 
@@ -266,6 +268,7 @@ public class SignInFragment extends Fragment implements Initgc {
         ConnDB.getConn().openDataBase();
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("id", 1);
         values.put("ssoId", ssoId);
         values.put("password", password);
         db.execSQL("delete from LocalAccount");

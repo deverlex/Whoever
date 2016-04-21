@@ -17,77 +17,56 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vn.whoever.TransConn.utils.GPSLocation;
 import vn.whoever.models.dao.ConnDB;
+import vn.whoever.models.supports.Position;
 
 /**
  * Created by spider man on 4/21/2016.
  */
-public class LoginTrans {
+public class RegisterTrans {
 
     private Activity activity;
     private Integer httpStatusCode = null;
-    private String url_login = "http://192.168.1.112:8080/mainserver/mobile/login";
+    private String url_register = "http://192.168.1.112:8080/mainserver/mobile/register";
 
-    public LoginTrans(Activity activity) {
+    public RegisterTrans(Activity activity) {
         this.activity = activity;
     }
 
-    public void getRequestLogin(final String ssoId, final String password) {
-        httpStatusCode = null;
+    public void registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
+        Map<String, Object> jsonRegister = new LinkedHashMap<>();
+        jsonRegister.put("ssoId", ssoId);
+        jsonRegister.put("password", password);
+        jsonRegister.put("nickName", nickName);
+        jsonRegister.put("birthday", birthday);
+        jsonRegister.put("langCode", langCode);
 
-        Map<String, String> jsonLogin = new HashMap<>();
-        jsonLogin.put("ssoId", ssoId);
-        jsonLogin.put("password", password);
-
-        final JsonObjectRequest requestLogin = new JsonObjectRequest(Request.Method.POST, url_login, new JSONObject(jsonLogin) ,new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject res) {
-                try {
-                    String avatarPhoto = res.getString("avatarPhoto");
-                    String coverPhoto = res.getString("coverPhoto");
-                    String nickName = res.getString("nickName");
-                    String langName = res.getString("langName");
-                    String birthday = res.getString("birthday");
-                    String gender = res.getString("gender");
-                    String mobile = res.getString("mobile");
-                    String email = res.getString("email");
-                    String privacy = res.getString("privacy");
-                    Boolean isOnline = res.getBoolean("isOnline");
-
-                    ConnDB.getConn().openDataBase();
-                    SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-                    ContentValues values = new ContentValues();
-                    values.put("id", 1);
-                    values.put("avatarPhoto", avatarPhoto);
-                    values.put("coverPhoto", coverPhoto);
-                    values.put("nickName", nickName);
-                    values.put("langName", langName);
-                    values.put("birthday", birthday);
-                    values.put("gender", gender);
-                    values.put("mobile", mobile);
-                    values.put("email", email);
-                    values.put("privacy", privacy);
-                    values.put("isOnline", isOnline);
-                    db.execSQL("delete from LocalProfile");
-                    db.insert("LocalProfile", null, values);
-                    ConnDB.getConn().close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
+        JsonObjectRequest registerRequest = new JsonObjectRequest(Request.Method.POST, url_register,
+                new JSONObject(jsonRegister),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ConnDB.getConn().openDataBase();
+                        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                        ContentValues values = new ContentValues();
+                        values.put("langName", response.toString());
+                        db.update("LocalProfile", values, "id = 1", null);
+                        ConnDB.getConn().close();
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 exTractError(error);
             }
-        }){
-
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -107,11 +86,12 @@ public class LoginTrans {
                 values.put("expTime", headers.get("Token-expiration"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
+                ConnDB.getConn().close();
                 return super.parseNetworkResponse(response);
             }
-        };
 
-        TransactionQueue.getsInstance(activity).addToRequestQueue(requestLogin);
+        };
+        TransactionQueue.getsInstance(activity).addToRequestQueue(registerRequest);
     }
 
     public Integer getHttpStatusCode() {

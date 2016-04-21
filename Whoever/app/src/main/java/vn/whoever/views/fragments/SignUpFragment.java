@@ -118,7 +118,6 @@ public class SignUpFragment extends Fragment implements Initgc {
                         bundle.putString("nickName", nickName);
                         bundle.putString("ssoId", ssoId);
                         bundle.putString("password", password);
-
                         WelcomeFragment welcomeFragment = new WelcomeFragment();
                         welcomeFragment.setArguments(bundle);
 
@@ -255,6 +254,7 @@ public class SignUpFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
+        handler = null;
         System.gc();
     }
 

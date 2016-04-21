@@ -16,15 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import vn.whoever.models.supports.Position;
-import vn.whoever.TransConn.utils.GPSLocation;
 
 /**
  * Created by spider man on 1/7/2016.
@@ -49,107 +41,6 @@ public class BeginTransaction {
      * TODO: using GET method
      */
 
-    public void getRequestLoginAnonymous(String langCode) {
-        httpStatusCode = null;
-        UrlQuery query = new UrlQuery(AddressConnection.url_login_anonymous);
-        query.putVariable(langCode);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, query.getUrl(), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("ssoId", response);
-                /**
-                 * TODO: need stored ssoId into database
-                 *
-                 */
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                exTractError(error);
-            }
-        }) {
-            @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                httpStatusCode = response.statusCode;
-                return super.parseNetworkResponse(response);
-            }
-        };
-        TransactionQueue.getsInstance(myActivity).addToRequestQueue(stringRequest);
-    }
-
-    public void registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
-
-        Map<String, Object> jsonRegister = new LinkedHashMap<>();
-        jsonRegister.put("ssoId", ssoId);
-        jsonRegister.put("password", password);
-        jsonRegister.put("nickName", nickName);
-        jsonRegister.put("birthday", birthday);
-        jsonRegister.put("langCode", langCode);
-
-        JSONObject profile = new JSONObject(jsonRegister);
-
-        Map<String, Double> loc = new LinkedHashMap<>();
-
-        try {
-            Position position = (new GPSLocation(myActivity)).getLocation();
-
-            if(position != null) {
-                position.setX(Math.round(position.getX()*1000000)/1000000.0);
-                position.setY(Math.round(position.getY()*1000000)/1000000.0);
-                loc.put("xLoc", position.getX());
-                loc.put("yLoc", position.getY());
-            }
-
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-
-        JSONObject jsonLoc = new JSONObject(loc);
-
-        try {
-            profile.put("location",jsonLoc);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("json request", profile.toString());
-
-        JsonObjectRequest registerRequest = new JsonObjectRequest(Request.Method.POST, AddressConnection.url_register,
-                profile,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        /**
-                         * Response status on home page
-                         */
-                        Log.d("Response from server", response.toString());
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                exTractError(error);
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("User-agent", System.getProperty("http.agent"));
-                return headers;
-            }
-
-            @Override
-            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-                httpStatusCode = response.statusCode;
-                return super.parseNetworkResponse(response);
-            }
-
-        };
-        TransactionQueue.getsInstance(myActivity).addToRequestQueue(registerRequest);
-    }
-
     /**
      * For register new user
      * @param ssoId
@@ -160,7 +51,7 @@ public class BeginTransaction {
     public String findSsoIdAvaiable(String ssoId) {
         resultQuerySsoId = null;
         UrlQuery urlQuery = new UrlQuery(AddressConnection.url_query_ssoId);
-        urlQuery.putParam("ssoId", ssoId);
+        urlQuery.putRequestParam("ssoId", ssoId);
 
         Log.d("urlQuery", urlQuery.getUrl());
 

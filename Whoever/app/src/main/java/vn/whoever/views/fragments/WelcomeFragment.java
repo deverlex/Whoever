@@ -1,7 +1,9 @@
 package vn.whoever.views.fragments;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +19,12 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+import vn.whoever.TransConn.AnonymousLoginTrans;
 import vn.whoever.TransConn.BeginTransaction;
 import vn.whoever.R;
 import vn.whoever.TransConn.HttpStatus;
+import vn.whoever.TransConn.RegisterTrans;
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.dialogs.DatePickerFragment;
 import vn.whoever.views.dialogs.LanguagePickerFragment;
@@ -48,6 +53,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
     private String ssoId;
     private String password;
     private String nickName;
+    private String birthday;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -105,11 +111,12 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                 if (TimeUtils.getInstance().isOldEnough(dateDialog.getYear(), dateDialog.getMonth(), dateDialog.getDayOfMonth())) {
 
-                    String strDate = dateDialog.getDateString();
+                    birthday = dateDialog.getDateString();
 
                     if (isAccount) {
                         timeout = 50;
-                        BeginTransaction.getTransaction(getActivity()).registerUser(ssoId, password, nickName, strDate, langCode);
+                        final RegisterTrans registerTrans = new RegisterTrans(getActivity());
+                        registerTrans.registerUser(ssoId, password, nickName, birthday, langCode);
 
                         progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
@@ -119,9 +126,10 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
+                                            httpCode = registerTrans.getHttpStatusCode();
                                             if (httpCode != null) {
                                                 if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
+                                                    insertDB();
                                                     loadDataActive();
                                                 }
                                                 timeout = 0;
@@ -144,7 +152,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                     } else {
                         timeout = 40;
-                        BeginTransaction.getTransaction(getActivity()).getRequestLoginAnonymous(langCode);
+                        final AnonymousLoginTrans loginTrans = new AnonymousLoginTrans(getActivity());
+                        loginTrans.getRequestLoginAnonymous(langCode);
                         progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
                             @Override
@@ -153,9 +162,10 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            httpCode = BeginTransaction.getTransaction(getActivity()).getHttpStatusCode();
+                                            httpCode = loginTrans.getHttpStatusCode();
                                             if (httpCode != null) {
                                                 if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
+                                                    insertDbForAnnonymous();
                                                     loadDataActive();
                                                 }
                                                 timeout = 0;
@@ -210,6 +220,32 @@ public class WelcomeFragment extends Fragment implements Initgc {
         MainActivity.frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
     }
 
+    private void insertDB() {
+        ConnDB.getConn().openDataBase();
+        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id", 1);
+        values.put("ssoId", ssoId);
+        values.put("password", password);
+        db.execSQL("delete from LocalAccount");
+        db.insert("LocalAccount", null, values);
+        values.clear();
+        values.put("nickName", nickName);
+        values.put("birthday", birthday);
+        db.execSQL("delete from LocalProfile");
+        db.insert("LocalProfile", null, values);
+        ConnDB.getConn().close();
+    }
+
+    private void insertDbForAnnonymous() {
+        ConnDB.getConn().openDataBase();
+        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("birthday", birthday);
+        db.update("LocalProfile", values, "id = 1", null);
+        ConnDB.getConn().close();
+    }
+
     public void hiddenSoftInput() {
         View view = getActivity().getCurrentFocus();
         if(view != null) {
@@ -222,6 +258,11 @@ public class WelcomeFragment extends Fragment implements Initgc {
     public void onPause() {
         super.onPause();
         handler = null;
+        ssoId = null;
+        password = null;
+        nickName = null;
+        langCode = null;
+        birthday = null;
         System.gc();
     }
 

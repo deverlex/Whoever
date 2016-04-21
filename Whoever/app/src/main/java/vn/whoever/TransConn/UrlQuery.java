@@ -14,11 +14,11 @@ public class UrlQuery {
         this.url = url;
     }
 
-    public void putVariable(String value) {
+    public void putPathVariable(String value) {
         url += ("/" + value);
     }
 
-    public void putParam(String key, String value) {
+    public void putRequestParam(String key, String value) {
         if(countParam ==0) {
             url+=("?" + key + "=" + value);
             countParam+=1;
