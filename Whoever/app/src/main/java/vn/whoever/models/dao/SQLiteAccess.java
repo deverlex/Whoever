@@ -39,9 +39,8 @@ public class SQLiteAccess extends SQLiteOpenHelper {
             this.getReadableDatabase();
             try {
                 copyDatabase();
-                Log.d("copyDB", "copy success!!!");
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("copyDB", "Copy DB have error!!");
                 throw new Error("Copy database to default file system error !");
             }
         }
@@ -70,7 +69,7 @@ public class SQLiteAccess extends SQLiteOpenHelper {
             String myPath = DB_PATH + DB_NAME;
             database = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
         } catch (SQLiteException e) {
-            e.printStackTrace();
+            Log.d("checkDb", "data isn't found!");
         } finally {
             if(database != null) {
                 database.close();

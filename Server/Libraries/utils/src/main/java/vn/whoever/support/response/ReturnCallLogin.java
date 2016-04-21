@@ -12,20 +12,26 @@ import vn.whoever.support.model.utils.Genders;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "returnCallLogin")
-@XmlType(propOrder = {"langName", "nickName", "birthday", "gender", "mobile",
-		"email", "isOnline", "privacy"})
-@JsonPropertyOrder(value = {"langName", "nickName", "birthday", "gender", "mobile",
-		"email", "isOnline", "privacy"})
+@XmlType(propOrder = {"avatarPhoto", "coverPhoto", "nickName", "langName", "birthday", "gender",
+		"mobile", "email", "isOnline", "privacy"})
+@JsonPropertyOrder(value = {"avatarPhoto", "coverPhoto", "nickName", "langName", "birthday",
+		"gender", "mobile", "email", "isOnline", "privacy"})
 public class ReturnCallLogin {
 
-	@XmlElement(name = "langName")
-	private String langName; // native name or standard name
+	@XmlElement(name = "avatarPhoto")
+	private String avatarPhoto;
+	
+	@XmlElement(name = "coverPhoto")
+	private String coverPhoto;
 	
 	@XmlElement(name = "nickName")
 	private String nickName;
 	
+	@XmlElement(name = "langName")
+	private String langName; // native name or standard name
+	
 	@XmlElement(name = "birthday")
-	private Date birthday;
+	private String birthday;
 	
 	@XmlElement(name = "gender")
 	private Genders gender = Genders.unknown;
@@ -45,11 +51,11 @@ public class ReturnCallLogin {
 	public ReturnCallLogin() {
 		super();
 	}
-
-	public ReturnCallLogin(String languageName, String nickName, Date birthday, Genders gender, String mobile,
-			String email, Boolean isOnline, Privacies privacy) {
+	
+	public ReturnCallLogin(String langName, String nickName, String birthday, Genders gender, String mobile, String email,
+			Boolean isOnline, Privacies privacy, String avatarPhoto, String coverPhoto) {
 		super();
-		this.langName = languageName;
+		this.langName = langName;
 		this.nickName = nickName;
 		this.birthday = birthday;
 		this.gender = gender;
@@ -57,8 +63,26 @@ public class ReturnCallLogin {
 		this.email = email;
 		this.isOnline = isOnline;
 		this.privacy = privacy;
+		this.avatarPhoto = avatarPhoto;
+		this.coverPhoto = coverPhoto;
 	}
-	
+
+	public String getAvatarPhoto() {
+		return avatarPhoto;
+	}
+
+	public void setAvatarPhoto(String avatarPhoto) {
+		this.avatarPhoto = avatarPhoto;
+	}
+
+	public String getCoverPhoto() {
+		return coverPhoto;
+	}
+
+	public void setCoverPhoto(String coverPhoto) {
+		this.coverPhoto = coverPhoto;
+	}
+
 	public String getNickName() {
 		return nickName;
 	}
@@ -67,11 +91,11 @@ public class ReturnCallLogin {
 		this.nickName = nickName;
 	}
 	
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 	
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	

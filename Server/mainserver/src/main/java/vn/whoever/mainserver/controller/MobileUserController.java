@@ -33,6 +33,7 @@ import vn.whoever.support.model.request.CallLogin;
 import vn.whoever.support.model.request.CallRegister;
 import vn.whoever.support.model.utils.States;
 import vn.whoever.support.response.ReturnCallLogin;
+import vn.whoever.support.utils.CalendarFormat;
 
 @Controller
 public class MobileUserController {
@@ -69,12 +70,22 @@ public class MobileUserController {
 			Users user = usersService.findBySsoId(login.getSsoId());
 			System.out.println("user login: " + user);
 			Profiles profile = profileService.getProfile(user.getIdUser());
-			
 			String langName = langsService.findNativeNameById(user.getIdLanguage());
 			
-			rCLogin = new ReturnCallLogin(langName, 
-					profile.getNickName(), profile.getBirthday(), profile.getGenders(), 
-					profile.getMobile(), profile.getEmail(), user.getIsOnline(), profile.getPrivacy());
+			String avatarPhoto = "null";
+			String coverPhoto = "null";
+			
+			rCLogin = new ReturnCallLogin();
+			rCLogin.setAvatarPhoto(avatarPhoto);
+			rCLogin.setCoverPhoto(coverPhoto);
+			rCLogin.setNickName(profile.getNickName());
+			rCLogin.setLangName(langName);
+			rCLogin.setGender(profile.getGenders());
+			rCLogin.setBirthday((new CalendarFormat(profile.getBirthday())).getStrDate());
+			rCLogin.setEmail(profile.getEmail());
+			rCLogin.setMobile(profile.getMobile());
+			rCLogin.setIsOnline(user.getIsOnline());
+			rCLogin.setPrivacy(profile.getPrivacy());
 			
 			Tokens tokens = authToken.getToken(login.getSsoId());
 			response.setHeader("Whoever-token", tokens.getToken());

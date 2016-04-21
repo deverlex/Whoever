@@ -1,6 +1,8 @@
 package vn.whoever.TransConn;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import vn.whoever.models.dao.ConnDB;
 
 /**
  * Created by spider man on 4/21/2016.
@@ -42,13 +46,37 @@ public class LoginTrans {
 
         final JsonObjectRequest requestLogin = new JsonObjectRequest(Request.Method.POST, url_login, new JSONObject(jsonLogin) ,new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
-                Log.d("returnLogin", response.toString());
+            public void onResponse(JSONObject res) {
                 try {
-                    String lang = response.getString("langName");
+                    String avatarPhoto = res.getString("avatarPhoto");
+                    String coverPhoto = res.getString("coverPhoto");
+                    String nickName = res.getString("nickName");
+                    String langName = res.getString("langName");
+                    String birthday = res.getString("birthday");
+                    String gender = res.getString("gender");
+                    String mobile = res.getString("mobile");
+                    String email = res.getString("email");
+                    String privacy = res.getString("privacy");
+                    Boolean isOnline = res.getBoolean("isOnline");
 
+                    ConnDB.getConn().openDataBase();
+                    SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put("avatarPhoto", avatarPhoto);
+                    values.put("coverPhoto", coverPhoto);
+                    values.put("nickName", nickName);
+                    values.put("langName", langName);
+                    values.put("birthday", birthday);
+                    values.put("gender", gender);
+                    values.put("mobile", mobile);
+                    values.put("email", email);
+                    values.put("privacy", privacy);
+                    values.put("isOnline", isOnline);
+                    db.execSQL("delete from LocalProfile");
+                    db.insert("LocalProfile", null, values);
+                    ConnDB.getConn().close();
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
 
             }
@@ -70,6 +98,14 @@ public class LoginTrans {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
+                Map<String, String> headers = response.headers;
+                ConnDB.getConn().openDataBase();
+                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("token", headers.get("Whoever-token"));
+                values.put("expTime", headers.get("Token-expiration"));
+                db.execSQL("delete from Auth");
+                db.insert("Auth", null, values);
                 return super.parseNetworkResponse(response);
             }
         };
