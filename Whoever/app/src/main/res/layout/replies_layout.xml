@@ -65,8 +65,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/imageAvatarOnStatusDetail"
                 android:textColor="@color/colorBlack"
-                android:text="Nguyen Do"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -76,8 +75,20 @@
                 android:layout_marginTop="3dp"
                 android:layout_below="@+id/nickNameAndExtendOnStatusDetail"
                 android:layout_toRightOf="@+id/imageAvatarOnStatusDetail"
-                android:text="13:15 hôm qua"
-                android:textSize="10sp"/>
+                android:textColor="@color/colorSilverBlack"
+                android:textSize="11sp"/>
+
+            <ImageButton
+                android:id="@+id/extendBtnOnRepliesStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:src="@drawable/icon_extends"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorWhite" />
 
         </RelativeLayout>
 
@@ -115,9 +126,11 @@
             android:layout_marginRight="10dp"/>
 
         <TextView
+            android:id="@+id/viewTotalCommentOnReply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Status này chưa có bình luận nào"
+            android:textSize="14sp"
+            android:textColor="@color/colorSilverBlack"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
@@ -150,6 +163,15 @@
         android:background="@color/colorWhite">
 
         <ImageButton
+            android:id="@+id/btnQuickLikeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:src="@drawable/icon_like"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"/>
+
+        <ImageButton
             android:id="@+id/btnSendComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,7 +191,7 @@
             android:background="@color/colorWhite"
             android:padding="10dp"
             android:layout_toLeftOf="@+id/btnSendComment"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/btnQuickLikeStatus"
             android:layout_centerVertical="true"
             android:cursorVisible="true" />
 

@@ -8,23 +8,17 @@ import java.util.Date;
  */
 public class ArrayReply {
 
-    private ArrayList<Reply> replies;
+    private ArrayList<Comment> replies;
 
-    public ArrayList<Reply> getReplies() {
+    public ArrayList<Comment> getReplies() {
         replies = new ArrayList<>();
 
         LocalAccount user = new LocalAccount();
 
-        Reply reply = new Reply();
-        reply.setIdReply(12345343);
-        reply.setContent("con cá vàng là con cá vàng, xòe đôi cánh, xòe đôi cánh");
-        reply.setTimeUpload(new Date());
-        reply.setUserReply(user);
-        reply.setCountDislike(10);
-        reply.setCountLike(24);
+        Comment comment = new Comment();
 
         for(int i = 0 ; i < 1; ++i) {
-            replies.add(reply);
+            replies.add(comment);
         }
         return replies;
     }

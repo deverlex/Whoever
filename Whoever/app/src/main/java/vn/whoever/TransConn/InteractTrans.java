@@ -1,11 +1,8 @@
 package vn.whoever.TransConn;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.content.SyncAdapterType;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -17,11 +14,9 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,49 +26,27 @@ import vn.whoever.models.dao.ConnDB;
 /**
  * Created by spider man on 4/22/2016.
  */
-public class CommentTrans {
+public class InteractTrans {
 
     private Activity activity;
     private Integer httpStatusCode = null;
-    private String url_get_comment = "http://localhost:8080/mainserver/mobile/status";
-    
-    public CommentTrans(Activity activity) {
+    private String url_interact = "http://192.168.1.112:8080/mainserver/mobile/status";
+
+    public InteractTrans(Activity activity) {
         this.activity = activity;
     }
 
-    public void getCommentOfStatus(final String idStatus) {
-
-        UrlQuery urlQuery = new UrlQuery(url_get_comment);
+    public void interact(String type, String idStatus, String idComment) {
+        UrlQuery urlQuery = new UrlQuery(url_interact);
         urlQuery.putPathVariable(idStatus);
-        urlQuery.putPathVariable("comments");
-
-        Log.d("urlGetComment", urlQuery.getUrl());
-
-        JsonArrayRequest requestComment = new JsonArrayRequest(Request.Method.GET, urlQuery.getUrl(), new Response.Listener<JSONArray>() {
+        if(type.equals("comments")) {
+            urlQuery.putPathVariable("comments");
+            urlQuery.putPathVariable(idComment);
+        }
+        StringRequest requestInteract = new StringRequest(Request.Method.GET, urlQuery.getUrl(), new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray resp) {
-                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-                ContentValues values = new ContentValues();
-                for(int i = 0; i < resp.length(); ++i) {
-                    values.put("idStatus", idStatus);
-                    try {
-                        JSONObject obj = resp.getJSONObject(i);
-                        values.put("idComment", obj.getString("idComment"));
-                        values.put("ssoIdPoster", obj.getString("ssoIdPoster"));
-                        values.put("namePoster", obj.getString("namePoster"));
-                        values.put("avatarPoster", obj.getString("avatarPoster"));
-                        values.put("content", obj.getString("content"));
-                        values.put("timePost", obj.getString("timePost"));
-                        values.put("totalLike", obj.getInt("totalLike"));
-                        values.put("totalDislike", obj.getInt("totalDislike"));
-                        values.put("interact", obj.getString("interact"));
-                        db.insert("Comment", null, values);
-                    } catch (JSONException e) {
-                        Log.d("insertComment", "error insert!!!");
-                    }
-                    values.clear();
-                }
-                db.close();
+            public void onResponse(String response) {
+                //nothing
             }
         }, new Response.ErrorListener() {
             @Override
@@ -83,7 +56,7 @@ public class CommentTrans {
         }) {
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError{
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json; charset=utf-8");
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
@@ -102,12 +75,12 @@ public class CommentTrans {
                 return headers;
             }
 
-            protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
             }
         };
-        TransactionQueue.getsInstance(activity).addToRequestQueue(requestComment, "requestComment");
+        TransactionQueue.getsInstance(activity).addToRequestQueue(requestInteract, "requestInteract");
     }
 
     public Integer getHttpStatusCode() {

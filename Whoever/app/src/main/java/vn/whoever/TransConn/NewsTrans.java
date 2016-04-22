@@ -74,7 +74,7 @@ public class NewsTrans {
                         values.put("interact", obj.getString("interact"));
                         db.insert("News", null, values);
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Log.d("insertStatus", "error insert!!");
                     }
                     values.clear();
                 }

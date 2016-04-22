@@ -30,16 +30,19 @@ import vn.whoever.views.customviews.RoundedImageView;
 public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnScrollListener {
 
     private ListView listReply;
-    private TextView nickNamePostStatus;
     private ImageButton btnBackActivity;
-    private JTextView contentStatus;
-    private RoundedImageView avatarPostStatus;
-    private TextView timeUpStatus;
     private ImageButton btnSendComment;
-    private EditText inputCommentSend;
     private ProgressBar progressBarLoadMore;
     private ReplyAdapter replyAdapter;
     private Handler mHandler;
+    private EditText inputCommentSend;
+
+    private ImageButton btnQuickLike;
+    private TextView nickNamePostStatus;
+    private JTextView contentTextStatus;
+    private RoundedImageView avatarPosterStatus;
+    private TextView timePostStatus;
+    private TextView viewTotalComment;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.replies_layout, container, false);
@@ -51,15 +54,9 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
 
     @Override
     public void init(View view) {
-        Bundle bundle = getArguments();
-        String idStatus = bundle.getString("idStatus");
-        if(idStatus != null) {
-
-        }
 
         mHandler = new Handler();
         btnBackActivity = (ImageButton) view.findViewById(R.id.btnBackHomeFromComment);
-        nickNamePostStatus = (TextView) view.findViewById(R.id.nickNameAndExtendOnStatusDetail);
 
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBarLoad);
@@ -70,15 +67,49 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
 
         replyAdapter = new ReplyAdapter(getActivity(), 10, 7);
         listReply.setAdapter(replyAdapter);
-
         listReply.setOnScrollListener(this);
         progressBarLoadMore.setVisibility((7 < replyAdapter.getSize()) ? View.VISIBLE : View.GONE);
 
-        contentStatus = (JTextView) view.findViewById(R.id.contentStatusDetail);
-        avatarPostStatus = (RoundedImageView) view.findViewById(R.id.imageAvatarOnStatusDetail);
-        timeUpStatus = (TextView) view.findViewById(R.id.timeUploadStatusDetail);
         btnSendComment = (ImageButton) view.findViewById(R.id.btnSendComment);
         inputCommentSend = (EditText)  view.findViewById(R.id.inputCommentSend);
+
+        avatarPosterStatus = (RoundedImageView) view.findViewById(R.id.imageAvatarOnStatusDetail);
+        nickNamePostStatus = (TextView) view.findViewById(R.id.nickNameAndExtendOnStatusDetail);
+        btnQuickLike = (ImageButton) view.findViewById(R.id.btnQuickLikeStatus);
+        timePostStatus = (TextView) view.findViewById(R.id.timeUploadStatusDetail);
+        contentTextStatus = (JTextView) view.findViewById(R.id.contentStatusDetail);
+        viewTotalComment = (TextView) view.findViewById(R.id.viewTotalCommentOnReply);
+
+        Bundle bundle = getArguments();
+        String idStatus = bundle.getString("idStatus");
+        if(idStatus != null) {
+            String database = bundle.getString("database");
+            SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
+            String arg[] = {idStatus};
+            Cursor cursor = db.rawQuery("select idStatus, ssoIdPoster, avatarPoster, namePoster," +
+                    " timePost, contentText, contentImage, totalComment," +
+                    " interact from " + database + " where idStatus=?", arg);
+            String interact = "normal";
+            while (cursor.moveToNext()) {
+                nickNamePostStatus.setText(cursor.getString(3));
+                timePostStatus.setText(cursor.getString(4));
+                contentTextStatus.setText(cursor.getString(5));
+                int totalComment = cursor.getInt(7);
+                interact = cursor.getString(8);
+                if(totalComment == 0) {
+                    viewTotalComment.setText("No one comment on this status");
+                } else if(totalComment == 1) {
+                    viewTotalComment.setText("Have a person comments");
+                } else {
+                    viewTotalComment.setText("Have " + totalComment + " comments on this status");
+                }
+                if(interact.equals("like")) {
+                    btnQuickLike.setImageResource(R.drawable.icon_dislike_red);
+                } else if(interact.equals("dislike")) {
+                    btnQuickLike.setImageResource(R.drawable.icon_dislike_red);
+                }
+            }
+        }
     }
 
     @Override
@@ -96,14 +127,13 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
                 // send comment to server
             }
         });
-    }
 
-    public void loadDataStatus(String idStatus) {
-        SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
-        String arg[] = {idStatus};
-        Cursor cursor = db.rawQuery("select id, idStatus, ssoIdPoster, avatarPoster, namePoster," +
-                " timePost, contentText, contentImage, totalLike, totalDislike, totalComment," +
-                " interact from "+ dbLoad +" where id >=?", arg);
+        btnQuickLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
     @Override

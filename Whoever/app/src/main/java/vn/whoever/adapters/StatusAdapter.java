@@ -84,15 +84,17 @@ public class StatusAdapter extends BaseAdapter {
         String strContent = "";
 
         //TODO: add image to this
-        ImageView contentImage = (ImageView) contentText.findViewById(R.id.imageInStatus);
+        ImageView contentImage = (ImageView) convertView.findViewById(R.id.imageInStatus);
 
-        if(status.getContentImage() == null) {
+        if(status.getContentImage().equals("null")) {
             // TODO: add image for status
+            Log.d("status", "non image");
             if(status.getContentText().length() > 682)
                 strContent = status.getContentText().substring(0, 682) + "...";
             else strContent = status.getContentText();
 
         } else {
+            Log.d("status", "have image");
             if(status.getContentText().length() > 268)
                 strContent = status.getContentText().substring(0,268) + "...";
             else strContent = status.getContentText();
@@ -222,20 +224,25 @@ public class StatusAdapter extends BaseAdapter {
         RoundedImageView avatar = (RoundedImageView) convertView.findViewById(R.id.imageAvatarOnStatus);
         //cho nay can thay the nguon anh
 
-        nickName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
-            }
-        });
+        if(!status.getNamePoster().equals("anonymous")) {
+            nickName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ssoidPoster", status.getSsoIdPoster());
+                    navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
+                }
+            });
 
-        avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
-            }
-        });
-
+            avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ssoidPoster", status.getSsoIdPoster());
+                    navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
+                }
+            });
+        }
         return convertView;
     }
 
