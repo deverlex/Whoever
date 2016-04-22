@@ -2,9 +2,9 @@ package vn.whoever.support.model.utils;
 
 public enum Interacts {
 
-	like("like"),
-	dislike("dislike"),
-	normal("normal");
+	like("like"), //1
+	dislike("dislike"), //-1
+	normal("normal"); //0
 	
 	private String interact;
 	

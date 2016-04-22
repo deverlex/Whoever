@@ -8,14 +8,14 @@ public class UrlQuery {
     private String url;
     private int countParam = 0;
 
-    public UrlQuery() {}
+    private UrlQuery() {}
 
     public UrlQuery(String url) {
         this.url = url;
     }
 
     public void putPathVariable(String value) {
-        url += ("/" + value);
+        url += ("/" + value + "/");
     }
 
     public void putRequestParam(String key, String value) {

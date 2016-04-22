@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import vn.whoever.R;
-import vn.whoever.TransConn.BeginTransaction;
+import vn.whoever.TransConn.ContactQuery;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.RegexUtils;
 import vn.whoever.views.activities.MainActivity;
@@ -215,7 +215,7 @@ public class SignUpFragment extends Fragment implements Initgc {
     }
 
     private void checkSuggestSsoId() {
-        querySsoId = BeginTransaction.getTransaction(getActivity()).findSsoIdAvaiable(ssoId);
+        querySsoId = ContactQuery.getTransaction(getActivity()).findSsoIdAvaiable(ssoId);
         timeout = 5;
         new Thread(new Runnable() {
             @Override
@@ -225,7 +225,7 @@ public class SignUpFragment extends Fragment implements Initgc {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            querySsoId = BeginTransaction.getTransaction(getActivity()).getQuerySsoId();
+                            querySsoId = ContactQuery.getTransaction(getActivity()).getQuerySsoId();
                             if(querySsoId != null) {
                                 timeout = 0;
                                 if(querySsoId.equals("avaiable")) {

@@ -21,16 +21,16 @@ import org.json.JSONObject;
 /**
  * Created by spider man on 1/7/2016.
  */
-public class BeginTransaction {
+public class ContactQuery {
 
-    private static BeginTransaction transaction = new BeginTransaction();
+    private static ContactQuery transaction = new ContactQuery();
     private static Activity myActivity;
 
-    private BeginTransaction() {}
+    private ContactQuery() {}
     // LocalAccount user;
     private Integer httpStatusCode = null;
 
-    public static BeginTransaction getTransaction(Activity acctivity) {
+    public static ContactQuery getTransaction(Activity acctivity) {
         myActivity = acctivity;
         return transaction;
     }
@@ -49,8 +49,10 @@ public class BeginTransaction {
     public String resultQuerySsoId;
 
     public String findSsoIdAvaiable(String ssoId) {
+        String url_query = "http://192.168.1.112:8080/mainserver/mobile/query";
+
         resultQuerySsoId = null;
-        UrlQuery urlQuery = new UrlQuery(AddressConnection.url_query_ssoId);
+        UrlQuery urlQuery = new UrlQuery(url_query);
         urlQuery.putRequestParam("ssoId", ssoId);
 
         StringRequest findSsoId = new StringRequest(Request.Method.GET, urlQuery.getUrl(), new Response.Listener<String>() {
@@ -70,7 +72,7 @@ public class BeginTransaction {
     }
 
     public void getTermUser() {
-        String urlQuery = AddressConnection.URL_USER + "/term";
+        String urlQuery = "http://192.168.1.112:8080/mainserver/mobile/term";
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, urlQuery, new Response.Listener<JSONObject>() {
             @Override

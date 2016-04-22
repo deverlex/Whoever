@@ -46,7 +46,7 @@ public class NewsHomeFragment extends Fragment implements Initgc, AbsListView.On
         listStatus = (ListView) view.findViewById(R.id.listViewNewsHome);
         listStatus.addFooterView(footer);
 
-        statusAdapter = new StatusAdapter(getActivity(), 9, 7);
+        statusAdapter = new StatusAdapter(this, 9, 7, "Home");
 
         listStatus.setAdapter(statusAdapter);
         listStatus.setOnScrollListener(this);

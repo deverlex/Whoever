@@ -76,7 +76,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         listStatus.addFooterView(footer);
 
 
-        statusAdapter = new StatusAdapter(getActivity(), 10, 7);
+        statusAdapter = new StatusAdapter(this, 10, 7, "News");
         listStatus.setAdapter(statusAdapter);
         listStatus.setOnScrollListener(this);
         progressBarLoadMore.setVisibility((7 < statusAdapter.getSize()) ? View.VISIBLE : View.GONE);

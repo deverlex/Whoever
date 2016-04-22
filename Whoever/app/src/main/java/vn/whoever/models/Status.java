@@ -8,93 +8,114 @@ import java.util.HashMap;
  */
 public class Status {
 
-    private int idStatus;
+    private int id;
+    private String idStatus;
+    private String ssoIdPoster;
+    private String avatarPoster;
+    private String namePoster;
+    private String timePost;
+    private String contentText;
+    private String contentImage;
+    private int totalLike;
+    private int totalDislike;
+    private int totalComment;
+    private String interact;
 
-    private String contentStatus;
-    private LocalAccount senderStatus;
+    public Status() {}
 
-    private Date dateWriterStatus;
-    private String imageUpload;
-    private int countComment;
-    private int countLike;
-    private int countDislike;
-
-    private HashMap<String, Reply> comments; //idUser & Reply
-
-    public Status() {
-        comments = new HashMap<>();
+    public int getId() {
+        return id;
     }
 
-    public int getIdStatus() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIdStatus() {
         return idStatus;
     }
 
-    public void setIdStatus(int idStatus) {
+    public void setIdStatus(String idStatus) {
         this.idStatus = idStatus;
     }
 
-    public String getContentStatus() {
-        return contentStatus;
+    public String getSsoIdPoster() {
+        return ssoIdPoster;
     }
 
-    public void setContentStatus(String contentStatus) {
-        this.contentStatus = contentStatus;
+    public void setSsoIdPoster(String ssoIdPoster) {
+        this.ssoIdPoster = ssoIdPoster;
     }
 
-    public LocalAccount getSenderStatus() {
-        return senderStatus;
+    public String getAvatarPoster() {
+        return avatarPoster;
     }
 
-    public void setSenderStatus(LocalAccount senderStatus) {
-        this.senderStatus = senderStatus;
+    public void setAvatarPoster(String avatarPoster) {
+        this.avatarPoster = avatarPoster;
     }
 
-    public Date getDateWriterStatus() {
-        return dateWriterStatus;
+    public String getNamePoster() {
+        return namePoster;
     }
 
-    public void setDateWriterStatus(Date dateWriterStatus) {
-        this.dateWriterStatus = dateWriterStatus;
+    public void setNamePoster(String namePoster) {
+        this.namePoster = namePoster;
     }
 
-    public String getImageUpload() {
-        return imageUpload;
+    public String getTimePost() {
+        return timePost;
     }
 
-    public void setImageUpload(String imageUpload) {
-        this.imageUpload = imageUpload;
+    public void setTimePost(String timePost) {
+        this.timePost = timePost;
     }
 
-    public int getCountLike() {
-        return countLike;
+    public String getContentText() {
+        return contentText;
     }
 
-    public void setCountLike(int countLike) {
-        this.countLike = countLike;
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
     }
 
-    public int getCountComment() {
-        return countComment;
+    public String getContentImage() {
+        return contentImage;
     }
 
-    public void setCountComment(int countComment) {
-        this.countComment = countComment;
+    public void setContentImage(String contentImage) {
+        this.contentImage = contentImage;
     }
 
-    public int getCountDislike() {
-        return countDislike;
+    public int getTotalLike() {
+        return totalLike;
     }
 
-    public void setCountDislike(int countDislike) {
-        this.countDislike = countDislike;
+    public void setTotalLike(int totalLike) {
+        this.totalLike = totalLike;
     }
 
-    public HashMap<String, Reply> getComments() {
-        return comments;
+    public int getTotalDislike() {
+        return totalDislike;
     }
 
-    public void setComments(HashMap<String, Reply> comments) {
-        this.comments = comments;
+    public void setTotalDislike(int totalDislike) {
+        this.totalDislike = totalDislike;
     }
 
+    public int getTotalComment() {
+        return totalComment;
+    }
+
+    public void setTotalComment(int totalComment) {
+        this.totalComment = totalComment;
+    }
+
+    public String getInteract() {
+        return interact;
+    }
+
+    public void setInteract(String interact) {
+        this.interact = interact;
+    }
 }

@@ -87,13 +87,12 @@ public class MobileStatusController {
 			if(status.getIsUseAccount()) {
 				String ssoIdPoster = userService.findSsoIdbyIdUser(status.getIdUser());
 				rStatus.setSsoIdPoster(ssoIdPoster);
-				// set avatar = null, develop later
-				rStatus.setAvatarPoster("haven't avatar now");
+				rStatus.setAvatarPoster(null);
 				String nickName = profileService.getNickName(status.getIdUser());
 				rStatus.setNamePoster(nickName);
 			} else {
-				rStatus.setSsoIdPoster("null");
-				rStatus.setAvatarPoster("null");
+				rStatus.setSsoIdPoster(null);
+				rStatus.setAvatarPoster(null);
 				rStatus.setNamePoster("anonymous");
 			}
 			String timePost = TimePost.getTimePost(status.getTimeUp());

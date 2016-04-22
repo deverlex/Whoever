@@ -17,16 +17,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import vn.whoever.TransConn.utils.GPSLocation;
 import vn.whoever.models.dao.ConnDB;
-import vn.whoever.models.supports.Position;
 
 /**
  * Created by spider man on 4/21/2016.

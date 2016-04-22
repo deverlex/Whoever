@@ -26,22 +26,22 @@
             android:id="@+id/nickNameAndExtendOnStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@+id/imageAvatarOnStatus"
             android:textColor="@color/colorBlack"
             android:text="Nguyen Do"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/timeUploadStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="2dp"
             android:layout_below="@+id/nickNameAndExtendOnStatus"
             android:layout_toRightOf="@+id/imageAvatarOnStatus"
             android:text="13:15 hôm qua"
-            android:textSize="10sp"/>
+            android:textSize="11sp"/>
 
         <ImageButton
             android:id="@+id/extendButtonStatusOnStatus"
@@ -89,10 +89,12 @@
         android:layout_marginRight="10dp"
         android:background="@color/colorSilver"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/toolBarStatusItemLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <!-- have like, dislike, comment, share -->
         <LinearLayout
@@ -101,13 +103,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:layout_weight="1">
             <ImageView
                 android:id="@+id/iconLikeStatus"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/icon_like"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"/>
 
@@ -115,44 +119,13 @@
                 android:id="@+id/totalLikeStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="30dp"
-                android:textSize="12sp"
-                android:textColor="@color/colorSilver"
-                android:text="12 Like"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/colorSilverBlack"
+                android:text="12"
                 android:textStyle="bold"
                 android:layout_gravity="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btnCommentStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_comment"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="2dp"
-                android:alpha="0.5"/>
-
-            <TextView
-                android:id="@+id/totalCommentStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="12sp"
-                android:textColor="@color/colorSilver"
-                android:text="12 Comment"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginRight="20dp"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -161,6 +134,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/btnLikeStatus"
             android:layout_toLeftOf="@+id/btnCommentStatus"
+            android:layout_weight="1"
+            android:padding="2dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -176,14 +151,48 @@
                 android:id="@+id/totalDislikeStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="12dp"
-                android:textColor="@color/colorSilver"
-                android:text="12 Dislike"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:textSize="14dp"
+                android:textColor="@color/colorSilverBlack"
+                android:text="12"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
         </LinearLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/btnCommentStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:padding="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_comment"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="2dp"
+                android:alpha="0.5"/>
+
+            <TextView
+                android:id="@+id/totalCommentStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textSize="14sp"
+                android:textColor="@color/colorSilverBlack"
+                android:text="12 Comment"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

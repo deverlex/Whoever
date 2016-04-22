@@ -2,8 +2,6 @@ package vn.whoever.views.fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -13,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +27,6 @@ import vn.whoever.models.dao.ConnDB;
 import vn.whoever.TransConn.HttpStatus;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.R;
-import vn.whoever.TransConn.BeginTransaction;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.RegexUtils;
 
@@ -246,8 +242,6 @@ public class SignInFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
-        ssoId = null;
-        password = null;
         System.gc();
     }
 
@@ -272,5 +266,6 @@ public class SignInFragment extends Fragment implements Initgc {
         values.put("password", password);
         db.execSQL("delete from LocalAccount");
         db.insert("LocalAccount", null, values);
+        db.close();
     }
 }

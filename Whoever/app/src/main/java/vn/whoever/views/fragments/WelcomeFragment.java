@@ -20,7 +20,6 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import vn.whoever.TransConn.AnonymousLoginTrans;
-import vn.whoever.TransConn.BeginTransaction;
 import vn.whoever.R;
 import vn.whoever.TransConn.HttpStatus;
 import vn.whoever.TransConn.RegisterTrans;
@@ -256,11 +255,6 @@ public class WelcomeFragment extends Fragment implements Initgc {
     public void onPause() {
         super.onPause();
         handler = null;
-        ssoId = null;
-        password = null;
-        nickName = null;
-        langCode = null;
-        birthday = null;
         langDialog = null;
         dateDialog = null;
         System.gc();

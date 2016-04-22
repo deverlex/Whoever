@@ -1,5 +1,7 @@
 package vn.whoever.views.fragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import vn.whoever.R;
 import vn.whoever.adapters.ReplyAdapter;
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.customviews.RoundedImageView;
@@ -48,6 +51,12 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
 
     @Override
     public void init(View view) {
+        Bundle bundle = getArguments();
+        String idStatus = bundle.getString("idStatus");
+        if(idStatus != null) {
+
+        }
+
         mHandler = new Handler();
         btnBackActivity = (ImageButton) view.findViewById(R.id.btnBackHomeFromComment);
         nickNamePostStatus = (TextView) view.findViewById(R.id.nickNameAndExtendOnStatusDetail);
@@ -89,6 +98,13 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
         });
     }
 
+    public void loadDataStatus(String idStatus) {
+        SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
+        String arg[] = {idStatus};
+        Cursor cursor = db.rawQuery("select id, idStatus, ssoIdPoster, avatarPoster, namePoster," +
+                " timePost, contentText, contentImage, totalLike, totalDislike, totalComment," +
+                " interact from "+ dbLoad +" where id >=?", arg);
+    }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {

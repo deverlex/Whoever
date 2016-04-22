@@ -1,6 +1,7 @@
 package vn.whoever.views.fragments;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -18,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import vn.whoever.R;
+import vn.whoever.TransConn.NewsTrans;
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 import vn.whoever.views.activities.MainActivity;
 
@@ -41,6 +44,14 @@ public class LoadFragment extends Fragment implements Initgc {
         return view;
     }
 
+    public void hiddenSoftInput() {
+        View view = getActivity().getCurrentFocus();
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     @Override
     public void init(View view) {
         TextView logoLoad = (TextView) view.findViewById(R.id.logoTextLoad);
@@ -59,19 +70,41 @@ public class LoadFragment extends Fragment implements Initgc {
 
     @Override
     public void initListener(View view) {
+        //TODO: don dep DB
+        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+        db.execSQL("delete from News");
+        db.execSQL("delete from Home");
+        db.close();
         /**
          * TODO: load data for homepage and news
          * load data for profile
          * load data for message
          */
 
+        /**
+         * download: news, home, online list, message : update UI laster
+         * contacts: load on UI now
+         */
+
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for(int i = 0 ; i < 5; ++i) {
+                for(int i = 0 ; i < 6; ++i) {
+                    switch (i) {
+                        case 1:
+                            //TODO: load home page
+                            break;
+                        case 2:
+                            NewsTrans newsTrans = new NewsTrans(getActivity());
+                            newsTrans.getNewsFeed("nearby", 0);
+                            break;
+                        case 3:
+                            //load contacts list
 
-                    //load data in here
-
+                            break;
+                        default:
+                            break;
+                    }
                     progress += 20;
                     handler.post(new Runnable() {
                         @Override
@@ -85,7 +118,7 @@ public class LoadFragment extends Fragment implements Initgc {
                     });
                     // TODO gi do
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -93,14 +126,6 @@ public class LoadFragment extends Fragment implements Initgc {
             }
         });
         thread.start();
-    }
-
-    public void hiddenSoftInput() {
-        View view = getActivity().getCurrentFocus();
-        if(view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     @Override
@@ -111,6 +136,5 @@ public class LoadFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
-        handler = null;
     }
 }
