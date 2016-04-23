@@ -3,10 +3,8 @@ package vn.whoever.views.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +86,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
         titles.add(2, getContext().getString(R.string.title_tab_inbox));
         titles.add(3, getContext().getString(R.string.title_tab_contact));
 
-        homeFragment = new NewsHomeFragment();
+        homeFragment = new HomePageFragment();
         newsFragment = new NewsFeedFragment();
         inboxFragment = new InboxFragment();
         contactFragment = new ContactsFragment();

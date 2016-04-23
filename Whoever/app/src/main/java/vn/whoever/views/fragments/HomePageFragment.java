@@ -19,7 +19,7 @@ import vn.whoever.utils.Initgc;
 /**
  * Created by spider man on 12/28/2015.
  */
-public class NewsHomeFragment extends Fragment implements Initgc, AbsListView.OnScrollListener {
+public class HomePageFragment extends Fragment implements Initgc, AbsListView.OnScrollListener {
 
     private ListView listStatus;
     private StatusAdapter statusAdapter;

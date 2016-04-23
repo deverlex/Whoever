@@ -1,12 +1,15 @@
 package vn.whoever.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Created by spider man on 1/10/2016.
  */
-public class Status {
+public class Status implements Serializable {
+
+    private static final long serialVersionUID = 154532345653L;
 
     private int id;
     private String idStatus;

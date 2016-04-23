@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb525728-f2dd-43e2-a3ef-a1b0e1d5ec43" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\Users\spider man\Documents\GitHub\Whoever\Whoever\.idea\encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Users\spider man\Documents\GitHub\Whoever\Whoever\.idea\runConfigurations.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/models/ArrayStatus.java" afterPath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/models/ArrayStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/dialogs/LanguagePickerFragment.java" afterPath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/dialogs/LanguagePickerFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/res/layout/language_choice_layout.xml" afterPath="$PROJECT_DIR$/Whoever/app/src/main/res/layout/language_choice_layout.xml" />
+      <change type="DELETED" beforePath="D:\Users\spider man\Documents\GitHub\Whoever\Whoever\app\src\main\java\vn\whoever\views\fragments\NewsHomeFragment.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/models/Comment.java" afterPath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/models/Comment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/views/fragments/NewsFeedFragment.java" afterPath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/views/fragments/NewsFeedFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/models/Status.java" afterPath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/models/Status.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/adapters/StatusAdapter.java" afterPath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/adapters/StatusAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/views/fragments/TabHomeFragment.java" afterPath="$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/views/fragments/TabHomeFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/.idea/misc.xml" afterPath="$PROJECT_DIR$/Whoever/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/.idea/modules.xml" afterPath="$PROJECT_DIR$/Whoever/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whoever/app/src/main/res/layout/newsfeed_layout.xml" afterPath="$PROJECT_DIR$/Whoever/app/src/main/res/layout/newsfeed_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Whoever.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,18 +30,7 @@
     <favorites_list name="Whoever" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="JTextView.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/customviews/JTextView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.03046595">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -95,6 +86,10 @@
               <option name="myItemId" value="Whoever" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Whoever" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.NonAndroidModuleNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -126,6 +121,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -346,8 +343,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -355,6 +350,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Whoever" />
     <property name="FullScreen" value="false" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="Application" factoryName="Application">
@@ -501,15 +497,5 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Whoever/app/src/main/java/vn/whoever/customviews/JTextView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03046595">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

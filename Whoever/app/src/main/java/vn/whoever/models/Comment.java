@@ -1,11 +1,14 @@
 package vn.whoever.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by spider man on 1/10/2016.
  */
-public class Comment {
+public class Comment implements Serializable {
+
+    private static final long serialVersionUID = 156542764322L;
 
     private int id;
     private String idStatus;

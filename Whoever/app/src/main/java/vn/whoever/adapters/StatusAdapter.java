@@ -242,6 +242,7 @@ public class StatusAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
+                    Log.d("ssoIdPoster", status.getSsoIdPoster());
                     bundle.putString("ssoidPoster", status.getSsoIdPoster());
                     navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
                 }
@@ -289,9 +290,8 @@ public class StatusAdapter extends BaseAdapter {
         Cursor cursor = db.rawQuery("select id, idStatus, ssoIdPoster, avatarPoster, namePoster," +
                 " timePost, contentText, contentImage, totalLike, totalDislike, totalComment," +
                 " interact from "+ dbLoad +" where id >=?", arg);
-        Status status = null;
         while (cursor.moveToNext()) {
-            status = new Status();
+            Status status = new Status();
             status.setId(cursor.getInt(0));
             status.setIdStatus(cursor.getString(1));
             status.setSsoIdPoster(cursor.getString(2));
@@ -308,7 +308,5 @@ public class StatusAdapter extends BaseAdapter {
         }
         cursor.close();
         db.close();
-        Log.d("sizeNews", String.valueOf(statusList.size()));
-        status = null;
     }
 }

@@ -9,15 +9,19 @@
     android:background="@color/colorSilverWhite"
     android:id="@+id/newsFeedFrame">
 
-
-    <ListView
-        android:id="@+id/listViewNewsFeed"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshListNewsLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorSilverWhite"
-        android:dividerHeight="5dp">
+        android:layout_height="wrap_content">
 
-    </ListView>
+        <ListView
+            android:id="@+id/listViewNewsFeed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorSilverWhite"
+            android:dividerHeight="5dp"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
     <LinearLayout
