@@ -2,16 +2,23 @@ package vn.whoever.views.dialogs;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import vn.whoever.R;
+import vn.whoever.models.dao.ConnDB;
 
 /**
  * Created by spider man on 3/7/2016.
@@ -30,15 +37,17 @@ public class DialogPrivacyPostStatus extends DialogFragment {
     private Button buttonAccept;
     private Dialog dialog;
 
-    public DialogPrivacyPostStatus() {}
+    private RelativeLayout toobarPrivacy;
+
+    public DialogPrivacyPostStatus() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_privacy_status, null);
-
         init(view);
         initListener(view);
-
         return view;
     }
 
@@ -57,18 +66,28 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         /**
          * TODO: default selected privacy for post status
          */
-        btnAnonymous.setChecked(true);
-        btnPublic.setChecked(true);
+        SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
+        Cursor cursor = db.rawQuery("select use, privacy from SetPostStatus where id=1", null);
+        while (cursor.moveToNext()) {
+            if(cursor.getString(0).equals("anonymous")) {
+                btnAnonymous.setChecked(true);
+            } else {
+                btnAccount.setChecked(true);
+            }
+            if(cursor.getString(1).equals("public")) {
+                btnPublic.setChecked(true);
+            } else if(cursor.getString(1).equals("friends")) {
+                btnFriends.setChecked(true);
+            } else {
+                btnPrimary.setChecked(true);
+            }
+        }
     }
 
     public void initListener(View view) {
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * TODO: somethings
-                 */
-
                 dialog.dismiss();
             }
         });
@@ -76,24 +95,34 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         groupChoiceUse.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == btnAnonymous.getId()) {
-
+                if (checkedId == btnAnonymous.getId()) {
+                    btnAnonymous.setChecked(true);
+                    btnAccount.setChecked(false);
                 } else {
-
+                    btnAnonymous.setChecked(false);
+                    btnAccount.setChecked(true);
                 }
+                updateDbSet();
             }
         });
 
         groupChoicePrivacy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == btnPublic.getId()) {
-
-                } else if(checkedId == btnFriends.getId()) {
-
+                if (checkedId == btnPublic.getId()) {
+                    btnPublic.setChecked(true);
+                    btnFriends.setChecked(false);
+                    btnPrimary.setChecked(false);
+                } else if (checkedId == btnFriends.getId()) {
+                    btnPublic.setChecked(false);
+                    btnFriends.setChecked(true);
+                    btnPrimary.setChecked(false);
                 } else {
-
+                    btnPublic.setChecked(false);
+                    btnFriends.setChecked(false);
+                    btnPrimary.setChecked(true);
                 }
+                updateDbSet();
             }
         });
     }
@@ -105,21 +134,42 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         return dialog;
     }
 
-    public int getSelectedUse() {
-        if(btnAnonymous.isChecked()) {
-            return btnAnonymous.getId();
-        } else {
-            return btnAccount.getId();
+    public void updateDbSet() {
+        String use = "anonymous";
+        String privacy = "public";
+
+        ImageView imagePrivacy = (ImageView) toobarPrivacy.findViewById(R.id.symbolPrivacyPostStatus);
+        imagePrivacy.setImageResource(R.drawable.icon_notify_red);
+        ImageView imageUseAccount = (ImageView) toobarPrivacy.findViewById(R.id.symbolUseAccountPostStatus);
+        imageUseAccount.setImageResource(R.drawable.icon_anonymous);
+        TextView textUseAccount = (TextView) toobarPrivacy.findViewById(R.id.textShowUseAccountPostStatus);
+        textUseAccount.setText("Anonymous");
+        TextView textPrivacy = (TextView) toobarPrivacy.findViewById(R.id.textShowPrivacyPostStatus);
+        textPrivacy.setText("Public");
+
+        if(!btnAnonymous.isChecked()) {
+            use = "account";
+            imageUseAccount.setImageResource(R.drawable.icon_account);
+            textUseAccount.setText("Account");
         }
+        if(btnFriends.isChecked()) {
+            privacy = "friends";
+            imagePrivacy.setImageResource(R.drawable.icon_contacts_red);
+            textPrivacy.setText("Friends");
+        } else if(btnPrimary.isChecked()) {
+            privacy = "primary";
+            imagePrivacy.setImageResource(R.drawable.icon_lock_red);
+            textPrivacy.setText("Primary");
+        }
+        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("use", use);
+        values.put("privacy", privacy);
+        db.update("SetPostStatus", values, "id=1", null);
+        db.close();
     }
 
-    public int getSelectedPrivacy() {
-        if(btnPublic.isChecked()) {
-            return btnPublic.getId();
-        } else if(btnFriends.isChecked()) {
-            return btnFriends.getId();
-        } else {
-            return btnPrimary.getId();
-        }
+    public void setLayout(RelativeLayout layout) {
+        this.toobarPrivacy = layout;
     }
 }

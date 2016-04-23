@@ -1,7 +1,8 @@
-package vn.whoever.TransConn;
+package vn.whoever.TransConnection;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -16,28 +17,30 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 4/21/2016.
+ * Created by spider man on 4/22/2016.
  */
-public class LoginTrans {
+public class InfoTrans {
 
     private Activity activity;
     private Integer httpStatusCode = null;
-    private String url_login = "http://192.168.1.112:8080/mainserver/mobile/login";
 
-    public LoginTrans(Activity activity) {
+    public InfoTrans(Activity activity) {
         this.activity = activity;
     }
 
     public void getRequestLogin(final String ssoId, final String password) {
+        String url_login = "http://192.168.1.112:8080/mainserver/mobile/login";
         httpStatusCode = null;
 
         Map<String, String> jsonLogin = new HashMap<>();
@@ -111,6 +114,100 @@ public class LoginTrans {
         };
 
         TransactionQueue.getsInstance(activity).addToRequestQueue(requestLogin);
+    }
+
+    public void registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
+        String url_register = "http://192.168.1.112:8080/mainserver/mobile/register";
+        Map<String, Object> jsonRegister = new LinkedHashMap<>();
+        jsonRegister.put("ssoId", ssoId);
+        jsonRegister.put("password", password);
+        jsonRegister.put("nickName", nickName);
+        jsonRegister.put("birthday", birthday);
+        jsonRegister.put("langCode", langCode);
+
+        JsonObjectRequest registerRequest = new JsonObjectRequest(Request.Method.POST, url_register,
+                new JSONObject(jsonRegister),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                        ContentValues values = new ContentValues();
+                        values.put("langName", response.toString());
+                        db.update("LocalProfile", values, "id = 1", null);
+                        db.close();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                exTractError(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("User-agent", System.getProperty("http.agent"));
+                return headers;
+            }
+
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                httpStatusCode = response.statusCode;
+                Map<String, String> headers = response.headers;
+                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("token", headers.get("Whoever-token"));
+                values.put("expTime", headers.get("Token-expiration"));
+                db.execSQL("delete from Auth");
+                db.insert("Auth", null, values);
+                db.close();
+                return super.parseNetworkResponse(response);
+            }
+
+        };
+        TransactionQueue.getsInstance(activity).addToRequestQueue(registerRequest);
+    }
+
+    public void getRequestLoginAnonymous(String langCode) {
+        String url_anonymous = "http://192.168.1.112:8080/mainserver/mobile/anonymous";
+        httpStatusCode = null;
+        UrlQuery query = new UrlQuery(url_anonymous);
+        query.putPathVariable(langCode);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, query.getUrl(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String res) {
+                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("id", 1);
+                values.put("langName", res);
+                Log.d("language", res);
+                db.execSQL("delete from LocalProfile");
+                db.insert("LocalProfile", null, values);
+                db.close();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                exTractError(error);
+            }
+        }) {
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                httpStatusCode = response.statusCode;
+                Map<String, String> headers = response.headers;
+                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("token", headers.get("Whoever-token"));
+                values.put("expTime", headers.get("Token-expiration"));
+                Log.d("token", headers.get("Whoever-token"));
+                db.execSQL("delete from Auth");
+                db.insert("Auth", null, values);
+                db.close();
+                return super.parseNetworkResponse(response);
+            }
+        };
+        TransactionQueue.getsInstance(activity).addToRequestQueue(stringRequest);
     }
 
     public Integer getHttpStatusCode() {

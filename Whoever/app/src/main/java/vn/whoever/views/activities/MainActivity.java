@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
          * TODO: connection to DB
          *
          */
+        Bundle bundle = new Bundle();
         if(isLogged) {
             frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
         } else {
@@ -74,20 +75,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
-        super.onPause();
         System.gc();
+        super.onPause();
     }
 
     @Override
     public void onStart() {
-        super.onStart();
         ConnDB.getConn(this);
         ConnDB.getConn().openDataBase();
+        super.onStart();
     }
 
     @Override
     public void onStop() {
-        super.onStop();
         ConnDB.getConn().close();
+        super.onStop();
     }
 }

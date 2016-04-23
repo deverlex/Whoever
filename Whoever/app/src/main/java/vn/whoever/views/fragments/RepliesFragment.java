@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import vn.whoever.R;
-import vn.whoever.adapters.ReplyAdapter;
+import vn.whoever.adapters.CommentAdapter;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 import vn.whoever.views.customviews.JTextView;
@@ -33,7 +33,7 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
     private ImageButton btnBackActivity;
     private ImageButton btnSendComment;
     private ProgressBar progressBarLoadMore;
-    private ReplyAdapter replyAdapter;
+    private CommentAdapter commentAdapter;
     private Handler mHandler;
     private EditText inputCommentSend;
 
@@ -65,10 +65,10 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
         listReply = (ListView) view.findViewById(R.id.listCommentOfStatusDetail);
         listReply.addFooterView(footer);
 
-        replyAdapter = new ReplyAdapter(getActivity(), 10, 7);
-        listReply.setAdapter(replyAdapter);
+        commentAdapter = new CommentAdapter(this, 10, 7);
+        listReply.setAdapter(commentAdapter);
         listReply.setOnScrollListener(this);
-        progressBarLoadMore.setVisibility((7 < replyAdapter.getSize()) ? View.VISIBLE : View.GONE);
+        progressBarLoadMore.setVisibility((7 < commentAdapter.getSize()) ? View.VISIBLE : View.GONE);
 
         btnSendComment = (ImageButton) view.findViewById(R.id.btnSendComment);
         inputCommentSend = (EditText)  view.findViewById(R.id.inputCommentSend);
@@ -131,7 +131,7 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
         btnQuickLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
     }
@@ -142,7 +142,7 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if(firstVisibleItem + visibleItemCount == totalItemCount && !replyAdapter.endReached() && !hasCallback){ //check if we've reached the bottom
+        if(firstVisibleItem + visibleItemCount == totalItemCount && !commentAdapter.endReached() && !hasCallback){ //check if we've reached the bottom
             mHandler.postDelayed(showMore, 1200);
             hasCallback = true;
         }
@@ -151,7 +151,7 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
     private boolean hasCallback;
     private Runnable showMore = new Runnable(){
         public void run(){
-            boolean noMoreToShow = replyAdapter.showMore(); //show more views and find out if
+            boolean noMoreToShow = commentAdapter.showMore(); //show more views and find out if
             progressBarLoadMore.setVisibility(noMoreToShow? View.GONE : View.VISIBLE);
             hasCallback = false;
         }

@@ -3,6 +3,7 @@ package vn.whoever.views.fragments;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,10 +20,9 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-import vn.whoever.TransConn.AnonymousLoginTrans;
 import vn.whoever.R;
-import vn.whoever.TransConn.HttpStatus;
-import vn.whoever.TransConn.RegisterTrans;
+import vn.whoever.TransConnection.HttpStatus;
+import vn.whoever.TransConnection.InfoTrans;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.dialogs.DatePickerFragment;
@@ -114,8 +114,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                     if (isAccount) {
                         timeout = 50;
-                        final RegisterTrans registerTrans = new RegisterTrans(getActivity());
-                        registerTrans.registerUser(ssoId, password, nickName, birthday, langCode);
+                        final InfoTrans infoTrans = new InfoTrans(getActivity());
+                        infoTrans.registerUser(ssoId, password, nickName, birthday, langCode);
 
                         progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
@@ -125,7 +125,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            httpCode = registerTrans.getHttpStatusCode();
+                                            httpCode = infoTrans.getHttpStatusCode();
                                             if (httpCode != null) {
                                                 if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
                                                     insertDB();
@@ -151,8 +151,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                     } else {
                         timeout = 40;
-                        final AnonymousLoginTrans loginTrans = new AnonymousLoginTrans(getActivity());
-                        loginTrans.getRequestLoginAnonymous(langCode);
+                        final InfoTrans infoTrans = new InfoTrans(getActivity());
+                        infoTrans.getRequestLoginAnonymous(langCode);
                         progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
                             @Override
@@ -161,7 +161,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            httpCode = loginTrans.getHttpStatusCode();
+                                            httpCode = infoTrans.getHttpStatusCode();
                                             if (httpCode != null) {
                                                 if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
                                                     insertDbForAnnonymous();
@@ -253,11 +253,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
     @Override
     public void onPause() {
-        super.onPause();
-        handler = null;
-        langDialog = null;
-        dateDialog = null;
         System.gc();
+        super.onPause();
     }
 
     @Override

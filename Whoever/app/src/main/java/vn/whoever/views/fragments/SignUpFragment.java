@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import vn.whoever.R;
-import vn.whoever.TransConn.ContactQuery;
+import vn.whoever.TransConnection.ContactQuery;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.RegexUtils;
 import vn.whoever.views.activities.MainActivity;
@@ -253,9 +253,8 @@ public class SignUpFragment extends Fragment implements Initgc {
 
     @Override
     public void onPause() {
-        super.onPause();
-        handler = null;
         System.gc();
+        super.onPause();
     }
 
     @Override

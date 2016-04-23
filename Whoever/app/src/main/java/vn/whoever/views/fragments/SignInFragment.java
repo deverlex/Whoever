@@ -2,6 +2,7 @@ package vn.whoever.views.fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,9 +23,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vn.whoever.TransConn.LoginTrans;
+import vn.whoever.TransConnection.InfoTrans;
 import vn.whoever.models.dao.ConnDB;
-import vn.whoever.TransConn.HttpStatus;
+import vn.whoever.TransConnection.HttpStatus;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.R;
 import vn.whoever.utils.Initgc;
@@ -51,7 +52,6 @@ public class SignInFragment extends Fragment implements Initgc {
 
     private Toast toast;
     private int timeout;
-    //private LoginTrans loginTrans;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -173,8 +173,8 @@ public class SignInFragment extends Fragment implements Initgc {
                 if (RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
 
                     timeout = 40;
-                    final LoginTrans loginTrans = new LoginTrans(getActivity());
-                    loginTrans.getRequestLogin(ssoId, password);
+                    final InfoTrans infoTrans = new InfoTrans(getActivity());
+                    infoTrans.getRequestLogin(ssoId, password);
                     progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
 
                     new Thread(new Runnable() {
@@ -184,16 +184,13 @@ public class SignInFragment extends Fragment implements Initgc {
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Integer httpCode = loginTrans.getHttpStatusCode();
+                                        Integer httpCode = infoTrans.getHttpStatusCode();
                                         if (httpCode != null) {
                                             if(httpCode == HttpStatus.SC_NOT_FOUND) {
                                                 navigateFrame(new SignUpFragment(), "signInFrameToSignUp");
                                             }
                                             if (HttpStatus.getStatus(getActivity()).codeSignIn(httpCode)) {
                                                 insertDB();
-                                            //    SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
-                                            //    editor.putBoolean("isLogged", true);
-                                            //    editor.commit();
                                                 loadDataActive();
                                             }
                                             timeout = 0;
@@ -241,16 +238,16 @@ public class SignInFragment extends Fragment implements Initgc {
 
     @Override
     public void onPause() {
-        super.onPause();
         System.gc();
+        super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if(toast != null) {
             toast.cancel();
         }
+        super.onDestroy();
     }
 
     @Override

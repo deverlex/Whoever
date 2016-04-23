@@ -61,6 +61,7 @@ public class NewsHomeFragment extends Fragment implements Initgc, AbsListView.On
 
     @Override
     public void onPause() {
+        System.gc();
         super.onPause();
     }
 

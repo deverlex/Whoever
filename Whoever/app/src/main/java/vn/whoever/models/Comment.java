@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class Comment {
 
+    private int id;
     private String idStatus;
     private String idComment;
     private String ssoIdPoster;
@@ -19,6 +20,14 @@ public class Comment {
     private String interact;
 
     public Comment() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getIdStatus() {
         return idStatus;

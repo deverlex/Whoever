@@ -1,4 +1,4 @@
-package vn.whoever.TransConn;
+package vn.whoever.TransConnection;
 
 /**
  * Created by spider man on 1/9/2016.

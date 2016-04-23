@@ -156,8 +156,8 @@ public class TabHomeFragment extends Fragment implements Initgc {
 
     @Override
     public void onPause() {
-        super.onPause();
         System.gc();
+        super.onPause();
     }
 
     @Override

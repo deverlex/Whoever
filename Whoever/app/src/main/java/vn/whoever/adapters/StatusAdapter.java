@@ -88,13 +88,11 @@ public class StatusAdapter extends BaseAdapter {
 
         if(status.getContentImage().equals("null")) {
             // TODO: add image for status
-            Log.d("status", "non image");
             if(status.getContentText().length() > 682)
                 strContent = status.getContentText().substring(0, 682) + "...";
             else strContent = status.getContentText();
 
         } else {
-            Log.d("status", "have image");
             if(status.getContentText().length() > 268)
                 strContent = status.getContentText().substring(0,268) + "...";
             else strContent = status.getContentText();
@@ -115,7 +113,9 @@ public class StatusAdapter extends BaseAdapter {
         LinearLayout btnDislike = (LinearLayout) convertView.findViewById(R.id.btnDislikeStatus);
 
         final ImageView imgLike = (ImageView) btnLike.findViewById(R.id.iconLikeStatus);
+        imgLike.setImageResource(R.drawable.icon_like);
         final ImageView imgDislike = (ImageView) btnDislike.findViewById(R.id.iconDisklikeStatus);
+        imgDislike.setImageResource(R.drawable.icon_dislike);
 
         if(status.getInteract().equals("like")) {
             imgLike.setImageResource(R.drawable.icon_like_red);
@@ -145,7 +145,7 @@ public class StatusAdapter extends BaseAdapter {
                     status.setTotalLike(status.getTotalLike() + 1);
                     status.setTotalDislike(status.getTotalDislike() - 1);
                     totalLike.setText(String.valueOf(status.getTotalLike()));
-                    totalDislike.setText(status.getTotalDislike());
+                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
                 } else {
                     status.setInteract("like");
                     imgLike.setImageResource(R.drawable.icon_like_red);
@@ -169,20 +169,20 @@ public class StatusAdapter extends BaseAdapter {
                     status.setInteract("normal");
                     imgDislike.setImageResource(R.drawable.icon_dislike);
                     status.setTotalDislike(status.getTotalDislike() - 1);
-                    totalDislike.setText(status.getTotalDislike());
+                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
                 } else if(status.getInteract().equals("like")) {
                     status.setInteract("dislike");
                     status.setTotalLike(status.getTotalLike() - 1);
                     status.setTotalDislike(status.getTotalDislike() + 1);
                     imgLike.setImageResource(R.drawable.icon_like);
                     imgDislike.setImageResource(R.drawable.icon_dislike_red);
-                    totalLike.setText(status.getTotalLike());
-                    totalDislike.setText(status.getTotalDislike());
+                    totalLike.setText(String.valueOf(status.getTotalLike()));
+                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
                 } else {
                     status.setInteract("dislike");
                     imgDislike.setImageResource(R.drawable.icon_dislike_red);
                     status.setTotalDislike(status.getTotalDislike() + 1);
-                    totalDislike.setText(status.getTotalDislike());
+                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
                 }
             }
         });
@@ -302,6 +302,7 @@ public class StatusAdapter extends BaseAdapter {
             status.setInteract(cursor.getString(11));
             statusList.add(status);
         }
+        cursor.close();
         Log.d("sizeNews", String.valueOf(statusList.size()));
         status = null;
     }

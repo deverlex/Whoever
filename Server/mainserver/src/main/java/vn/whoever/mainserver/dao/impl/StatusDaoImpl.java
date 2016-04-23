@@ -68,7 +68,7 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		
 		crit.addOrder(Order.desc("timeUp"));
 		crit.setFirstResult(offset);
-		crit.setMaxResults(20);
+		crit.setMaxResults(15);
 		return (List<Status>) crit.list();
 	}
 	
@@ -99,7 +99,7 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		
 		crit.addOrder(Order.desc("timeUp"));
 		crit.setFirstResult(offset);
-		crit.setMaxResults(20);
+		crit.setMaxResults(15);
 
 		return (List<Status>) crit.list();
 	}

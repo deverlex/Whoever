@@ -1,6 +1,8 @@
 package vn.whoever.views.fragments;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -9,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import vn.whoever.R;
-import vn.whoever.TransConn.NewsTrans;
+import vn.whoever.TransConnection.StatusTrans;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 import vn.whoever.views.activities.MainActivity;
@@ -71,10 +74,7 @@ public class LoadFragment extends Fragment implements Initgc {
     @Override
     public void initListener(View view) {
         //TODO: don dep DB
-        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-        db.execSQL("delete from News");
-        db.execSQL("delete from Home");
-        db.close();
+
         /**
          * TODO: load data for homepage and news
          * load data for profile
@@ -89,18 +89,34 @@ public class LoadFragment extends Fragment implements Initgc {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for(int i = 0 ; i < 6; ++i) {
+                for(int i = 0 ; i < 5; ++i) {
                     switch (i) {
                         case 1:
-                            //TODO: load home page
+                            StatusTrans statusTrans = new StatusTrans(getActivity());
+                            statusTrans.getNewsFeed("nearby", 0);
                             break;
-                        case 2:
-                            NewsTrans newsTrans = new NewsTrans(getActivity());
-                            newsTrans.getNewsFeed("nearby", 0);
-                            break;
-                        case 3:
-                            //load contacts list
+                        case 2: break;
+                        case 3: break;
+                        case 4:
+                            boolean isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
+                            if(!isLogged) {
+                                SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+                                editor.putBoolean("isLogged", true);
+                                editor.commit();
 
+                                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                                db.execSQL("delete from News");
+                                db.execSQL("delete from Home");
+                                db.execSQL("delete from Comment");
+
+                                ContentValues values = new ContentValues();
+                                values.put("id", 1);
+                                values.put("use", "anonymous");
+                                values.put("privacy", "public");
+                                db.insert("SetPostStatus", null, values);
+
+                                db.close();
+                            }
                             break;
                         default:
                             break;
@@ -118,7 +134,7 @@ public class LoadFragment extends Fragment implements Initgc {
                     });
                     // TODO gi do
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(400);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

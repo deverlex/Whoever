@@ -5,5 +5,4 @@ package vn.whoever.models;
  */
 public class Contact {
 
-
 }

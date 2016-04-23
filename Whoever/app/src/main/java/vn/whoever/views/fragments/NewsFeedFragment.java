@@ -118,7 +118,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
                             isHideToolbar = true;
                             toolbar.setVisibility(View.GONE);
                         }
-
                     } else if((e2.getY() - e1.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY){
                         // down && show toolbar && hide filter
@@ -128,9 +127,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
                         }
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) {}
 
                 return super.onFling(e1, e2, velocityX, velocityY);
             }
@@ -192,7 +189,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
         btnWriteStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 navigateFragment(new PostStatusFragment(), "newsFrameToPostStatus");
             }
         });
@@ -217,8 +213,8 @@ public class NewsFeedFragment extends Fragment implements Initgc, AbsListView.On
 
     @Override
     public void onResume() {
-        super.onResume();
         intentNav = new Intent();
+        super.onResume();
     }
 
     @Override

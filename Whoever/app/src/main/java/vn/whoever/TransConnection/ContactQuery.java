@@ -1,4 +1,4 @@
-package vn.whoever.TransConn;
+package vn.whoever.TransConnection;
 
 import android.app.Activity;
 import android.util.Log;
