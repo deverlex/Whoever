@@ -52,6 +52,9 @@ public class CommentTrans {
             @Override
             public void onResponse(JSONArray resp) {
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+
+                Log.d("lengthCommentArr", String.valueOf(resp.length()));
+
                 ContentValues values = new ContentValues();
                 for(int i = 0; i < resp.length(); ++i) {
                     values.put("idStatus", idStatus);

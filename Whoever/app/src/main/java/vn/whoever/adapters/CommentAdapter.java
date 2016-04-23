@@ -1,6 +1,7 @@
 package vn.whoever.adapters;
 
-import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,8 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import vn.whoever.R;
-import vn.whoever.models.ArrayReply;
 import vn.whoever.models.Comment;
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.customviews.RoundedImageView;
 import vn.whoever.views.fragments.ProfileFragment;
@@ -33,11 +34,8 @@ public class CommentAdapter extends BaseAdapter {
     private int startCount;
 
     public CommentAdapter(Fragment fragment, int startCount, int stepNumber) {
+        loadCommentList();
         this.fragment = fragment;
-
-        ArrayReply arrayReply = new ArrayReply();
-        commentList = arrayReply.getReplies();
-
         this.startCount = Math.min(startCount, commentList.size());
         this.count = this.startCount;
         this.stepNumber = stepNumber;
@@ -61,7 +59,7 @@ public class CommentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Comment comment = (Comment) getItem(position);
+        final Comment comment = (Comment) getItem(position);
 
         if(convertView == null) {
             convertView = LayoutInflater.from(parent.getContext())
@@ -78,9 +76,9 @@ public class CommentAdapter extends BaseAdapter {
         TextView timePost = (TextView) convertView.findViewById(R.id.timePostCommentOnCommentList);
         timePost.setText(comment.getTimePost());
 
-        ImageView iconLike = (ImageView) convertView.findViewById(R.id.iconLikeOnItemComment);
+        final ImageView iconLike = (ImageView) convertView.findViewById(R.id.iconLikeOnItemComment);
         iconLike.setImageResource(R.drawable.icon_like);
-        ImageView iconDislike = (ImageView) convertView.findViewById(R.id.iconDislikeOnItemComment);
+        final ImageView iconDislike = (ImageView) convertView.findViewById(R.id.iconDislikeOnItemComment);
         iconDislike.setImageResource(R.drawable.icon_dislike);
 
         if(comment.getInteract().equals("like")) {
@@ -89,25 +87,61 @@ public class CommentAdapter extends BaseAdapter {
             iconDislike.setImageResource(R.drawable.icon_dislike_red);
         }
 
-        TextView totalLike = (TextView) convertView.findViewById(R.id.textCountLikeOnItemComment);
+        final TextView totalLike = (TextView) convertView.findViewById(R.id.textCountLikeOnItemComment);
         totalLike.setText(String.valueOf(comment.getTotalLike()));
-        TextView totalDislike = (TextView) convertView.findViewById(R.id.textCountDislikeOnItemComment);
+        final TextView totalDislike = (TextView) convertView.findViewById(R.id.textCountDislikeOnItemComment);
         totalDislike.setText(String.valueOf(comment.getTotalDislike()));
 
         LinearLayout btnLike = (LinearLayout) convertView.findViewById(R.id.btnLikeOnItemComment);
         LinearLayout btnDislike = (LinearLayout) convertView.findViewById(R.id.btnDislikeOnItemComment);
 
-        btnDislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(comment.getInteract().equals("like")) {
+                    comment.setInteract("normal");
+                    iconLike.setImageResource(R.drawable.icon_like);
+                    comment.setTotalLike(comment.getTotalLike() - 1);
+                    totalLike.setText(String.valueOf(comment.getTotalLike()));
+                } else if(comment.getInteract().equals("dislike")) {
+                    comment.setInteract("like");
+                    iconDislike.setImageResource(R.drawable.icon_dislike);
+                    iconLike.setImageResource(R.drawable.icon_like_red);
+                    comment.setTotalLike(comment.getTotalLike() + 1);
+                    comment.setTotalDislike(comment.getTotalDislike() - 1);
+                    totalDislike.setText(String.valueOf(comment.getTotalDislike()));
+                    totalLike.setText(String.valueOf(comment.getTotalLike()));
+                } else {
+                    comment.setInteract("like");
+                    iconLike.setImageResource(R.drawable.icon_like_red);
+                    comment.setTotalLike(comment.getTotalLike() + 1);
+                    totalLike.setText(String.valueOf(comment.getTotalLike()));
+                }
+            }
+        });
 
+        btnDislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(comment.getInteract().equals("dislike")) {
+                    comment.setInteract("normal");
+                    iconDislike.setImageResource(R.drawable.icon_dislike);
+                    comment.setTotalDislike(comment.getTotalDislike() - 1);
+                    totalDislike.setText(String.valueOf(comment.getTotalDislike()));
+                } else if(comment.getInteract().equals("like")) {
+                    comment.setInteract("dislike");
+                    iconLike.setImageResource(R.drawable.icon_like);
+                    iconDislike.setImageResource(R.drawable.icon_dislike_red);
+                    comment.setTotalDislike(comment.getTotalDislike() + 1);
+                    comment.setTotalLike(comment.getTotalLike() - 1);
+                    totalDislike.setText(String.valueOf(comment.getTotalDislike()));
+                    totalLike.setText(String.valueOf(comment.getTotalLike()));
+                } else {
+                    comment.setInteract("dislike");
+                    iconDislike.setImageResource(R.drawable.icon_dislike_red);
+                    comment.setTotalDislike(comment.getTotalDislike() + 1);
+                    totalDislike.setText(String.valueOf(comment.getTotalDislike()));
+                }
             }
         });
 
@@ -161,11 +195,31 @@ public class CommentAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void loadReplyList() {
+    public void loadCommentList() {
         /**
          * TODO: load database from sqlite show to
          */
         commentList = new ArrayList<>();
+        SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
+        Cursor cursor = db.rawQuery("select id, idStatus, idComment, ssoIdPoster, namePoster, " +
+                "avatarPoster, content, timePost, totalLike, totalDislike, interact from Comment", null);
+        while (cursor.moveToNext()) {
+            Comment comment = new Comment();
+            comment.setId(cursor.getInt(0));
+            comment.setIdStatus(cursor.getString(1));
+            comment.setIdComment(cursor.getString(2));
+            comment.setSsoIdPoster(cursor.getString(3));
+            comment.setNamePoster(cursor.getString(4));
+            comment.setAvatarPoster(cursor.getString(5));
+            comment.setContent(cursor.getString(6));
+            comment.setTimePost(cursor.getString(7));
+            comment.setTotalLike(cursor.getInt(8));
+            comment.setTotalDislike(cursor.getInt(9));
+            comment.setInteract(cursor.getString(10));
+            commentList.add(comment);
+        }
+        cursor.close();
+        db.close();
     }
 
     public int getSize() {

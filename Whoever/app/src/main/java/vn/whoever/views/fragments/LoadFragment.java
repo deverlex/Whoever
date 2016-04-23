@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.ContactTrans;
+import vn.whoever.TransConnection.HttpStatus;
 import vn.whoever.TransConnection.StatusTrans;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
@@ -36,6 +38,8 @@ public class LoadFragment extends Fragment implements Initgc {
     private int progress = 0;
     private Handler handler = new Handler();
     private Thread thread;
+
+    private Integer httpCode = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,15 +93,11 @@ public class LoadFragment extends Fragment implements Initgc {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                final StatusTrans statusTrans = new StatusTrans(getActivity());
+                ContactTrans contactTrans = new ContactTrans(getActivity());
                 for(int i = 0 ; i < 5; ++i) {
                     switch (i) {
                         case 1:
-                            StatusTrans statusTrans = new StatusTrans(getActivity());
-                            statusTrans.getNewsFeed("nearby", 0);
-                            break;
-                        case 2: break;
-                        case 3: break;
-                        case 4:
                             boolean isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
                             if(!isLogged) {
                                 SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
@@ -114,9 +114,17 @@ public class LoadFragment extends Fragment implements Initgc {
                                 values.put("use", "anonymous");
                                 values.put("privacy", "public");
                                 db.insert("SetPostStatus", null, values);
-
                                 db.close();
+
+                                statusTrans.getNewsFeed("nearby", 0);
+                                statusTrans.getHomePage();
                             }
+                            httpCode = statusTrans.getHttpStatusCode();
+                            break;
+                        case 2: break;
+
+                        case 3: break;
+                        case 4:
                             break;
                         default:
                             break;
@@ -126,7 +134,8 @@ public class LoadFragment extends Fragment implements Initgc {
                         @Override
                         public void run() {
                             progressBar.setProgress(progress);
-                            if(progress == progressBar.getMax()) {
+                            if(progress == progressBar.getMax() && httpCode != null &&
+                                    HttpStatus.getStatus(getActivity()).codeSignIn(httpCode)) {
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                             }

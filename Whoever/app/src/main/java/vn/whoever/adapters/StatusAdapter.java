@@ -45,6 +45,10 @@ public class StatusAdapter extends BaseAdapter {
         this.stepNumber = stepCount;
     }
 
+    public void reload() {
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return this.count;
@@ -303,6 +307,7 @@ public class StatusAdapter extends BaseAdapter {
             statusList.add(status);
         }
         cursor.close();
+        db.close();
         Log.d("sizeNews", String.valueOf(statusList.size()));
         status = null;
     }

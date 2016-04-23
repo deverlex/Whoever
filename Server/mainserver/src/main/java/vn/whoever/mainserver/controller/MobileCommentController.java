@@ -109,9 +109,9 @@ public class MobileCommentController {
 				returnCmt.setNamePoster(nickName);
 				returnCmt.setAvatarPoster("haven't a avatar");
 			} else {
-				returnCmt.setAvatarPoster("null");
-				returnCmt.setNamePoster("null");
-				returnCmt.setSsoIdPoster("null");
+				returnCmt.setAvatarPoster(null);
+				returnCmt.setNamePoster("anonymous");
+				returnCmt.setSsoIdPoster(null);
 			}
 			
 			returnCmt.setTotalLike(commentService.getTotalLikeComment(comment.getIdComment()));

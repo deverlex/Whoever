@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.CommentTrans;
 import vn.whoever.adapters.CommentAdapter;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
@@ -56,19 +58,6 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
     public void init(View view) {
 
         mHandler = new Handler();
-        btnBackActivity = (ImageButton) view.findViewById(R.id.btnBackHomeFromComment);
-
-        View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
-        progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBarLoad);
-        progressBarLoadMore.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-
-        listReply = (ListView) view.findViewById(R.id.listCommentOfStatusDetail);
-        listReply.addFooterView(footer);
-
-        commentAdapter = new CommentAdapter(this, 10, 7);
-        listReply.setAdapter(commentAdapter);
-        listReply.setOnScrollListener(this);
-        progressBarLoadMore.setVisibility((7 < commentAdapter.getSize()) ? View.VISIBLE : View.GONE);
 
         btnSendComment = (ImageButton) view.findViewById(R.id.btnSendComment);
         inputCommentSend = (EditText)  view.findViewById(R.id.inputCommentSend);
@@ -79,10 +68,14 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
         timePostStatus = (TextView) view.findViewById(R.id.timeUploadStatusDetail);
         contentTextStatus = (JTextView) view.findViewById(R.id.contentStatusDetail);
         viewTotalComment = (TextView) view.findViewById(R.id.viewTotalCommentOnReply);
+        btnBackActivity = (ImageButton) view.findViewById(R.id.btnBackHomeFromComment);
 
         Bundle bundle = getArguments();
         String idStatus = bundle.getString("idStatus");
+        Log.d("idStatusGetCmt", idStatus);
         if(idStatus != null) {
+            CommentTrans commentTrans = new CommentTrans(getActivity());
+            commentTrans.getCommentOfStatus(idStatus);
             String database = bundle.getString("database");
             SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
             String arg[] = {idStatus};
@@ -104,12 +97,24 @@ public class RepliesFragment extends Fragment implements Initgc, AbsListView.OnS
                     viewTotalComment.setText("Have " + totalComment + " comments on this status");
                 }
                 if(interact.equals("like")) {
-                    btnQuickLike.setImageResource(R.drawable.icon_dislike_red);
+                    btnQuickLike.setImageResource(R.drawable.icon_like_red);
                 } else if(interact.equals("dislike")) {
                     btnQuickLike.setImageResource(R.drawable.icon_dislike_red);
                 }
             }
         }
+
+        View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
+        progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBarLoad);
+        progressBarLoadMore.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+
+        listReply = (ListView) view.findViewById(R.id.listCommentOfStatusDetail);
+        listReply.addFooterView(footer);
+
+        commentAdapter = new CommentAdapter(this, 10, 7);
+        listReply.setAdapter(commentAdapter);
+        listReply.setOnScrollListener(this);
+        progressBarLoadMore.setVisibility((7 < commentAdapter.getSize()) ? View.VISIBLE : View.GONE);
     }
 
     @Override

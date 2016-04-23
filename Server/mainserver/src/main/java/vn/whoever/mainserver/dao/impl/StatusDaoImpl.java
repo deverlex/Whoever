@@ -109,4 +109,15 @@ public class StatusDaoImpl extends AbstractDao<String, Status> implements Status
 		crit.add(Restrictions.eq("idStatus", idStatus));
 		return (Status) crit.uniqueResult();
 	}
+
+	public List<Status> getListStatusHome(String idLanguage) {
+		Criteria crit = createEntityCriteria();
+		/**
+		 * like - dislike + comment
+		 * 
+		 * 
+		 */
+		
+		return null;
+	}
 }

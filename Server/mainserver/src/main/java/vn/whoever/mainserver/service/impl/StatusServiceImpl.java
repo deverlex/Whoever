@@ -12,6 +12,7 @@ import v.whoever.service.impl.GenerateIdImpl;
 import vn.whoever.mainserver.dao.CommentsDao;
 import vn.whoever.mainserver.dao.ContactUserDao;
 import vn.whoever.mainserver.dao.ContactsDao;
+import vn.whoever.mainserver.dao.LanguagesDao;
 import vn.whoever.mainserver.dao.StatusDao;
 import vn.whoever.mainserver.dao.StatusUserDao;
 import vn.whoever.mainserver.dao.UsersDao;
@@ -48,6 +49,9 @@ public class StatusServiceImpl implements StatusService {
 	@Autowired
 	private CommentsDao commentsDao;
 	
+	@Autowired
+	private LanguagesDao languagesDao;
+	
 	public String generateStatusId() {
 		return GenerateIdImpl.generateId().getId();
 	}
@@ -62,6 +66,12 @@ public class StatusServiceImpl implements StatusService {
 
 	public Status getStatus(String idStatus) {
 		return statusDao.getStatus(idStatus);
+	}
+	
+	public List<Status> getHomeStatus(String langCode) {
+		int idLanguage = languagesDao.findIdByCode(langCode);
+		
+		return null;
 	}
 	
 	/**

@@ -216,6 +216,10 @@ public class WelcomeFragment extends Fragment implements Initgc {
     public void loadDataActive() {
         MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
         MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        Bundle bundle = new Bundle();
+        bundle.putString("langCode", langCode);
+        LoadFragment loadFragment = new LoadFragment();
+        loadFragment.setArguments(bundle);
         MainActivity.frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
     }
 

@@ -59,10 +59,11 @@ public class MobileStatusController {
 	
 	@RequestMapping(value = "/mobile/home/{langCode}", method = RequestMethod.GET,
 			produces = "application/json")
-	public @ResponseBody String getHome(HttpServletResponse httpResponse,
+	public @ResponseBody List<ReturnStatus> getHome(HttpServletResponse httpResponse,
 			@PathVariable("langCode") String langCode) {
+		List<ReturnStatus> listReturn = new ArrayList<ReturnStatus>();
 		
-		return "";
+		return listReturn;
 	}
 	
 	@RequestMapping(value = "/mobile/news", method = RequestMethod.POST, 
@@ -132,6 +133,8 @@ public class MobileStatusController {
 			
 		}
 		System.out.println(status.getContent());
+		System.out.println(status.getIdUser());
+		System.out.println(status.getPrivacy());
 		statusService.postStatus(status);
 	}
 

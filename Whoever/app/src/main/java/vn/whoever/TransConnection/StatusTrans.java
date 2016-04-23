@@ -163,6 +163,13 @@ public class StatusTrans {
         TransactionQueue.getsInstance(activity).addToRequestQueue(requestInteract, "requestInteractStatus");
     }
 
+    public void getHomePage() {
+        /**
+         * Dua vao id nguoi dung ma lay langCode
+         */
+
+    }
+
     public Map<String, String> onCreateHeaders() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json; charset=utf-8");

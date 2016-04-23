@@ -14,7 +14,7 @@ public interface StatusService {
 	
 	public void updateStatus(Status status);
 	public Status getStatus(String idStatus);
-	
+	public List<Status> getHomeStatus(String langCode);
 	
 	public List<Status> getListStatus(String idUser, Order order, int offset, double xLoc, double yLoc);
 	
