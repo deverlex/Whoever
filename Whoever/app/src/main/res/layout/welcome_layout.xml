@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="40dp"
     android:paddingRight="40dp"
-    android:background="@color/colorMain"
+    android:background="@color/colorRedMain"
     android:id="@+id/welcomeFrame">
 
     <TextView
@@ -109,17 +109,25 @@
         android:layout_alignParentEnd="true"
         android:paddingTop="10dp"/>
 
-    <Button
-        android:id="@+id/buttonPushApp"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="@string/text_button_pushapp"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textViewLanguage"
-        android:layout_marginTop="34dp"
-        android:background="@color/colorButtonMain"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"/>
+        android:layout_marginTop="34dp">
+
+        <Button
+            android:id="@+id/buttonPushApp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="@string/text_button_pushapp"
+            android:background="@color/colorButtonMain"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

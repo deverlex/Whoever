@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
          * TODO: connection to DB
          *
          */
-        Bundle bundle = new Bundle();
         if(isLogged) {
             frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
         } else {

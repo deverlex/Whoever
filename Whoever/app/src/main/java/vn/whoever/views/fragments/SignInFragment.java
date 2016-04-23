@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class SignInFragment extends Fragment implements Initgc {
     private EditText editTextPassword;
     private TextView textSignUp;
     private TextView textTerm;
-    private Button btnSignin;
+    private CardView btnSignin;
     private Button btnSkipSignIn;
     private TextView logoText;
     private Handler handler = new Handler();
@@ -70,7 +71,7 @@ public class SignInFragment extends Fragment implements Initgc {
         editTextPassword = (EditText) view.findViewById(R.id.inputPasswordStart);
         editTextPassword.setTextColor(Color.parseColor("#ffffff"));
         btnSkipSignIn = (Button) view.findViewById(R.id.skipSignInButton);
-        btnSignin = (Button) view.findViewById(R.id.signInButton);
+        btnSignin = (CardView) view.findViewById(R.id.signInButton);
         textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
 
         logoText = (TextView) view.findViewById(R.id.logoTextStartSignIn);
@@ -80,7 +81,7 @@ public class SignInFragment extends Fragment implements Initgc {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.parseColor("#eb4949"));
+            window.setStatusBarColor(Color.parseColor("#930a0a"));
         }
     }
 

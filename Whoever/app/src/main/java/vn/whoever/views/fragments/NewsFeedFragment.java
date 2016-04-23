@@ -2,6 +2,7 @@ package vn.whoever.views.fragments;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -39,9 +40,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     private LinearLayout toolbar;
     private RecyclerView recyclerViewStatus;
     private FloatingActionButton btnFilter;
-    private StatusAdapter statusAdapter;
-
-    //private ProgressBar progressBarLoadMore;
     protected Handler mHandler;
 
     private boolean isHideToolbar = false;
@@ -69,36 +67,18 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     @Override
     public void init(View view) {
-        //mHandler = new Handler();
-
         btnFilter = (FloatingActionButton) view.findViewById(R.id.btnSettingFilterNewsFeed);
         toolbar = (LinearLayout) view.findViewById(R.id.layoutToolBarWriteNewsFeed);
-
-        //View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
-        //progressBarLoadMore = (ProgressBar) footer.findViewById(R.id.progressBarLoad);
-        //progressBarLoadMore.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-
         recyclerViewStatus = (RecyclerView) view.findViewById(R.id.listViewNewsFeed);
-        //recyclerViewStatus.addFooterView(footer);
-
-
-        //statusAdapter = new StatusAdapter(this, 10, 7, "News");
-        //recyclerViewStatus.setAdapter(statusAdapter);
-        //recyclerViewStatus.setOnScrollListener(this);
-        //progressBarLoadMore.setVisibility((7 < statusAdapter.getSize()) ? View.VISIBLE : View.GONE);
 
         newsRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshListNewsLayout);
         newsRefreshLayout.setOnRefreshListener(this);
-        newsRefreshLayout.setColorSchemeColors(R.color.colorAccent);
+        newsRefreshLayout.setColorSchemeResources(R.color.colorMain);
 
-        /**
-         * TODO: for toobar layout
-         */
         avatarInToolbar = (ImageButton) toolbar.findViewById(R.id.btnAvatarInWriteStatus);
         btnChoiceWriteStatus = (LinearLayout) toolbar.findViewById(R.id.btnChoiceWriteStatus);
         btnChoiceUpPhoto = (LinearLayout) toolbar.findViewById(R.id.btnChoiceUploadPhoto);
         btnWriteStatus = (RelativeLayout) toolbar.findViewById(R.id.btnWriteStatusInWriteStatus);
-
 
         statusList = new ArrayList<>();
         mHandler = new Handler();
@@ -130,17 +110,8 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                     public void run() {
                         statusList.remove(statusList.size() - 1);
                         dataAdapter.notifyItemRemoved(statusList.size());
-
-                        int start = statusList.size();
-                        int end = start + 10;
-
-                        //load in here
-
-
+                        fetchStatus();
                         dataAdapter.setLoaded();
-
-
-
                     }
                 }, 2000);
 
@@ -242,6 +213,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     private void fetchStatus() {
         newsRefreshLayout.setRefreshing(true);
+
         Log.d("GetMore", "Item Status more");
         newsRefreshLayout.setRefreshing(false);
     }
@@ -288,30 +260,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         cursor.close();
         db.close();
     }
-
-//    @Override
-//    public void onScrollStateChanged(AbsListView view, int scrollState) {
-//
-//    }
-//
-//    @Override
-//    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//        if(firstVisibleItem + visibleItemCount == totalItemCount && !statusAdapter.endReached() && !hasCallback) {
-//            mHandler.postDelayed(showMore, 1200);
-//            hasCallback = true;
-//        }
-//    }
-
-//    private boolean hasCallback;
-//
-//    private Runnable showMore = new Runnable() {
-//        @Override
-//        public void run() {
-//            boolean noMoreToShow = statusAdapter.showMore();
-//            progressBarLoadMore.setVisibility(noMoreToShow? View.GONE : View.VISIBLE);
-//            hasCallback = false;
-//        }
-//    };
 
     @Override
     public void onRefresh() {

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:background="@color/colorMain"
+    android:background="@color/colorRedMain"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:id="@+id/signInFrame">
@@ -27,15 +27,18 @@
         android:textColorHint="@color/colorSilverWhite"
         android:layout_marginTop="12dp"
         android:singleLine="true"
+        android:textSize="20sp"
         android:layout_below="@+id/logoTextStartSignIn"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/custom_edit_text"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:inputType="textPassword"
         android:editable="false"
         android:id="@+id/inputPasswordStart"
@@ -47,21 +50,35 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:singleLine="true"
+        android:textSize="20sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/custom_edit_text"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/signInButton"
-        android:layout_below="@+id/inputPasswordStart"
-        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/spaceButtonSignIn"
-        android:background="@color/colorButtonMain"
-        android:text="@string/text_button_signin"
-        android:textSize="12dp"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"/>
+        android:layout_below="@+id/inputPasswordStart"
+        android:layout_marginTop="40dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorButtonMain"
+            android:text="@string/text_button_signin"
+            android:textSize="12dp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.CardView>
+
+
 
     <Space
         android:layout_width="15dp"
@@ -70,19 +87,26 @@
         android:layout_below="@+id/inputPasswordStart"
         android:layout_centerHorizontal="true"/>
 
-    <Button
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:id="@+id/skipSignInButton"
-        android:layout_below="@+id/inputPasswordStart"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/spaceButtonSignIn"
-        android:background="@color/colorButtonMain"
-        android:text="@string/text_button_skip"
-        android:textSize="12dp"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"/>
+        android:layout_below="@+id/inputPasswordStart"
+        android:layout_marginTop="40dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/skipSignInButton"
+            android:background="@color/colorButtonMain"
+            android:text="@string/text_button_skip"
+            android:textSize="12dp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:layout_width="wrap_content"

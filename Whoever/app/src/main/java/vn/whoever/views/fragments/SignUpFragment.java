@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class SignUpFragment extends Fragment implements Initgc {
     private EditText editTextSsoId;
     private EditText editTextPassword;
     private CheckBox checkBoxAgreeTerm;
-    private Button btnCreateAccount;
+    private CardView btnCreateAccount;
     private TextView textViewSignIn;
     private TextView textViewTerm;
     private Toast toast;
@@ -71,7 +72,7 @@ public class SignUpFragment extends Fragment implements Initgc {
         editTextPassword.setText(password);
 
         textViewSignIn = (TextView) view.findViewById(R.id.textHaveAAccount);
-        btnCreateAccount = (Button) view.findViewById(R.id.signUpButton);
+        btnCreateAccount = (CardView) view.findViewById(R.id.signUpButton);
         checkBoxAgreeTerm = (CheckBox) view.findViewById(R.id.checkAgreeTermService);
         textViewTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
 

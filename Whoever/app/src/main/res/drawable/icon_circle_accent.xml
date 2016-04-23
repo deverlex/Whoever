@@ -4,6 +4,6 @@
     android:shape="oval"
     android:thicknessRatio="1.9"
     android:useLevel="false" >
-    <solid android:color="@color/colorAccent" />
+    <solid android:color="@color/colorButtonMain" />
 
 </shape>

@@ -210,6 +210,24 @@ public class InfoTrans {
         TransactionQueue.getsInstance(activity).addToRequestQueue(stringRequest);
     }
 
+    public void logout() {
+        String url_anonymous = "http://192.168.1.112:8080/mainserver/mobile/anonymous";
+
+        StringRequest logoutRequest = new StringRequest(Request.Method.GET, url_anonymous, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+        };
+    }
+
     public Integer getHttpStatusCode() {
         return httpStatusCode;
     }

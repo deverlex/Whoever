@@ -29,6 +29,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
         app:fabSize="normal"
-        app:backgroundTint="@color/colorButtonMain" />
+        app:backgroundTint="@color/colorRedMain" />
 
 </RelativeLayout>

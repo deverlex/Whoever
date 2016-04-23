@@ -22,7 +22,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/colorButtonMain">
+            android:background="@color/colorRedMain">
 
             <RelativeLayout
                 android:id="@+id/btnOpenOverview"
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/btnOpenOverview"
-                android:layout_toLeftOf="@+id/btnOpenNotify" >
+                android:layout_toLeftOf="@+id/btnOpenNotify">
 
                 <TextView
                     android:layout_width="match_parent"
