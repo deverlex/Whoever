@@ -1,19 +1,8 @@
 package vn.whoever.mainserver.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
-import vn.whoever.mainserver.dao.StatusDao;
-import vn.whoever.mainserver.service.HomeService;
 
-/**
- * For insert to Homestatus DB
- * @author spider man
- *
- */
 public class SortHome implements Runnable {
-
-	@Autowired
-	private StatusDao statusDao;
 	
 	private boolean isRun;
 	

@@ -50,7 +50,7 @@ public class HttpStatus {
             if(toast != null) toast.cancel();
             toast = Toast.makeText(context, "Server is temporarily overloaded", Toast.LENGTH_SHORT);
             toast.show();
-        } else if(httpCode == SC_REQUEST_TIMEOUT){
+        } else if(httpCode == SC_REQUEST_TIMEOUT || httpCode == SC_BAD_REQUEST){
             if(toast != null) toast.cancel();
             toast = Toast.makeText(context, "Check your connection", Toast.LENGTH_SHORT);
             toast.show();

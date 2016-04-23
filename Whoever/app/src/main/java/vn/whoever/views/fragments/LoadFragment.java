@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.InetAddress;
 import java.net.URL;
@@ -46,7 +47,9 @@ public class LoadFragment extends Fragment implements Initgc {
     private TextView textLoad;
     private int cLoop = 0;
     private StatusTrans statusTrans = null;
-    private int delay = 300;
+    private int delay = 200;
+    private boolean isLoadDb = false;
+    private Integer httpStatus = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,35 +92,40 @@ public class LoadFragment extends Fragment implements Initgc {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                if(statusTrans == null) delay = 100;
                 while (true){
                     progress += 20;
+                    if(!isLoadDb) {
+                        loadData();
+                    }
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             progressBar.setProgress(progress);
                             if(statusTrans != null && progress == progressBar.getMax()) {
-                                if((int) statusTrans.getHttpStatusCode() == HttpStatus.SC_OK) {
-                                    cLoop = 3;
+                                httpStatus = statusTrans.getHttpStatusCode();
+                                if(httpStatus != null && httpStatus == HttpStatus.SC_OK) {
+                                    cLoop = 5;
                                     MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                     MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                                 } else {
                                     cLoop += 1;
-                                    progress = 0;
                                     progressBar.setProgress(0);
-                                    if(cLoop == 3) {
-                                        progressBar.setVisibility(View.GONE);
-                                        textLoad.setText("Sorry, connection to server have a error, try later!!!");
+                                    if(cLoop == 5) {
+                                        MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                                        MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
+                                        Toast.makeText(getActivity(), "Service isn't response, try later", Toast.LENGTH_SHORT).show();
                                     }
                                 }
+                                progress = 0;
                             } else if(statusTrans == null && progress == progressBar.getMax()) {
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
-                                cLoop = 3;
+                                Toast.makeText(getActivity(), "No connection to service", Toast.LENGTH_SHORT).show();
+                                cLoop = 5;
                             }
                         }
                     });
-                    if(cLoop == 3) break;
+                    if(cLoop == 5) break;
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {
@@ -126,7 +134,10 @@ public class LoadFragment extends Fragment implements Initgc {
                 }
             }
         });
+        thread.start();
+    }
 
+    public void loadData() {
         boolean isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
         if(!isLogged && checkInternetAvaiable()) {
             //TODO: first login to app
@@ -168,14 +179,12 @@ public class LoadFragment extends Fragment implements Initgc {
                 contactTrans.getContactOnline();
             }
         }
-        Log.d("checkInternet", String.valueOf(checkInternetAvaiable()));
-        thread.start();
+        if(statusTrans == null) delay = 100;
+        isLoadDb = true;
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 
     @Override
     public void onPause() {
@@ -184,9 +193,9 @@ public class LoadFragment extends Fragment implements Initgc {
 
     private boolean checkInternetAvaiable() {
         try{
-            URL myUrl = new URL("http://192.168.1.112:8080/");
+            URL myUrl = new URL("http://192.168.1.112:8080/mainserver/");
             URLConnection connection = myUrl.openConnection();
-            connection.setConnectTimeout(5000);
+            connection.setConnectTimeout(1500);
             connection.connect();
             return true;
         } catch (Exception e) {

@@ -219,17 +219,18 @@ public class InfoTrans {
         if(networkResponse != null) {
             httpStatusCode = networkResponse.statusCode;
         }
-
-        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            httpStatusCode = HttpStatus.SC_BAD_REQUEST;
-        } else if (error instanceof AuthFailureError) {
-            //TODO
-        } else if (error instanceof ServerError) {
+        if (error instanceof TimeoutError) {
+            httpStatusCode = HttpStatus.SC_REQUEST_TIMEOUT;
+        } else if(error instanceof NoConnectionError) {
             httpStatusCode = HttpStatus.SC_SERVICE_UNAVAIABLE;
+        }else if (error instanceof AuthFailureError) {
+            httpStatusCode = HttpStatus.SC_UNAUTHORIZED;
+        } else if (error instanceof ServerError) {
+            httpStatusCode = HttpStatus.SC_SERVER_INTERNAL;
         } else if (error instanceof NetworkError) {
             httpStatusCode = HttpStatus.SC_BAD_REQUEST;
         } else if (error instanceof ParseError) {
-            //TODO
+            httpStatusCode = HttpStatus.SC_SERVER_INTERNAL;
         }
     }
 }
