@@ -14,20 +14,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ListView
+        <!--<ListView-->
+            <!--android:id="@+id/listViewNewsFeed"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/colorSilverWhite"-->
+            <!--android:dividerHeight="5dp"/>-->
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/listViewNewsFeed"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorSilverWhite"
-            android:dividerHeight="5dp"/>
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
 
     <LinearLayout
         android:id="@+id/layoutToolBarWriteNewsFeed"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="76dp"
         android:layout_alignParentBottom="true">
         <include layout="@layout/toolbar_newsfeed_layout" />
     </LinearLayout>
@@ -36,7 +40,7 @@
         android:id="@+id/btnSettingFilterNewsFeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:fabSize="mini"
+        app:fabSize="normal"
         app:backgroundTint="@color/colorAccent"
         android:src="@drawable/icon_eye"
         android:layout_alignParentRight="true"

@@ -1,196 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:orientation="vertical"
+    android:background="@color/colorSilverWhite"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardBackgroundColor="@color/colorWhite"
+    card_view:cardUseCompatPadding="true"
     android:id="@+id/itemStatusFrame">
 
-    <RelativeLayout
-        android:id="@+id/headerStatusItemLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!-- have a avatar, nickname, time upload, extend option button -->
-        <vn.whoever.views.customviews.RoundedImageView
-            android:id="@+id/imageAvatarOnStatus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/donguyen"/>
-
-        <TextView
-            android:id="@+id/nickNameAndExtendOnStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@+id/imageAvatarOnStatus"
-            android:textColor="@color/colorBlack"
-            android:text="Nguyen Do"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/timeUploadStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_below="@+id/nickNameAndExtendOnStatus"
-            android:layout_toRightOf="@+id/imageAvatarOnStatus"
-            android:text="13:15 hôm qua"
-            android:textSize="11sp"/>
-
-        <ImageButton
-            android:id="@+id/extendButtonStatusOnStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:src="@drawable/icon_extends"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="@color/colorWhite" />
-
-    </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/bodyStatusItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <vn.whoever.views.customviews.JTextView
-            android:id="@+id/contentStatus"
+
+        <RelativeLayout
+            android:id="@+id/headerStatusItemLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- have a avatar, nickname, time upload, extend option button -->
+            <vn.whoever.views.customviews.RoundedImageView
+                android:id="@+id/imageAvatarOnStatus"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/donguyen"/>
+
+            <TextView
+                android:id="@+id/nickNameAndExtendOnStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/imageAvatarOnStatus"
+                android:textColor="@color/colorBlack"
+                android:text="Nguyen Do"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/timeUploadStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_below="@+id/nickNameAndExtendOnStatus"
+                android:layout_toRightOf="@+id/imageAvatarOnStatus"
+                android:text="13:15 hôm qua"
+                android:textSize="11sp"/>
+
+            <ImageButton
+                android:id="@+id/extendButtonStatusOnStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:src="@drawable/icon_extends"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorWhite" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/bodyStatusItemLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+            <vn.whoever.views.customviews.JTextView
+                android:id="@+id/contentStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:gravity="fill_horizontal"/>
+
+            <ImageView
+                android:id="@+id/imageInStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="350dp"
+                android:scaleType="centerInside"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/colorBlack"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            android:gravity="fill_horizontal"/>
+            android:layout_marginRight="10dp"
+            android:background="@color/colorSilver"/>
 
-        <ImageView
-            android:id="@+id/imageInStatus"
+        <LinearLayout
+            android:id="@+id/toolBarStatusItemLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="350dp"
-            android:scaleType="centerInside"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorSilver"/>
-
-    <LinearLayout
-        android:id="@+id/toolBarStatusItemLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <!-- have like, dislike, comment, share -->
-        <LinearLayout
-            android:id="@+id/btnLikeStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:orientation="horizontal"
-            android:padding="2dp"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/iconLikeStatus"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"/>
+            android:weightSum="3">
 
-            <TextView
-                android:id="@+id/totalLikeStatus"
+            <!-- have like, dislike, comment, share -->
+            <LinearLayout
+                android:id="@+id/btnLikeStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp"
-                android:textSize="14sp"
-                android:textColor="@color/colorSilverBlack"
-                android:text="12"
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-        </LinearLayout>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/iconLikeStatus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"/>
 
-        <LinearLayout
-            android:id="@+id/btnDislikeStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnLikeStatus"
-            android:layout_toLeftOf="@+id/btnCommentStatus"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/totalLikeStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorSilverBlack"
+                    android:text="12"
+                    android:textStyle="bold"
+                    android:layout_gravity="center" />
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iconDisklikeStatus"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"/>
-
-            <TextView
-                android:id="@+id/totalDislikeStatus"
+            <LinearLayout
+                android:id="@+id/btnDislikeStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp"
-                android:textSize="14dp"
-                android:textColor="@color/colorSilverBlack"
-                android:text="12"
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
-        </LinearLayout>
+                android:layout_toRightOf="@+id/btnLikeStatus"
+                android:layout_toLeftOf="@+id/btnCommentStatus"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/btnCommentStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/iconDisklikeStatus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"/>
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_comment"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="2dp"
-                android:alpha="0.5"/>
+                <TextView
+                    android:id="@+id/totalDislikeStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorSilverBlack"
+                    android:text="12"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/totalCommentStatus"
+            <LinearLayout
+                android:id="@+id/btnCommentStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textSize="14sp"
-                android:textColor="@color/colorSilverBlack"
-                android:text="12 Comment"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"/>
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_comment"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="2dp"
+                    android:alpha="0.5"/>
+
+                <TextView
+                    android:id="@+id/totalCommentStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorSilverBlack"
+                    android:text="12 Comment"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"/>
+
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
-</LinearLayout>
+</android.support.v7.widget.CardView>
