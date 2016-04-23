@@ -112,6 +112,7 @@ public class StatusTrans {
                         }
                         isInsert = false;
                         db.close();
+                        httpStatusCode = HttpStatus.SC_OK;
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -202,13 +203,13 @@ public class StatusTrans {
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
             httpStatusCode = HttpStatus.SC_BAD_REQUEST;
         } else if (error instanceof AuthFailureError) {
-            //TODO
+
         } else if (error instanceof ServerError) {
             httpStatusCode = HttpStatus.SC_SERVICE_UNAVAIABLE;
         } else if (error instanceof NetworkError) {
             httpStatusCode = HttpStatus.SC_BAD_REQUEST;
         } else if (error instanceof ParseError) {
-            //TODO
+
         }
     }
 }

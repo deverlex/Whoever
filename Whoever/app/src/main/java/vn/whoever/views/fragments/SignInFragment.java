@@ -189,7 +189,7 @@ public class SignInFragment extends Fragment implements Initgc {
                                             if(httpCode == HttpStatus.SC_NOT_FOUND) {
                                                 navigateFrame(new SignUpFragment(), "signInFrameToSignUp");
                                             }
-                                            if (HttpStatus.getStatus(getActivity()).codeSignIn(httpCode)) {
+                                            if (HttpStatus.getStatus(getActivity()).signalCode(httpCode)) {
                                                 insertDB();
                                                 loadDataActive();
                                             }
@@ -198,7 +198,7 @@ public class SignInFragment extends Fragment implements Initgc {
                                         }
                                         if(timeout == 1) {
                                             progressDialog.dismiss();
-                                            HttpStatus.getStatus(getActivity()).codeSignIn(HttpStatus.SC_SERVICE_UNAVAIABLE);
+                                            HttpStatus.getStatus(getActivity()).signalCode(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                         }
                                     }
                                 });

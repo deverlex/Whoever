@@ -3,6 +3,7 @@ package vn.whoever.views.fragments;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -21,6 +22,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
+
 import vn.whoever.R;
 import vn.whoever.TransConnection.ContactTrans;
 import vn.whoever.TransConnection.HttpStatus;
@@ -38,8 +43,10 @@ public class LoadFragment extends Fragment implements Initgc {
     private int progress = 0;
     private Handler handler = new Handler();
     private Thread thread;
-
-    private Integer httpCode = null;
+    private TextView textLoad;
+    private int cLoop = 0;
+    private StatusTrans statusTrans = null;
+    private int delay = 300;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +71,7 @@ public class LoadFragment extends Fragment implements Initgc {
         TextView logoLoad = (TextView) view.findViewById(R.id.logoTextLoad);
         Typeface bauhau93_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bauhau93.ttf");
         logoLoad.setTypeface(bauhau93_font);
+        textLoad = (TextView) view.findViewById(R.id.textWaitLoadData);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBarLoadData);
         progressBar.getProgressDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
@@ -77,79 +85,90 @@ public class LoadFragment extends Fragment implements Initgc {
 
     @Override
     public void initListener(View view) {
-        //TODO: don dep DB
-
-        /**
-         * TODO: load data for homepage and news
-         * load data for profile
-         * load data for message
-         */
-
-        /**
-         * download: news, home, online list, message : update UI laster
-         * contacts: load on UI now
-         */
 
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                final StatusTrans statusTrans = new StatusTrans(getActivity());
-                ContactTrans contactTrans = new ContactTrans(getActivity());
-                for(int i = 0 ; i < 5; ++i) {
-                    switch (i) {
-                        case 1:
-                            boolean isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
-                            if(!isLogged) {
-                                SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
-                                editor.putBoolean("isLogged", true);
-                                editor.commit();
-
-                                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-                                db.execSQL("delete from News");
-                                db.execSQL("delete from Home");
-                                db.execSQL("delete from Comment");
-
-                                ContentValues values = new ContentValues();
-                                values.put("id", 1);
-                                values.put("use", "anonymous");
-                                values.put("privacy", "public");
-                                db.insert("SetPostStatus", null, values);
-                                db.close();
-
-                                statusTrans.getNewsFeed("nearby", 0);
-                                statusTrans.getHomePage();
-                            }
-                            httpCode = statusTrans.getHttpStatusCode();
-                            break;
-                        case 2: break;
-
-                        case 3: break;
-                        case 4:
-                            break;
-                        default:
-                            break;
-                    }
+                if(statusTrans == null) delay = 100;
+                while (true){
                     progress += 20;
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             progressBar.setProgress(progress);
-                            if(progress == progressBar.getMax() && httpCode != null &&
-                                    HttpStatus.getStatus(getActivity()).codeSignIn(httpCode)) {
+                            if(statusTrans != null && progress == progressBar.getMax()) {
+                                if((int) statusTrans.getHttpStatusCode() == HttpStatus.SC_OK) {
+                                    cLoop = 3;
+                                    MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                                    MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
+                                } else {
+                                    cLoop += 1;
+                                    progress = 0;
+                                    progressBar.setProgress(0);
+                                    if(cLoop == 3) {
+                                        progressBar.setVisibility(View.GONE);
+                                        textLoad.setText("Sorry, connection to server have a error, try later!!!");
+                                    }
+                                }
+                            } else if(statusTrans == null && progress == progressBar.getMax()) {
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
+                                cLoop = 3;
                             }
                         }
                     });
-                    // TODO gi do
+                    if(cLoop == 3) break;
                     try {
-                        Thread.sleep(400);
+                        Thread.sleep(delay);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
+
+        boolean isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
+        if(!isLogged && checkInternetAvaiable()) {
+            //TODO: first login to app
+            SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+            editor.putBoolean("isLogged", true);
+            editor.commit();
+
+            SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+            db.execSQL("delete from News");
+            db.execSQL("delete from Home");
+            db.execSQL("delete from Comment");
+
+            ContentValues values = new ContentValues();
+            values.put("id", 1);
+            values.put("use", "anonymous");
+            values.put("privacy", "public");
+            db.insert("SetPostStatus", null, values);
+
+            db.close();
+
+            statusTrans = new StatusTrans(getActivity());
+            ContactTrans contactTrans = new ContactTrans(getActivity());
+            statusTrans.getNewsFeed("nearby", 0);
+            statusTrans.getHomePage();
+            contactTrans.getContactOnline();
+        } else {
+            if(checkInternetAvaiable()) {
+                // TODO: if have connection to server -> load new data
+                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                db.execSQL("delete from News");
+                db.execSQL("delete from Home");
+                db.execSQL("delete from Comment");
+                db.close();
+
+                statusTrans = new StatusTrans(getActivity());
+                ContactTrans contactTrans = new ContactTrans(getActivity());
+                statusTrans.getNewsFeed("nearby", 0);
+                statusTrans.getHomePage();
+                contactTrans.getContactOnline();
+            }
+        }
+        Log.d("checkInternet", String.valueOf(checkInternetAvaiable()));
         thread.start();
     }
 
@@ -161,5 +180,17 @@ public class LoadFragment extends Fragment implements Initgc {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    private boolean checkInternetAvaiable() {
+        try{
+            URL myUrl = new URL("http://192.168.1.112:8080/");
+            URLConnection connection = myUrl.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.connect();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

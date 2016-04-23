@@ -127,7 +127,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                         public void run() {
                                             httpCode = infoTrans.getHttpStatusCode();
                                             if (httpCode != null) {
-                                                if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
+                                                if (HttpStatus.getStatus(getActivity()).signalCode(httpCode)) {
                                                     insertDB();
                                                     loadDataActive();
                                                 }
@@ -136,15 +136,14 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                             }
                                             if (timeout == 1) {
                                                 progressDialog.dismiss();
-                                                HttpStatus.getStatus(getActivity()).codeSignInAnonymous(HttpStatus.SC_SERVICE_UNAVAIABLE);
+                                                HttpStatus.getStatus(getActivity()).signalCode(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                             }
                                         }
                                     });
                                     --timeout;
                                     try {
                                         Thread.sleep(150);
-                                    } catch (InterruptedException e) {
-                                    }
+                                    } catch (InterruptedException e) {}
                                 }
                             }
                         }).start();
@@ -163,7 +162,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                         public void run() {
                                             httpCode = infoTrans.getHttpStatusCode();
                                             if (httpCode != null) {
-                                                if (HttpStatus.getStatus(getActivity()).codeSignInAnonymous(httpCode)) {
+                                                if (HttpStatus.getStatus(getActivity()).signalCode(httpCode)) {
                                                     insertDbForAnnonymous();
                                                     loadDataActive();
                                                 }
@@ -172,15 +171,14 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                             }
                                             if (timeout == 1) {
                                                 progressDialog.dismiss();
-                                                HttpStatus.getStatus(getActivity()).codeSignInAnonymous(HttpStatus.SC_SERVICE_UNAVAIABLE);
+                                                HttpStatus.getStatus(getActivity()).signalCode(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                             }
                                         }
                                     });
                                     --timeout;
                                     try {
                                         Thread.sleep(150);
-                                    } catch (InterruptedException e) {
-                                    }
+                                    } catch (InterruptedException e) {}
                                 }
                             }
                         }).start();
