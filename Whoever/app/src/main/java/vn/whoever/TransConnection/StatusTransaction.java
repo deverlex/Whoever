@@ -2,25 +2,16 @@ package vn.whoever.TransConnection;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,6 +80,7 @@ public class StatusTransaction extends AbstractTransaction {
                         // TODO: insert DB status
                         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                         ContentValues values = new ContentValues();
+                        Log.d("responseStatus", resp.toString());
                         for(int i = 0; i < resp.length() && isInsert; ++i) {
                             try {
                                 JSONObject obj = resp.getJSONObject(i);
@@ -102,7 +94,8 @@ public class StatusTransaction extends AbstractTransaction {
                                 values.put("totalDislike", obj.getInt("totalDislike"));
                                 values.put("totalComment", obj.getInt("totalComment"));
                                 values.put("interact", obj.getString("interact"));
-                                db.insert("News", null, values);
+                                values.put("isHome", false);
+                                db.insert("Status", null, values);
                             } catch (JSONException e) {
                                 Log.d("insertStatus", "error insert!!");
                             }

@@ -55,6 +55,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     private List<Status> statusList;
     private StatusAdapter statusAdapter;
+
     private StatusTransaction statusTransaction;
 
     @Override
@@ -238,7 +239,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         String arg[] = {String.valueOf(0)};
         Cursor cursor = db.rawQuery("select id, idStatus, ssoIdPoster, avatarPoster, namePoster," +
                 " timePost, contentText, contentImage, totalLike, totalDislike, totalComment," +
-                " interact from News where id >=?", arg);
+                " interact from Status where id >=?", arg);
         while (cursor.moveToNext()) {
             Status status = new Status();
             status.setId(cursor.getInt(0));

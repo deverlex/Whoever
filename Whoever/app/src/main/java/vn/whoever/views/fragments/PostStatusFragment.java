@@ -1,5 +1,6 @@
 package vn.whoever.views.fragments;
 
+import android.app.ProgressDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -13,9 +14,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.HttpStatus;
 import vn.whoever.TransConnection.StatusTransaction;
+import vn.whoever.models.Status;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 import vn.whoever.views.dialogs.DialogPrivacyPostStatus;
@@ -38,9 +42,11 @@ public class PostStatusFragment extends Fragment implements Initgc {
 
     private EditText editContentStatus;
     private DialogPrivacyPostStatus privacyPost;
+    private StatusTransaction statusTransaction;
 
     private String strStatus;
     private Handler handler;
+    private ProgressDialog progressPost;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,6 +95,7 @@ public class PostStatusFragment extends Fragment implements Initgc {
         cursor.close();
         db.close();
         handler = new Handler();
+        statusTransaction = new StatusTransaction(getActivity());
     }
 
     @Override
@@ -96,6 +103,9 @@ public class PostStatusFragment extends Fragment implements Initgc {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(progressPost.isShowing()) {
+                    progressPost.dismiss();
+                }
                 getActivity().onBackPressed();
             }
         });
@@ -108,7 +118,6 @@ public class PostStatusFragment extends Fragment implements Initgc {
                  * TODO: update for new feed & database SQLite
                  * => redirect to News
                  */
-                StatusTransaction statusTransaction = new StatusTransaction(getActivity());
                 SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
                 Cursor cursor = db.rawQuery("select use, privacy from SetPostStatus where id=1", null);
                 String privacy = "open";
@@ -125,9 +134,37 @@ public class PostStatusFragment extends Fragment implements Initgc {
                 }
                 if (strStatus.length() > 0) {
                     statusTransaction.postStatus(strStatus, "", privacy, String.valueOf(isUseAccount));
-                    // TODO: chen xuong dau DB-> sau do update lai list hien thi
-                    strStatus = "";
-                    getActivity().onBackPressed();
+                    progressPost = ProgressDialog.show(getActivity(), "", "wait posting...", true);
+                            (new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (int i = 0; i < 30; ++i) {
+                                        final Integer httpStatus = statusTransaction.getHttpStatusCode();
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (httpStatus != null && HttpStatus.getStatus(getActivity()).signalCode(httpStatus)) {
+                                                    strStatus = "";
+                                                    progressPost.dismiss();
+                                                    getActivity().onBackPressed();
+                                                } 
+                                            }
+                                        });
+                                        try {
+                                            Thread.sleep(200);
+                                        } catch (InterruptedException e) {}
+                                        if (i == 29) {
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    progressPost.dismiss();
+                                                    Toast.makeText(getActivity(), "Have error in system, try again!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            })).start();
                 }
                 cursor.close();
                 db.close();

@@ -133,6 +133,11 @@ public class MobileStatusController {
 			
 		}
 		statusService.postStatus(status);
+		try {
+			response.sendError(HttpServletResponse.SC_OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.PUT,

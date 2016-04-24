@@ -238,9 +238,12 @@ token varchar(32) unique not null,
 timeCreate datetime default now() not null,
 timeExp datetime not null,
 constraint fk_token_user foreign key (idUser) references Users(idUser)
-);
+) engine = InnoDB;
 
-
+create table HomeStatus(
+idStatus varchar(16) unique not null,
+constraint fk_home_status foreign key (idStatus) references status (idStatus)
+) engine = InnoDB;
 
 commit;
 

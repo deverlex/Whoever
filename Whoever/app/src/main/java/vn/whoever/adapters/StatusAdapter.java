@@ -175,7 +175,11 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 }
             });
 
-            if(!singleStatus.getNamePoster().equals("anonymous")) {
+            if(singleStatus.getSsoIdPoster() == null) {
+                System.exit(1);
+            }
+
+            if(!singleStatus.getSsoIdPoster().equals("null")) {
                 ((StatusViewHolder) holder).nickName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -194,6 +198,9 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                         navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
                     }
                 });
+            } else {
+                ((StatusViewHolder) holder).nickName.setClickable(true);
+                ((StatusViewHolder) holder).avatarPoster.setClickable(true);
             }
 
 

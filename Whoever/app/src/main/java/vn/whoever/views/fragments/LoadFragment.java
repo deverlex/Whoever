@@ -144,8 +144,7 @@ public class LoadFragment extends Fragment implements Initgc {
 
             SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
             db.execSQL("delete from SetPostStatus");
-            db.execSQL("delete from News");
-            db.execSQL("delete from Home");
+            db.execSQL("delete from Status");
 
             ContentValues values = new ContentValues();
             values.put("id", 1);
@@ -164,9 +163,7 @@ public class LoadFragment extends Fragment implements Initgc {
             if(checkInternetAvaiable()) {
                 // TODO: if have connection to server -> load new data
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-                db.execSQL("delete from News");
-                db.execSQL("delete from Home");
-                //db.close();
+                db.execSQL("delete from Status");
 
                 statusTransaction = new StatusTransaction(getActivity());
                 ContactTransaction contactTransaction = new ContactTransaction(getActivity());
