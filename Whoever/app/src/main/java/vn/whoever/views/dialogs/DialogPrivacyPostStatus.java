@@ -68,20 +68,20 @@ public class DialogPrivacyPostStatus extends DialogFragment {
          */
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
         Cursor cursor = db.rawQuery("select use, privacy from SetPostStatus where id=1", null);
-        while (cursor.moveToNext()) {
-            if(cursor.getString(0).equals("anonymous")) {
-                btnAnonymous.setChecked(true);
-            } else {
-                btnAccount.setChecked(true);
-            }
-            if(cursor.getString(1).equals("public")) {
-                btnPublic.setChecked(true);
-            } else if(cursor.getString(1).equals("friends")) {
-                btnFriends.setChecked(true);
-            } else {
-                btnPrimary.setChecked(true);
-            }
+        cursor.moveToFirst();
+        if(cursor.getString(0).equals("anonymous")) {
+            btnAnonymous.setChecked(true);
+        } else {
+            btnAccount.setChecked(true);
         }
+        if(cursor.getString(1).equals("public")) {
+            btnPublic.setChecked(true);
+        } else if(cursor.getString(1).equals("friends")) {
+            btnFriends.setChecked(true);
+        } else {
+            btnPrimary.setChecked(true);
+        }
+        cursor.close();
     }
 
     public void initListener(View view) {

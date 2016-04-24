@@ -15,7 +15,7 @@ public class UrlQuery {
     }
 
     public void putPathVariable(String value) {
-        url += ("/" + value + "/");
+        url += ("/" + value);
     }
 
     public void putRequestParam(String key, String value) {

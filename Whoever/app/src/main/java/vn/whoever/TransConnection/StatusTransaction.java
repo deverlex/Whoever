@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vn.whoever.models.Status;
 import vn.whoever.models.dao.ConnDB;
 
 /**
@@ -45,7 +46,7 @@ public class StatusTransaction extends AbstractTransaction {
                 new JSONObject(parameter), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                httpStatusCode = HttpStatus.SC_OK;
             }
         }, new Response.ErrorListener() {
             @Override

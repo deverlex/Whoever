@@ -46,7 +46,7 @@ public class CommentFragment extends Fragment implements Initgc {
     private ImageButton btnBackActivity;
     private ImageButton btnSendComment;
     private Handler mHandler;
-    private EditText inputCommentSend;
+    private EditText inputTextCommentSend;
 
     private ImageButton btnQuickLike;
     private TextView nickNamePostStatus;
@@ -91,7 +91,7 @@ public class CommentFragment extends Fragment implements Initgc {
         toolBarInputComment = (RelativeLayout) view.findViewById(R.id.toolBarInputSendTextOfComment);
 
         btnSendComment = (ImageButton) view.findViewById(R.id.btnSendComment);
-        inputCommentSend = (EditText)  view.findViewById(R.id.inputCommentSend);
+        inputTextCommentSend = (EditText)  view.findViewById(R.id.inputCommentSend);
 
         recyclerViewComment = (RecyclerView) view.findViewById(R.id.listCommentOfStatusDetail);
 
@@ -179,7 +179,16 @@ public class CommentFragment extends Fragment implements Initgc {
         btnSendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // send comment to server
+                String strComment = inputTextCommentSend.getText().toString();
+                if(strComment.length() > 0) {
+                    commentTransaction.postCommentForStatus(idStatus, strComment, true);
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getCommentFromService(idStatus);
+                        }
+                    }, 2000);
+                }
             }
         });
 

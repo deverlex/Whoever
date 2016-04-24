@@ -113,7 +113,7 @@ public class MobileStatusController {
 	
 	@RequestMapping(value = "/mobile/status", method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody void postStatus(HttpServletRequest request, HttpServletResponse response,
+	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
 		
 		String ipAddress = request.getHeader("X-FORWARDED-FOR");
@@ -133,11 +133,7 @@ public class MobileStatusController {
 			
 		}
 		statusService.postStatus(status);
-		try {
-			response.sendError(HttpServletResponse.SC_OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		return "200_OK"; 
 	}
 
 	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.PUT,

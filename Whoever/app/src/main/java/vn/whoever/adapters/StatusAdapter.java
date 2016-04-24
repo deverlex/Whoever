@@ -110,7 +110,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                         values.put("totalLike", singleStatus.getTotalLike());
                     }
                     String[] args = {singleStatus.getIdStatus()};
-                    ConnDB.getConn().getWritableDatabase().update("News", values, "idStatus=?", args);
+                    ConnDB.getConn().getWritableDatabase().update("Status", values, "idStatus=?", args);
                     statusTransaction.interactStatus("like", singleStatus.getIdStatus());
                 }
             });
@@ -146,7 +146,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                         values.put("totalDislike", singleStatus.getTotalDislike());
                     }
                     String[] args = {singleStatus.getIdStatus()};
-                    ConnDB.getConn().getWritableDatabase().update("News", values, "idStatus=?", args);
+                    ConnDB.getConn().getWritableDatabase().update("Status", values, "idStatus=?", args);
                     statusTransaction.interactStatus("dislike", singleStatus.getIdStatus());
                 }
             });
@@ -156,7 +156,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putString("idStatus", singleStatus.getIdStatus());
-                    bundle.putString("database", "News");
+                    bundle.putString("database", "Status");
                     CommentFragment commentFragment = new CommentFragment();
                     commentFragment.setArguments(bundle);
                     navigateToFragment(commentFragment, "statusFrameToComment");
@@ -168,7 +168,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putString("idStatus", singleStatus.getIdStatus());
-                    bundle.putString("database", "News");
+                    bundle.putString("database", "Status");
                     CommentFragment commentFragment = new CommentFragment();
                     commentFragment.setArguments(bundle);
                     navigateToFragment(commentFragment, "statusFrameToComment");

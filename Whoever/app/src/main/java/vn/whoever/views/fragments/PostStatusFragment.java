@@ -69,31 +69,29 @@ public class PostStatusFragment extends Fragment implements Initgc {
         symbolUse = (ImageView) toobarPrivacy.findViewById(R.id.symbolUseAccountPostStatus);
         symbolPrivacy = (ImageView) toobarPrivacy.findViewById(R.id.symbolPrivacyPostStatus);
         textShowUse = (TextView) toobarPrivacy.findViewById(R.id.textShowUseAccountPostStatus);
-        textShowPrivacy = (TextView) toobarPrivacy.findViewById(R.id.textShowUseAccountPostStatus);
+        textShowPrivacy = (TextView) toobarPrivacy.findViewById(R.id.textShowPrivacyPostStatus);
 
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
         Cursor cursor = db.rawQuery("select use, privacy from SetPostStatus where id=1", null);
-        while (cursor.moveToNext()){
-            if(cursor.getString(0).equals("anonymous")) {
-                symbolUse.setImageResource(R.drawable.icon_anonymous);
-                textShowUse.setText("Anonymous");
-            } else {
-                symbolUse.setImageResource(R.drawable.icon_account);
-                textShowUse.setText("Account");
-            }
-            if(cursor.getString(1).equals("public")) {
-                symbolPrivacy.setImageResource(R.drawable.icon_notify_red);
-                textShowPrivacy.setText("Public");
-            } else if(cursor.getString(1).equals("friends")) {
-                symbolPrivacy.setImageResource(R.drawable.icon_contacts_red);
-                textShowPrivacy.setText("Friends");
-            } else {
-                symbolPrivacy.setImageResource(R.drawable.icon_lock_red);
-                textShowPrivacy.setText("Primary");
-            }
+        cursor.moveToFirst();
+        if(cursor.getString(0).equals("anonymous")) {
+            symbolUse.setImageResource(R.drawable.icon_anonymous);
+            textShowUse.setText("Anonymous");
+        } else {
+            symbolUse.setImageResource(R.drawable.icon_account);
+            textShowUse.setText("Account");
+        }
+        if(cursor.getString(1).equals("public")) {
+            symbolPrivacy.setImageResource(R.drawable.icon_notify_red);
+            textShowPrivacy.setText("Public");
+        } else if(cursor.getString(1).equals("friends")) {
+            symbolPrivacy.setImageResource(R.drawable.icon_contacts_red);
+            textShowPrivacy.setText("Friends");
+        } else {
+            symbolPrivacy.setImageResource(R.drawable.icon_lock_red);
+            textShowPrivacy.setText("Primary");
         }
         cursor.close();
-        db.close();
         handler = new Handler();
         statusTransaction = new StatusTransaction(getActivity());
     }
@@ -122,52 +120,52 @@ public class PostStatusFragment extends Fragment implements Initgc {
                 Cursor cursor = db.rawQuery("select use, privacy from SetPostStatus where id=1", null);
                 String privacy = "open";
                 boolean isUseAccount = false;
-                while (cursor.moveToNext()) {
-                    if (cursor.getString(0).equals("account")) {
-                        isUseAccount = true;
-                    }
-                    if (cursor.getString(1).equals("friends")) {
-                        privacy = "normal";
-                    } else if (cursor.getString(1).equals("primary")) {
-                        privacy = "close";
-                    }
+                cursor.moveToFirst();
+                if (cursor.getString(0).equals("account")) {
+                    isUseAccount = true;
                 }
+                if (cursor.getString(1).equals("friends")) {
+                    privacy = "normal";
+                } else if (cursor.getString(1).equals("primary")) {
+                    privacy = "close";
+                }
+                cursor.close();
+
                 if (strStatus.length() > 0) {
                     statusTransaction.postStatus(strStatus, "", privacy, String.valueOf(isUseAccount));
                     progressPost = ProgressDialog.show(getActivity(), "", "wait posting...", true);
-                            (new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    for (int i = 0; i < 30; ++i) {
-                                        final Integer httpStatus = statusTransaction.getHttpStatusCode();
-                                        handler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if (httpStatus != null && HttpStatus.getStatus(getActivity()).signalCode(httpStatus)) {
-                                                    strStatus = "";
-                                                    progressPost.dismiss();
-                                                    getActivity().onBackPressed();
-                                                } 
-                                            }
-                                        });
-                                        try {
-                                            Thread.sleep(200);
-                                        } catch (InterruptedException e) {}
-                                        if (i == 29) {
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    progressPost.dismiss();
-                                                    Toast.makeText(getActivity(), "Have error in system, try again!", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
+                    (new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < 30; ++i) {
+                                final Integer httpStatus = statusTransaction.getHttpStatusCode();
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (httpStatus != null && httpStatus == HttpStatus.SC_OK) {
+                                            strStatus = "";
+                                            progressPost.dismiss();
+                                            getActivity().onBackPressed();
                                         }
                                     }
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {}
+                                if (i == 29 && strStatus.length() > 0) {
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            progressPost.dismiss();
+                                            Toast.makeText(getActivity(), "Have error in system, try again!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
-                            })).start();
+                                if(strStatus.length() == 0) break;
+                            }
+                        }
+                    })).start();
                 }
-                cursor.close();
-                db.close();
             }
         });
 

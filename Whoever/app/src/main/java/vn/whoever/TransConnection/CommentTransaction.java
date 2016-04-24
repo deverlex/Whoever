@@ -17,6 +17,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,6 +99,39 @@ public class CommentTransaction extends AbstractTransaction {
             }
         };
         TransactionQueue.getsInstance(activity).addToRequestQueue(requestComment, "requestComment");
+    }
+
+    public void postCommentForStatus(String idStatus, String content, Boolean isUseAccount) {
+        String url_post_cmt = "http://192.168.1.112:8080/mainserver/mobile/status";
+        UrlQuery urlQuery = new UrlQuery(url_post_cmt);
+        urlQuery.putPathVariable(idStatus);
+        urlQuery.putPathVariable("comments");
+
+        Map<String, String> mapReq = new LinkedHashMap<>();
+        mapReq.put("content", content);
+        mapReq.put("isUseAccount", String.valueOf(isUseAccount));
+
+        JsonObjectRequest postCmtRequest = new JsonObjectRequest(Request.Method.POST, urlQuery.getUrl(), new JSONObject(mapReq), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                exTractError(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return onCreateHeaders();
+            }
+
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                httpStatusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+        };
+        TransactionQueue.getsInstance(activity).addToRequestQueue(postCmtRequest, "postComment");
     }
 
     public void interactComment(String type, String idStatus, String idComment) {

@@ -1,11 +1,14 @@
 package vn.whoever.views.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import vn.whoever.R;
 import vn.whoever.adapters.ListOnlineAdapter;
@@ -318,7 +322,29 @@ public class MainFragment extends Fragment implements Initgc {
         directLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setMessage("Are you sure,You wanted logout?");
 
+                alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+                        editor.putBoolean("isLogged", false);
+                        editor.commit();
+                        MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                        MainActivity.frgTrans.replace(R.id.mainFrame, new SignInFragment()).commit();
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //getActivity().finish();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }
