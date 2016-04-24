@@ -234,7 +234,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
         values.put("birthday", birthday);
         db.execSQL("delete from LocalProfile");
         db.insert("LocalProfile", null, values);
-        db.close();
+        //db.close();
     }
 
     private void insertDbForAnnonymous() {
@@ -242,7 +242,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
         ContentValues values = new ContentValues();
         values.put("birthday", birthday);
         db.update("LocalProfile", values, "id = 1", null);
-        db.close();
+        //db.close();
     }
 
     public void hiddenSoftInput() {

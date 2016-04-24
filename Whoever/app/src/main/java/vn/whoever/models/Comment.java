@@ -10,7 +10,6 @@ public class Comment implements Serializable {
 
     private static final long serialVersionUID = 156542764322L;
 
-    private int id;
     private String idStatus;
     private String idComment;
     private String ssoIdPoster;
@@ -23,14 +22,6 @@ public class Comment implements Serializable {
     private String interact;
 
     public Comment() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getIdStatus() {
         return idStatus;

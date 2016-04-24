@@ -259,7 +259,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
             statusList.add(status);
         }
         cursor.close();
-        db.close();
+       // db.close();
     }
 
     @Override

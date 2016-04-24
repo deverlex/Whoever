@@ -264,6 +264,6 @@ public class SignInFragment extends Fragment implements Initgc {
         values.put("password", password);
         db.execSQL("delete from LocalAccount");
         db.insert("LocalAccount", null, values);
-        db.close();
+        //db.close();
     }
 }

@@ -125,28 +125,40 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
 
-        <TextView
-            android:id="@+id/viewTotalCommentOnReply"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/colorSilverBlack"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/viewTotalCommentOnReply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorSilverBlack"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_sort"
+                android:background="@color/colorWhite"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/listCommentOfStatusDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        android:divider="@null"
-        android:dividerHeight="0dp"
         android:layout_below="@+id/headerInforUserFromComment"
-        android:layout_above="@+id/toolBarInputSendTextOfComment" />
+        android:layout_above="@+id/toolBarInputSendTextOfComment"/>
 
     <View
         android:id="@+id/viewLineOfComment"
@@ -197,5 +209,13 @@
             android:cursorVisible="true" />
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressLoadComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -90,6 +90,8 @@ public class MobileCommentController {
 	public @ResponseBody List<ReturnComment> getListCommentStatus(HttpServletRequest request,
 			@PathVariable(value = "idStatus") String idStatus) {
 		
+		
+		
 		List<Comments> listCmt = commentService.getListComment(idStatus);
 		List<ReturnComment> lReturnCmt = new LinkedList<ReturnComment>();
 		for (Comments comment : listCmt) {
@@ -102,9 +104,6 @@ public class MobileCommentController {
 				String ssoId = userService.findSsoIdbyIdUser(comment.getIdUser());
 				String nickName = profileService.getNickName(comment.getIdUser());
 				
-				System.out.println("ssoId: " + ssoId);
-				System.out.println("nickName: " + nickName);
-				
 				returnCmt.setSsoIdPoster(ssoId);
 				returnCmt.setNamePoster(nickName);
 				returnCmt.setAvatarPoster("haven't a avatar");
@@ -113,15 +112,13 @@ public class MobileCommentController {
 				returnCmt.setNamePoster("anonymous");
 				returnCmt.setSsoIdPoster(null);
 			}
-			
 			returnCmt.setTotalLike(commentService.getTotalLikeComment(comment.getIdComment()));
 			returnCmt.setTotalDislike(commentService.getTotalDislikeComment(comment.getIdComment()));
 			returnCmt.setTimePost(TimePost.getTimePost(comment.getTimePost()));
+			returnCmt.setInteract(commentService.getInteractCommentState(comment.getIdComment(), 
+					authToken.getIdUserHttp(request)));		
 			lReturnCmt.add(returnCmt);
 		}
 		return lReturnCmt;
 	}
-	
-	
-
 }

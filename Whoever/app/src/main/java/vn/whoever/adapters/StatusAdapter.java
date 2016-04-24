@@ -1,9 +1,7 @@
 package vn.whoever.adapters;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,7 +17,7 @@ import vn.whoever.R;
 import vn.whoever.models.Status;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.fragments.ProfileFragment;
-import vn.whoever.views.fragments.RepliesFragment;
+import vn.whoever.views.fragments.CommentFragment;
 
 /**
  * Created by spider man on 4/23/2016.
@@ -65,12 +62,15 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 else strContent = singleStatus.getContentText();
             }
             ((StatusViewHolder) holder).contentText.setText(strContent);
-
             ((StatusViewHolder) holder).status = singleStatus;
+
             if(singleStatus.getInteract().equals("like")) {
                 ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
             } else if(singleStatus.getInteract().equals("dislike")) {
                 ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
+            } else {
+                ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
+                ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
             }
 
             ((StatusViewHolder) holder).btnLike.setOnClickListener(new View.OnClickListener() {
@@ -129,9 +129,9 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                     Bundle bundle = new Bundle();
                     bundle.putString("idStatus", singleStatus.getIdStatus());
                     bundle.putString("database", "News");
-                    RepliesFragment repliesFragment = new RepliesFragment();
-                    repliesFragment.setArguments(bundle);
-                    navigateToFragment(repliesFragment, "statusFrameToComment");
+                    CommentFragment commentFragment = new CommentFragment();
+                    commentFragment.setArguments(bundle);
+                    navigateToFragment(commentFragment, "statusFrameToComment");
                 }
             });
 
@@ -141,9 +141,9 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                     Bundle bundle = new Bundle();
                     bundle.putString("idStatus", singleStatus.getIdStatus());
                     bundle.putString("database", "News");
-                    RepliesFragment repliesFragment = new RepliesFragment();
-                    repliesFragment.setArguments(bundle);
-                    navigateToFragment(repliesFragment, "statusFrameToComment");
+                    CommentFragment commentFragment = new CommentFragment();
+                    commentFragment.setArguments(bundle);
+                    navigateToFragment(commentFragment, "statusFrameToComment");
                 }
             });
 

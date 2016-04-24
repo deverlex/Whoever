@@ -156,7 +156,7 @@ public class LoadFragment extends Fragment implements Initgc {
             values.put("privacy", "public");
             db.insert("SetPostStatus", null, values);
 
-            db.close();
+            //db.close();
 
             statusTrans = new StatusTrans(getActivity());
             ContactTrans contactTrans = new ContactTrans(getActivity());
@@ -170,7 +170,7 @@ public class LoadFragment extends Fragment implements Initgc {
                 db.execSQL("delete from News");
                 db.execSQL("delete from Home");
                 db.execSQL("delete from Comment");
-                db.close();
+                //db.close();
 
                 statusTrans = new StatusTrans(getActivity());
                 ContactTrans contactTrans = new ContactTrans(getActivity());

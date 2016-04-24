@@ -132,9 +132,6 @@ public class MobileStatusController {
 			//TODO: insert image to DB in here
 			
 		}
-		System.out.println(status.getContent());
-		System.out.println(status.getIdUser());
-		System.out.println(status.getPrivacy());
 		statusService.postStatus(status);
 	}
 
