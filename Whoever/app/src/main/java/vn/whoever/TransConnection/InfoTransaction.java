@@ -30,12 +30,12 @@ import vn.whoever.models.dao.ConnDB;
 /**
  * Created by spider man on 4/22/2016.
  */
-public class InfoTrans {
+public class InfoTransaction {
 
     private Activity activity;
     private Integer httpStatusCode = null;
 
-    public InfoTrans(Activity activity) {
+    public InfoTransaction(Activity activity) {
         this.activity = activity;
     }
 

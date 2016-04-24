@@ -33,14 +33,12 @@ import vn.whoever.models.dao.ConnDB;
 /**
  * Created by spider man on 4/22/2016.
  */
-public class StatusTrans {
-
-    private Activity activity;
-    private Integer httpStatusCode = null;
+public class StatusTransaction extends AbstractTransaction {
+    
     private boolean isInsert;
 
-    public StatusTrans(Activity activity) {
-        this.activity = activity;
+    public StatusTransaction(Activity activity) {
+        super(activity);
     }
 
     public void postStatus(String contentText, String contentImage, String privacy, String isUseAccount) {
@@ -169,48 +167,5 @@ public class StatusTrans {
          * Dua vao id nguoi dung ma lay langCode
          */
 
-    }
-
-    public Map<String, String> onCreateHeaders() {
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json; charset=utf-8");
-        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select token, expTime from Auth", null);
-        String token = "";
-        String expTime = "";
-        while (cursor.moveToNext()) {
-            token = cursor.getString(0);
-            expTime = cursor.getString(1);
-        }
-        cursor.close();
-        db.close();
-        headers.put("Whoever-token", token);
-        headers.put("Token-expiration", expTime);
-        headers.put("User-agent", System.getProperty("http.agent"));
-        return headers;
-    }
-
-    public Integer getHttpStatusCode() {
-        return httpStatusCode;
-    }
-
-    private void exTractError(VolleyError error) {
-        NetworkResponse networkResponse = error.networkResponse;
-        if(networkResponse != null) {
-            httpStatusCode = networkResponse.statusCode;
-        }
-        if (error instanceof TimeoutError) {
-            httpStatusCode = HttpStatus.SC_REQUEST_TIMEOUT;
-        } else if(error instanceof NoConnectionError) {
-            httpStatusCode = HttpStatus.SC_SERVICE_UNAVAIABLE;
-        }else if (error instanceof AuthFailureError) {
-            httpStatusCode = HttpStatus.SC_UNAUTHORIZED;
-        } else if (error instanceof ServerError) {
-            httpStatusCode = HttpStatus.SC_SERVER_INTERNAL;
-        } else if (error instanceof NetworkError) {
-            httpStatusCode = HttpStatus.SC_BAD_REQUEST;
-        } else if (error instanceof ParseError) {
-            httpStatusCode = HttpStatus.SC_SERVER_INTERNAL;
-        }
     }
 }

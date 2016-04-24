@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.whoever.R;
-import vn.whoever.TransConnection.CommentTrans;
+import vn.whoever.TransConnection.CommentTransaction;
 import vn.whoever.adapters.CommentAdapter;
 import vn.whoever.adapters.OnLoadMoreListener;
 import vn.whoever.models.Comment;
@@ -59,7 +59,7 @@ public class CommentFragment extends Fragment implements Initgc {
     private boolean isHideToolbar;
     private RelativeLayout toolBarInputComment;
     private ProgressBar progressLoadComment;
-    private CommentTrans commentTrans;
+    private CommentTransaction commentTransaction;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.comments_layout, container, false);
@@ -73,7 +73,7 @@ public class CommentFragment extends Fragment implements Initgc {
     public void init(View view) {
         commentList = new ArrayList<Comment>();
         mHandler = new Handler();
-        commentTrans = new CommentTrans(getActivity());
+        commentTransaction = new CommentTransaction(getActivity());
 
         avatarPosterStatus = (RoundedImageView) view.findViewById(R.id.imageAvatarOnStatusDetail);
         nickNamePostStatus = (TextView) view.findViewById(R.id.nickNameAndExtendOnStatusDetail);
@@ -250,13 +250,13 @@ public class CommentFragment extends Fragment implements Initgc {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                commentTrans.getCommentOfStatus(idStatus);
+                commentTransaction.getCommentOfStatus(idStatus);
                 for(int i = 0; i < 20; ++i) {
-                    if (commentTrans.getCommentList().size() > 0) {
+                    if (commentTransaction.getCommentList().size() > 0) {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                commentList = commentTrans.getCommentList();
+                                commentList = commentTransaction.getCommentList();
                                 for(int i = 0 ; i < commentList.size(); ++i) {
                                     commentAdapter.addItem(commentList.get(i));
                                 }

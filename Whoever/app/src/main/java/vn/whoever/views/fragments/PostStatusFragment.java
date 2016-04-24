@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import vn.whoever.R;
-import vn.whoever.TransConnection.StatusTrans;
-import vn.whoever.models.Status;
+import vn.whoever.TransConnection.StatusTransaction;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 import vn.whoever.views.dialogs.DialogPrivacyPostStatus;
@@ -110,7 +108,7 @@ public class PostStatusFragment extends Fragment implements Initgc {
                  * TODO: update for new feed & database SQLite
                  * => redirect to News
                  */
-                StatusTrans statusTrans = new StatusTrans(getActivity());
+                StatusTransaction statusTransaction = new StatusTransaction(getActivity());
                 SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
                 Cursor cursor = db.rawQuery("select use, privacy from SetPostStatus where id=1", null);
                 String privacy = "open";
@@ -126,7 +124,7 @@ public class PostStatusFragment extends Fragment implements Initgc {
                     }
                 }
                 if (strStatus.length() > 0) {
-                    statusTrans.postStatus(strStatus, "", privacy, String.valueOf(isUseAccount));
+                    statusTransaction.postStatus(strStatus, "", privacy, String.valueOf(isUseAccount));
                     // TODO: chen xuong dau DB-> sau do update lai list hien thi
                     strStatus = "";
                     getActivity().onBackPressed();

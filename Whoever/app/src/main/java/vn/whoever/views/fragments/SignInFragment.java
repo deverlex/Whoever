@@ -2,7 +2,6 @@ package vn.whoever.views.fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vn.whoever.TransConnection.InfoTrans;
+import vn.whoever.TransConnection.InfoTransaction;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.TransConnection.HttpStatus;
 import vn.whoever.views.activities.MainActivity;
@@ -174,8 +172,8 @@ public class SignInFragment extends Fragment implements Initgc {
                 if (RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)) {
 
                     timeout = 40;
-                    final InfoTrans infoTrans = new InfoTrans(getActivity());
-                    infoTrans.getRequestLogin(ssoId, password);
+                    final InfoTransaction infoTransaction = new InfoTransaction(getActivity());
+                    infoTransaction.getRequestLogin(ssoId, password);
                     progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
 
                     new Thread(new Runnable() {
@@ -185,7 +183,7 @@ public class SignInFragment extends Fragment implements Initgc {
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Integer httpCode = infoTrans.getHttpStatusCode();
+                                        Integer httpCode = infoTransaction.getHttpStatusCode();
                                         if (httpCode != null) {
                                             if(httpCode == HttpStatus.SC_NOT_FOUND) {
                                                 navigateFrame(new SignUpFragment(), "signInFrameToSignUp");

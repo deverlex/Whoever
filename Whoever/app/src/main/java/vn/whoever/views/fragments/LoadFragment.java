@@ -3,7 +3,6 @@ package vn.whoever.views.fragments;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -12,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +21,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.InetAddress;
 import java.net.URL;
 import java.net.URLConnection;
 
 import vn.whoever.R;
-import vn.whoever.TransConnection.ContactTrans;
+import vn.whoever.TransConnection.ContactTransaction;
 import vn.whoever.TransConnection.HttpStatus;
-import vn.whoever.TransConnection.StatusTrans;
+import vn.whoever.TransConnection.StatusTransaction;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 import vn.whoever.views.activities.MainActivity;
@@ -46,7 +43,7 @@ public class LoadFragment extends Fragment implements Initgc {
     private Thread thread;
     private TextView textLoad;
     private int cLoop = 0;
-    private StatusTrans statusTrans = null;
+    private StatusTransaction statusTransaction = null;
     private int delay = 200;
     private boolean isLoadDb = false;
     private Integer httpStatus = null;
@@ -101,8 +98,8 @@ public class LoadFragment extends Fragment implements Initgc {
                         @Override
                         public void run() {
                             progressBar.setProgress(progress);
-                            if(statusTrans != null && progress == progressBar.getMax()) {
-                                httpStatus = statusTrans.getHttpStatusCode();
+                            if(statusTransaction != null && progress == progressBar.getMax()) {
+                                httpStatus = statusTransaction.getHttpStatusCode();
                                 if(httpStatus != null && httpStatus == HttpStatus.SC_OK) {
                                     cLoop = 5;
                                     MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
@@ -117,7 +114,7 @@ public class LoadFragment extends Fragment implements Initgc {
                                     }
                                 }
                                 progress = 0;
-                            } else if(statusTrans == null && progress == progressBar.getMax()) {
+                            } else if(statusTransaction == null && progress == progressBar.getMax()) {
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                                 Toast.makeText(getActivity(), "No connection to service", Toast.LENGTH_SHORT).show();
@@ -158,11 +155,11 @@ public class LoadFragment extends Fragment implements Initgc {
 
             //db.close();
 
-            statusTrans = new StatusTrans(getActivity());
-            ContactTrans contactTrans = new ContactTrans(getActivity());
-            statusTrans.getNewsFeed("nearby", 0);
-            statusTrans.getHomePage();
-            contactTrans.getContactOnline();
+            statusTransaction = new StatusTransaction(getActivity());
+            ContactTransaction contactTransaction = new ContactTransaction(getActivity());
+            statusTransaction.getNewsFeed("nearby", 0);
+            statusTransaction.getHomePage();
+            contactTransaction.getContactOnline();
         } else {
             if(checkInternetAvaiable()) {
                 // TODO: if have connection to server -> load new data
@@ -171,14 +168,14 @@ public class LoadFragment extends Fragment implements Initgc {
                 db.execSQL("delete from Home");
                 //db.close();
 
-                statusTrans = new StatusTrans(getActivity());
-                ContactTrans contactTrans = new ContactTrans(getActivity());
-                statusTrans.getNewsFeed("nearby", 0);
-                statusTrans.getHomePage();
-                contactTrans.getContactOnline();
+                statusTransaction = new StatusTransaction(getActivity());
+                ContactTransaction contactTransaction = new ContactTransaction(getActivity());
+                statusTransaction.getNewsFeed("nearby", 0);
+                statusTransaction.getHomePage();
+                contactTransaction.getContactOnline();
             }
         }
-        if(statusTrans == null) delay = 100;
+        if(statusTransaction == null) delay = 100;
         isLoadDb = true;
     }
 

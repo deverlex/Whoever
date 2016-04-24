@@ -34,11 +34,11 @@ import vn.whoever.models.dao.ConnDB;
 /**
  * Created by spider man on 4/22/2016.
  */
-public class CommentTrans extends AbstractTransaction {
+public class CommentTransaction extends AbstractTransaction {
 
     private List<Comment> commentList = null;
 
-    public CommentTrans(Activity activity) {
+    public CommentTransaction(Activity activity) {
         super(activity);
     }
 

@@ -3,7 +3,6 @@ package vn.whoever.views.fragments;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ import java.util.Locale;
 
 import vn.whoever.R;
 import vn.whoever.TransConnection.HttpStatus;
-import vn.whoever.TransConnection.InfoTrans;
+import vn.whoever.TransConnection.InfoTransaction;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.dialogs.DatePickerFragment;
@@ -114,8 +113,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                     if (isAccount) {
                         timeout = 50;
-                        final InfoTrans infoTrans = new InfoTrans(getActivity());
-                        infoTrans.registerUser(ssoId, password, nickName, birthday, langCode);
+                        final InfoTransaction infoTransaction = new InfoTransaction(getActivity());
+                        infoTransaction.registerUser(ssoId, password, nickName, birthday, langCode);
 
                         progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
@@ -125,7 +124,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            httpCode = infoTrans.getHttpStatusCode();
+                                            httpCode = infoTransaction.getHttpStatusCode();
                                             if (httpCode != null) {
                                                 if (HttpStatus.getStatus(getActivity()).signalCode(httpCode)) {
                                                     insertDB();
@@ -150,8 +149,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                     } else {
                         timeout = 40;
-                        final InfoTrans infoTrans = new InfoTrans(getActivity());
-                        infoTrans.getRequestLoginAnonymous(langCode);
+                        final InfoTransaction infoTransaction = new InfoTransaction(getActivity());
+                        infoTransaction.getRequestLoginAnonymous(langCode);
                         progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
                             @Override
@@ -160,7 +159,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            httpCode = infoTrans.getHttpStatusCode();
+                                            httpCode = infoTransaction.getHttpStatusCode();
                                             if (httpCode != null) {
                                                 if (HttpStatus.getStatus(getActivity()).signalCode(httpCode)) {
                                                     insertDbForAnnonymous();

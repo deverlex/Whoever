@@ -7,11 +7,11 @@ import vn.whoever.models.Contact;
 /**
  * Created by spider man on 4/23/2016.
  */
-public class ContactTrans {
+public class ContactTransaction {
 
     private Activity activity;
 
-    public ContactTrans(Activity activity) {
+    public ContactTransaction(Activity activity) {
         this.activity = activity;
     }
 
