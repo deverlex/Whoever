@@ -25,8 +25,7 @@ import java.util.List;
 
 import vn.whoever.R;
 import vn.whoever.TransConnection.CommentTrans;
-import vn.whoever.TransConnection.HttpStatus;
-import vn.whoever.adapters.DataAdapter;
+import vn.whoever.adapters.CommentAdapter;
 import vn.whoever.adapters.OnLoadMoreListener;
 import vn.whoever.models.Comment;
 import vn.whoever.models.dao.ConnDB;
@@ -41,7 +40,7 @@ public class CommentFragment extends Fragment implements Initgc {
 
     private RecyclerView recyclerViewComment;
     private List<Comment> commentList;
-    private DataAdapter dataAdapter;
+    private CommentAdapter commentAdapter;
     private LinearLayoutManager linearLayoutManager;
 
     private ImageButton btnBackActivity;
@@ -72,7 +71,7 @@ public class CommentFragment extends Fragment implements Initgc {
 
     @Override
     public void init(View view) {
-        commentList = new ArrayList<>();
+        commentList = new ArrayList<Comment>();
         mHandler = new Handler();
         commentTrans = new CommentTrans(getActivity());
 
@@ -84,8 +83,6 @@ public class CommentFragment extends Fragment implements Initgc {
         viewTotalComment = (TextView) view.findViewById(R.id.viewTotalCommentOnReply);
         btnBackActivity = (ImageButton) view.findViewById(R.id.btnBackHomeFromComment);
         idStatus = loadSetStatusOnListComment();
-
-        getCommentFromService(idStatus);
 
         progressLoadComment = (ProgressBar) view.findViewById(R.id.progressLoadComment);
         progressLoadComment.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF4801"),
@@ -102,15 +99,18 @@ public class CommentFragment extends Fragment implements Initgc {
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerViewComment.setLayoutManager(linearLayoutManager);
-        dataAdapter = new DataAdapter(this, commentList, recyclerViewComment);
 
-        recyclerViewComment.setAdapter(dataAdapter);
+        commentAdapter = new CommentAdapter(this, commentList, recyclerViewComment);
 
-        if(commentList.isEmpty()) {
-            recyclerViewComment.setVisibility(View.GONE);
-        } else {
-            recyclerViewComment.setVisibility(View.VISIBLE);
-        }
+        recyclerViewComment.setAdapter(commentAdapter);
+
+        getCommentFromService(idStatus);
+
+//        if(commentList.isEmpty()) {
+//            recyclerViewComment.setVisibility(View.GONE);
+//        } else {
+//            recyclerViewComment.setVisibility(View.VISIBLE);
+//        }
     }
 
     private String loadSetStatusOnListComment() {
@@ -151,19 +151,19 @@ public class CommentFragment extends Fragment implements Initgc {
     @Override
     public void initListener(View view) {
 
-        dataAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+        commentAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 commentList.add(null);
-                dataAdapter.notifyItemInserted(commentList.size() - 1);
+                commentAdapter.notifyItemInserted(commentList.size() - 1);
 
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         commentList.remove(commentList.size() - 1);
-                        dataAdapter.notifyItemRemoved(commentList.size());
+                        commentAdapter.notifyItemRemoved(commentList.size());
                         fetchComments();
-                        dataAdapter.setLoaded();
+                        commentAdapter.setLoaded();
                     }
                 }, 2000);
             }
@@ -244,39 +244,50 @@ public class CommentFragment extends Fragment implements Initgc {
         super.onResume();
     }
 
-    private int cLoop = 80;
-
     private void getCommentFromService(final String idStatus) {
-        cLoop = 80;
+        progressLoadComment.setVisibility(View.VISIBLE);
+        progressLoadComment.setIndeterminate(true);
         new Thread(new Runnable() {
             @Override
             public void run() {
+                commentTrans.getCommentOfStatus(idStatus);
+                for(int i = 0; i < 20; ++i) {
+                    if (commentTrans.getCommentList().size() > 0) {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                commentList = commentTrans.getCommentList();
+                                for(int i = 0 ; i < commentList.size(); ++i) {
+                                    commentAdapter.addItem(commentList.get(i));
+                                }
+                                /**
+                                 * can sua cho nay chut nua
+                                 */
+                                //commentAdapter.notifyDataSetChanged();
+                            }
+                        });
+                        break;
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {}
+                }
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        progressLoadComment.setVisibility(View.VISIBLE);
-                        progressLoadComment.setIndeterminate(true);
-                        CommentTrans commentTrans = new CommentTrans(getActivity());
-                        commentTrans.getCommentOfStatus(idStatus);
-                        while (true && cLoop > 0) {
-                            Integer httpCode = commentTrans.getHttpStatusCode();
-                            if ((httpCode != null && HttpStatus.getStatus(getActivity()).signalCode(httpCode)) || cLoop == 0) {
-                                commentList = commentTrans.getCommentList();
-                                Log.d("getCommentList", "have size: " + commentList.size());
-                                break;
-                            }
-                            try {
-                                --cLoop;
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                            }
-                        }
                         progressLoadComment.setIndeterminate(false);
                         progressLoadComment.setVisibility(View.GONE);
                     }
                 });
             }
         }).start();
+    }
+
+    @Override
+    public void onPause() {
+        progressLoadComment.setIndeterminate(false);
+        progressLoadComment.setVisibility(View.GONE);
+        super.onPause();
     }
 
     @Override

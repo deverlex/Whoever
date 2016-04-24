@@ -5,6 +5,7 @@
     android:paddingLeft="40dp"
     android:paddingRight="40dp"
     android:background="@color/colorRedMain"
+    android:clickable="true"
     android:id="@+id/welcomeFrame">
 
     <TextView

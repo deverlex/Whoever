@@ -5,6 +5,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:background="@color/colorRedMain"
+    android:clickable="true"
     android:id="@+id/termPoliciesFrame">
 
 </RelativeLayout>

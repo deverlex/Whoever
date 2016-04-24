@@ -7,6 +7,7 @@
     android:focusableInTouchMode="true"
     android:background="@color/colorWhite"
     android:orientation="vertical"
+    android:clickable="true"
     android:id="@+id/contactFrame">
 
     <LinearLayout

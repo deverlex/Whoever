@@ -17,7 +17,7 @@ import vn.whoever.R;
  */
 public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
 
-    List<T> dataList;
+    protected List<T> dataList;
     protected Fragment fragment;
 
     protected final int VIEW_ITEM = 1;
@@ -71,6 +71,11 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
 
     public void setLoaded() {
         loading = false;
+    }
+
+    public void addItem(T item) {
+        this.dataList.add(item);
+        notifyItemInserted(dataList.size() - 1);
     }
 
     @Override

@@ -6,6 +6,7 @@
     android:background="@color/colorRedMain"
     android:orientation="vertical"
     tools:context=".views.activities.StartActivity"
+    android:clickable="true"
     android:id="@+id/startMainFrame">
 
     <TextView

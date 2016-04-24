@@ -6,6 +6,7 @@
     android:layout_height="78dp"
     card_view:cardCornerRadius="3dp"
     card_view:cardUseCompatPadding="true"
+    android:clickable="true"
     android:id="@+id/toolbarNewsfeedFrame">
 
     <RelativeLayout

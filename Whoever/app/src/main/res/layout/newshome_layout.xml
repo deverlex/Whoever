@@ -6,6 +6,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
+    android:clickable="true"
     android:id="@+id/newsHomeFrame">
 
     <android.support.v4.widget.SwipeRefreshLayout

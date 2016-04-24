@@ -146,9 +146,9 @@ public class LoadFragment extends Fragment implements Initgc {
             editor.commit();
 
             SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+            db.execSQL("delete from SetPostStatus");
             db.execSQL("delete from News");
             db.execSQL("delete from Home");
-            db.execSQL("delete from Comment");
 
             ContentValues values = new ContentValues();
             values.put("id", 1);
@@ -169,7 +169,6 @@ public class LoadFragment extends Fragment implements Initgc {
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 db.execSQL("delete from News");
                 db.execSQL("delete from Home");
-                db.execSQL("delete from Comment");
                 //db.close();
 
                 statusTrans = new StatusTrans(getActivity());

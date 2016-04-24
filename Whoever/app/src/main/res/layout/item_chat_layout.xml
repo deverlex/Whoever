@@ -5,6 +5,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:background="@android:color/transparent"
+    android:clickable="true"
     android:id="@+id/itemChatFrame">
 
     <LinearLayout

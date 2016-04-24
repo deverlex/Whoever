@@ -7,6 +7,7 @@
     android:focusableInTouchMode="true"
     android:paddingLeft="10dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:clickable="true"
     android:id="@+id/overviewFrame">
 
     <ScrollView

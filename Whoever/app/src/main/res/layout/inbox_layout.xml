@@ -7,6 +7,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:background="@color/colorWhite"
+    android:clickable="true"
     android:id="@+id/inboxFrame">
 
     <ListView

@@ -7,6 +7,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:layout_gravity="right"
+    android:clickable="true"
     android:id="@+id/onlineFrame">
 
     <!-- layout for search -->

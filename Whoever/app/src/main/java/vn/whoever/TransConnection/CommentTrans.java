@@ -47,7 +47,7 @@ public class CommentTrans extends AbstractTransaction {
     }
 
     public void getCommentOfStatus(final String idStatus) {
-        commentList = new ArrayList<>();
+        commentList = new ArrayList<Comment>();
         String url_get_comment = "http://192.168.1.112:8080/mainserver/mobile/status";
         UrlQuery urlQuery = new UrlQuery(url_get_comment);
         urlQuery.putPathVariable(idStatus);

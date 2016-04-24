@@ -22,9 +22,9 @@ import vn.whoever.views.fragments.ProfileFragment;
 /**
  * Created by spider man on 4/24/2016.
  */
-public class DataAdapter extends AbstractAdapter<Comment> {
+public class CommentAdapter extends AbstractAdapter<Comment> {
 
-    public DataAdapter(Fragment fragment, List<Comment> commentList, RecyclerView recyclerView) {
+    public CommentAdapter(Fragment fragment, List<Comment> commentList, RecyclerView recyclerView) {
         super(fragment, commentList, recyclerView);
     }
 

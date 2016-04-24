@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
+    android:clickable="true"
     android:id="@+id/dialogPrivacyStatusFrame">
 
     <TextView
