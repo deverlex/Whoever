@@ -44,7 +44,7 @@ public class SignInFragment extends Fragment implements Initgc {
     private EditText editTextPassword;
     private TextView textSignUp;
     private TextView textTerm;
-    private CardView btnSignin;
+    private Button btnSignin;
     private Button btnSkipSignIn;
     private TextView logoText;
     private Handler handler = new Handler();
@@ -71,7 +71,7 @@ public class SignInFragment extends Fragment implements Initgc {
         editTextPassword = (EditText) view.findViewById(R.id.inputPasswordStart);
         editTextPassword.setTextColor(Color.parseColor("#ffffff"));
         btnSkipSignIn = (Button) view.findViewById(R.id.skipSignInButton);
-        btnSignin = (CardView) view.findViewById(R.id.signInButton);
+        btnSignin = (Button) view.findViewById(R.id.signInButton);
         textTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
 
         logoText = (TextView) view.findViewById(R.id.logoTextStartSignIn);

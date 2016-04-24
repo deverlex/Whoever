@@ -57,7 +57,7 @@
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/signInButton"
+        android:id="@+id/cardSignInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="5dp"
@@ -68,6 +68,7 @@
         android:layout_marginTop="40dp">
 
         <Button
+            android:id="@+id/signInButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/colorButtonMain"
@@ -111,7 +112,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signInButton"
+        android:layout_below="@+id/cardSignInButton"
         android:text="@string/text_forgot_password"
         android:textColor="@color/colorWhite"
         android:layout_marginTop="20dp"

@@ -1,312 +1,218 @@
 package vn.whoever.adapters;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import vn.whoever.R;
-import vn.whoever.models.dao.ConnDB;
-import vn.whoever.views.customviews.JTextView;
 import vn.whoever.models.Status;
-import vn.whoever.views.customviews.RoundedImageView;
+import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.fragments.ProfileFragment;
 import vn.whoever.views.fragments.RepliesFragment;
 
 /**
- * Created by spider man on 1/13/2016.
+ * Created by spider man on 4/23/2016.
  */
-public class StatusAdapter extends BaseAdapter {
+public class StatusAdapter extends AbstractAdapter<Status> {
 
-    private ArrayList<Status> statusList;
-    private Fragment fragment;
-
-    private int startCount;
-    private int count;
-    private int stepNumber;
-    private String dbLoad;
-
-    public StatusAdapter(Fragment fragment,int startCount, int stepCount, String dbLoad) {
-        this.fragment = fragment;
-        loadStatusList(dbLoad, 0);
-        this.dbLoad = dbLoad;
-        this.startCount = Math.min(startCount, statusList.size());
-        this.count = this.startCount;
-        this.stepNumber = stepCount;
-    }
-
-    public void reload() {
-        notifyDataSetChanged();
+    public StatusAdapter(Fragment fragment, List<Status> listStatus, RecyclerView recyclerView) {
+        super(fragment, listStatus,recyclerView);
     }
 
     @Override
-    public int getCount() {
-        return this.count;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return statusList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return statusList.get(position).getId();
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        final Status status = (Status) getItem(position);
-
-        if(convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.item_status_layout, null);
-        }
-
-        /**
-         * TODO: avatar, nickName, timePost, contentText - contentImage, totalLike, totalDislike
-         */
-        String avtartPoster = "";
-
-        TextView nickName = (TextView) convertView.findViewById(R.id.nickNameAndExtendOnStatus);
-        nickName.setText(status.getNamePoster());
-        TextView timeUp = (TextView) convertView.findViewById(R.id.timeUploadStatus);
-        timeUp.setText(status.getTimePost());
-
-        final JTextView contentText = (JTextView) convertView.findViewById(R.id.contentStatus);
-        String strContent = "";
-
-        //TODO: add image to this
-        ImageView contentImage = (ImageView) convertView.findViewById(R.id.imageInStatus);
-
-        if(status.getContentImage().equals("null")) {
-            // TODO: add image for status
-            if(status.getContentText().length() > 682)
-                strContent = status.getContentText().substring(0, 682) + "...";
-            else strContent = status.getContentText();
-
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        RecyclerView.ViewHolder vh;
+        if(viewType == VIEW_ITEM) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_status_layout, parent, false);
+            vh = new StatusViewHolder(view);
         } else {
-            if(status.getContentText().length() > 268)
-                strContent = status.getContentText().substring(0,268) + "...";
-            else strContent = status.getContentText();
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_footer, parent, false);
+            vh = new ProgressViewHolder(view);
         }
-        contentText.setText(strContent, true);
-        final TextView totalLike = (TextView) convertView.findViewById(R.id.totalLikeStatus);
-        totalLike.setText(String.valueOf(status.getTotalLike()));
-        final TextView totalDislike = (TextView) convertView.findViewById(R.id.totalDislikeStatus);
-        totalDislike.setText(String.valueOf(status.getTotalDislike()));
-        TextView totalComment = (TextView) convertView.findViewById(R.id.totalCommentStatus);
-        totalComment.setText(String.valueOf(status.getTotalComment()) + " comment");
+        return vh;
+    }
 
-        /**
-         * TODO: btnComment, btnLike, btnDislike
-         */
-        LinearLayout btnComment = (LinearLayout) convertView.findViewById(R.id.btnCommentStatus);
-        LinearLayout btnLike = (LinearLayout) convertView.findViewById(R.id.btnLikeStatus);
-        LinearLayout btnDislike = (LinearLayout) convertView.findViewById(R.id.btnDislikeStatus);
-
-        final ImageView imgLike = (ImageView) btnLike.findViewById(R.id.iconLikeStatus);
-        imgLike.setImageResource(R.drawable.icon_like);
-        final ImageView imgDislike = (ImageView) btnDislike.findViewById(R.id.iconDisklikeStatus);
-        imgDislike.setImageResource(R.drawable.icon_dislike);
-
-        if(status.getInteract().equals("like")) {
-            imgLike.setImageResource(R.drawable.icon_like_red);
-        } else if(status.getInteract().equals("dislike")) {
-            imgDislike.setImageResource(R.drawable.icon_dislike_red);
-        }
-
-        btnLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * TODO: up to server a action: like, don't care state of it
-                 */
-                /**
-                 * up server
-                 */
-
-                if(status.getInteract().equals("like")) {
-                    status.setInteract("normal");
-                    imgLike.setImageResource(R.drawable.icon_like);
-                    status.setTotalLike(status.getTotalLike() - 1);
-                    totalLike.setText(String.valueOf(status.getTotalLike()));
-                } else if(status.getInteract().equals("dislike")) {
-                    status.setInteract("like");
-                    imgDislike.setImageResource(R.drawable.icon_dislike);
-                    imgLike.setImageResource(R.drawable.icon_like_red);
-                    status.setTotalLike(status.getTotalLike() + 1);
-                    status.setTotalDislike(status.getTotalDislike() - 1);
-                    totalLike.setText(String.valueOf(status.getTotalLike()));
-                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
-                } else {
-                    status.setInteract("like");
-                    imgLike.setImageResource(R.drawable.icon_like_red);
-                    status.setTotalLike(status.getTotalLike() + 1);
-                    totalLike.setText(String.valueOf(status.getTotalLike()));
-                }
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof StatusViewHolder) {
+            final Status singleStatus = (Status) dataList.get(position);
+            ((StatusViewHolder) holder).nickName.setText(singleStatus.getNamePoster());
+            ((StatusViewHolder) holder).timeUp.setText(singleStatus.getTimePost());
+            ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
+            ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+            ((StatusViewHolder) holder).totalComment.setText(String.valueOf(singleStatus.getTotalComment()));
+            String strContent;
+            if(singleStatus.getContentImage().equals("null")) {
+                // TODO: add image for status
+                if(singleStatus.getContentText().length() > 682)
+                    strContent = singleStatus.getContentText().substring(0, 682) + "...";
+                else strContent = singleStatus.getContentText();
+            } else {
+                if(singleStatus.getContentText().length() > 268)
+                    strContent = singleStatus.getContentText().substring(0,268) + "...";
+                else strContent = singleStatus.getContentText();
             }
-        });
+            ((StatusViewHolder) holder).contentText.setText(strContent);
 
-        btnDislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * TODO: up to server a action: dislike, don't care state of it
-                 */
-                /**
-                 * up server
-                 */
-
-                if(status.getInteract().equals("dislike")) {
-                    status.setInteract("normal");
-                    imgDislike.setImageResource(R.drawable.icon_dislike);
-                    status.setTotalDislike(status.getTotalDislike() - 1);
-                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
-                } else if(status.getInteract().equals("like")) {
-                    status.setInteract("dislike");
-                    status.setTotalLike(status.getTotalLike() - 1);
-                    status.setTotalDislike(status.getTotalDislike() + 1);
-                    imgLike.setImageResource(R.drawable.icon_like);
-                    imgDislike.setImageResource(R.drawable.icon_dislike_red);
-                    totalLike.setText(String.valueOf(status.getTotalLike()));
-                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
-                } else {
-                    status.setInteract("dislike");
-                    imgDislike.setImageResource(R.drawable.icon_dislike_red);
-                    status.setTotalDislike(status.getTotalDislike() + 1);
-                    totalDislike.setText(String.valueOf(status.getTotalDislike()));
-                }
+            ((StatusViewHolder) holder).status = singleStatus;
+            if(singleStatus.getInteract().equals("like")) {
+                ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
+            } else if(singleStatus.getInteract().equals("dislike")) {
+                ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
             }
-        });
 
-        btnComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("idStatus", status.getIdStatus());
-                bundle.putString("database", dbLoad);
-                RepliesFragment repliesFragment = new RepliesFragment();
-                repliesFragment.setArguments(bundle);
-                navigateToFragment(repliesFragment, "statusFrameToComment");
-            }
-        });
-
-        contentText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("idStatus", status.getIdStatus());
-                bundle.putString("database", dbLoad);
-                RepliesFragment repliesFragment = new RepliesFragment();
-                repliesFragment.setArguments(bundle);
-                navigateToFragment(repliesFragment, "statusFrameToComment");
-            }
-        });
-
-        contentImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        /**
-         * TODO: Avatar & nickName
-         */
-        RoundedImageView avatar = (RoundedImageView) convertView.findViewById(R.id.imageAvatarOnStatus);
-        //cho nay can thay the nguon anh
-
-        if(!status.getNamePoster().equals("anonymous")) {
-            nickName.setOnClickListener(new View.OnClickListener() {
+            ((StatusViewHolder) holder).btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("ssoidPoster", status.getSsoIdPoster());
-                    navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
+                    if(singleStatus.getInteract().equals("like")) {
+                        singleStatus.setInteract("normal");
+                        ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
+                        singleStatus.setTotalLike(singleStatus.getTotalLike() - 1);
+                        ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
+                    } else if(singleStatus.getInteract().equals("dislike")) {
+                        singleStatus.setInteract("like");
+                        ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
+                        ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
+                        singleStatus.setTotalLike(singleStatus.getTotalLike() + 1);
+                        singleStatus.setTotalDislike(singleStatus.getTotalDislike() - 1);
+                        ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
+                        ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                    } else if(singleStatus.getInteract().equals("normal")){
+                        singleStatus.setInteract("like");
+                        ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
+                        singleStatus.setTotalLike(singleStatus.getTotalLike() + 1);
+                        ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
+                    }
                 }
             });
 
-            avatar.setOnClickListener(new View.OnClickListener() {
+            ((StatusViewHolder) holder).btnDislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(singleStatus.getInteract().equals("dislike")) {
+                        singleStatus.setInteract("normal");
+                        ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
+                        singleStatus.setTotalDislike(singleStatus.getTotalDislike() - 1);
+                        ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                    } else if(singleStatus.getInteract().equals("like")) {
+                        singleStatus.setInteract("dislike");
+                        singleStatus.setTotalLike(singleStatus.getTotalLike() - 1);
+                        singleStatus.setTotalDislike(singleStatus.getTotalDislike() + 1);
+                        ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
+                        ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
+                        ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
+                        ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                    } else if(singleStatus.getInteract().equals("normal")){
+                        singleStatus.setInteract("dislike");
+                        ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
+                        singleStatus.setTotalDislike(singleStatus.getTotalDislike() + 1);
+                        ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                    }
+                }
+            });
+
+            ((StatusViewHolder) holder).btnComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    Log.d("ssoIdPoster", status.getSsoIdPoster());
-                    bundle.putString("ssoidPoster", status.getSsoIdPoster());
-                    navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
+                    bundle.putString("idStatus", singleStatus.getIdStatus());
+                    bundle.putString("database", "News");
+                    RepliesFragment repliesFragment = new RepliesFragment();
+                    repliesFragment.setArguments(bundle);
+                    navigateToFragment(repliesFragment, "statusFrameToComment");
                 }
             });
-        }
-        return convertView;
-    }
 
-    public void navigateToFragment(Fragment frag, String strStack) {
-        fragment.getParentFragment().getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, frag)
-                .addToBackStack(strStack).commit();
-        fragment.getParentFragment().getChildFragmentManager().executePendingTransactions();
-    }
+            ((StatusViewHolder) holder).contentText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("idStatus", singleStatus.getIdStatus());
+                    bundle.putString("database", "News");
+                    RepliesFragment repliesFragment = new RepliesFragment();
+                    repliesFragment.setArguments(bundle);
+                    navigateToFragment(repliesFragment, "statusFrameToComment");
+                }
+            });
 
-    public boolean showMore() {
-        if(this.count == statusList.size()) {
-            return true;
+            if(!singleStatus.getNamePoster().equals("anonymous")) {
+                ((StatusViewHolder) holder).nickName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ssoidPoster", singleStatus.getSsoIdPoster());
+                        navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
+                    }
+                });
+
+                ((StatusViewHolder) holder).avatarPoster.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        Log.d("ssoIdPoster", singleStatus.getSsoIdPoster());
+                        bundle.putString("ssoidPoster", singleStatus.getSsoIdPoster());
+                        navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
+                    }
+                });
+            }
+
+
         } else {
-            count = Math.min(count + stepNumber, statusList.size());
-            notifyDataSetChanged();
-            return endReached();
+            ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }
     }
 
-    public boolean endReached() {
-        return this.count == statusList.size();
-    }
+    public static class StatusViewHolder extends RecyclerView.ViewHolder {
 
-    public int getSize() {
-        return statusList.size();
-    }
+        public TextView nickName;
+        public TextView timeUp;
+        public JTextView contentText;
+        public ImageView contentImage;
+        public ImageView avatarPoster;
+        public TextView totalLike;
+        public TextView totalDislike;
+        public TextView totalComment;
+        public ImageView imgLike;
+        public ImageView imgDislike;
+        public LinearLayout btnComment;
+        public LinearLayout btnLike;
+        public LinearLayout btnDislike;
 
-    public void reset() {
-        count = startCount;
-        notifyDataSetChanged();
-    }
+        public Status status;
 
-    public void loadStatusList(String dbLoad, int posBegin) {
-        /**
-         * TODO: load database from sqlite show to
-         */
-        statusList = new ArrayList<>();
-        SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
-        String arg[] = {String.valueOf(posBegin)};
-        Cursor cursor = db.rawQuery("select id, idStatus, ssoIdPoster, avatarPoster, namePoster," +
-                " timePost, contentText, contentImage, totalLike, totalDislike, totalComment," +
-                " interact from "+ dbLoad +" where id >=?", arg);
-        while (cursor.moveToNext()) {
-            Status status = new Status();
-            status.setId(cursor.getInt(0));
-            status.setIdStatus(cursor.getString(1));
-            status.setSsoIdPoster(cursor.getString(2));
-            status.setAvatarPoster(cursor.getString(3));
-            status.setNamePoster(cursor.getString(4));
-            status.setTimePost(cursor.getString(5));
-            status.setContentText(cursor.getString(6));
-            status.setContentImage(cursor.getString(7));
-            status.setTotalLike(cursor.getInt(8));
-            status.setTotalDislike(cursor.getInt(9));
-            status.setTotalComment(cursor.getInt(10));
-            status.setInteract(cursor.getString(11));
-            statusList.add(status);
+        public StatusViewHolder(View view) {
+            super(view);
+
+            avatarPoster = (ImageView) view.findViewById(R.id.imageAvatarOnStatus);
+            nickName = (TextView) view.findViewById(R.id.nickNameAndExtendOnStatus);
+            timeUp = (TextView) view.findViewById(R.id.timeUploadStatus);
+            contentText = (JTextView) view.findViewById(R.id.contentStatus);
+            contentImage = (ImageView) view.findViewById(R.id.imageInStatus);
+            totalLike = (TextView) view.findViewById(R.id.totalLikeStatus);
+            totalDislike = (TextView) view.findViewById(R.id.totalDislikeStatus);
+            totalComment = (TextView) view.findViewById(R.id.totalCommentStatus);
+
+            btnComment = (LinearLayout) view.findViewById(R.id.btnCommentStatus);
+            btnLike = (LinearLayout) view.findViewById(R.id.btnLikeStatus);
+            btnDislike = (LinearLayout) view.findViewById(R.id.btnDislikeStatus);
+
+            imgLike = (ImageView) btnLike.findViewById(R.id.iconLikeStatus);
+            imgLike.setImageResource(R.drawable.icon_like);
+            imgDislike = (ImageView) btnDislike.findViewById(R.id.iconDisklikeStatus);
+            imgDislike.setImageResource(R.drawable.icon_dislike);
+
         }
-        cursor.close();
-        db.close();
     }
 }

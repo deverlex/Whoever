@@ -2,9 +2,9 @@ package vn.whoever.views.fragments;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,11 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.whoever.R;
-import vn.whoever.adapters.DataAdapter;
+import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.adapters.OnLoadMoreListener;
 import vn.whoever.models.Status;
 import vn.whoever.models.dao.ConnDB;
-import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.utils.Initgc;
 
 /**
@@ -54,7 +53,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     private SwipeRefreshLayout newsRefreshLayout;
 
     private List<Status> statusList;
-    private DataAdapter dataAdapter;
+    private StatusAdapter statusAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +79,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         btnChoiceUpPhoto = (LinearLayout) toolbar.findViewById(R.id.btnChoiceUploadPhoto);
         btnWriteStatus = (RelativeLayout) toolbar.findViewById(R.id.btnWriteStatusInWriteStatus);
 
-        statusList = new ArrayList<>();
         mHandler = new Handler();
         loadData();
 
@@ -88,39 +86,40 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerViewStatus.setLayoutManager(linearLayoutManager);
-        dataAdapter = new DataAdapter(this, statusList, recyclerViewStatus);
+        statusAdapter = new StatusAdapter(this, statusList, recyclerViewStatus);
 
-        recyclerViewStatus.setAdapter(dataAdapter);
+        recyclerViewStatus.setAdapter(statusAdapter);
 
         if(statusList.isEmpty()) {
             recyclerViewStatus.setVisibility(View.GONE);
         } else {
             recyclerViewStatus.setVisibility(View.VISIBLE);
         }
+    }
 
-        dataAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+    @Override
+    public void initListener(View view) {
+
+        statusAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
 
                 statusList.add(null);
-                dataAdapter.notifyItemInserted(statusList.size() - 1);
+                statusAdapter.notifyItemInserted(statusList.size() - 1);
 
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         statusList.remove(statusList.size() - 1);
-                        dataAdapter.notifyItemRemoved(statusList.size());
+                        statusAdapter.notifyItemRemoved(statusList.size());
                         fetchStatus();
-                        dataAdapter.setLoaded();
+                        statusAdapter.setLoaded();
                     }
                 }, 2000);
 
             }
         });
-    }
 
-    @Override
-    public void initListener(View view) {
         final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
 
             @Override
@@ -144,6 +143,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                         if(!isHideToolbar) {
                             isHideToolbar = true;
                             toolbar.setVisibility(View.GONE);
+                            btnFilter.show();
                         }
                     } else if((e2.getY() - e1.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY){
@@ -151,6 +151,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                         if(isHideToolbar) {
                             isHideToolbar = false;
                             toolbar.setVisibility(View.VISIBLE);
+                            btnFilter.hide();
                         }
                     }
                 } catch (Exception e) {}

@@ -137,7 +137,7 @@
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/signUpButton"
+        android:id="@+id/cardSignUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/checkAgreeTermService"
@@ -150,6 +150,7 @@
         card_view:cardUseCompatPadding="true">
 
         <Button
+            android:id="@+id/signUpButton"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/colorButtonMain"
@@ -161,7 +162,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signUpButton"
+        android:layout_below="@+id/cardSignUpButton"
         android:layout_marginTop="18dp"
         android:text="@string/text_have_account"
         android:textColor="@color/colorWhite"

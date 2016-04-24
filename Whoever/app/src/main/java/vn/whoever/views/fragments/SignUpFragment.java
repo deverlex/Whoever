@@ -35,7 +35,7 @@ public class SignUpFragment extends Fragment implements Initgc {
     private EditText editTextSsoId;
     private EditText editTextPassword;
     private CheckBox checkBoxAgreeTerm;
-    private CardView btnCreateAccount;
+    private Button btnCreateAccount;
     private TextView textViewSignIn;
     private TextView textViewTerm;
     private Toast toast;
@@ -72,7 +72,7 @@ public class SignUpFragment extends Fragment implements Initgc {
         editTextPassword.setText(password);
 
         textViewSignIn = (TextView) view.findViewById(R.id.textHaveAAccount);
-        btnCreateAccount = (CardView) view.findViewById(R.id.signUpButton);
+        btnCreateAccount = (Button) view.findViewById(R.id.signUpButton);
         checkBoxAgreeTerm = (CheckBox) view.findViewById(R.id.checkAgreeTermService);
         textViewTerm = (TextView) view.findViewById(R.id.textTermUserInfor);
 
