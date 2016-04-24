@@ -12,6 +12,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
@@ -19,12 +20,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ import vn.whoever.models.dao.ConnDB;
  * Created by spider man on 4/22/2016.
  */
 public class StatusTransaction extends AbstractTransaction {
-    
+
     private boolean isInsert;
 
     public StatusTransaction(Activity activity) {
@@ -49,7 +50,7 @@ public class StatusTransaction extends AbstractTransaction {
         parameter.put("privacy", privacy);
         parameter.put("isUseAccount", isUseAccount);
 
-        JsonObjectRequest requestPostStatus = new JsonObjectRequest(Request.Method.POST, url_post_status,
+        JsonObjectRequest requestPostStatus = new JsonObjectRequest(Method.POST, url_post_status,
                 new JSONObject(parameter), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -65,7 +66,6 @@ public class StatusTransaction extends AbstractTransaction {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return onCreateHeaders();
             }
-
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
@@ -82,7 +82,7 @@ public class StatusTransaction extends AbstractTransaction {
         JSONObject jsonReqStatus = new JSONObject(mapGetStatus);
         isInsert = true;
 
-        JsonArrayRequest newsRequest = new JsonArrayRequest(Request.Method.POST, url_news, jsonReqStatus,
+        JsonArrayRequest newsRequest = new JsonArrayRequest(Method.POST, url_news, jsonReqStatus,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray resp) {
@@ -132,15 +132,19 @@ public class StatusTransaction extends AbstractTransaction {
         TransactionQueue.getsInstance(activity).addToRequestQueue(newsRequest, "requestNews");
     }
 
-    public void interactStatus(String type, String idStatus, String idComment) {
+    public void interactStatus(String interact, String idStatus) {
         String url_interact = "http://192.168.1.112:8080/mainserver/mobile/status";
         UrlQuery urlQuery = new UrlQuery(url_interact);
         urlQuery.putPathVariable(idStatus);
-        StringRequest requestInteract = new StringRequest(Request.Method.GET, urlQuery.getUrl(),
-                new Response.Listener<String>() {
+
+        Map<String, String> interactMap = new LinkedHashMap<>();
+        interactMap.put("interact", interact);
+
+        JsonObjectRequest interactRequest = new JsonObjectRequest(Method.PUT, urlQuery.getUrl(),
+                new JSONObject(interactMap), new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                //nothing
+            public void onResponse(JSONObject response) {
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -148,18 +152,17 @@ public class StatusTransaction extends AbstractTransaction {
                 exTractError(error);
             }
         }) {
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return onCreateHeaders();
             }
 
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
             }
         };
-        TransactionQueue.getsInstance(activity).addToRequestQueue(requestInteract, "requestInteractStatus");
+        TransactionQueue.getsInstance(activity).addToRequestQueue(interactRequest, "requestInteractStatus");
     }
 
     public void getHomePage() {

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.StatusTransaction;
 import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.adapters.OnLoadMoreListener;
 import vn.whoever.models.Status;
@@ -54,6 +55,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     private List<Status> statusList;
     private StatusAdapter statusAdapter;
+    private StatusTransaction statusTransaction;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,14 +101,11 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     @Override
     public void initListener(View view) {
-
         statusAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-
                 statusList.add(null);
                 statusAdapter.notifyItemInserted(statusList.size() - 1);
-
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -121,12 +120,10 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         });
 
         final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
-
             @Override
             public boolean onDown(MotionEvent event) {
                 return true;
             }
-
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
@@ -236,7 +233,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     }
 
     private void loadData() {
-        statusList = new ArrayList<>();
+        statusList = new ArrayList<Status>();
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
         String arg[] = {String.valueOf(0)};
         Cursor cursor = db.rawQuery("select id, idStatus, ssoIdPoster, avatarPoster, namePoster," +

@@ -1,5 +1,6 @@
 package vn.whoever.adapters;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.StatusTransaction;
 import vn.whoever.models.Status;
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.fragments.ProfileFragment;
 import vn.whoever.views.fragments.CommentFragment;
@@ -24,8 +27,11 @@ import vn.whoever.views.fragments.CommentFragment;
  */
 public class StatusAdapter extends AbstractAdapter<Status> {
 
+    private StatusTransaction statusTransaction;
+
     public StatusAdapter(Fragment fragment, List<Status> listStatus, RecyclerView recyclerView) {
         super(fragment, listStatus,recyclerView);
+        statusTransaction = new StatusTransaction(fragment.getActivity());
     }
 
     @Override
@@ -50,7 +56,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
             ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
             ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
             ((StatusViewHolder) holder).totalComment.setText(String.valueOf(singleStatus.getTotalComment()));
-            String strContent;
+            final String strContent;
             if(singleStatus.getContentImage().equals("null")) {
                 // TODO: add image for status
                 if(singleStatus.getContentText().length() > 682)
@@ -76,11 +82,14 @@ public class StatusAdapter extends AbstractAdapter<Status> {
             ((StatusViewHolder) holder).btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ContentValues values = new ContentValues();
                     if(singleStatus.getInteract().equals("like")) {
                         singleStatus.setInteract("normal");
                         ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
                         singleStatus.setTotalLike(singleStatus.getTotalLike() - 1);
                         ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
+                        values.put("interact", "normal");
+                        values.put("totalLike", singleStatus.getTotalLike());
                     } else if(singleStatus.getInteract().equals("dislike")) {
                         singleStatus.setInteract("like");
                         ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
@@ -89,23 +98,34 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                         singleStatus.setTotalDislike(singleStatus.getTotalDislike() - 1);
                         ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
                         ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                        values.put("interact", "like");
+                        values.put("totalLike", singleStatus.getTotalLike());
+                        values.put("totalDislike", singleStatus.getTotalDislike());
                     } else if(singleStatus.getInteract().equals("normal")){
                         singleStatus.setInteract("like");
                         ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
                         singleStatus.setTotalLike(singleStatus.getTotalLike() + 1);
                         ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
+                        values.put("interact", "like");
+                        values.put("totalLike", singleStatus.getTotalLike());
                     }
+                    String[] args = {singleStatus.getIdStatus()};
+                    ConnDB.getConn().getWritableDatabase().update("News", values, "idStatus=?", args);
+                    statusTransaction.interactStatus("like", singleStatus.getIdStatus());
                 }
             });
 
             ((StatusViewHolder) holder).btnDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ContentValues values = new ContentValues();
                     if(singleStatus.getInteract().equals("dislike")) {
                         singleStatus.setInteract("normal");
                         ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
                         singleStatus.setTotalDislike(singleStatus.getTotalDislike() - 1);
                         ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                        values.put("interact", "normal");
+                        values.put("totalDislike", singleStatus.getTotalDislike());
                     } else if(singleStatus.getInteract().equals("like")) {
                         singleStatus.setInteract("dislike");
                         singleStatus.setTotalLike(singleStatus.getTotalLike() - 1);
@@ -114,12 +134,20 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                         ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
                         ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
                         ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                        values.put("interact", "dislike");
+                        values.put("totalLike", singleStatus.getTotalLike());
+                        values.put("totalDislike", singleStatus.getTotalDislike());
                     } else if(singleStatus.getInteract().equals("normal")){
                         singleStatus.setInteract("dislike");
                         ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
                         singleStatus.setTotalDislike(singleStatus.getTotalDislike() + 1);
                         ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
+                        values.put("interact", "dislike");
+                        values.put("totalDislike", singleStatus.getTotalDislike());
                     }
+                    String[] args = {singleStatus.getIdStatus()};
+                    ConnDB.getConn().getWritableDatabase().update("News", values, "idStatus=?", args);
+                    statusTransaction.interactStatus("dislike", singleStatus.getIdStatus());
                 }
             });
 
