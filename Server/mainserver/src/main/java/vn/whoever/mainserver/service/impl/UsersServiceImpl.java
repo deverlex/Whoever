@@ -1,6 +1,7 @@
 package vn.whoever.mainserver.service.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,10 @@ public class UsersServiceImpl implements UsersService{
 
 	public String findSsoIdbyIdUser(String idUser) {
 		return userDao.findSsoId(idUser);
+	}
+
+	public List<Users> queryIdUserBySsoId(String querySsoId) {
+		return userDao.queryUserBySsoId(querySsoId);
 	}
 	
 }

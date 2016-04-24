@@ -54,6 +54,9 @@ public class MobileCommentController {
 			@PathVariable(value = "idStatus") String idStatus,
 			@RequestBody PostComment postComment) throws IOException {
 		
+		System.out.println("comment:" + postComment.getContent());
+		System.out.println("isAccount:" + postComment.getIsUseAccount());
+		
 		try {
 			Status status = statusService.getStatus(idStatus);
 			status.setTimeUp(new Date());
@@ -90,8 +93,6 @@ public class MobileCommentController {
 	public @ResponseBody List<ReturnComment> getListCommentStatus(HttpServletRequest request,
 			@PathVariable(value = "idStatus") String idStatus) {
 		
-		
-		
 		List<Comments> listCmt = commentService.getListComment(idStatus);
 		List<ReturnComment> lReturnCmt = new LinkedList<ReturnComment>();
 		for (Comments comment : listCmt) {
@@ -105,6 +106,7 @@ public class MobileCommentController {
 				String nickName = profileService.getNickName(comment.getIdUser());
 				
 				returnCmt.setSsoIdPoster(ssoId);
+				if(nickName == null) nickName = "anonymous";
 				returnCmt.setNamePoster(nickName);
 				returnCmt.setAvatarPoster("haven't a avatar");
 			} else {

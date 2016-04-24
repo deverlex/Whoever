@@ -1,9 +1,11 @@
 package vn.whoever.mainserver.dao.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -58,5 +60,12 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 		String sql = "select ssoId from Users where idUser = '" + idUser + "'";
 		Query query = getSession().createQuery(sql);
 		return (String) query.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Users> queryUserBySsoId(String querySsoId) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.like("ssoId", querySsoId, MatchMode.ANYWHERE));
+		return (List<Users>) crit.list();
 	}
 }

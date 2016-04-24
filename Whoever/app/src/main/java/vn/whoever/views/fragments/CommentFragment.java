@@ -179,15 +179,11 @@ public class CommentFragment extends Fragment implements Initgc {
         btnSendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strComment = inputTextCommentSend.getText().toString();
+                final String strComment = inputTextCommentSend.getText().toString();
                 if(strComment.length() > 0) {
                     commentTransaction.postCommentForStatus(idStatus, strComment, true);
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getCommentFromService(idStatus);
-                        }
-                    }, 2000);
+                    inputTextCommentSend.setText("");
+                    getCommentFromService(idStatus);
                 }
             }
         });
@@ -265,7 +261,10 @@ public class CommentFragment extends Fragment implements Initgc {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                commentList = commentTransaction.getCommentList();
+                                /**
+                                 * xem lai phan nay
+                                 */
+                                List<Comment> commentList = commentTransaction.getCommentList();
                                 for(int i = 0 ; i < commentList.size(); ++i) {
                                     commentAdapter.addItem(commentList.get(i));
                                 }

@@ -85,13 +85,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_search_red"
-            android:background="@color/colorSilverWhite"
+            android:background="@color/colorWhite"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:paddingRight="15dp"
-            android:paddingLeft="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingLeft="20dp"/>
 
     </RelativeLayout>
 
@@ -99,17 +99,16 @@
         android:id="@+id/viewBetweenSearchInputAndListFriends"
         android:layout_below="@+id/layoutInputSearchFriends"
         android:layout_width="wrap_content"
-        android:layout_height="10dp"
+        android:layout_height="2dp"
         android:background="@color/colorButtonMain"
         android:alpha="0.4"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/listSuggestFriendAdd"
-        android:layout_below="@+id/viewBetweenSearchInputAndListFriends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:divider="@color/colorWhite"
-        android:dividerHeight="0dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_below="@+id/viewBetweenSearchInputAndListFriends"
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>

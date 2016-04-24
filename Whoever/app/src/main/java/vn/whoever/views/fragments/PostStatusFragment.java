@@ -46,7 +46,7 @@ public class PostStatusFragment extends Fragment implements Initgc {
 
     private String strStatus;
     private Handler handler;
-    private ProgressDialog progressPost;
+    private ProgressDialog progressPost = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class PostStatusFragment extends Fragment implements Initgc {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(progressPost.isShowing()) {
+                if(progressPost != null && progressPost.isShowing()) {
                     progressPost.dismiss();
                 }
                 getActivity().onBackPressed();

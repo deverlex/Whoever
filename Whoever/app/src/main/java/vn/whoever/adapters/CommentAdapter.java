@@ -51,6 +51,8 @@ public class CommentAdapter extends AbstractAdapter<Comment> {
             ((CommentViewHolder) holder).totalLike.setText(String.valueOf(singleComment.getTotalLike()));
             ((CommentViewHolder) holder).totalDislike.setText(String.valueOf(singleComment.getTotalDislike()));
 
+            ((CommentViewHolder) holder).comment = singleComment;
+
             if(singleComment.getInteract().equals("like")) {
                 ((CommentViewHolder) holder).iconLike.setImageResource(R.drawable.icon_like_red);
             } else if(singleComment.getInteract().equals("dislike")) {
@@ -149,6 +151,8 @@ public class CommentAdapter extends AbstractAdapter<Comment> {
         public TextView totalDislike;
         public LinearLayout btnLike;
         public LinearLayout btnDislike;
+
+        public Comment comment;
 
         public CommentViewHolder(View view) {
             super(view);

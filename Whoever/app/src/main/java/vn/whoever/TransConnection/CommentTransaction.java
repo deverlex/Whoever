@@ -106,7 +106,6 @@ public class CommentTransaction extends AbstractTransaction {
         UrlQuery urlQuery = new UrlQuery(url_post_cmt);
         urlQuery.putPathVariable(idStatus);
         urlQuery.putPathVariable("comments");
-
         Map<String, String> mapReq = new LinkedHashMap<>();
         mapReq.put("content", content);
         mapReq.put("isUseAccount", String.valueOf(isUseAccount));

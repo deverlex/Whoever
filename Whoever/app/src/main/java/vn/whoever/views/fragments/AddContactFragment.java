@@ -1,17 +1,25 @@
 package vn.whoever.views.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vn.whoever.R;
+import vn.whoever.TransConnection.ContactTransaction;
+import vn.whoever.adapters.DataAdapter;
+import vn.whoever.adapters.OnLoadMoreListener;
+import vn.whoever.models.SearchContact;
 import vn.whoever.utils.Initgc;
-import vn.whoever.views.activities.MainActivity;
 
 /**
  * Created by spider man on 4/8/2016.
@@ -22,6 +30,13 @@ public class AddContactFragment extends Fragment implements Initgc {
     private ImageButton btnSearchFriends;
     private ImageButton btnOpenChoicePostalCode;
     private TextView textViewPostalCode;
+    private RecyclerView recyclerViewSearch;
+
+    private ContactTransaction contactTransaction;
+    private LinearLayoutManager linearLayoutManager;
+    private DataAdapter dataAdapter;
+    private List<SearchContact> searchContactList;
+    private Handler mHandler;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_contact_layout, null);
@@ -37,6 +52,18 @@ public class AddContactFragment extends Fragment implements Initgc {
         btnSearchFriends = (ImageButton) view.findViewById(R.id.btnSearchFiends);
         btnOpenChoicePostalCode = (ImageButton) view.findViewById(R.id.btnOpenChoicePostalCode);
         textViewPostalCode = (TextView) view.findViewById(R.id.textPostalCodeByCountries);
+
+        recyclerViewSearch = (RecyclerView) view.findViewById(R.id.listSuggestFriendAdd);
+        searchContactList = new ArrayList<>();
+        mHandler = new Handler();
+
+        recyclerViewSearch.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerViewSearch.setLayoutManager(linearLayoutManager);
+        dataAdapter = new DataAdapter(this, searchContactList, recyclerViewSearch);
+
+        recyclerViewSearch.setAdapter(dataAdapter);
     }
 
     @Override
@@ -68,6 +95,39 @@ public class AddContactFragment extends Fragment implements Initgc {
 
             }
         });
+
+        dataAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                searchContactList.add(null);
+                dataAdapter.notifyItemInserted(searchContactList.size() - 1);
+
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchContactList.remove(searchContactList.size() - 1);
+                        dataAdapter.notifyItemRemoved(searchContactList.size());
+                        fetchSearchContact();
+                        dataAdapter.setLoaded();
+                    }
+                }, 2000);
+            }
+        });
+    }
+
+    public void loadQuerySearch(String query) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
+
+    }
+
+    public void fetchSearchContact() {
+
     }
 
     @Override

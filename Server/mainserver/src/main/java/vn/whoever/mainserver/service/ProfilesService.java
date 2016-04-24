@@ -14,4 +14,6 @@ public interface ProfilesService {
 	public String getIdProfile(String idUser);
 	
 	public String getNickName(String idUser);
+	
+	public List<Profiles> queryIdUserByNickName(String queryNickName);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,9 @@ public class CommentsDaoImpl extends AbstractDao<String, Comments> implements Co
 	public List<Comments> getListComments(String idStatus) {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("idStatus", idStatus));
+		
+		crit.addOrder(Order.desc("timePost"));
+		crit.setMaxResults(15);
 		return (List<Comments>) crit.list();
 	}
 

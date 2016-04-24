@@ -1,5 +1,7 @@
 package vn.whoever.mainserver.dao;
 
+import java.util.List;
+
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.support.model.utils.Location;
 
@@ -14,4 +16,6 @@ public interface UsersDao {
 	public void updateUser(Users users);
 	public void destroyUser(String ssoId);	
 	public void updateLocation(String idUser, Location location);
+	
+	public List<Users> queryUserBySsoId(String querySsoId);
 }
