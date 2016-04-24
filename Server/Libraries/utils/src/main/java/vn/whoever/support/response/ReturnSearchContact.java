@@ -2,6 +2,15 @@ package vn.whoever.support.response;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@XmlRootElement(name = "returnSearchContact")
+@XmlType(propOrder = {"ssoId", "nickName", "avatar"})
+@JsonPropertyOrder(value = {"ssoId", "nickName", "avatar"})
 public class ReturnSearchContact implements Serializable {
 
 	/**
@@ -9,8 +18,13 @@ public class ReturnSearchContact implements Serializable {
 	 */
 	private static final long serialVersionUID = 14309420730173L;
 	
+	@XmlElement(name = "ssoId")
 	private String ssoId;
+	
+	@XmlElement(name = "nickName")
 	private String nickName;
+	
+	@XmlElement(name = "avatar")
 	private String avatart;
 	
 	public ReturnSearchContact() {

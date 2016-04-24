@@ -134,8 +134,8 @@ public class MainFragment extends Fragment implements Initgc {
         listOnline = (ListView) view.findViewById(R.id.listOnlineUser);
 
 
-        listOnlineAdapter = new ListOnlineAdapter(getActivity());
-        listOnline.setAdapter(listOnlineAdapter);
+//        listOnlineAdapter = new ListOnlineAdapter(getActivity());
+//        listOnline.setAdapter(listOnlineAdapter);
         /**
          * TODO: init() for overview layout
          */

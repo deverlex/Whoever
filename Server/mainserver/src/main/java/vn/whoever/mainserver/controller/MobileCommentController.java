@@ -107,6 +107,7 @@ public class MobileCommentController {
 				
 				returnCmt.setSsoIdPoster(ssoId);
 				if(nickName == null) nickName = "anonymous";
+				
 				returnCmt.setNamePoster(nickName);
 				returnCmt.setAvatarPoster("haven't a avatar");
 			} else {

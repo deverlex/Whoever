@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import vn.whoever.R;
-import vn.whoever.models.Contact;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.fragments.LoadFragment;
 import vn.whoever.views.fragments.SignInFragment;

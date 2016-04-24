@@ -45,8 +45,8 @@ public class ContactsFragment extends Fragment implements Initgc {
         buttonAddAccount = (FloatingActionButton) view.findViewById(R.id.btnAddNewContact);
         listContact = (ListView) view.findViewById(R.id.listViewContactList);
 
-        contactsAdapter = new ContactsAdapter(getActivity());
-        listContact.setAdapter(contactsAdapter);
+//        contactsAdapter = new ContactsAdapter(getActivity());
+//        listContact.setAdapter(contactsAdapter);
 
         btnSearchContacts = (ImageButton) layoutToolBar.findViewById(R.id.btnSearchContact);
     }

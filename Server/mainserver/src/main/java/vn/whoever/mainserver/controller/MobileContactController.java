@@ -58,8 +58,9 @@ public class MobileContactController {
 		return "";
 	}
 	
-	@RequestMapping(value = {"/mobile/friends/search/{query}"})
-	public List<ReturnSearchContact> queryContact(HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(value = {"/mobile/friends/search/{query}"}, method = RequestMethod.GET,
+			consumes = "application/json", produces = "application/json")
+	public @ResponseBody List<ReturnSearchContact> queryContact(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value = "query") String query) {
 		Map<String, ReturnSearchContact> mapReturn = new HashMap<String, ReturnSearchContact>();
 		/**
@@ -84,6 +85,7 @@ public class MobileContactController {
 		for (Entry<String, ReturnSearchContact> item : mapReturn.entrySet()) {
 			returnList.add(item.getValue());
 		}
+		System.out.println("size return: " + returnList.size());
 		return returnList;
 	}
 }
