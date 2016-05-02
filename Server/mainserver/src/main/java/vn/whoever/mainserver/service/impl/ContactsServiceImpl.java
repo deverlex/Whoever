@@ -60,7 +60,7 @@ public class ContactsServiceImpl implements ContactsService {
 		contactUserDao.addContactUser(new ContactUsers(idContact, idFriend, true));
 	}
 
-	public List<String> getListFriends(HttpServletRequest request) {
+	public List<String> getListIdFriends(HttpServletRequest request) {
 		String idUser = authToken.getIdUserHttp(request);
 		return contactUserDao.getListIdFriend(idUser, contactsDao.getIdContact(idUser));
 	}

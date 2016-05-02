@@ -12,6 +12,6 @@ public interface ContactsService {
 	
 	public String findContact(String strFind);
 	
-	public List<String> getListFriends(HttpServletRequest request);
-	
+	public List<String> getListIdFriends(HttpServletRequest request);
+		
 }

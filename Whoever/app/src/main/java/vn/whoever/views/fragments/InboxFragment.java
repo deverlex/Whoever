@@ -54,7 +54,7 @@ public class InboxFragment extends Fragment implements Initgc {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-                final int SWIPE_MIN_DISTANCE = 40;
+                final int SWIPE_MIN_DISTANCE = 30;
                 final int SWIPE_MAX_OFF_PATH = 150;
                 final int SWIPE_THRESHOLD_VELOCITY = 150;
 

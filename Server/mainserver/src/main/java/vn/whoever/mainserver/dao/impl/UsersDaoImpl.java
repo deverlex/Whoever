@@ -26,6 +26,12 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 		return (Users) crit.uniqueResult();
 	}
 	
+	public Users findByIdUser(String idUser) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("idUser", idUser));
+		return (Users) crit.uniqueResult();
+	}
+	
 	public String findIdUser(String ssoId) {
 		String sql = "select idUser from Users where ssoId = '" + ssoId + "'";
 		Query query = getSession().createQuery(sql);
@@ -67,5 +73,10 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.like("ssoId", querySsoId, MatchMode.ANYWHERE));
 		return (List<Users>) crit.list();
+	}
+
+	public void updateTimeUp(String idUser) {
+		String sql = "update Users set timeUp = now() where idUser = '" + idUser + "'";
+		getSession().createQuery(sql).executeUpdate();
 	}
 }

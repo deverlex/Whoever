@@ -72,8 +72,10 @@ public class StatusAdapter extends AbstractAdapter<Status> {
 
             if(singleStatus.getInteract().equals("like")) {
                 ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
+                ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
             } else if(singleStatus.getInteract().equals("dislike")) {
                 ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
+                ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
             } else {
                 ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
                 ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);

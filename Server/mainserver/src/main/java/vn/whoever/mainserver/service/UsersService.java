@@ -13,12 +13,14 @@ public interface UsersService {
 	public String generatePassword();
 	
 	public Users findBySsoId(String ssoId);
+	public Users findByIdUser(String idUser);
 	public String findIdUser(String ssoId);
 	public String findSsoIdbyIdUser(String idUser);
 	
 	public void registerUser(Users users);
 	public void addRole(Users users, Roles roles);
 	public void updateState(Users users, States state);
+	public void updateTimeUp(String idUser);
 	
 	public List<Users> queryIdUserBySsoId(String querySsoId);
 }

@@ -2,6 +2,7 @@ package vn.whoever.mainserver.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -22,9 +23,12 @@ import vn.whoever.mainserver.service.AuthToken;
 import vn.whoever.mainserver.service.ContactsService;
 import vn.whoever.mainserver.service.ProfilesService;
 import vn.whoever.mainserver.service.UsersService;
+import vn.whoever.support.response.ReturnContact;
 import vn.whoever.support.response.ReturnSearchContact;
+import vn.whoever.support.utils.TimeUp;
 
 @Controller
+@RequestMapping("/mobile/friends")
 public class MobileContactController {
 
 	@Autowired
@@ -39,7 +43,23 @@ public class MobileContactController {
 	@Autowired
 	private AuthToken authToken;
 	
-	@RequestMapping(value = {"/mobile/friends/{ssoId}"}, method = RequestMethod.POST,
+	@RequestMapping(value = {"/"}, method = RequestMethod.GET,
+			produces = "application/json")
+	public @ResponseBody List<ReturnContact> getFriends(HttpServletRequest request) {
+		List<ReturnContact> returnContacts = new LinkedList<ReturnContact>();
+		List<String> idFriends = contactService.getListIdFriends(request);
+		for (String idFriend : idFriends) {
+			ReturnContact contact = new ReturnContact();
+			Users users = usersService.findByIdUser(idFriend);
+			contact.setSsoId(users.getSsoId());
+			contact.setLatestOnline((new TimeUp(users.getTimeUp()).getTime()));
+			contact.setNickName(profilesService.getNickName(idFriend));
+			returnContacts.add(contact);
+		}
+		return returnContacts;
+	}
+	
+	@RequestMapping(value = {"/{ssoId}"}, method = RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void addFriend(HttpServletRequest request, HttpServletResponse response, 
 			@PathVariable(value = "ssoId") String ssoId) {
@@ -51,13 +71,13 @@ public class MobileContactController {
 		}
 	}
 	
-	@RequestMapping(value = {"/mobile/friends/{ssoId}"}, method = RequestMethod.DELETE)
+	@RequestMapping(value = {"/{ssoId}"}, method = RequestMethod.DELETE)
 	public String deleteFriend(@PathVariable(value = "ssoId") String ssoId) {
 		
 		return "";
 	}
 	
-	@RequestMapping(value = {"/mobile/friends/search/{query}"}, method = RequestMethod.GET,
+	@RequestMapping(value = {"/search/{query}"}, method = RequestMethod.GET,
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody List<ReturnSearchContact> queryContact(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value = "query") String query) {
@@ -81,7 +101,7 @@ public class MobileContactController {
 			}
 		}
 		
-		for(String idFriend : contactService.getListFriends(request)) {
+		for(String idFriend : contactService.getListIdFriends(request)) {
 			if(mapReturn.get(idFriend) != null) {
 				mapReturn.get(idFriend).setIsFriend(true);
 			}

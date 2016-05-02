@@ -38,13 +38,19 @@ public class ContactsAdapter extends AbstractAdapter<Contact> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ContactViewHandler) {
-
             Contact contact = (Contact) dataList.get(position);
+            if(!contact.getGroupName().equals("")) {
+                ((ContactViewHandler) holder).groupName.setText(contact.getGroupName());
+                ((ContactViewHandler) holder).groupName.setVisibility(View.VISIBLE);
+                ((ContactViewHandler) holder).lineTop.setVisibility(View.VISIBLE);
+            } else {
+                ((ContactViewHandler) holder).groupName.setVisibility(View.GONE);
+                ((ContactViewHandler) holder).lineTop.setVisibility(View.GONE);
+            }
             ((ContactViewHandler) holder).nickName.setText(contact.getNickName());
             ((ContactViewHandler) holder).latestOnline.setText(contact.getLatestOnline());
             ((ContactViewHandler) holder).latestStatus.setText(contact.getLatestStatus());
-            ((ContactViewHandler) holder).groupName.setText(contact.getGroupName());
-
+            ((ContactViewHandler) holder).contact = contact;
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }
@@ -58,6 +64,7 @@ public class ContactsAdapter extends AbstractAdapter<Contact> {
         public TextView latestOnline;
         public RoundedImageView avatartContact;
         public Contact contact;
+        public View lineTop;
 
         public ContactViewHandler(View view) {
             super(view);
@@ -66,6 +73,7 @@ public class ContactsAdapter extends AbstractAdapter<Contact> {
             latestStatus = (TextView) view.findViewById(R.id.textLatestStatus);
             latestOnline = (TextView) view.findViewById(R.id.timeLatestActive);
             avatartContact = (RoundedImageView) view.findViewById(R.id.imageAvatarOnContacts);
+            lineTop = (View) view.findViewById(R.id.lineBetweenContacts);
         }
     }
 }

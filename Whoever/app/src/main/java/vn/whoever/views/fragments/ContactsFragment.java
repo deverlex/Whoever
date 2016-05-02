@@ -87,7 +87,7 @@ public class ContactsFragment extends Fragment implements Initgc {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-                final int SWIPE_MIN_DISTANCE = 40;
+                final int SWIPE_MIN_DISTANCE = 30;
                 final int SWIPE_MAX_OFF_PATH = 150;
                 final int SWIPE_THRESHOLD_VELOCITY = 150;
 
@@ -98,14 +98,12 @@ public class ContactsFragment extends Fragment implements Initgc {
                     if((e1.getY() - e2.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
                         if(btnAddAccount.getVisibility() == View.VISIBLE) {
-                            Log.d("AddAcc", "hide()");
                             new AlphaButton(btnAddAccount, 1.0f, 0.0f);
                         }
                     } else if(e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
                         // down
                         if(btnAddAccount.getVisibility() != View.VISIBLE) {
-                            Log.d("AddAcc", "show()");
                             new AlphaButton(btnAddAccount, 0.0f, 1.0f);
                         }
                     }
@@ -165,6 +163,16 @@ public class ContactsFragment extends Fragment implements Initgc {
                 return lhs.getNickName().compareTo(rhs.getNickName());
             }
         });
+
+        String group = "";
+
+        for(int i = 0; i < contactList.size(); ++i) {
+            if(!group.equals(contactList.get(i).getGroupName())) {
+                group = contactList.get(i).getGroupName();
+            } else {
+                contactList.get(i).setGroupName("");
+            }
+        }
 
         return contactList;
     }

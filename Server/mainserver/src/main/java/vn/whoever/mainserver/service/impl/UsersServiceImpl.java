@@ -53,6 +53,10 @@ public class UsersServiceImpl implements UsersService{
 	public Users findBySsoId(String ssoId) {
 		return userDao.findBySsoId(ssoId);
 	}
+	
+	public Users findByIdUser(String idUser) {
+		return userDao.findByIdUser(idUser);
+	}
 
 	public void registerUser(Users users) {
 		Set<SetRoles> roles = new HashSet<SetRoles>();
@@ -82,5 +86,8 @@ public class UsersServiceImpl implements UsersService{
 	public List<Users> queryIdUserBySsoId(String querySsoId) {
 		return userDao.queryUserBySsoId(querySsoId);
 	}
-	
+
+	public void updateTimeUp(String idUser) {
+		userDao.updateTimeUp(idUser);
+	}
 }

@@ -92,6 +92,7 @@ public class MobileUserController {
 			response.setHeader("Token-expiration", tokens.getTimeExp());
 			
 			response.setStatus(HttpServletResponse.SC_OK);
+			usersService.updateTimeUp(user.getIdUser());
 		} catch (Exception e) {
 			System.out.println("return status: " + response.getStatus());
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
