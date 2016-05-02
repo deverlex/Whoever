@@ -19,17 +19,13 @@
             layout="@layout/toolbar_contacts_layout" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listViewContactList"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerContactList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutHeaderContactList"
-        android:layout_alignParentBottom="true"
         android:background="@color/colorWhite"
-        android:divider="@null"
-        android:dividerHeight="0dp">
-
-    </ListView>
+        android:layout_below="@+id/layoutHeaderContactList"
+        android:layout_alignParentBottom="true"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddNewContact"

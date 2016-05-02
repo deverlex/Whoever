@@ -1,87 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:clickable="true"
+    android:layout_height="wrap_content"
     android:id="@+id/itemContactFrame">
 
     <TextView
         android:id="@+id/groupTextContactList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="T"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorButtonMain"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:text="T"
+        android:textColor="@color/colorButtonMain"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <vn.whoever.views.customviews.RoundedImageView
         android:id="@+id/imageAvatarOnContacts"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/emngan"
-        android:scaleType="fitXY"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/groupTextContactList"
         android:layout_marginBottom="5dp"
-        android:layout_below="@+id/groupTextContactList"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/emngan" />
 
     <RelativeLayout
-        android:id="@+id/layoutTimeLastActive"
+        android:id="@+id/layoutTimeLatestActive"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/groupTextContactList">
 
         <TextView
-            android:id="@+id/timeLastActive"
+            android:id="@+id/timeLatestActive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
-            android:textSize="10dp"
+            android:layout_marginTop="15dp"
+            android:text="4 giờ"
             android:textColor="@color/colorSilver"
-            android:text="4 giờ"/>
+            android:textSize="10dp" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layoutContentContact"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/imageAvatarOnContacts"
-        android:layout_below="@+id/groupTextContactList">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/groupTextContactList"
+        android:layout_toRightOf="@+id/imageAvatarOnContacts">
 
         <TextView
             android:id="@+id/nickNameOnContactList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thuy Ngan"
-            android:textSize="18sp"
-            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"/>
+            android:text="Quynh Trang"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textLastStatus"
-            android:layout_width="wrap_content"
+            android:id="@+id/textLatestStatus"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:textSize="14sp"
-            android:textColor="@color/colorSilver"
             android:layout_below="@+id/nickNameOnContactList"
-            android:text="I miss you"/>
-
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40sp"
+            android:layout_marginTop="5dp"
+            android:text="I miss you"
+            android:textColor="@color/colorSilver"
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <View
+        android:id="@+id/lineBetweenContacts"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorSilver"
-        android:layout_toRightOf="@+id/imageAvatarOnContacts"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/colorButtonMain"
+        android:layout_below="@+id/imageAvatarOnContacts"/>
 
 </RelativeLayout>
+

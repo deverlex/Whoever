@@ -1,8 +1,14 @@
 package vn.whoever.views.fragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,11 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import vn.whoever.R;
-import vn.whoever.views.activities.MainActivity;
+import vn.whoever.models.Contact;
 import vn.whoever.adapters.ContactsAdapter;
+import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
 
@@ -24,11 +37,14 @@ import vn.whoever.utils.Initgc;
 public class ContactsFragment extends Fragment implements Initgc {
 
     private LinearLayout layoutToolBar;
-    private FloatingActionButton buttonAddAccount;
-    private ListView listContact;
+    private FloatingActionButton btnAddAccount;
+    private RecyclerView recyclerContact;
     private ImageButton btnSearchContacts;
 
     private ContactsAdapter contactsAdapter;
+    private List<Contact> contactList;
+    private Handler mHandler;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,11 +58,18 @@ public class ContactsFragment extends Fragment implements Initgc {
     @Override
     public void init(View view) {
         layoutToolBar = (LinearLayout) view.findViewById(R.id.layoutHeaderContactList);
-        buttonAddAccount = (FloatingActionButton) view.findViewById(R.id.btnAddNewContact);
-        listContact = (ListView) view.findViewById(R.id.listViewContactList);
+        btnAddAccount = (FloatingActionButton) view.findViewById(R.id.btnAddNewContact);
+        recyclerContact = (RecyclerView) view.findViewById(R.id.recyclerContactList);
+        contactList = getContactList();
 
-//        contactsAdapter = new ContactsAdapter(getActivity());
-//        listContact.setAdapter(contactsAdapter);
+        mHandler = new Handler();
+
+        recyclerContact.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerContact.setLayoutManager(linearLayoutManager);
+        contactsAdapter = new ContactsAdapter(this, contactList, recyclerContact);
+        recyclerContact.setAdapter(contactsAdapter);
 
         btnSearchContacts = (ImageButton) layoutToolBar.findViewById(R.id.btnSearchContact);
     }
@@ -74,15 +97,16 @@ public class ContactsFragment extends Fragment implements Initgc {
                     }
                     if((e1.getY() - e2.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                        // up
-                        if(buttonAddAccount.getVisibility() == View.VISIBLE) {
-                            new AlphaButton(buttonAddAccount, 1.0f, 0.0f);
+                        if(btnAddAccount.getVisibility() == View.VISIBLE) {
+                            Log.d("AddAcc", "hide()");
+                            new AlphaButton(btnAddAccount, 1.0f, 0.0f);
                         }
                     } else if(e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
                         // down
-                        if(buttonAddAccount.getVisibility() != View.VISIBLE) {
-                            new AlphaButton(buttonAddAccount, 0.0f, 1.0f);
+                        if(btnAddAccount.getVisibility() != View.VISIBLE) {
+                            Log.d("AddAcc", "show()");
+                            new AlphaButton(btnAddAccount, 0.0f, 1.0f);
                         }
                     }
                 } catch (Exception e) {
@@ -94,7 +118,7 @@ public class ContactsFragment extends Fragment implements Initgc {
 
         });
 
-        listContact.setOnTouchListener(new View.OnTouchListener() {
+        recyclerContact.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
@@ -109,13 +133,40 @@ public class ContactsFragment extends Fragment implements Initgc {
             }
         });
 
-        buttonAddAccount.setOnClickListener(new View.OnClickListener() {
+        btnAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navigateToAddContact(new AddContactFragment(), "contactFrameToAddContact");
-                buttonAddAccount.setVisibility(View.GONE);
+                btnAddAccount.setVisibility(View.GONE);
             }
         });
+    }
+
+    public List getContactList() {
+        contactList = new ArrayList<>();
+        SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
+        Cursor cursor = db.rawQuery("select ssoId, nickName, latestOnline, latestStatus from Contact", null);
+        while (cursor.moveToNext()) {
+            Contact contact = new Contact();
+            contact.setSsoId(cursor.getString(0));
+            contact.setNickName(cursor.getString(1));
+            contact.setLatestOnline(cursor.getString(2));
+            contact.setLatestStatus(cursor.getString(3));
+            String strHeader = contact.getNickName().substring(0,1);
+            strHeader = strHeader.toUpperCase();
+            contact.setGroupName(strHeader);
+            contactList.add(contact);
+        }
+        cursor.close();
+
+        Collections.sort(contactList, new Comparator<Contact>() {
+            @Override
+            public int compare(Contact lhs, Contact rhs) {
+                return lhs.getNickName().compareTo(rhs.getNickName());
+            }
+        });
+
+        return contactList;
     }
 
     public void navigateToSearchContact(Fragment fragment, String strStack) {

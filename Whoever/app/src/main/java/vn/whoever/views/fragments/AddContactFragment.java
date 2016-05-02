@@ -6,15 +6,13 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ import java.util.List;
 
 import vn.whoever.R;
 import vn.whoever.TransConnection.ContactTransaction;
-import vn.whoever.adapters.DataAdapter;
+import vn.whoever.adapters.SearchContactAdapter;
 import vn.whoever.adapters.OnLoadMoreListener;
 import vn.whoever.models.SearchContact;
 import vn.whoever.utils.Initgc;
@@ -42,7 +40,7 @@ public class AddContactFragment extends Fragment implements Initgc {
 
     private ContactTransaction contactTransaction;
     private LinearLayoutManager linearLayoutManager;
-    private DataAdapter dataAdapter;
+    private SearchContactAdapter searchContactAdapter;
     private List<SearchContact> searchContactList;
     private Handler mHandler;
 
@@ -67,12 +65,12 @@ public class AddContactFragment extends Fragment implements Initgc {
         mHandler = new Handler();
 
         recyclerViewSearch.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new LinearLayoutManager(getContext());
 
         recyclerViewSearch.setLayoutManager(linearLayoutManager);
-        dataAdapter = new DataAdapter(this, searchContactList, recyclerViewSearch);
+        searchContactAdapter = new SearchContactAdapter(this, searchContactList, recyclerViewSearch);
 
-        recyclerViewSearch.setAdapter(dataAdapter);
+        recyclerViewSearch.setAdapter(searchContactAdapter);
 
         contactTransaction = new ContactTransaction(getActivity());
     }
@@ -107,34 +105,30 @@ public class AddContactFragment extends Fragment implements Initgc {
             }
         });
 
-        textSearchContact.addTextChangedListener(new TextWatcher() {
+        textSearchContact.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                loadQuerySearch(textSearchContact.getText().toString());
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    loadQuerySearch(textSearchContact.getText().toString());
+                    return true;
+                }
+                return false;
             }
         });
 
-        dataAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+        searchContactAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 searchContactList.add(null);
-                dataAdapter.notifyItemInserted(searchContactList.size() - 1);
+                searchContactAdapter.notifyItemInserted(searchContactList.size() - 1);
 
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         searchContactList.remove(searchContactList.size() - 1);
-                        dataAdapter.notifyItemRemoved(searchContactList.size());
+                        searchContactAdapter.notifyItemRemoved(searchContactList.size());
                         fetchSearchContact();
-                        dataAdapter.setLoaded();
+                        searchContactAdapter.setLoaded();
                     }
                 }, 2000);
             }
@@ -156,7 +150,7 @@ public class AddContactFragment extends Fragment implements Initgc {
                                 progressDialogQuery.dismiss();
                                 searchContactList = contactTransaction.getSearchContactList();
                                 for(int i = 0; i< searchContactList.size(); ++i) {
-                                    dataAdapter.addItem(searchContactList.get(i));
+                                    searchContactAdapter.addItem(searchContactList.get(i));
                                 }
                             }
                         });
@@ -166,7 +160,12 @@ public class AddContactFragment extends Fragment implements Initgc {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {}
                 }
-
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialogQuery.dismiss();
+                    }
+                });
             }
         }).start();
 

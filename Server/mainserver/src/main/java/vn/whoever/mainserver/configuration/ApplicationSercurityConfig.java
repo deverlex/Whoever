@@ -47,6 +47,7 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	  	
 	  	.antMatchers("/mobile/friends").permitAll() //access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/friends/search").permitAll()
+	  	.antMatchers("/mobile/friends/add").permitAll()
 	  	
 	  	.antMatchers("/mobile/profiles").permitAll() //access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/profiles/*").permitAll() //access("hasRole('ROLE_USER')")

@@ -50,7 +50,6 @@ public class RegexUtils {
         /**
          *  TODO: check tag name => return a name tag
          */
-
         return null;
     }
 }

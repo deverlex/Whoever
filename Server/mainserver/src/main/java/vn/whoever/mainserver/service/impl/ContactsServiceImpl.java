@@ -1,5 +1,9 @@
 package vn.whoever.mainserver.service.impl;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +15,7 @@ import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.ContactUsers;
 import vn.whoever.mainserver.model.Contacts;
 import vn.whoever.mainserver.model.Users;
+import vn.whoever.mainserver.service.AuthToken;
 import vn.whoever.mainserver.service.ContactsService;
 
 @Service("contactService")
@@ -25,6 +30,9 @@ public class ContactsServiceImpl implements ContactsService {
 	
 	@Autowired
 	private UsersDao usersDao;
+	
+	@Autowired
+	private AuthToken authToken;
 	
 	public String generateContactId() {
 		return GenerateIdImpl.generateId().getId();
@@ -46,17 +54,15 @@ public class ContactsServiceImpl implements ContactsService {
 		return null;
 	}
 
-	public boolean addFriend(String ssoId, String ssoIdFriend) {
-		String idUser = usersDao.findIdUser(ssoId);
+	public void addFriend(String idUser, String ssoIdFriend) {
 		String idFriend = usersDao.findIdUser(ssoIdFriend);
 		String idContact = contactsDao.getIdContact(idUser);
-		try {
-			contactUserDao.addContactUser(new ContactUsers(idContact, idFriend, true));
-			return true;
-		} catch (Exception e) {
-			
-		}
-		return false;
+		contactUserDao.addContactUser(new ContactUsers(idContact, idFriend, true));
+	}
+
+	public List<String> getListFriends(HttpServletRequest request) {
+		String idUser = authToken.getIdUserHttp(request);
+		return contactUserDao.getListIdFriend(idUser, contactsDao.getIdContact(idUser));
 	}
 
 }

@@ -202,8 +202,6 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 ((StatusViewHolder) holder).nickName.setClickable(true);
                 ((StatusViewHolder) holder).avatarPoster.setClickable(true);
             }
-
-
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }
@@ -247,7 +245,6 @@ public class StatusAdapter extends AbstractAdapter<Status> {
             imgLike.setImageResource(R.drawable.icon_like);
             imgDislike = (ImageView) btnDislike.findViewById(R.id.iconDisklikeStatus);
             imgDislike.setImageResource(R.drawable.icon_dislike);
-
         }
     }
 }

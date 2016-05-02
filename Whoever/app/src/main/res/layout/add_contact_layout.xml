@@ -75,6 +75,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:cursorVisible="true"
+            android:imeOptions="actionSearch"
             android:focusable="true"
             android:singleLine="true"
             android:layout_alignParentLeft="true"

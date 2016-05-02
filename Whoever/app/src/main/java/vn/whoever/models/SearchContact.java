@@ -12,8 +12,17 @@ public class SearchContact implements Serializable {
     private String ssoId;
     private String nickName;
     private String avatar;
+    private boolean isFriend;
 
     public SearchContact() {}
+
+    public boolean isFriend() {
+        return isFriend;
+    }
+
+    public void setIsFriend(boolean isFriend) {
+        this.isFriend = isFriend;
+    }
 
     public String getSsoId() {
         return ssoId;

@@ -14,12 +14,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/colorWhite"
-        android:layout_height="71dp">
+        android:layout_height="61dp">
 
         <vn.whoever.views.customviews.RoundedImageView
             android:id="@+id/avatarAddContact"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/emngan"
             android:scaleType="fitXY"
             android:layout_alignParentLeft="true"
@@ -31,10 +31,8 @@
             android:id="@+id/nickNameAddAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Em Ngan"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/colorRedMain"
-            android:textStyle="bold"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/avatarAddContact"
             android:layout_marginLeft="30dp"/>
@@ -43,7 +41,7 @@
             android:id="@+id/btnFollowNewAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_add_contact"
+            android:src="@drawable/icon_add_contact_red"
             android:background="@color/colorWhite"
             android:layout_alignParentRight="true"
             android:padding="15dp"
