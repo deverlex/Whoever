@@ -48,6 +48,7 @@ public class MobileContactController {
 	public @ResponseBody List<ReturnContact> getFriends(HttpServletRequest request) {
 		List<ReturnContact> returnContacts = new LinkedList<ReturnContact>();
 		List<String> idFriends = contactService.getListIdFriends(request);
+		System.out.println("size of Friends: " + idFriends.size());
 		for (String idFriend : idFriends) {
 			ReturnContact contact = new ReturnContact();
 			Users users = usersService.findByIdUser(idFriend);

@@ -36,6 +36,7 @@ import vn.whoever.support.response.ReturnCallLogin;
 import vn.whoever.support.utils.CalendarFormat;
 
 @Controller
+@RequestMapping("/mobile/users")
 public class MobileUserController {
 
 	@Autowired
@@ -57,7 +58,7 @@ public class MobileUserController {
 	 @Autowired
 	 private LocationIPService locationService;
 
-	@RequestMapping(value = {"/mobile/login" }, method = RequestMethod.POST,
+	@RequestMapping(value = {"/login" }, method = RequestMethod.POST,
 			produces = "application/json", consumes = "application/json")
 	public @ResponseBody ReturnCallLogin loginWithAccount(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody CallLogin login) {
@@ -100,7 +101,7 @@ public class MobileUserController {
 		return rCLogin;
 	}
 
-	@RequestMapping(value = { "/mobile/anonymous/{langCode}" }, method = RequestMethod.GET,
+	@RequestMapping(value = { "/anonymous/{langCode}" }, method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String loginAnonymous(HttpServletRequest request, HttpServletResponse response, @PathVariable("langCode") String langCode) {
 		
@@ -141,7 +142,7 @@ public class MobileUserController {
 		return language.getNativeName();
 	}
 
-	@RequestMapping(value = {"/mobile/register" }, method = RequestMethod.POST, 
+	@RequestMapping(value = {"/register" }, method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String registerAccount(HttpServletRequest request, 
 			HttpServletResponse response, @RequestBody CallRegister req) {
@@ -188,7 +189,7 @@ public class MobileUserController {
 		return languages.getNativeName();
 	}
 	
-	@RequestMapping(value = {"/mobile/query"}, method = RequestMethod.GET,
+	@RequestMapping(value = {"/query"}, method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String findSsoIdAvaiable(HttpServletResponse response,
 			@RequestParam(value = "ssoId", required = true) String ssoId) {
@@ -200,14 +201,14 @@ public class MobileUserController {
 		return "avaiable";
 	}
 
-	@RequestMapping(value = { "/mobile/get/term" }, method = RequestMethod.GET,
+	@RequestMapping(value = { "/get/term" }, method = RequestMethod.GET,
 			produces = "application/json")
 	public @ResponseBody String acceptTermWhoever(@RequestParam(value = "lang", defaultValue = "en") String langCode) {
 		
 		return "";
 	}
 
-	@RequestMapping(value = { "/mobile/logout" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
 	public @ResponseBody String logoutWhoever(HttpSession session, 
 			@RequestParam(value = "ssoId", required = true) String ssoId) {
 		session.invalidate();

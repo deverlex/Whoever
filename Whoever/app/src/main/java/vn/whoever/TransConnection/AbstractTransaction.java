@@ -49,7 +49,7 @@ public abstract class AbstractTransaction {
         return headers;
     }
 
-    public Integer getHttpStatusCode() {
+    public synchronized Integer getHttpStatusCode() {
         return httpStatusCode;
     }
 

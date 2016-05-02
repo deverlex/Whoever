@@ -36,16 +36,16 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	  http.authorizeRequests()
 	  	.antMatchers("/", "/home").anonymous()
-	  	.antMatchers("/login", "/mobile/login").permitAll()
-	  	.antMatchers("/mobile/register").permitAll()
-	  	.antMatchers("/mobile/anonymous").permitAll()
-	  	.antMatchers("/mobile/query").permitAll()
+	  	.antMatchers("/login", "/mobile/users/login").permitAll()
+	  	.antMatchers("/mobile/users/register").permitAll()
+	  	.antMatchers("/mobile/users/anonymous").permitAll()
+	  	.antMatchers("/mobile/users/query").permitAll()
 	  	
 	  	.antMatchers("/mobile/news").permitAll() //access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/status").permitAll() //access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/status/*").permitAll() //access("hasRole('ROLE_USER')")
 	  	
-	  	.antMatchers("/mobile/friends").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/friends/").permitAll() //access("hasRole('ROLE_USER')")
 	  	.antMatchers("/mobile/friends/search").permitAll()
 	  	.antMatchers("/mobile/friends/add").permitAll()
 	  	

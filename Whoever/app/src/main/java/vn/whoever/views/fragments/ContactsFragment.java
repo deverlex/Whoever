@@ -143,18 +143,32 @@ public class ContactsFragment extends Fragment implements Initgc {
     public List getContactList() {
         contactList = new ArrayList<>();
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
-        Cursor cursor = db.rawQuery("select ssoId, nickName, latestOnline, latestStatus from Contact", null);
+        Cursor cursor = db.rawQuery("select ssoId, nickName, latestOnline from Contact", null);
         while (cursor.moveToNext()) {
             Contact contact = new Contact();
             contact.setSsoId(cursor.getString(0));
             contact.setNickName(cursor.getString(1));
             contact.setLatestOnline(cursor.getString(2));
-            contact.setLatestStatus(cursor.getString(3));
             String strHeader = contact.getNickName().substring(0,1);
             strHeader = strHeader.toUpperCase();
             contact.setGroupName(strHeader);
             contactList.add(contact);
         }
+
+        for(Contact contact : contactList) {
+            cursor.moveToFirst();
+            String arg[] = {contact.getSsoId()};
+            cursor = db.rawQuery("select contentText from Status where ssoIdPoster=? limit 1", arg);
+            while (cursor.moveToNext()) {
+                String str = cursor.getString(0).substring(0, 30) + "...";
+                if(!str.equals("...")) {
+                    contact.setLatestStatus(str);
+                } else {
+                    contact.setLatestStatus("");
+                }
+            }
+        }
+
         cursor.close();
 
         Collections.sort(contactList, new Comparator<Contact>() {

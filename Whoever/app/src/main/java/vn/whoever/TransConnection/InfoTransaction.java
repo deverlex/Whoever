@@ -40,7 +40,7 @@ public class InfoTransaction {
     }
 
     public void getRequestLogin(final String ssoId, final String password) {
-        String url_login = "http://192.168.1.112:8080/mainserver/mobile/login";
+        String url_login = "http://192.168.1.112:8080/mainserver/mobile/users/login";
         httpStatusCode = null;
 
         Map<String, String> jsonLogin = new HashMap<>();
@@ -117,7 +117,7 @@ public class InfoTransaction {
     }
 
     public void registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
-        String url_register = "http://192.168.1.112:8080/mainserver/mobile/register";
+        String url_register = "http://192.168.1.112:8080/mainserver/mobile/users/register";
         Map<String, Object> jsonRegister = new LinkedHashMap<>();
         jsonRegister.put("ssoId", ssoId);
         jsonRegister.put("password", password);
@@ -169,7 +169,7 @@ public class InfoTransaction {
     }
 
     public void getRequestLoginAnonymous(String langCode) {
-        String url_anonymous = "http://192.168.1.112:8080/mainserver/mobile/anonymous";
+        String url_anonymous = "http://192.168.1.112:8080/mainserver/mobile/users/anonymous";
         httpStatusCode = null;
         UrlQuery query = new UrlQuery(url_anonymous);
         query.putPathVariable(langCode);
@@ -211,7 +211,7 @@ public class InfoTransaction {
     }
 
     public void logout() {
-        String url_anonymous = "http://192.168.1.112:8080/mainserver/mobile/anonymous";
+        String url_anonymous = "http://192.168.1.112:8080/mainserver/mobile/users/logout";
 
         StringRequest logoutRequest = new StringRequest(Request.Method.GET, url_anonymous, new Response.Listener<String>() {
             @Override

@@ -44,6 +44,7 @@ public class LoadFragment extends Fragment implements Initgc {
     private TextView textLoad;
     private int cLoop = 0;
     private StatusTransaction statusTransaction = null;
+    private ContactTransaction contactTransaction = null;
     private int delay = 200;
     private boolean isLoadDb = false;
     private Integer httpStatus = null;
@@ -145,6 +146,7 @@ public class LoadFragment extends Fragment implements Initgc {
             SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
             db.execSQL("delete from SetPostStatus");
             db.execSQL("delete from Status");
+            db.execSQL("delete from Contact");
 
             ContentValues values = new ContentValues();
             values.put("id", 1);
@@ -164,12 +166,14 @@ public class LoadFragment extends Fragment implements Initgc {
                 // TODO: if have connection to server -> load new data
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 db.execSQL("delete from Status");
+                db.execSQL("delete from Contact");
 
                 statusTransaction = new StatusTransaction(getActivity());
                 ContactTransaction contactTransaction = new ContactTransaction(getActivity());
                 statusTransaction.getNewsFeed("nearby", 0);
                 statusTransaction.getHomePage();
                 contactTransaction.getContactOnline();
+                contactTransaction.getListFriends();
             }
         }
         if(statusTransaction == null) delay = 100;
