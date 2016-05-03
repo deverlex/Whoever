@@ -1,7 +1,5 @@
 package vn.whoever.mainserver.service.impl;
 
-
-
 public class SortHome implements Runnable {
 	
 	private boolean isRun;

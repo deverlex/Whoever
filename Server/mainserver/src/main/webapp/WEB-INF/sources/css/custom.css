@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+body {
+  background: url(https://farm2.staticflickr.com/1228/4593503558_b4f31f1302_b.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 0.2;
+  filter: alpha(opacity=40);
+}
