@@ -35,8 +35,8 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	  http.authorizeRequests()
-	  	.antMatchers("/", "/home").anonymous()
-	  	.antMatchers("/login", "/mobile/users/login").permitAll()
+	  	.antMatchers("/").anonymous()
+	  	.antMatchers("/mobile/users/login").permitAll()
 	  	.antMatchers("/mobile/users/register").permitAll()
 	  	.antMatchers("/mobile/users/anonymous").permitAll()
 	  	.antMatchers("/mobile/users/query").permitAll()
@@ -53,11 +53,12 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/mobile/profiles/*").permitAll() //access("hasRole('ROLE_USER')")
 	  	
 	  	.antMatchers("/mobile/comments").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/admin").authenticated()
 	  	
 //	  	.antMatchers("/admin/**").access("hasRole('ADMIN')")
 //	  	.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
-//	  	.and().formLogin().loginPage("/login")
-//	  	.usernameParameter("ssoId").passwordParameter("password")
+	  	.and().formLogin().loginPage("/home")
+	  	.usernameParameter("ssoId").passwordParameter("password").defaultSuccessUrl("/admin")
 	  	.and().exceptionHandling().accessDeniedPage("/Access_Denied");
 	  
 	  	http.csrf().disable();

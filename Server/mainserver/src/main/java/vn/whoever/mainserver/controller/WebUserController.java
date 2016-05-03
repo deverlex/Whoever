@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class WebUserController {
 
-	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/home", "/login"})
 	public String homePage(ModelMap model) {
 		// TODO: model set somethings argument
 		return "homePage";
@@ -27,10 +27,9 @@ public class WebUserController {
 		return "accessDenied";
 	}
 	
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage() {
-		return "login";
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String adminPage() {
+		return "adminPage";
 	}
 
 	@RequestMapping(value="/logout", method = RequestMethod.GET)

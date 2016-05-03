@@ -7,7 +7,7 @@ public class SortHome implements Runnable {
 	public void run() {
 		isRun = true;
 		while(isRun) {
-			
+			System.out.println("SortHome running.....");
 			try {
 				Thread.sleep(600000);
 			} catch (InterruptedException e) {

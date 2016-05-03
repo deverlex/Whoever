@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
@@ -35,7 +33,6 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
-
 		return viewResolver;
 	}
 
@@ -47,6 +44,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     	registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/");
 		registry.addResourceHandler("/sources/**").addResourceLocations("/WEB-INF/sources/");
+		registry.addResourceHandler("/bootstrap/**").addResourceLocations("/bootstrap/");
     }
     
     @Override

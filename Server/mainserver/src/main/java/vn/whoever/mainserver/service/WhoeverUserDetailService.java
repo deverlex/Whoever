@@ -25,6 +25,7 @@ public class WhoeverUserDetailService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
 		Users user = usersService.findBySsoId(ssoId);
+		System.out.println("author:" + user.getSsoId() + ", " + user.getPassword());
 		if (user == null) {
 			throw new UsernameNotFoundException("Username not found");
 		}

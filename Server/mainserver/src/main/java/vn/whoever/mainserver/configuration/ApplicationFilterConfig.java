@@ -89,6 +89,7 @@ public class ApplicationFilterConfig implements Filter {
 		throw new RuntimeException("Expecting an HTTP Request");
 	}
 	
+	@SuppressWarnings("unused")
 	private String extractAuthTokenFromRequest(HttpServletRequest request) {
 		/* get Token from Headers */
 		String authToken = request.getHeader("Whoever-Token");
