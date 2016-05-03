@@ -53,9 +53,9 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/mobile/profiles/*").permitAll() //access("hasRole('ROLE_USER')")
 	  	
 	  	.antMatchers("/mobile/comments").permitAll() //access("hasRole('ROLE_USER')")
-	  	.antMatchers("/admin").authenticated()
+	  	//.antMatchers("/admin").authenticated()
 	  	
-//	  	.antMatchers("/admin/**").access("hasRole('ADMIN')")
+	  	.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 //	  	.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 	  	.and().formLogin().loginPage("/home")
 	  	.usernameParameter("ssoId").passwordParameter("password").defaultSuccessUrl("/admin")

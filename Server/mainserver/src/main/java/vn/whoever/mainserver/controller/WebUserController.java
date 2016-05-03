@@ -16,10 +16,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class WebUserController {
 
 	@RequestMapping(value = { "/", "/home", "/login"})
-	public String homePage(ModelMap model) {
+	public String beginPage(ModelMap model) {
 		// TODO: model set somethings argument
+		return "beginPage";
+	}
+	
+	@RequestMapping(value = {"/anonymous"})
+	public String loginWithAnonymous() {
+		
 		return "homePage";
 	}
+	
+	@RequestMapping(value = {"start"})
+	public String startStatistic() {
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
+		return "adminPage";
+	}
+	
+	@RequestMapping(value = {"stop"})
+	public String stopStatistic() {
+		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbb");
+		return "adminPage";
+	}
+	
 	
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDeniedPage(ModelMap model) {
@@ -29,6 +48,7 @@ public class WebUserController {
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminPage() {
+		
 		return "adminPage";
 	}
 
