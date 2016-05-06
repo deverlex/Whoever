@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.HttpStatus;
 import vn.whoever.TransConnection.StatusTransaction;
 import vn.whoever.adapters.StatusAdapter;
 import vn.whoever.adapters.OnLoadMoreListener;
@@ -86,6 +87,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
         mHandler = new Handler();
         loadData();
+        statusTransaction = new StatusTransaction(getActivity());
 
         recyclerViewStatus.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -209,17 +211,36 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
             @Override
             public void run() {
                 newsRefreshLayout.setRefreshing(true);
-
                 fetchStatus();
             }
         });
     }
 
+    int loop = 0;
+
     private void fetchStatus() {
         newsRefreshLayout.setRefreshing(true);
+        statusTransaction.getNewsFeed("nearby", 0);
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                while (loop < 5) {
+                    Integer httpCode = statusTransaction.getHttpStatusCode();
+                    if(httpCode != null && HttpStatus.getStatus(getActivity()).signalCode(httpCode)) {
+                        //update
 
+                        loop = 5;
+                    }
+                    ++loop;
+                }
+            }
+        });
         Log.d("GetMore", "Item Status more");
         newsRefreshLayout.setRefreshing(false);
+    }
+
+    public void loadMoreStatus() {
+
     }
 
     public void navigateFragment(Fragment fragment, String strStack) {
@@ -262,7 +283,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
             statusList.add(status);
         }
         cursor.close();
-       // db.close();
     }
 
     @Override

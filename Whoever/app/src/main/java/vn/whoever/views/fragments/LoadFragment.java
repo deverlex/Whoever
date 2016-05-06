@@ -10,9 +10,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,14 +45,12 @@ public class LoadFragment extends Fragment implements Initgc {
     private Thread thread;
     private TextView textLoad;
     private int cLoop = 0;
+    private int loop = 0;
     private StatusTransaction statusTransaction = null;
     private ContactTransaction contactTransaction = null;
     private InfoTransaction infoTransaction = null;
     private int delay = 200;
-    private boolean isLoadDb = false;
     private Integer httpStatus = null;
-
-    private boolean isLoged;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,24 +89,21 @@ public class LoadFragment extends Fragment implements Initgc {
 
     @Override
     public void initListener(View view) {
-
         isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
-        Log.d("checkLogged" , String.valueOf(isLoged));
+        if(!isLogged && checkInternetAvaiable()) {
+            initData();
+            runLoadData();
+        } else if(isLogged) {
+            reconnect();
+        }
+    }
+
+    public void runLoadData() {
+        loop = 0;
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                if(!isLoged && checkInternetAvaiable()) {
-                    initData();
-                } else if(isLoged) {
-                    reconnect();
-                    if(cLoop < 5) {
-                        cLoop = 0;
-                        Log.d("reconnect", "success()");
-                        loadData();
-                    }
-                }
-
-                while (true){
+                while (loop < 5){
                     progress += 20;
                     handler.post(new Runnable() {
                         @Override
@@ -118,14 +112,16 @@ public class LoadFragment extends Fragment implements Initgc {
                             if(statusTransaction != null && progress == progressBar.getMax()) {
                                 httpStatus = statusTransaction.getHttpStatusCode();
                                 if(httpStatus != null && httpStatus == HttpStatus.SC_OK) {
-                                    cLoop = 5;
+                                    loop = 5;
                                     MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                                    MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                                 } else {
-                                    cLoop += 1;
+                                    loop += 1;
                                     progressBar.setProgress(0);
-                                    if(cLoop == 5) {
+                                    if(loop == 4) {
                                         MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                                        MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                         MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                                         Toast.makeText(getActivity(), "Service isn't response, try later", Toast.LENGTH_SHORT).show();
                                     }
@@ -133,13 +129,13 @@ public class LoadFragment extends Fragment implements Initgc {
                                 progress = 0;
                             } else if(statusTransaction == null && progress == progressBar.getMax()) {
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                                MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                                 Toast.makeText(getActivity(), "No connection to service", Toast.LENGTH_SHORT).show();
                                 cLoop = 5;
                             }
                         }
                     });
-                    if(cLoop == 5) break;
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {
@@ -152,10 +148,14 @@ public class LoadFragment extends Fragment implements Initgc {
     }
 
     public void reconnect() {
-        //ket noi lai sau khi da dang nhap
         infoTransaction = new InfoTransaction(getActivity());
         infoTransaction.getReConnect();
-                while (true) {
+        progress = 0;
+        cLoop = 0;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (cLoop < 5) {
                     progress+=20;
                     handler.post(new Runnable() {
                         @Override
@@ -163,28 +163,37 @@ public class LoadFragment extends Fragment implements Initgc {
                             progressBar.setProgress(progress);
                             httpStatus = infoTransaction.getHttpStatusCode();
                             if(httpStatus != null && HttpStatus.getStatus(getActivity()).signalCode(httpStatus)) {
+                                if(cLoop < 5) {
+                                    loadData();
+                                    runLoadData();
+                                }
                                 cLoop = 5;
                             }
                             if(progress == progressBar.getMax()) {
                                 cLoop += 1;
                                 progress = 0;
+                                progressBar.setProgress(0);
+                                if(cLoop == 4) {
+                                    MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
+                                    MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
+                                    Toast.makeText(getActivity(), "Service isn't response, try later", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                     });
-                    if(cLoop == 5) break;
                     try {
                         Thread.sleep(delay);
                     } catch (Exception e) {}
                 }
+            }
+        }).start();
     }
 
     public void initData() {
-        //TODO: first login to app
         SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
         editor.putBoolean("isLogged", true);
         editor.commit();
-
-        Log.d("editer init()", "edited");
 
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         db.execSQL("delete from SetPostStatus");
@@ -203,12 +212,10 @@ public class LoadFragment extends Fragment implements Initgc {
         statusTransaction.getHomePage();
         contactTransaction.getContactOnline();
     }
-    boolean isLogged = false;
+    boolean isLogged = true;
 
     public void loadData() {
          if(checkInternetAvaiable()) {
-             // TODO: if have connection to server -> load new data
-                // TODO: reconnnect
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 db.execSQL("delete from Status");
                 db.execSQL("delete from Contact");
@@ -221,7 +228,6 @@ public class LoadFragment extends Fragment implements Initgc {
                 contactTransaction.getListFriends();
          }
         if(statusTransaction == null) delay = 100;
-        isLoadDb = true;
     }
 
     @Override
