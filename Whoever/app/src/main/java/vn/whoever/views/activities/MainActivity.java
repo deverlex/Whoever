@@ -10,7 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.io.File;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+
 import vn.whoever.R;
+import vn.whoever.TransConnection.InfoTransaction;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.fragments.LoadFragment;
 import vn.whoever.views.fragments.SignInFragment;
@@ -42,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
             frgTrans.replace(R.id.mainFrame, new SignInFragment()).commit();
         }
         hiddenSoftInput();
+
+        //TODO: for keep session
+        CookieHandler.setDefault(new CookieManager());
     }
 
     public void hiddenSoftInput() {

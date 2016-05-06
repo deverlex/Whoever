@@ -13,6 +13,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,9 +31,13 @@ public abstract class AbstractTransaction {
         this.activity = activity;
     }
 
-    protected Map<String, String> onCreateHeaders () {
-        Map<String, String> headers = new HashMap<>();
+    protected Map<String, String> onCreateHeaders (Map<String, String> headers) {
+        if (headers == null
+                || headers.equals(Collections.emptyMap())) {
+            headers = new HashMap<String, String>();
+        }
         headers.put("Content-Type", "application/json; charset=utf-8");
+        headers.put("User-agent", System.getProperty("http.agent"));
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         Cursor cursor = db.rawQuery("Select token, expTime from Auth", null);
         String token = "";
@@ -47,6 +52,7 @@ public abstract class AbstractTransaction {
         headers.put("Token-expiration", expTime);
         headers.put("User-agent", System.getProperty("http.agent"));
         return headers;
+
     }
 
     public synchronized Integer getHttpStatusCode() {

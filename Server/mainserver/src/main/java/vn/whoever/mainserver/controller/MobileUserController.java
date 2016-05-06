@@ -5,12 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,10 +36,6 @@ import vn.whoever.support.utils.CalendarFormat;
 public class MobileUserController {
 
 	@Autowired
-	@Qualifier("whoeverAuthenticationManager")
-	protected AuthenticationManager authManager;
-
-	@Autowired
 	private LanguagesService langsService;
 
 	@Autowired
@@ -66,7 +58,7 @@ public class MobileUserController {
 		ReturnCallLogin rCLogin = null;
 		HttpSession session = request.getSession();
 		try {
-			authenticalUser(request, session, login.getSsoId(), login.getPassword());
+			usersService.authenticalUser(request, session, login.getSsoId(), login.getPassword());
 			
 			Users user = usersService.findBySsoId(login.getSsoId());
 			System.out.println("user login: " + user);
@@ -127,7 +119,7 @@ public class MobileUserController {
 					true, true, language.getIdLanguage());
 			
 			usersService.registerUser(users);
-			authenticalUser(request, session, ssoId, password);
+			usersService.authenticalUser(request, session, ssoId, password);
 			
 			String token = authToken.initToken(users);
 			String date = authToken.getTimeExpiration();
@@ -175,7 +167,7 @@ public class MobileUserController {
 		
 		try {
 			usersService.registerUser(users);
-			authenticalUser(request, session, req.getSsoId(), req.getPassword());
+			usersService.authenticalUser(request, session, req.getSsoId(), req.getPassword());
 			
 			profileService.setProfile(profile);
 			
@@ -187,6 +179,16 @@ public class MobileUserController {
 			e.printStackTrace();
 		}
 		return languages.getNativeName();
+	}
+	
+	@RequestMapping(value = {"/reconnect"}, method = RequestMethod.GET)
+	public @ResponseBody Integer reConnect(HttpServletRequest request) {
+		try {
+			usersService.authByRequest(request);
+		} catch(Exception e) {
+			return 401;
+		}
+		return 200;
 	}
 	
 	@RequestMapping(value = {"/query"}, method = RequestMethod.GET,
@@ -225,14 +227,6 @@ public class MobileUserController {
 			userName = principal.toString();
 		}
 		return userName;
-	}
-
-	private void authenticalUser(HttpServletRequest request, HttpSession session, String ssoId, String password) {
-		session.invalidate();
-		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(ssoId, password);
-		request.getSession();
-		authToken.setDetails(new WebAuthenticationDetails(request));
-		SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
 	}
 
 }

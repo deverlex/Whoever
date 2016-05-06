@@ -4,13 +4,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import v.whoever.service.impl.GenerateIdImpl;
 import v.whoever.service.impl.GenerateSsoIdImpl;
 import vn.whoever.mainserver.dao.SetRolesDao;
+import vn.whoever.mainserver.dao.TokensDao;
 import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.mainserver.model.Users;
@@ -28,12 +37,19 @@ import vn.whoever.support.model.utils.States;
 @Service("usersService")
 @Transactional
 public class UsersServiceImpl implements UsersService{
+	
+	@Autowired
+	@Qualifier("whoeverAuthenticationManager")
+	protected AuthenticationManager authManager;
 
 	@Autowired
 	private UsersDao userDao;
 	
 	@Autowired
 	private SetRolesDao roleDao;
+	
+	@Autowired
+	private TokensDao tokenDao;
 	
 	@Autowired
 	private ContactsService contactService;
@@ -89,5 +105,22 @@ public class UsersServiceImpl implements UsersService{
 
 	public void updateTimeUp(String idUser) {
 		userDao.updateTimeUp(idUser);
+	}
+
+	public void authenticalUser(HttpServletRequest request, HttpSession session, String ssoId, String password) {
+		session.invalidate();
+		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(ssoId, password);
+		request.getSession();
+		authToken.setDetails(new WebAuthenticationDetails(request));
+		SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
+	}
+
+	public void authByRequest(HttpServletRequest request) {
+		String token = request.getHeader("Whoever-token");
+		Users user = userDao.findByIdUser(tokenDao.getTokenByToken(token).getIdUser());
+		System.out.println("idUser: " + user.getSsoId());
+		System.out.println("password: " + user.getPassword());
+		HttpSession session = request.getSession();
+		authenticalUser(request, session, user.getSsoId(), user.getPassword());
 	}
 }

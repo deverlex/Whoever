@@ -2,11 +2,19 @@ package vn.whoever.mainserver.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.support.model.utils.Roles;
 import vn.whoever.support.model.utils.States;
 
 public interface UsersService {
+	
+	public void authenticalUser(HttpServletRequest request, HttpSession session, 
+			String ssoId, String password);
+	
+	public void authByRequest(HttpServletRequest request);
 
 	public String generateUserId();
 	public String generateSsoId();

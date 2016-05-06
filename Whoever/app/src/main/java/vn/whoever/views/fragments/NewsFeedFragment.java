@@ -31,6 +31,7 @@ import vn.whoever.models.Status;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
+import vn.whoever.views.dialogs.DialogViewNews;
 
 /**
  * Created by spider man on 12/28/2015.
@@ -197,7 +198,10 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // show a dialog
+
+                DialogViewNews dialogViewNews = new DialogViewNews();
+                dialogViewNews.show(getActivity().getFragmentManager(), "Choice View News");
+
             }
         });
 

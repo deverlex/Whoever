@@ -10,7 +10,9 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import java.net.URLConnection;
 import vn.whoever.R;
 import vn.whoever.TransConnection.ContactTransaction;
 import vn.whoever.TransConnection.HttpStatus;
+import vn.whoever.TransConnection.InfoTransaction;
 import vn.whoever.TransConnection.StatusTransaction;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
@@ -45,9 +48,12 @@ public class LoadFragment extends Fragment implements Initgc {
     private int cLoop = 0;
     private StatusTransaction statusTransaction = null;
     private ContactTransaction contactTransaction = null;
+    private InfoTransaction infoTransaction = null;
     private int delay = 200;
     private boolean isLoadDb = false;
     private Integer httpStatus = null;
+
+    private boolean isLoged;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,14 +93,24 @@ public class LoadFragment extends Fragment implements Initgc {
     @Override
     public void initListener(View view) {
 
+        isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
+        Log.d("checkLogged" , String.valueOf(isLoged));
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
-                    progress += 20;
-                    if(!isLoadDb) {
+                if(!isLoged && checkInternetAvaiable()) {
+                    initData();
+                } else if(isLoged) {
+                    reconnect();
+                    if(cLoop < 5) {
+                        cLoop = 0;
+                        Log.d("reconnect", "success()");
                         loadData();
                     }
+                }
+
+                while (true){
+                    progress += 20;
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -135,35 +151,64 @@ public class LoadFragment extends Fragment implements Initgc {
         thread.start();
     }
 
+    public void reconnect() {
+        //ket noi lai sau khi da dang nhap
+        infoTransaction = new InfoTransaction(getActivity());
+        infoTransaction.getReConnect();
+                while (true) {
+                    progress+=20;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setProgress(progress);
+                            httpStatus = infoTransaction.getHttpStatusCode();
+                            if(httpStatus != null && HttpStatus.getStatus(getActivity()).signalCode(httpStatus)) {
+                                cLoop = 5;
+                            }
+                            if(progress == progressBar.getMax()) {
+                                cLoop += 1;
+                                progress = 0;
+                            }
+                        }
+                    });
+                    if(cLoop == 5) break;
+                    try {
+                        Thread.sleep(delay);
+                    } catch (Exception e) {}
+                }
+    }
+
+    public void initData() {
+        //TODO: first login to app
+        SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+        editor.putBoolean("isLogged", true);
+        editor.commit();
+
+        Log.d("editer init()", "edited");
+
+        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+        db.execSQL("delete from SetPostStatus");
+        db.execSQL("delete from Status");
+        db.execSQL("delete from Contact");
+
+        ContentValues values = new ContentValues();
+        values.put("id", 1);
+        values.put("use", "anonymous");
+        values.put("privacy", "public");
+        db.insert("SetPostStatus", null, values);
+
+        statusTransaction = new StatusTransaction(getActivity());
+        ContactTransaction contactTransaction = new ContactTransaction(getActivity());
+        statusTransaction.getNewsFeed("nearby", 0);
+        statusTransaction.getHomePage();
+        contactTransaction.getContactOnline();
+    }
+    boolean isLogged = false;
+
     public void loadData() {
-        boolean isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
-        if(!isLogged && checkInternetAvaiable()) {
-            //TODO: first login to app
-            SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
-            editor.putBoolean("isLogged", true);
-            editor.commit();
-
-            SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-            db.execSQL("delete from SetPostStatus");
-            db.execSQL("delete from Status");
-            db.execSQL("delete from Contact");
-
-            ContentValues values = new ContentValues();
-            values.put("id", 1);
-            values.put("use", "anonymous");
-            values.put("privacy", "public");
-            db.insert("SetPostStatus", null, values);
-
-            //db.close();
-
-            statusTransaction = new StatusTransaction(getActivity());
-            ContactTransaction contactTransaction = new ContactTransaction(getActivity());
-            statusTransaction.getNewsFeed("nearby", 0);
-            statusTransaction.getHomePage();
-            contactTransaction.getContactOnline();
-        } else {
-            if(checkInternetAvaiable()) {
-                // TODO: if have connection to server -> load new data
+         if(checkInternetAvaiable()) {
+             // TODO: if have connection to server -> load new data
+                // TODO: reconnnect
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 db.execSQL("delete from Status");
                 db.execSQL("delete from Contact");
@@ -174,8 +219,7 @@ public class LoadFragment extends Fragment implements Initgc {
                 statusTransaction.getHomePage();
                 contactTransaction.getContactOnline();
                 contactTransaction.getListFriends();
-            }
-        }
+         }
         if(statusTransaction == null) delay = 100;
         isLoadDb = true;
     }

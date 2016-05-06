@@ -56,8 +56,9 @@ public class StatusTransaction extends AbstractTransaction {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
+
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
@@ -114,7 +115,7 @@ public class StatusTransaction extends AbstractTransaction {
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             @Override
@@ -148,7 +149,7 @@ public class StatusTransaction extends AbstractTransaction {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {

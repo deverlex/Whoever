@@ -22,6 +22,7 @@ public class WhoeverUserDetailService implements UserDetailsService {
 	@Autowired
 	private UsersService usersService;
 
+	@SuppressWarnings("unused")
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
 		Users user = usersService.findBySsoId(ssoId);

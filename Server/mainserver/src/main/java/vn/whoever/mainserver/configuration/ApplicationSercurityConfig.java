@@ -1,5 +1,7 @@
 package vn.whoever.mainserver.configuration;
 
+import javax.servlet.Filter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -40,22 +43,25 @@ public class ApplicationSercurityConfig extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/mobile/users/register").permitAll()
 	  	.antMatchers("/mobile/users/anonymous").permitAll()
 	  	.antMatchers("/mobile/users/query").permitAll()
+	  	.antMatchers("/mobile/users/reconnect").permitAll()
 	  	
-	  	.antMatchers("/mobile/news").permitAll() //access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/status").permitAll() //access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/status/*").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/news").authenticated()
+	  	.antMatchers("/mobile/status").authenticated()
+	  	.antMatchers("/mobile/status/*").authenticated()
 	  	
-	  	.antMatchers("/mobile/friends/").permitAll() //access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/friends/search").permitAll()
-	  	.antMatchers("/mobile/friends/add").permitAll()
+	  	.antMatchers("/mobile/friends/").authenticated()
+	  	.antMatchers("/mobile/friends/search").authenticated()
+	  	.antMatchers("/mobile/friends/add").authenticated()
 	  	
-	  	.antMatchers("/mobile/profiles").permitAll() //access("hasRole('ROLE_USER')")
-	  	.antMatchers("/mobile/profiles/*").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/profiles").authenticated()
+	  	.antMatchers("/mobile/profiles/*").authenticated()
 	  	
-	  	.antMatchers("/mobile/comments").permitAll() //access("hasRole('ROLE_USER')")
+	  	.antMatchers("/mobile/comments").authenticated() //access("hasRole('ROLE_USER')")
 	  	//.antMatchers("/admin").authenticated()
 	  	
-	  	.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+	  	.antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
+	  	.antMatchers("/start").access("hasRole('ROLE_ADMIN')")
+	  	.antMatchers("/stop").access("hasRole('ROLE_ADMIN')")
 //	  	.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 	  	.and().formLogin().loginPage("/home")
 	  	.usernameParameter("ssoId").passwordParameter("password").defaultSuccessUrl("/admin")

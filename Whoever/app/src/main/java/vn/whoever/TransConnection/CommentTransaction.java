@@ -90,7 +90,7 @@ public class CommentTransaction extends AbstractTransaction {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError{
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
@@ -122,7 +122,7 @@ public class CommentTransaction extends AbstractTransaction {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
@@ -152,7 +152,7 @@ public class CommentTransaction extends AbstractTransaction {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             protected Response<String> parseNetworkResponse(NetworkResponse response) {

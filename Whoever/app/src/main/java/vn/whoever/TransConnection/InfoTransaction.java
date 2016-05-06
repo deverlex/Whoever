@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
@@ -16,9 +17,12 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -30,13 +34,38 @@ import vn.whoever.models.dao.ConnDB;
 /**
  * Created by spider man on 4/22/2016.
  */
-public class InfoTransaction {
-
-    private Activity activity;
-    private Integer httpStatusCode = null;
+public class InfoTransaction extends AbstractTransaction {
 
     public InfoTransaction(Activity activity) {
-        this.activity = activity;
+        super(activity);
+    }
+
+    public void getReConnect() {
+        String url_reconnect = "http://192.168.1.112:8080/mainserver/mobile/users/reconnect";
+
+        StringRequest reConnectRequest = new StringRequest(Request.Method.GET, url_reconnect, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // TODO: nothing
+                httpStatusCode = Integer.valueOf(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                exTractError(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return onCreateHeaders(super.getHeaders());
+            }
+
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                httpStatusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+        };
+        TransactionQueue.getsInstance(activity).addToRequestQueue(reConnectRequest, "reConnect");
     }
 
     public void getRequestLogin(final String ssoId, final String password) {
@@ -77,7 +106,6 @@ public class InfoTransaction {
                     values.put("isOnline", isOnline);
                     db.execSQL("delete from LocalProfile");
                     db.insert("LocalProfile", null, values);
-                    db.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -108,7 +136,6 @@ public class InfoTransaction {
                 values.put("expTime", headers.get("Token-expiration"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
-                db.close();
                 return super.parseNetworkResponse(response);
             }
         };
@@ -134,7 +161,6 @@ public class InfoTransaction {
                         ContentValues values = new ContentValues();
                         values.put("langName", response.toString());
                         db.update("LocalProfile", values, "id = 1", null);
-                        db.close();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -160,7 +186,6 @@ public class InfoTransaction {
                 values.put("expTime", headers.get("Token-expiration"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
-                db.close();
                 return super.parseNetworkResponse(response);
             }
 
@@ -184,7 +209,6 @@ public class InfoTransaction {
                 Log.d("language", res);
                 db.execSQL("delete from LocalProfile");
                 db.insert("LocalProfile", null, values);
-                db.close();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -203,7 +227,6 @@ public class InfoTransaction {
                 Log.d("token", headers.get("Whoever-token"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
-                db.close();
                 return super.parseNetworkResponse(response);
             }
         };
@@ -226,29 +249,5 @@ public class InfoTransaction {
         }){
 
         };
-    }
-
-    public Integer getHttpStatusCode() {
-        return httpStatusCode;
-    }
-
-    private void exTractError(VolleyError error) {
-        NetworkResponse networkResponse = error.networkResponse;
-        if(networkResponse != null) {
-            httpStatusCode = networkResponse.statusCode;
-        }
-        if (error instanceof TimeoutError) {
-            httpStatusCode = HttpStatus.SC_REQUEST_TIMEOUT;
-        } else if(error instanceof NoConnectionError) {
-            httpStatusCode = HttpStatus.SC_SERVICE_UNAVAIABLE;
-        }else if (error instanceof AuthFailureError) {
-            httpStatusCode = HttpStatus.SC_UNAUTHORIZED;
-        } else if (error instanceof ServerError) {
-            httpStatusCode = HttpStatus.SC_SERVER_INTERNAL;
-        } else if (error instanceof NetworkError) {
-            httpStatusCode = HttpStatus.SC_BAD_REQUEST;
-        } else if (error instanceof ParseError) {
-            httpStatusCode = HttpStatus.SC_SERVER_INTERNAL;
-        }
     }
 }

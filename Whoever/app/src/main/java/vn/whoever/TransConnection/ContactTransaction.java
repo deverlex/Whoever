@@ -76,7 +76,7 @@ public class ContactTransaction extends  AbstractTransaction{
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             @Override
@@ -118,7 +118,7 @@ public class ContactTransaction extends  AbstractTransaction{
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             @Override
@@ -149,7 +149,7 @@ public class ContactTransaction extends  AbstractTransaction{
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return onCreateHeaders();
+                return onCreateHeaders(super.getHeaders());
             }
 
             @Override

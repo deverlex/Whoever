@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:id="@+id/dialogChoiceViewNewsFrame"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/groupButtonChoiceViewNews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="10dp">
+
+        <RadioButton
+            android:id="@+id/radioBtnChoiceViewNearby"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Nearby"
+            android:drawableLeft="@drawable/icon_account"
+            android:buttonTint="@color/colorButtonMain"/>
+
+        <RadioButton
+            android:id="@+id/radioBtnChoiceViewFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Friends"
+            android:drawableLeft="@drawable/icon_anonymous"
+            android:buttonTint="@color/colorButtonMain"/>
+
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+        <Button
+            android:id="@+id/btnAcceptChoiceViewNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:textColor="@color/colorButtonMain"
+            android:background="@drawable/custom_button_accept"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp" />
+    </RelativeLayout>
+
+</LinearLayout>

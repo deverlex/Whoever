@@ -3,22 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/profileFrame"
-    android:clickable="true"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:clickable="true">
 
     <RelativeLayout
+        android:id="@+id/layoutCoverProfile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorButtonMain"
+        android:layout_marginTop="-5dp">
         <!-- body profile -->
+        <ImageView
+            android:id="@+id/coverPhotoProfile"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:alpha="0.6"
+            android:src="@drawable/coverpt"/>
 
+        <vn.whoever.views.customviews.RoundedImageView
+            android:id="@+id/avatarPhotoProfile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/emngan"
+            android:scaleType="fitXY"
+            android:layout_below="@+id/coverPhotoProfile"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="-60dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/textNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nguyễn Đô"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:layout_toRightOf="@+id/avatarPhotoProfile"
+            android:layout_below="@id/coverPhotoProfile"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="-32dp"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/toolBarFromProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorRedMain">
+        android:layout_alignParentTop="true">
 
         <ImageButton
             android:id="@+id/btnBackHomeFromProfile"
@@ -27,7 +58,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:src="@drawable/icon_back"
-            android:background="@color/colorRedMain"
+            android:background="@color/colorTransfer"
             android:padding="12dp"/>
 
         <RelativeLayout
@@ -44,10 +75,25 @@
                 android:textSize="16sp"
                 android:layout_margin="14dp"
                 android:layout_centerVertical="true"/>
-
         </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/btnViewInfoProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransfer"
+            android:src="@drawable/icon_sort_variant"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp"/>
     </RelativeLayout>
 
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listStatusProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:layout_below="@+id/layoutCoverProfile"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
