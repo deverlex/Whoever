@@ -46,7 +46,8 @@ public class StatusTransaction extends AbstractTransaction {
                 new JSONObject(parameter), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                httpStatusCode = HttpStatus.SC_OK;
+                Log.d("responsePost", "status post: " + response.toString());
+                httpStatusCode = HttpStatus.SC_CREATED;
             }
         }, new Response.ErrorListener() {
             @Override

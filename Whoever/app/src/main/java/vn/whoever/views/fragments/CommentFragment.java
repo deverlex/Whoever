@@ -25,6 +25,7 @@ import java.util.List;
 
 import vn.whoever.R;
 import vn.whoever.TransConnection.CommentTransaction;
+import vn.whoever.TransConnection.HttpStatus;
 import vn.whoever.adapters.CommentAdapter;
 import vn.whoever.adapters.OnLoadMoreListener;
 import vn.whoever.models.Comment;
@@ -46,6 +47,7 @@ public class CommentFragment extends Fragment implements Initgc {
     private ImageButton btnBackActivity;
     private ImageButton btnSendComment;
     private Handler mHandler;
+    private Handler pHandler;
     private EditText inputTextCommentSend;
 
     private ImageButton btnQuickLike;
@@ -73,6 +75,7 @@ public class CommentFragment extends Fragment implements Initgc {
     public void init(View view) {
         commentList = new ArrayList<Comment>();
         mHandler = new Handler();
+        pHandler = new Handler();
         commentTransaction = new CommentTransaction(getActivity());
 
         avatarPosterStatus = (RoundedImageView) view.findViewById(R.id.imageAvatarOnStatusDetail);
@@ -148,16 +151,16 @@ public class CommentFragment extends Fragment implements Initgc {
         commentAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                commentList.add(null);
-                commentAdapter.notifyItemInserted(commentList.size() - 1);
+//                commentList.add(null);
+//                commentAdapter.notifyItemInserted(commentList.size() - 1);
 
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        commentList.remove(commentList.size() - 1);
-                        commentAdapter.notifyItemRemoved(commentList.size());
-                        fetchComments();
-                        commentAdapter.setLoaded();
+//                        commentList.remove(commentList.size() - 1);
+//                        commentAdapter.notifyItemRemoved(commentList.size());
+//                        fetchComments();
+//                        commentAdapter.setLoaded();
                     }
                 }, 2000);
             }
@@ -243,46 +246,51 @@ public class CommentFragment extends Fragment implements Initgc {
         super.onResume();
     }
 
+    int loop = 0;
+
     private void getCommentFromService(final String idStatus) {
-        progressLoadComment.setVisibility(View.VISIBLE);
-        progressLoadComment.setIndeterminate(true);
-        new Thread(new Runnable() {
+        loop = 0;
+        (new Thread(new Runnable() {
             @Override
             public void run() {
-                commentTransaction.getCommentOfStatus(idStatus);
-                for(int i = 0; i < 20; ++i) {
-                    if (commentTransaction.getCommentList().size() > 0) {
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                /**
-                                 * xem lai phan nay
-                                 */
-                                List<Comment> commentList = commentTransaction.getCommentList();
-                                for(int i = 0 ; i < commentList.size(); ++i) {
-                                    commentAdapter.addItem(commentList.get(i));
-                                }
-                                /**
-                                 * can sua cho nay chut nua
-                                 */
-                                //commentAdapter.notifyDataSetChanged();
+                while(loop < 15) {
+                    pHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(loop == 4) {
+                                progressLoadComment.setVisibility(View.VISIBLE);
+                                progressLoadComment.setIndeterminate(true);
+                                commentTransaction.getCommentOfStatus(idStatus);
                             }
-                        });
-                        break;
-                    }
+                            Integer httpStatus = commentTransaction.getHttpStatusCode();
+                            Integer totalComment = commentTransaction.getCommentList().size();
+                            if(httpStatus != null && totalComment > 0) {
+                                List<Comment> commentList = commentTransaction.getCommentList();
+                                commentAdapter.refreshData(commentList);
+                                progressLoadComment.setIndeterminate(false);
+                                progressLoadComment.setVisibility(View.GONE);
+                                if(totalComment == 0) {
+                                    viewTotalComment.setText("No one comment on this status");
+                                } else if(totalComment == 1) {
+                                    viewTotalComment.setText("Have a person comments");
+                                } else {
+                                    viewTotalComment.setText("Have " + totalComment + " comments on this status");
+                                }
+                                loop = 15;
+                            }
+                            ++loop;
+                            if(loop >= 14) {
+                                progressLoadComment.setIndeterminate(false);
+                                progressLoadComment.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {}
                 }
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressLoadComment.setIndeterminate(false);
-                        progressLoadComment.setVisibility(View.GONE);
-                    }
-                });
             }
-        }).start();
+        })).start();
     }
 
     @Override

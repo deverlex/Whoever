@@ -38,7 +38,7 @@ import vn.whoever.models.dao.ConnDB;
  */
 public class CommentTransaction extends AbstractTransaction {
 
-    private List<Comment> commentList = null;
+    private List<Comment> commentList = commentList = new ArrayList<Comment>();;
 
     public CommentTransaction(Activity activity) {
         super(activity);
@@ -49,7 +49,7 @@ public class CommentTransaction extends AbstractTransaction {
     }
 
     public void getCommentOfStatus(final String idStatus) {
-        commentList = new ArrayList<Comment>();
+        commentList.clear();
         String url_get_comment = "http://192.168.1.112:8080/mainserver/mobile/status";
         UrlQuery urlQuery = new UrlQuery(url_get_comment);
         urlQuery.putPathVariable(idStatus);
@@ -79,6 +79,7 @@ public class CommentTransaction extends AbstractTransaction {
                     } catch (JSONException e) {
                         Log.d("insertComment", "error insert!!!");
                     }
+                    httpStatusCode = HttpStatus.SC_CREATED;
                 }
             }
         }, new Response.ErrorListener() {

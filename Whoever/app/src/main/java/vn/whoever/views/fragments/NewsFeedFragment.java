@@ -54,7 +54,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     private ImageButton avatarInToolbar;
 
     private LinearLayoutManager linearLayoutManager;
-
     private SwipeRefreshLayout newsRefreshLayout;
 
     private List<Status> statusList;
@@ -289,6 +288,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     @Override
     public void onResume() {
+        fetchStatus();
         super.onResume();
     }
 

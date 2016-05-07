@@ -85,6 +85,20 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
         notifyItemRemoved(position);
     }
 
+    public void refreshData(List<T> newData) {
+        if(newData.size() > 0) {
+            while (!dataList.isEmpty()){
+                dataList.remove(0);
+                notifyItemRemoved(0);
+            }
+            while (!newData.isEmpty()) {
+                dataList.add(0,newData.remove(newData.size() - 1));
+                notifyItemInserted(0);
+            }
+            Log.d("update", "listComment");
+        }
+    }
+
     public void swapData(List<T> newData) {
         if(newData.size() > 14) {
             while (!dataList.isEmpty()){

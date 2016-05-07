@@ -119,11 +119,12 @@ public class LoadFragment extends Fragment implements Initgc {
                                 } else {
                                     loop += 1;
                                     progressBar.setProgress(0);
-                                    if(loop == 4) {
+                                    if(loop >= 4) {
                                         MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                         MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                         MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
-                                        Toast.makeText(getActivity(), "Service isn't response, try later", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Service isn't response, try later", Toast.LENGTH_LONG).show();
+                                        ++loop;
                                     }
                                 }
                                 progress = 0;
@@ -173,11 +174,12 @@ public class LoadFragment extends Fragment implements Initgc {
                                 cLoop += 1;
                                 progress = 0;
                                 progressBar.setProgress(0);
-                                if(cLoop == 4) {
+                                if(cLoop >= 4) {
                                     MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                     MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                                     Toast.makeText(getActivity(), "Service isn't response, try later", Toast.LENGTH_SHORT).show();
+                                    ++cLoop;
                                 }
                             }
                         }

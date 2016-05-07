@@ -160,11 +160,12 @@ public class ContactsFragment extends Fragment implements Initgc {
             String arg[] = {contact.getSsoId()};
             cursor = db.rawQuery("select contentText from Status where ssoIdPoster=? limit 1", arg);
             while (cursor.moveToNext()) {
-                String str = cursor.getString(0).substring(0, 30) + "...";
-                if(!str.equals("...")) {
+                String str = cursor.getString(0);
+                if(str.length() > 30) {
+                    str = str.substring(0, 30) + "...";
                     contact.setLatestStatus(str);
                 } else {
-                    contact.setLatestStatus("");
+                    contact.setLatestStatus(""+str);
                 }
             }
         }

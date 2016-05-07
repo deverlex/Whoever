@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.CommentTransaction;
 import vn.whoever.models.Comment;
 import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.customviews.RoundedImageView;
@@ -24,8 +25,11 @@ import vn.whoever.views.fragments.ProfileFragment;
  */
 public class CommentAdapter extends AbstractAdapter<Comment> {
 
+    private CommentTransaction commentTransaction;
+
     public CommentAdapter(Fragment fragment, List<Comment> commentList, RecyclerView recyclerView) {
         super(fragment, commentList, recyclerView);
+        commentTransaction = new CommentTransaction(fragment.getActivity());
     }
 
     @Override
@@ -84,6 +88,7 @@ public class CommentAdapter extends AbstractAdapter<Comment> {
                         singleComment.setTotalLike(singleComment.getTotalLike() + 1);
                         ((CommentViewHolder) holder).totalLike.setText(String.valueOf(singleComment.getTotalLike()));
                     }
+                    commentTransaction.interactComment("like", singleComment.getIdStatus(), singleComment.getIdComment());
                 }
             });
 
@@ -111,6 +116,7 @@ public class CommentAdapter extends AbstractAdapter<Comment> {
                     }
                     Log.d("clickEvent", "click on dislike button!!!");
                     Log.d("interact", singleComment.getInteract());
+                    commentTransaction.interactComment("dislike", singleComment.getIdStatus(), singleComment.getIdComment());
                 }
             });
 

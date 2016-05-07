@@ -96,6 +96,8 @@ public class PostStatusFragment extends Fragment implements Initgc {
         statusTransaction = new StatusTransaction(getActivity());
     }
 
+    int loop = 0;
+
     @Override
     public void initListener(View view) {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
@@ -131,37 +133,37 @@ public class PostStatusFragment extends Fragment implements Initgc {
                 }
                 cursor.close();
 
+                loop = 0;
+
                 if (strStatus.length() > 0) {
                     statusTransaction.postStatus(strStatus, "", privacy, String.valueOf(isUseAccount));
                     progressPost = ProgressDialog.show(getActivity(), "", "wait posting...", true);
                     (new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            for (int i = 0; i < 30; ++i) {
-                                final Integer httpStatus = statusTransaction.getHttpStatusCode();
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (httpStatus != null && httpStatus == HttpStatus.SC_OK) {
-                                            strStatus = "";
-                                            progressPost.dismiss();
-                                            getActivity().onBackPressed();
-                                        }
-                                    }
-                                });
-                                try {
-                                    Thread.sleep(200);
-                                } catch (InterruptedException e) {}
-                                if (i == 29 && strStatus.length() > 0) {
+                            while (loop < 15) {
+                                if(loop > 4) {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            progressPost.dismiss();
-                                            Toast.makeText(getActivity(), "Have error in system, try again!", Toast.LENGTH_SHORT).show();
+                                            final Integer httpStatus = statusTransaction.getHttpStatusCode();
+                                            if(loop > 13) {
+                                                progressPost.dismiss();
+                                                Toast.makeText(getActivity(), "Have error in system, try again!", Toast.LENGTH_SHORT).show();
+                                            }
+                                            if (httpStatus != null && httpStatus == HttpStatus.SC_CREATED) {
+                                                strStatus = "";
+                                                progressPost.dismiss();
+                                                loop = 15;
+                                                naviagetToMain();
+                                            }
                                         }
                                     });
                                 }
-                                if(strStatus.length() == 0) break;
+                                ++loop;
+                                try {
+                                    Thread.sleep(300);
+                                } catch (InterruptedException e) {}
                             }
                         }
                     })).start();
@@ -177,6 +179,10 @@ public class PostStatusFragment extends Fragment implements Initgc {
                 privacyPost.show(getActivity().getFragmentManager(), "Privacy Post Status");
             }
         });
+    }
+
+    public void naviagetToMain() {
+        getActivity().onBackPressed();
     }
 
     @Override

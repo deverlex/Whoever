@@ -29,6 +29,7 @@ import vn.whoever.support.model.request.GetStatus;
 import vn.whoever.support.model.request.UserInteract;
 import vn.whoever.support.model.request.PostStatus;
 import vn.whoever.support.model.utils.Interacts;
+import vn.whoever.support.response.ReturnPost;
 import vn.whoever.support.response.ReturnStatus;
 import vn.whoever.support.utils.TimePost;
 
@@ -115,7 +116,7 @@ public class MobileStatusController {
 	
 	@RequestMapping(value = "/mobile/status", method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody String postStatus(HttpServletRequest request, HttpServletResponse response,
+	public @ResponseBody ReturnPost postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
 		
 		String ipAddress = request.getHeader("X-FORWARDED-FOR");
@@ -135,7 +136,7 @@ public class MobileStatusController {
 			
 		}
 		statusService.postStatus(status);
-		return "200_OK"; 
+		return (new ReturnPost(201)); 
 	}
 
 	@RequestMapping(value = "/mobile/status/{idStatus}", method = RequestMethod.PUT,
