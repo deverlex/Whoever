@@ -3,8 +3,10 @@ package vn.whoever.TransConnection;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 
@@ -38,9 +40,10 @@ public class TransactionQueue {
 
     public <T> void addToRequestQueue(Request<T> request, String tag) {
         request.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
-
-        VolleyLog.d("Adding request to queue: %s", request.getUrl());
-
+        int socketTimeout = 10000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
         getRequestQueue().add(request);
     }
 

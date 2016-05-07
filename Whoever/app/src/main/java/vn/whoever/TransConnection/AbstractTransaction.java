@@ -47,7 +47,6 @@ public abstract class AbstractTransaction {
             expTime = cursor.getString(1);
         }
         cursor.close();
-        db.close();
         headers.put("Whoever-token", token);
         headers.put("Token-expiration", expTime);
         headers.put("User-agent", System.getProperty("http.agent"));

@@ -11,7 +11,6 @@ public class Status implements Serializable {
 
     private static final long serialVersionUID = 154532345653L;
 
-    private int id;
     private String idStatus;
     private String ssoIdPoster;
     private String avatarPoster;
@@ -25,14 +24,6 @@ public class Status implements Serializable {
     private String interact;
 
     public Status() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getIdStatus() {
         return idStatus;

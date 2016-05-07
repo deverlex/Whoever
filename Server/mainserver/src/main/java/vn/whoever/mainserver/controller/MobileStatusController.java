@@ -79,6 +79,7 @@ public class MobileStatusController {
 		
 		List<ReturnStatus> listReturn = new ArrayList<ReturnStatus>();
 		String idUser = authToken.getIdUserHttp(request);
+		System.out.println("Offset: " + getStatus.getOffset());
 		List<Status> listTemp = statusService.getListStatus(idUser, getStatus.getOrder(), 
 				getStatus.getOffset(), location.getLatitude(), location.getLongitude());
 		
@@ -108,6 +109,7 @@ public class MobileStatusController {
 			rStatus.setInteract(statusService.getInteractStatusState(status.getIdStatus(), idUser));
 			listReturn.add(rStatus);
 		}
+		System.out.println(listReturn.size());
 		return listReturn;
 	}
 	

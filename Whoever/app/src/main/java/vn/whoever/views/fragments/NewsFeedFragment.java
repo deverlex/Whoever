@@ -44,6 +44,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     private RecyclerView recyclerViewStatus;
     private FloatingActionButton btnFilter;
     protected Handler mHandler;
+    protected Handler pHandler;
 
     private boolean isHideToolbar = false;
 
@@ -86,6 +87,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         btnWriteStatus = (RelativeLayout) toolbar.findViewById(R.id.btnWriteStatusInWriteStatus);
 
         mHandler = new Handler();
+        pHandler = new Handler();
         loadData();
         statusTransaction = new StatusTransaction(getActivity());
 
@@ -109,18 +111,13 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         statusAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                statusList.add(null);
-                statusAdapter.notifyItemInserted(statusList.size() - 1);
+                statusAdapter.addItem(null);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        statusList.remove(statusList.size() - 1);
-                        statusAdapter.notifyItemRemoved(statusList.size());
-                        fetchStatus();
-                        statusAdapter.setLoaded();
+                        loadMoreStatus();
                     }
                 }, 2000);
-
             }
         });
 
@@ -200,17 +197,14 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DialogViewNews dialogViewNews = new DialogViewNews();
                 dialogViewNews.show(getActivity().getFragmentManager(), "Choice View News");
-
             }
         });
 
         newsRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                newsRefreshLayout.setRefreshing(true);
                 fetchStatus();
             }
         });
@@ -219,28 +213,72 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     int loop = 0;
 
     private void fetchStatus() {
+        loop = 0;
         newsRefreshLayout.setRefreshing(true);
+        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+        db.execSQL("delete from Status");
         statusTransaction.getNewsFeed("nearby", 0);
-        mHandler.post(new Runnable() {
+        (new Thread(new Runnable() {
             @Override
             public void run() {
-                while (loop < 5) {
-                    Integer httpCode = statusTransaction.getHttpStatusCode();
-                    if(httpCode != null && HttpStatus.getStatus(getActivity()).signalCode(httpCode)) {
-                        //update
-
-                        loop = 5;
-                    }
-                    ++loop;
+                while (loop < 15) {
+                    pHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Integer httpCode = statusTransaction.getHttpStatusCode();
+                            if(httpCode != null && httpCode == HttpStatus.SC_CREATED) {
+                                loadData();
+                                if(statusList.size() > 0) {
+                                    Log.d("update size", String.valueOf(statusList.size()));
+                                    statusAdapter.swapData(statusList);
+                                    newsRefreshLayout.setRefreshing(false);
+                                    loop = 15;
+                                    Log.d("loadData", "update news feeds");
+                                }
+                            }
+                            ++loop;
+                            if(loop >= 15) newsRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {}
                 }
             }
-        });
-        Log.d("GetMore", "Item Status more");
-        newsRefreshLayout.setRefreshing(false);
+        })).start();
     }
 
     public void loadMoreStatus() {
+        loop = 0;
+        statusTransaction.getNewsFeed("nearby", statusAdapter.getItemCount() - 1);
 
+        (new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (loop < 15) {
+                    pHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Integer httpCode = statusTransaction.getHttpStatusCode();
+                            if(httpCode != null && httpCode == HttpStatus.SC_CREATED) {
+                                loadData();
+                                if(statusList.size() > 0) {
+                                    Log.d("sizeList", "status list: " + statusList.size());
+                                    statusAdapter.removeItem(statusAdapter.getItemCount() - 1);
+                                    statusAdapter.setLoaded();
+                                    statusAdapter.swapData(statusList);
+                                    loop = 15;
+                                }
+                            }
+                            ++loop;
+                        }
+                    });
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {}
+                }
+            }
+        })).start();
     }
 
     public void navigateFragment(Fragment fragment, String strStack) {
@@ -262,24 +300,22 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     private void loadData() {
         statusList = new ArrayList<Status>();
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
-        String arg[] = {String.valueOf(0)};
-        Cursor cursor = db.rawQuery("select id, idStatus, ssoIdPoster, avatarPoster, namePoster," +
+        Cursor cursor = db.rawQuery("select idStatus, ssoIdPoster, avatarPoster, namePoster," +
                 " timePost, contentText, contentImage, totalLike, totalDislike, totalComment," +
-                " interact from Status where id >=?", arg);
+                " interact from Status", null);
         while (cursor.moveToNext()) {
             Status status = new Status();
-            status.setId(cursor.getInt(0));
-            status.setIdStatus(cursor.getString(1));
-            status.setSsoIdPoster(cursor.getString(2));
-            status.setAvatarPoster(cursor.getString(3));
-            status.setNamePoster(cursor.getString(4));
-            status.setTimePost(cursor.getString(5));
-            status.setContentText(cursor.getString(6));
-            status.setContentImage(cursor.getString(7));
-            status.setTotalLike(cursor.getInt(8));
-            status.setTotalDislike(cursor.getInt(9));
-            status.setTotalComment(cursor.getInt(10));
-            status.setInteract(cursor.getString(11));
+            status.setIdStatus(cursor.getString(0));
+            status.setSsoIdPoster(cursor.getString(1));
+            status.setAvatarPoster(cursor.getString(2));
+            status.setNamePoster(cursor.getString(3));
+            status.setTimePost(cursor.getString(4));
+            status.setContentText(cursor.getString(5));
+            status.setContentImage(cursor.getString(6));
+            status.setTotalLike(cursor.getInt(7));
+            status.setTotalDislike(cursor.getInt(8));
+            status.setTotalComment(cursor.getInt(9));
+            status.setInteract(cursor.getString(10));
             statusList.add(status);
         }
         cursor.close();

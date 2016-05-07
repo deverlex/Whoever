@@ -105,12 +105,6 @@ public class CommentFragment extends Fragment implements Initgc {
         recyclerViewComment.setAdapter(commentAdapter);
 
         getCommentFromService(idStatus);
-
-//        if(commentList.isEmpty()) {
-//            recyclerViewComment.setVisibility(View.GONE);
-//        } else {
-//            recyclerViewComment.setVisibility(View.VISIBLE);
-//        }
     }
 
     private String loadSetStatusOnListComment() {

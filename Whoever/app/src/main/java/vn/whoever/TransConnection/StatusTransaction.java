@@ -72,6 +72,7 @@ public class StatusTransaction extends AbstractTransaction {
         Map<String, Object> mapGetStatus = new LinkedHashMap<>();
         mapGetStatus.put("order", order);
         mapGetStatus.put("offset", offset);
+        Log.d("getNewFeed()", "get");
         JSONObject jsonReqStatus = new JSONObject(mapGetStatus);
         isInsert = true;
 
@@ -80,9 +81,9 @@ public class StatusTransaction extends AbstractTransaction {
                     @Override
                     public void onResponse(JSONArray resp) {
                         // TODO: insert DB status
+                        Log.d("responseStatus", resp.toString());
                         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                         ContentValues values = new ContentValues();
-                        Log.d("responseStatus", resp.toString());
                         for(int i = 0; i < resp.length() && isInsert; ++i) {
                             try {
                                 JSONObject obj = resp.getJSONObject(i);
@@ -98,14 +99,14 @@ public class StatusTransaction extends AbstractTransaction {
                                 values.put("interact", obj.getString("interact"));
                                 values.put("isHome", false);
                                 db.insert("Status", null, values);
+                                Log.d("insertDb", "success");
                             } catch (JSONException e) {
                                 Log.d("insertStatus", "error insert!!");
                             }
                             values.clear();
                         }
                         isInsert = false;
-                        db.close();
-                        httpStatusCode = HttpStatus.SC_OK;
+                        httpStatusCode = HttpStatus.SC_CREATED;
                     }
                 }, new Response.ErrorListener() {
             @Override

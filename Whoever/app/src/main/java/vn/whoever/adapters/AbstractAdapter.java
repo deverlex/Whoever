@@ -4,10 +4,12 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.whoever.R;
@@ -76,6 +78,32 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
     public void addItem(T item) {
         this.dataList.add(item);
         notifyItemInserted(dataList.size() - 1);
+    }
+
+    public void removeItem(int position) {
+        dataList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void swapData(List<T> newData) {
+        if(newData.size() > 14) {
+            while (!dataList.isEmpty()){
+                dataList.remove(0);
+                notifyItemRemoved(0);
+            }
+            while (!newData.isEmpty()) {
+                dataList.add(0,newData.remove(newData.size() - 1));
+                notifyItemInserted(0);
+            }
+            Log.d("update", "listStatus");
+        } else if(newData.size() > 0) {
+            while (!newData.isEmpty()) {
+                dataList.add(0, newData.remove(newData.size() - 1));
+                notifyItemInserted(0);
+            }
+            Log.d("update", "listStatus");
+        }
+        Log.d("update", "not success!!!");
     }
 
     @Override
