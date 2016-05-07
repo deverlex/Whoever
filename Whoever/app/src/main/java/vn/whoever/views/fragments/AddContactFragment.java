@@ -119,14 +119,11 @@ public class AddContactFragment extends Fragment implements Initgc {
         searchContactAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                searchContactList.add(null);
-                searchContactAdapter.notifyItemInserted(searchContactList.size() - 1);
-
+                searchContactAdapter.addItem(null);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        searchContactList.remove(searchContactList.size() - 1);
-                        searchContactAdapter.notifyItemRemoved(searchContactList.size());
+                        searchContactAdapter.removeItem(searchContactAdapter.getItemCount() - 1);
                         fetchSearchContact();
                         searchContactAdapter.setLoaded();
                     }
@@ -135,39 +132,39 @@ public class AddContactFragment extends Fragment implements Initgc {
         });
     }
 
+    int loop = 0;
+
     public void loadQuerySearch(String query) {
+        loop = 0;
         progressDialogQuery = ProgressDialog.show(getActivity(), "", "waiting query...", true);
         contactTransaction.queryContact(query);
-        new Thread(new Runnable() {
+        (new Thread(new Runnable() {
             @Override
             public void run() {
-
-                for(int i = 0; i < 20; ++i) {
-                    if(contactTransaction.getSearchContactList().size() > 0) {
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                while (loop < 10) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(contactTransaction.getSearchContactList().size() > 0) {
                                 progressDialogQuery.dismiss();
                                 searchContactList = contactTransaction.getSearchContactList();
-                                for(int i = 0; i< searchContactList.size(); ++i) {
-                                    searchContactAdapter.addItem(searchContactList.get(i));
-                                }
+                                searchContactAdapter.swapData(searchContactList);
+                                loop = 10;
                             }
-                        });
-                        break;
-                    }
+                            if(loop == 9) {
+                                searchContactList.clear();
+                                searchContactAdapter.swapData(searchContactList);
+                                progressDialogQuery.dismiss();
+                            }
+                        }
+                    });
+                    ++loop;
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {}
                 }
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressDialogQuery.dismiss();
-                    }
-                });
             }
-        }).start();
+        })).start();
 
     }
 

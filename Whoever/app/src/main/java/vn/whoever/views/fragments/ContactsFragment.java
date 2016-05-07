@@ -169,7 +169,6 @@ public class ContactsFragment extends Fragment implements Initgc {
                 }
             }
         }
-
         cursor.close();
 
         Collections.sort(contactList, new Comparator<Contact>() {

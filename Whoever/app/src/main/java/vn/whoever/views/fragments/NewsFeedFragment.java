@@ -60,6 +60,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     private StatusAdapter statusAdapter;
 
     private StatusTransaction statusTransaction;
+    private boolean onCreate = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,14 +96,8 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
         recyclerViewStatus.setLayoutManager(linearLayoutManager);
         statusAdapter = new StatusAdapter(this, statusList, recyclerViewStatus);
-
         recyclerViewStatus.setAdapter(statusAdapter);
-
-        if(statusList.isEmpty()) {
-            recyclerViewStatus.setVisibility(View.GONE);
-        } else {
-            recyclerViewStatus.setVisibility(View.VISIBLE);
-        }
+        onCreate = true;
     }
 
     @Override
@@ -137,7 +132,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                     }
                     if((e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)) {
-                        // up && hide toolbar && show filter
                         if(!isHideToolbar) {
                             isHideToolbar = true;
                             toolbar.setVisibility(View.GONE);
@@ -145,7 +139,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                         }
                     } else if((e2.getY() - e1.getY()) > SWIPE_MIN_DISTANCE
                             && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY){
-                        // down && show toolbar && hide filter
                         if(isHideToolbar) {
                             isHideToolbar = false;
                             toolbar.setVisibility(View.VISIBLE);
@@ -287,9 +280,14 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     }
 
     @Override
-    public void onResume() {
-        fetchStatus();
-        super.onResume();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if(onCreate) {
+                fetchStatus();
+            }
+        }
+        else {}
     }
 
     @Override
