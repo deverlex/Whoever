@@ -46,7 +46,6 @@ public class LoadFragment extends Fragment implements Initgc {
     private TextView textLoad;
     private int cLoop = 0;
     private int loop = 0;
-    private StatusTransaction statusTransaction = null;
     private ContactTransaction contactTransaction = null;
     private InfoTransaction infoTransaction = null;
     private int delay = 200;
@@ -85,6 +84,7 @@ public class LoadFragment extends Fragment implements Initgc {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.parseColor("#930a0a"));
         }
+        contactTransaction = new ContactTransaction(getActivity());
     }
 
     @Override
@@ -109,9 +109,9 @@ public class LoadFragment extends Fragment implements Initgc {
                         @Override
                         public void run() {
                             progressBar.setProgress(progress);
-                            if(statusTransaction != null && progress == progressBar.getMax()) {
-                                httpStatus = statusTransaction.getHttpStatusCode();
-                                if(httpStatus != null && httpStatus == HttpStatus.SC_OK) {
+                            if(contactTransaction != null && progress == progressBar.getMax()) {
+                                httpStatus = contactTransaction.getHttpStatusCode();
+                                if(httpStatus != null && httpStatus == HttpStatus.SC_CREATED) {
                                     loop = 5;
                                     MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                     MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -128,7 +128,7 @@ public class LoadFragment extends Fragment implements Initgc {
                                     }
                                 }
                                 progress = 0;
-                            } else if(statusTransaction == null && progress == progressBar.getMax()) {
+                            } else if(contactTransaction == null && progress == progressBar.getMax()) {
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                 MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
@@ -156,7 +156,7 @@ public class LoadFragment extends Fragment implements Initgc {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (cLoop < 5) {
+                while (cLoop < 10) {
                     progress+=20;
                     handler.post(new Runnable() {
                         @Override
@@ -164,17 +164,16 @@ public class LoadFragment extends Fragment implements Initgc {
                             progressBar.setProgress(progress);
                             httpStatus = infoTransaction.getHttpStatusCode();
                             if(httpStatus != null && HttpStatus.getStatus(getActivity()).signalCode(httpStatus)) {
-                                if(cLoop < 5) {
-                                    loadData();
+                                if(cLoop  < 9) {
+                                    contactTransaction.getListFriends();
                                     runLoadData();
                                 }
-                                cLoop = 5;
+                                cLoop = 10;
                             }
                             if(progress == progressBar.getMax()) {
-                                cLoop += 1;
                                 progress = 0;
                                 progressBar.setProgress(0);
-                                if(cLoop >= 4) {
+                                if(cLoop >= 9) {
                                     MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                     MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
@@ -184,6 +183,7 @@ public class LoadFragment extends Fragment implements Initgc {
                             }
                         }
                     });
+                    cLoop += 1;
                     try {
                         Thread.sleep(delay);
                     } catch (Exception e) {}
@@ -207,38 +207,12 @@ public class LoadFragment extends Fragment implements Initgc {
         values.put("use", "anonymous");
         values.put("privacy", "public");
         db.insert("SetPostStatus", null, values);
-
-        statusTransaction = new StatusTransaction(getActivity());
-        ContactTransaction contactTransaction = new ContactTransaction(getActivity());
-        statusTransaction.getNewsFeed("nearby", 0);
-        statusTransaction.getHomePage();
-        contactTransaction.getContactOnline();
+        contactTransaction.getListFriends();
     }
     boolean isLogged = true;
 
-    public void loadData() {
-         if(checkInternetAvaiable()) {
-                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-                db.execSQL("delete from Status");
-                db.execSQL("delete from Contact");
-
-                statusTransaction = new StatusTransaction(getActivity());
-                ContactTransaction contactTransaction = new ContactTransaction(getActivity());
-                statusTransaction.getNewsFeed("nearby", 0);
-                statusTransaction.getHomePage();
-                contactTransaction.getContactOnline();
-                contactTransaction.getListFriends();
-         }
-        if(statusTransaction == null) delay = 100;
-    }
-
     @Override
     public void initGc() {}
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     private boolean checkInternetAvaiable() {
         try{

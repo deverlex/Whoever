@@ -75,6 +75,8 @@ public class CommentTransaction extends AbstractTransaction {
                         comment.setTotalLike(obj.getInt("totalLike"));
                         comment.setTotalDislike(obj.getInt("totalDislike"));
                         comment.setInteract(obj.getString("interact"));
+                        Log.d("likeComment", "" + comment.getTotalLike());
+                        Log.d("dislikeComment", "" + comment.getTotalDislike());
                         commentList.add(comment);
                     } catch (JSONException e) {
                         Log.d("insertComment", "error insert!!!");
@@ -138,10 +140,14 @@ public class CommentTransaction extends AbstractTransaction {
         String url_interact = "http://192.168.1.112:8080/mainserver/mobile/status";
         UrlQuery urlQuery = new UrlQuery(url_interact);
         urlQuery.putPathVariable(idStatus);
-        StringRequest requestInteract = new StringRequest(Request.Method.GET, urlQuery.getUrl(),
-                new Response.Listener<String>() {
+        urlQuery.putPathVariable("comments/" + idComment);
+        Map<String, String> mapObj = new LinkedHashMap<>();
+        mapObj.put("interact", type);
+
+        JsonObjectRequest requestInteract = new JsonObjectRequest(Request.Method.PUT, urlQuery.getUrl(), new JSONObject(mapObj),
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         //nothing
                     }
                 }, new Response.ErrorListener() {
@@ -156,7 +162,7 @@ public class CommentTransaction extends AbstractTransaction {
                 return onCreateHeaders(super.getHeaders());
             }
 
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
             }

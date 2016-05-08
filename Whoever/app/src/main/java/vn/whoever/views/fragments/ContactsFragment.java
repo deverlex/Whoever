@@ -25,6 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.ContactTransaction;
 import vn.whoever.models.Contact;
 import vn.whoever.adapters.ContactsAdapter;
 import vn.whoever.models.dao.ConnDB;
@@ -45,6 +46,8 @@ public class ContactsFragment extends Fragment implements Initgc {
     private List<Contact> contactList;
     private Handler mHandler;
     private LinearLayoutManager linearLayoutManager;
+    private boolean onCreate = false;
+    private ContactTransaction contactTransaction;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +65,9 @@ public class ContactsFragment extends Fragment implements Initgc {
         recyclerContact = (RecyclerView) view.findViewById(R.id.recyclerContactList);
         contactList = getContactList();
 
+        onCreate = true;
         mHandler = new Handler();
+        contactTransaction = new ContactTransaction(getActivity());
 
         recyclerContact.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -138,6 +143,36 @@ public class ContactsFragment extends Fragment implements Initgc {
                 btnAddAccount.setVisibility(View.GONE);
             }
         });
+    }
+
+    int loop = 0;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        loop = 0;
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if(onCreate) {
+                contactTransaction.getListFriends();
+                (new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (loop < 15) {
+                            List<Contact> temp = getContactList();
+                            if(temp.size() > contactsAdapter.getItemCount()) {
+                                contactsAdapter.swapData(temp);
+                                loop = 15;
+                            }
+                            ++loop;
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {}
+                        }
+                    }
+                })).start();
+            }
+        }
+        else {}
     }
 
     public List getContactList() {

@@ -43,6 +43,7 @@ public class SearchContactAdapter extends AbstractAdapter<SearchContact> {
 
             ((SearchContactViewHolder) holder).nickNameAddAccount.setText(singleSearchContact.getNickName());
             ((SearchContactViewHolder) holder).searchContact = singleSearchContact;
+
             if(singleSearchContact.isFriend()) {
                 ((SearchContactViewHolder) holder).btnFlowAccount.setImageResource(R.drawable.icon_account_check);
                 ((SearchContactViewHolder) holder).btnFlowAccount.setClickable(true);

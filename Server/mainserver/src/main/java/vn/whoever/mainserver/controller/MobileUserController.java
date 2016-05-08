@@ -211,10 +211,9 @@ public class MobileUserController {
 	}
 
 	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
-	public @ResponseBody String logoutWhoever(HttpSession session, 
+	public @ResponseBody void logoutWhoever(HttpSession session, 
 			@RequestParam(value = "ssoId", required = true) String ssoId) {
 		session.invalidate();
-		return "Sucessful";
 	}
 
 	private String getPrincipal() {

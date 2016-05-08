@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
-        System.gc();
-        super.onPause();
+    public void onResume() {
+        (new InfoTransaction(this)).getReConnect();
+        super.onResume();
     }
 
     @Override

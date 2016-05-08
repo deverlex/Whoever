@@ -38,10 +38,10 @@ public class ReturnComment implements Serializable {
 	@XmlElement(name = "timePost", required = true)
 	private String timePost;
 	
-	@XmlElement(name = "totalLike", defaultValue = "0")
+	@XmlElement(name = "totalLike")
 	private Integer totalLike;
 	
-	@XmlElement(name = "totalDislike", defaultValue = "0")
+	@XmlElement(name = "totalDislike")
 	private Integer totalDislike;
 	
 	@XmlElement(name = "interact", defaultValue = "normal")

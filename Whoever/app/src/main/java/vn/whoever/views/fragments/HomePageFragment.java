@@ -41,6 +41,7 @@ public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     private LinearLayoutManager linearLayoutManager;
     private StatusTransaction statusTransaction;
+    private boolean onCreate = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,11 +72,7 @@ public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLa
 
         recyclerViewHome.setAdapter(statusAdapter);
 
-        if(statusList.isEmpty()) {
-            recyclerViewHome.setVisibility(View.GONE);
-        } else {
-            recyclerViewHome.setVisibility(View.VISIBLE);
-        }
+        onCreate = true;
     }
 
     @Override
@@ -202,6 +199,17 @@ public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLa
         }
         cursor.close();
         //db.close();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if(onCreate) {
+                fetchStatus();
+            }
+        }
+        else {}
     }
 
     @Override

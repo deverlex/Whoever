@@ -26,12 +26,14 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import vn.whoever.R;
+import vn.whoever.TransConnection.InfoTransaction;
 import vn.whoever.adapters.ListOnlineAdapter;
 import vn.whoever.utils.CloseSliding;
 import vn.whoever.utils.Initgc;
 import vn.whoever.utils.TranslateToLeft;
 import vn.whoever.utils.TranslateToRight;
 import vn.whoever.views.activities.MainActivity;
+import vn.whoever.views.dialogs.DialogViewNews;
 
 /**
  * Created by spider man on 4/9/2016.
@@ -330,9 +332,11 @@ public class MainFragment extends Fragment implements Initgc {
                     public void onClick(DialogInterface arg0, int arg1) {
                         SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
                         editor.putBoolean("isLogged", false);
+                        editor.putString("viewNews", "nearby");
                         editor.commit();
                         MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                         MainActivity.frgTrans.replace(R.id.mainFrame, new SignInFragment()).commit();
+                        (new InfoTransaction(getActivity())).logout();
                     }
                 });
 

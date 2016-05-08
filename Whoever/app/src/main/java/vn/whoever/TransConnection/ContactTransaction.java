@@ -109,6 +109,7 @@ public class ContactTransaction extends  AbstractTransaction{
                         e.printStackTrace();
                     }
                 }
+                httpStatusCode = HttpStatus.SC_CREATED;
             }
         }, new Response.ErrorListener() {
             @Override

@@ -61,7 +61,8 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     private StatusTransaction statusTransaction;
     private boolean onCreate = false;
-
+    private DialogViewNews dialogViewNews;
+    private String order = "nearby";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     @Override
     public void init(View view) {
+        dialogViewNews = new DialogViewNews(getThis());
         btnFilter = (FloatingActionButton) view.findViewById(R.id.btnSettingFilterNewsFeed);
         toolbar = (LinearLayout) view.findViewById(R.id.layoutToolBarWriteNewsFeed);
         recyclerViewStatus = (RecyclerView) view.findViewById(R.id.listViewNewsFeed);
@@ -189,7 +191,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogViewNews dialogViewNews = new DialogViewNews();
                 dialogViewNews.show(getActivity().getFragmentManager(), "Choice View News");
             }
         });
@@ -202,14 +203,19 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
         });
     }
 
+    public NewsFeedFragment getThis() {
+        return this;
+    }
+
     int loop = 0;
 
-    private void fetchStatus() {
+    public void fetchStatus() {
         loop = 0;
+        order = dialogViewNews.getSetView();
         newsRefreshLayout.setRefreshing(true);
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         db.execSQL("delete from Status");
-        statusTransaction.getNewsFeed("nearby", 0);
+        statusTransaction.getNewsFeed(order, 0);
         (new Thread(new Runnable() {
             @Override
             public void run() {
@@ -242,8 +248,8 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     public void loadMoreStatus() {
         loop = 0;
-        statusTransaction.getNewsFeed("nearby", statusAdapter.getItemCount() - 1);
-
+        order = dialogViewNews.getSetView();
+        statusTransaction.getNewsFeed(order, statusAdapter.getItemCount() - 1);
         (new Thread(new Runnable() {
             @Override
             public void run() {
@@ -255,7 +261,6 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                             if(httpCode != null && httpCode == HttpStatus.SC_CREATED) {
                                 loadData();
                                 if(statusList.size() > 0) {
-                                    Log.d("sizeList", "status list: " + statusList.size());
                                     statusAdapter.removeItem(statusAdapter.getItemCount() - 1);
                                     statusAdapter.setLoaded();
                                     statusAdapter.swapData(statusList);
@@ -291,9 +296,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 
     private void loadData() {
         statusList = new ArrayList<Status>();

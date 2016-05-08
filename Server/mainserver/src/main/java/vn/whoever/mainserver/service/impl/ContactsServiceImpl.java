@@ -57,6 +57,9 @@ public class ContactsServiceImpl implements ContactsService {
 	public void addFriend(String idUser, String ssoIdFriend) {
 		String idFriend = usersDao.findIdUser(ssoIdFriend);
 		String idContact = contactsDao.getIdContact(idUser);
+		System.out.println(idContact);
+		System.out.println(idFriend);
+		
 		contactUserDao.addContactUser(new ContactUsers(idContact, idFriend, true));
 	}
 

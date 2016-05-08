@@ -235,19 +235,18 @@ public class InfoTransaction extends AbstractTransaction {
 
     public void logout() {
         String url_anonymous = "http://192.168.1.112:8080/mainserver/mobile/users/logout";
-
         StringRequest logoutRequest = new StringRequest(Request.Method.GET, url_anonymous, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-
-            }
+            public void onResponse(String response) {}
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
+            public void onErrorResponse(VolleyError error) {}
         }){
-
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return onCreateHeaders(super.getHeaders());
+            }
         };
+        TransactionQueue.getsInstance(activity).addToRequestQueue(logoutRequest, "logout");
     }
 }

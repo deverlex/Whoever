@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="@color/colorWhite">
+
+    <View
+        android:id="@+id/spaceTopProfile"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorMain"/>
+
+    <TextView
+        android:id="@+id/textViewNoteLangProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Language"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/spaceTopProfile"
+        android:textSize="16sp"/>
+
+    <Space
+        android:id="@+id/centerDialogProfile"
+        android:layout_below="@+id/spaceTopProfile"
+        android:layout_toRightOf="@+id/textViewNoteLangProfile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textViewLanguageProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="English"
+        android:layout_toRightOf="@+id/centerDialogProfile"
+        android:textSize="16sp"
+        android:layout_below="@+id/spaceTopProfile"
+        android:layout_margin="10dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textViewLanguageProfile"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/textViewGenderProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:layout_toRightOf="@+id/centerDialogProfile"
+        android:textSize="16sp"
+        android:layout_below="@+id/textViewLanguageProfile"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Birthday"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textViewGenderProfile"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/textViewBirthDayProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10/03/1994"
+        android:layout_toRightOf="@+id/centerDialogProfile"
+        android:textSize="16sp"
+        android:layout_below="@+id/textViewGenderProfile"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mobile"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textViewBirthDayProfile"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/textViewPhoneProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01684222680"
+        android:layout_toRightOf="@+id/centerDialogProfile"
+        android:textSize="16sp"
+        android:layout_below="@+id/textViewBirthDayProfile"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textViewPhoneProfile"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/textViewEmailProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nguyendo94vn@gmail.com"
+        android:layout_toRightOf="@+id/centerDialogProfile"
+        android:textSize="16sp"
+        android:layout_below="@+id/textViewPhoneProfile"
+        android:layout_margin="10dp"/>
+
+    <View
+        android:id="@+id/spaceBottonProfile"
+        android:layout_below="@+id/textViewEmailProfile"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorMain"/>
+
+    <RelativeLayout
+        android:layout_below="@+id/spaceBottonProfile"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+        <Button
+            android:id="@+id/btnAcceptCloseProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:textColor="@color/colorButtonMain"
+            android:background="@drawable/custom_button_accept"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
