@@ -26,6 +26,7 @@ public abstract class AbstractTransaction {
 
     protected Activity activity;
     protected Integer httpStatusCode = null;
+    protected String address = "http://192.168.206.1:8080/mainserver/mobile";
 
     public AbstractTransaction(Activity activity) {
         this.activity = activity;

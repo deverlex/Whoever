@@ -43,7 +43,7 @@ public class ContactTransaction extends  AbstractTransaction{
 
     public void queryContact(String query) {
         searchContactList = new ArrayList<SearchContact>();
-        String url_query = "http://192.168.1.112:8080/mainserver/mobile/friends/search";
+        String url_query = address + "/friends/search";
         UrlQuery urlQuery = new UrlQuery(url_query);
         urlQuery.putPathVariable(query);
 
@@ -90,7 +90,7 @@ public class ContactTransaction extends  AbstractTransaction{
     }
 
     public void getListFriends() {
-        String url_getFriends = "http://192.168.1.112:8080/mainserver/mobile/friends/";
+        String url_getFriends = address + "/friends/";
 
         JsonArrayRequest requestGetFriends = new JsonArrayRequest(Request.Method.GET, url_getFriends,
                 new Response.Listener<JSONArray>() {
@@ -133,7 +133,7 @@ public class ContactTransaction extends  AbstractTransaction{
     }
 
     public void followContact(String ssoId) {
-        String url_follow = "http://192.168.1.112:8080/mainserver/mobile/friends";
+        String url_follow = address + "/friends";
         UrlQuery urlQuery = new UrlQuery(url_follow);
         urlQuery.putPathVariable(ssoId);
 

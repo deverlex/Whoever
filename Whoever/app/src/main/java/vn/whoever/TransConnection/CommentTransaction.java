@@ -50,7 +50,7 @@ public class CommentTransaction extends AbstractTransaction {
 
     public void getCommentOfStatus(final String idStatus) {
         commentList.clear();
-        String url_get_comment = "http://192.168.1.112:8080/mainserver/mobile/status";
+        String url_get_comment = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_get_comment);
         urlQuery.putPathVariable(idStatus);
         urlQuery.putPathVariable("comments");
@@ -105,7 +105,7 @@ public class CommentTransaction extends AbstractTransaction {
     }
 
     public void postCommentForStatus(String idStatus, String content, Boolean isUseAccount) {
-        String url_post_cmt = "http://192.168.1.112:8080/mainserver/mobile/status";
+        String url_post_cmt = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_post_cmt);
         urlQuery.putPathVariable(idStatus);
         urlQuery.putPathVariable("comments");
@@ -137,7 +137,7 @@ public class CommentTransaction extends AbstractTransaction {
     }
 
     public void interactComment(String type, String idStatus, String idComment) {
-        String url_interact = "http://192.168.1.112:8080/mainserver/mobile/status";
+        String url_interact = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_interact);
         urlQuery.putPathVariable(idStatus);
         urlQuery.putPathVariable("comments/" + idComment);

@@ -148,12 +148,12 @@ public class AddContactFragment extends Fragment implements Initgc {
                             if(contactTransaction.getSearchContactList().size() > 0) {
                                 progressDialogQuery.dismiss();
                                 searchContactList = contactTransaction.getSearchContactList();
-                                searchContactAdapter.swapData(searchContactList);
+                                searchContactAdapter.refreshData(searchContactList);
                                 loop = 10;
                             }
                             if(loop == 9) {
                                 searchContactList.clear();
-                                searchContactAdapter.swapData(searchContactList);
+                                searchContactAdapter.refreshData(searchContactList);
                                 progressDialogQuery.dismiss();
                             }
                         }

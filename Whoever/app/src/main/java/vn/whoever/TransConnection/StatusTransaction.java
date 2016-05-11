@@ -35,7 +35,7 @@ public class StatusTransaction extends AbstractTransaction {
     }
 
     public void postStatus(String contentText, String contentImage, String privacy, String isUseAccount) {
-        String url_post_status = "http://192.168.1.112:8080/mainserver/mobile/status";
+        String url_post_status = address + "/status";
         Map<String, String> parameter = new LinkedHashMap<>();
         parameter.put("contentText", contentText);
         parameter.put("contentImage", contentImage);
@@ -69,7 +69,7 @@ public class StatusTransaction extends AbstractTransaction {
     }
 
     public void getNewsFeed(String order, final int offset) {
-        String url_news = "http://192.168.1.112:8080/mainserver/mobile/news";
+        String url_news = address + "/news";
         Map<String, Object> mapGetStatus = new LinkedHashMap<>();
         mapGetStatus.put("order", order);
         mapGetStatus.put("offset", offset);
@@ -130,7 +130,7 @@ public class StatusTransaction extends AbstractTransaction {
     }
 
     public void interactStatus(String interact, String idStatus) {
-        String url_interact = "http://192.168.1.112:8080/mainserver/mobile/status";
+        String url_interact = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_interact);
         urlQuery.putPathVariable(idStatus);
 

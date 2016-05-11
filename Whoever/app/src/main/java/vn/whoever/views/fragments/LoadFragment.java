@@ -133,7 +133,7 @@ public class LoadFragment extends Fragment implements Initgc {
                                 MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
                                 Toast.makeText(getActivity(), "No connection to service", Toast.LENGTH_SHORT).show();
-                                cLoop = 5;
+                                loop = 5;
                             }
                         }
                     });
@@ -216,7 +216,7 @@ public class LoadFragment extends Fragment implements Initgc {
 
     private boolean checkInternetAvaiable() {
         try{
-            URL myUrl = new URL("http://192.168.1.112:8080/mainserver/");
+            URL myUrl = new URL("http://192.168.206.1:8080/mainserver");
             URLConnection connection = myUrl.openConnection();
             connection.setConnectTimeout(1500);
             connection.connect();

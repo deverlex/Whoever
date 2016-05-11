@@ -51,7 +51,7 @@
             android:id="@+id/nickNameOnPreviewInbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thuy Ngan"
+            android:text="Hồng Anh"
             android:textSize="18sp"
             android:textColor="@color/colorBlack"
             android:layout_marginTop="10dp"
@@ -66,7 +66,7 @@
             android:textSize="14sp"
             android:textColor="@color/colorSilver"
             android:layout_below="@+id/nickNameOnPreviewInbox"
-            android:text="I miss you"/>
+            android:text="Trời nóng quá"/>
 
     </RelativeLayout>
 

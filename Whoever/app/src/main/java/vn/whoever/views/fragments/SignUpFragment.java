@@ -47,6 +47,8 @@ public class SignUpFragment extends Fragment implements Initgc {
     private String querySsoId;
     private boolean isHasCreate = true;
 
+    private ContactQuery contactQuery;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_up_layout, null);
@@ -79,6 +81,8 @@ public class SignUpFragment extends Fragment implements Initgc {
         textLogoApp = (TextView) view.findViewById(R.id.logoTextStartSignUp);
         Typeface bauhau93_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bauhau93.ttf");
         textLogoApp.setTypeface(bauhau93_font);
+
+        contactQuery = new ContactQuery(getActivity());
 
         if(ssoId.length() > 7) {
             checkSuggestSsoId();
@@ -216,7 +220,7 @@ public class SignUpFragment extends Fragment implements Initgc {
     }
 
     private void checkSuggestSsoId() {
-        querySsoId = ContactQuery.getTransaction(getActivity()).findSsoIdAvaiable(ssoId);
+        querySsoId = contactQuery.findSsoIdAvaiable(ssoId);
         timeout = 5;
         new Thread(new Runnable() {
             @Override
@@ -226,7 +230,7 @@ public class SignUpFragment extends Fragment implements Initgc {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            querySsoId = ContactQuery.getTransaction(getActivity()).getQuerySsoId();
+                            querySsoId = contactQuery.getQuerySsoId();
                             if(querySsoId != null) {
                                 timeout = 0;
                                 if(querySsoId.equals("avaiable")) {

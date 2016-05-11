@@ -19,7 +19,7 @@ public class ArrayInbox {
 
         inbox.setUserSend(user);
         inbox.setIsRead(true);
-        inbox.setLastMessage("Em yeu anh :)))) hihihi");
+        inbox.setLastMessage("Trời nóng quá :3");
 
         inbox.setLastTimeChat(new Date());
 
