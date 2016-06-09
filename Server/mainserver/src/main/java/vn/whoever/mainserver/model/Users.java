@@ -12,10 +12,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -25,8 +22,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import vn.whoever.support.model.utils.States;
 
 @Entity
-@Table(name = "Users", uniqueConstraints = 
-	{@UniqueConstraint(columnNames = {"ssoId"})})
+@Table(name = "Users", uniqueConstraints = { @UniqueConstraint(columnNames = { "ssoId" }) })
 @DynamicUpdate(value = true)
 @DynamicInsert(value = true)
 public class Users implements Serializable {
@@ -36,42 +32,38 @@ public class Users implements Serializable {
 	@Id
 	@Column(name = "idUser", nullable = false, length = 16)
 	private String idUser;
-	
+
 	@Column(name = "ssoId", length = 32, nullable = false)
 	private String ssoId;
-	
+
 	@Column(name = "password", length = 32)
 	private String password;
-	
+
 	@Column(name = "state", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private States state = States.inactive;
-	
+
 	@Column(name = "xLoc", nullable = true)
 	private Double xLoc;
-	
+
 	@Column(name = "yLoc", nullable = true)
 	private Double yLoc;
-	
+
 	@Column(name = "isAnonymous", nullable = false)
 	private Boolean isAnonymous;
-	
+
 	@Column(name = "isOnline", nullable = false)
 	private Boolean isOnline;
-	
+
 	@Column(name = "timeUp")
 	private Date timeUp;
 
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "idLanguage")
-//	private Languages language;
-	
 	@Column(name = "idLanguage", nullable = false, length = 4)
 	private Integer idLanguage;
-	
-	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<SetRoles> roles = new HashSet<SetRoles>();
-	
+
 	public Users() {
 		super();
 	}
@@ -102,8 +94,8 @@ public class Users implements Serializable {
 		this.idLanguage = idLanguage;
 	}
 
-	public Users(String idUser, String ssoId, String password, States state, 
-				Double xLoc, Double yLoc, Integer idLanguage, Set<SetRoles> roles) {
+	public Users(String idUser, String ssoId, String password, States state, Double xLoc, Double yLoc,
+			Integer idLanguage, Set<SetRoles> roles) {
 		super();
 		this.idUser = idUser;
 		this.ssoId = ssoId;
@@ -178,7 +170,7 @@ public class Users implements Serializable {
 	public void setyLoc(Double yLoc) {
 		this.yLoc = yLoc;
 	}
-	
+
 	public Boolean getIsAnonymous() {
 		return isAnonymous;
 	}
@@ -202,7 +194,7 @@ public class Users implements Serializable {
 	public void setTimeUp(Date timeUp) {
 		this.timeUp = timeUp;
 	}
-	
+
 	public Integer getIdLanguage() {
 		return idLanguage;
 	}
@@ -218,7 +210,7 @@ public class Users implements Serializable {
 	public void setRoles(Set<SetRoles> roles) {
 		this.roles = roles;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -237,12 +229,4 @@ public class Users implements Serializable {
 			return false;
 		return true;
 	}
-
-//	@Override
-//	public String toString() {
-//		return "User [id=" + idUser + ", ssoId=" + ssoId + ", password=" + password
-//				+ ", state=" + state.getState() + ", xLoc=" + xLoc + ", yLoc=" + yLoc
-//				+ ", token=" + token + ", exp_token=" + exp_token
-//				+ ", language=" + language + ", roles=[" + roles + "]" + "]";
-//	}
 }

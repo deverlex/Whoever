@@ -10,13 +10,14 @@ import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.SetRolesDao;
 import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.support.model.utils.Roles;
-
+/**
+ * @author Nguyen Van Do
+ *	
+ *	This class provide accessing to database that concern about roles of user.
+ */
 @Repository("roleDao")
 public class SetRolesDaoImpl extends AbstractDao<String, SetRoles> implements SetRolesDao, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -14356542223L;
 
 	public void addRole(Set<SetRoles> roles) {
@@ -24,19 +25,17 @@ public class SetRolesDaoImpl extends AbstractDao<String, SetRoles> implements Se
 			persist(role);
 		}
 	}
-
-	public void deleteRole(long idUser) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
+	// This method isn't completed.
+	public void deleteRole(long idUser) {}
+	
+	// This method isn't completed.
 	public long getIdRole(long idUser, String role) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	// This method isn't completed.
 	public List<Roles> getListRole(long idUser) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

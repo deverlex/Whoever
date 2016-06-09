@@ -9,15 +9,12 @@ import javax.xml.bind.annotation.XmlType;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 @XmlRootElement(name = "addContact")
-@XmlType(propOrder = {"ssoIdFriend"})
-@JsonPropertyOrder(value = {"ssoIdFriend"})
+@XmlType(propOrder = { "ssoIdFriend" })
+@JsonPropertyOrder(value = { "ssoIdFriend" })
 public class AddContact implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8962553222971L;
 	
+	private static final long serialVersionUID = -8962553222971L;
+
 	@XmlElement(name = "ssoIdFriend", required = true)
 	private String ssoIdFriend;
 
@@ -37,5 +34,4 @@ public class AddContact implements Serializable {
 	public void setSsoIdFriend(String ssoIdFriend) {
 		this.ssoIdFriend = ssoIdFriend;
 	}
-
 }

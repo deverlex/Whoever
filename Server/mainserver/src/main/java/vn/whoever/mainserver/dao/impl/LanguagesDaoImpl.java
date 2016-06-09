@@ -10,13 +10,14 @@ import org.springframework.stereotype.Repository;
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.LanguagesDao;
 import vn.whoever.mainserver.model.Languages;
-
+/**
+ * @author Nguyen Van Do
+ *	
+ *	This class provide accessing to database that concern about languages supporting by system.
+ */
 @Repository("langDao")
 public class LanguagesDaoImpl extends AbstractDao<Integer, Languages> implements LanguagesDao, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -434665463351L;
 
 	public Languages findByCode(String langCode) {
@@ -42,5 +43,4 @@ public class LanguagesDaoImpl extends AbstractDao<Integer, Languages> implements
 		Query query = getSession().createQuery(sql);
 		return (String) query.uniqueResult();
 	}
-
 }

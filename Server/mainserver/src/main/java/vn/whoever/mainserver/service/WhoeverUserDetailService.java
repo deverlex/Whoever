@@ -15,18 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.mainserver.model.Users;
-
+/**
+ * @author Nguyen Van Do
+ * This class provide accessing to system for user when user login.
+ */
 @Service("whoeverUserDetailsService")
 public class WhoeverUserDetailService implements UserDetailsService {
 
 	@Autowired
 	private UsersService usersService;
 
+	/**
+	 * This method provide info of user having ssoId.
+	 * After this, web service is comparing data info of user send to server with data stored on server
+	 */
 	@SuppressWarnings("unused")
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
+		// Get user info stored on Database
 		Users user = usersService.findBySsoId(ssoId);
-		System.out.println("author:" + user.getSsoId() + ", " + user.getPassword());
 		if (user == null) {
 			throw new UsernameNotFoundException("Username not found");
 		}
@@ -34,6 +41,7 @@ public class WhoeverUserDetailService implements UserDetailsService {
 				true, getGrantedAuthorities(user));
 	}
 
+	// Get granted of role user having
 	private List<GrantedAuthority> getGrantedAuthorities(Users user) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		for (SetRoles role : user.getRoles()) {
@@ -41,6 +49,5 @@ public class WhoeverUserDetailService implements UserDetailsService {
 		}
 		return authorities;
 	}
-
 }
 

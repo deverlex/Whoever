@@ -17,16 +17,17 @@ import org.springframework.web.servlet.view.JstlView;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Nguyen Van Do
+ * This file config resource for web and web service.
+ */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "vn.whoever.mainserver")
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
-	
-	/**
-	 * Config upload file Image in here
-	 * 
-	 */
-	
+
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -36,26 +37,32 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
-	/*
-     * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
-     *
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    	registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/");
+	/**
+	 * Configure ResourceHandlers to serve static resources like CSS/ Javascript
+	 * etc...
+	 *
+	 */
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/");
 		registry.addResourceHandler("/sources/**").addResourceLocations("/WEB-INF/sources/");
 		registry.addResourceHandler("/bootstrap/**").addResourceLocations("/bootstrap/");
-    }
-    
-    @Override
+	}
+
+	/**
+	 * Configuration for convert JSON string to Java Object When client send
+	 * information to server
+	 */
+
+	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(mappingJackson2HttpMessageConverter());
 	}
-	
+
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setObjectMapper(new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false));
+		converter.setObjectMapper(
+				new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false));
 		return converter;
 	}
-	
 }

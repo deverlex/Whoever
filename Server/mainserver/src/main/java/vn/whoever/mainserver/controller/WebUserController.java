@@ -12,61 +12,60 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * @author Nguyen Van Do
+ *	This class provide a some function for web mode of whoever system
+ *
+ */
 @Controller
 public class WebUserController {
 
-	@RequestMapping(value = { "/", "/home", "/login"})
+	@RequestMapping(value = { "/", "/home", "/login" })
 	public String beginPage(ModelMap model) {
-		// TODO: model set somethings argument
 		return "beginPage";
 	}
-	
-	@RequestMapping(value = {"/anonymous"})
+
+	@RequestMapping(value = { "/anonymous" })
 	public String loginWithAnonymous() {
-		
 		return "homePage";
 	}
-	
-	@RequestMapping(value = {"start"})
+
+	@RequestMapping(value = { "start" })
 	public String startStatistic() {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
 		return "adminPage";
 	}
-	
-	@RequestMapping(value = {"stop"})
+
+	@RequestMapping(value = { "stop" })
 	public String stopStatistic() {
-		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbb");
 		return "adminPage";
 	}
-	
-	
+
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDeniedPage(ModelMap model) {
 		model.addAttribute("user", getPrincipal());
 		return "accessDenied";
 	}
-	
+
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminPage() {
-		
 		return "adminPage";
 	}
 
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null){    
+		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 		return "redirect:/login?logout";
 	}
-	
-	private String getPrincipal(){
+
+	private String getPrincipal() {
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
-			userName = ((UserDetails)principal).getUsername();
+			userName = ((UserDetails) principal).getUsername();
 		} else {
 			userName = principal.toString();
 		}

@@ -3,20 +3,15 @@ package vn.whoever.mainserver.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Contacts")
 public class Contacts implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -15454289078L;
-	
+
 	@Id
 	@Column(name = "idContact", length = 16, nullable = false, unique = true)
 	private String idContact;

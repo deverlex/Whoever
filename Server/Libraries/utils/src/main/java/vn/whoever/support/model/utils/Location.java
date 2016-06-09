@@ -7,18 +7,19 @@ import javax.xml.bind.annotation.XmlType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @XmlRootElement(name = "location")
-@XmlType(propOrder = {"xLoc", "yLoc"})
-@JsonPropertyOrder(value = {"xLoc", "yLoc"})
+@XmlType(propOrder = { "xLoc", "yLoc" })
+@JsonPropertyOrder(value = { "xLoc", "yLoc" })
 public class Location {
-	
+
 	@XmlElement(name = "xLoc", required = true)
 	private Double xLoc;
-	
+
 	@XmlElement(name = "yLoc", required = true)
 	private Double yLoc;
-	
-	public Location() {}
-	
+
+	public Location() {
+	}
+
 	public Location(Double xLoc, Double yLoc) {
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
@@ -39,5 +40,4 @@ public class Location {
 	public void setyLoc(Double yLoc) {
 		this.yLoc = yLoc;
 	}
-	
 }

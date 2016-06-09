@@ -18,13 +18,13 @@ public class Languages implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idLanguage;
-	
+
 	@Column(name = "langCode", length = 8, unique = true)
 	private String langCode;
-	
+
 	@Column(name = "standardName", length = 32, nullable = false)
 	private String standardName;
-	
+
 	@Column(name = "nativeName", length = 64)
 	private String nativeName;
 

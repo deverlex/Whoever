@@ -13,14 +13,14 @@ import org.springframework.stereotype.Repository;
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.CommentsDao;
 import vn.whoever.mainserver.model.Comments;
-
+/**
+ * @author Nguyen Van Do
+ *	
+ *	This class provide accessing to database that concern about status's comments.
+ */
 @Repository
 public class CommentsDaoImpl extends AbstractDao<String, Comments> implements CommentsDao, Serializable {
 
-	/**
-	 * 
-	 * 
-	 */
 	private static final long serialVersionUID = 185849493749L;
 
 	public void createComment(Comments comment) {

@@ -1,4 +1,4 @@
-package v.whoever.service.impl;
+package vn.whoever.service.impl;
 
 import java.util.Date;
 import java.util.Properties;
@@ -7,27 +7,34 @@ import java.util.Random;
 import vn.whoever.service.IdConfig;
 import vn.whoever.service.KeyCode;
 import vn.whoever.service.GenerateId;
-
+/**
+ * @author Nguyen Van Do
+ *
+ *	Make Id login with anonymous mode or create new account user
+ *	Generation using 62 characters to random -> 16 character for Id
+ */
 public class GenerateIdImpl implements GenerateId {
 
 	/**
 	 * Header: XX-XX-ABCD.EFGH.IKMN
 	 */
-	
+
 	Random random = new Random();
 	Properties properties = IdConfig.getInstance().getProperties();
-	
+
 	private static GenerateId genToken = new GenerateIdImpl();
-	private GenerateIdImpl() {}
-	
+
+	private GenerateIdImpl() {
+	}
+
 	public static void main(String[] args) {
 		System.out.println(GenerateIdImpl.generateId().getId());
 	}
-	
+
 	public static GenerateId generateId() {
 		return genToken;
 	}
-	
+
 	public synchronized String getId() {
 		String id = properties.getProperty("id.Header");
 		String strTime = String.valueOf((new Date()).getTime());
@@ -46,12 +53,12 @@ public class GenerateIdImpl implements GenerateId {
 			} else
 				id += KeyCode.numberCode[rdom];
 		}
-		rdom = random.nextInt(7) + Integer.valueOf(strNumber[length - 1]) 
-									+ Integer.valueOf(strNumber[length - 2]);
+		rdom = random.nextInt(7) + Integer.valueOf(strNumber[length - 1]) + Integer.valueOf(strNumber[length - 2]);
 		choiceArr = random.nextInt(2);
 		if (choiceArr < 1) {
 			id += KeyCode.capitalCode[rdom];
-		} else id += KeyCode.normalCode[rdom];
+		} else
+			id += KeyCode.normalCode[rdom];
 		return id;
 	}
 }

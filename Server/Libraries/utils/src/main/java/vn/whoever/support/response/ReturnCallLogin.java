@@ -1,6 +1,6 @@
 package vn.whoever.support.response;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,48 +12,50 @@ import vn.whoever.support.model.utils.Genders;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "returnCallLogin")
-@XmlType(propOrder = {"avatarPhoto", "coverPhoto", "nickName", "langName", "birthday", "gender",
-		"mobile", "email", "isOnline", "privacy"})
-@JsonPropertyOrder(value = {"avatarPhoto", "coverPhoto", "nickName", "langName", "birthday",
-		"gender", "mobile", "email", "isOnline", "privacy"})
-public class ReturnCallLogin {
+@XmlType(propOrder = { "avatarPhoto", "coverPhoto", "nickName", "langName", 
+		"birthday", "gender", "mobile", "email", "isOnline", "privacy" })
+@JsonPropertyOrder(value = { "avatarPhoto", "coverPhoto", "nickName", "langName", 
+		"birthday", "gender", "mobile", "email", "isOnline", "privacy" })
+public class ReturnCallLogin implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@XmlElement(name = "avatarPhoto")
 	private String avatarPhoto;
-	
+
 	@XmlElement(name = "coverPhoto")
 	private String coverPhoto;
-	
+
 	@XmlElement(name = "nickName")
 	private String nickName;
-	
+
 	@XmlElement(name = "langName")
-	private String langName; // native name or standard name
-	
+	private String langName;
+
 	@XmlElement(name = "birthday")
 	private String birthday;
-	
+
 	@XmlElement(name = "gender")
 	private Genders gender = Genders.unknown;
-	
+
 	@XmlElement(name = "mobile")
 	private String mobile;
-	
+
 	@XmlElement(name = "email")
 	private String email;
-	
+
 	@XmlElement(name = "isOnline")
-	private Boolean isOnline; // bat tat online
-	
+	private Boolean isOnline;
+
 	@XmlElement(name = "privacy")
-	private Privacies privacy = Privacies.normal; // che do an thong tin
-	
+	private Privacies privacy = Privacies.normal;
+
 	public ReturnCallLogin() {
 		super();
 	}
-	
-	public ReturnCallLogin(String langName, String nickName, String birthday, Genders gender, String mobile, String email,
-			Boolean isOnline, Privacies privacy, String avatarPhoto, String coverPhoto) {
+
+	public ReturnCallLogin(String langName, String nickName, String birthday, Genders gender, String mobile,
+			String email, Boolean isOnline, Privacies privacy, String avatarPhoto, String coverPhoto) {
 		super();
 		this.langName = langName;
 		this.nickName = nickName;
@@ -86,43 +88,43 @@ public class ReturnCallLogin {
 	public String getNickName() {
 		return nickName;
 	}
-	
+
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	
+
 	public String getBirthday() {
 		return birthday;
 	}
-	
+
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
-	
+
 	public Genders getGender() {
 		return gender;
 	}
-	
+
 	public void setGender(Genders gender) {
 		this.gender = gender;
 	}
-	
+
 	public String getMobile() {
 		return mobile;
 	}
-	
+
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getLangName() {
 		return langName;
 	}
@@ -142,7 +144,7 @@ public class ReturnCallLogin {
 	public Privacies getPrivacy() {
 		return privacy;
 	}
-	
+
 	public void setPrivacy(Privacies privacy) {
 		this.privacy = privacy;
 	}

@@ -9,13 +9,14 @@ import org.springframework.stereotype.Repository;
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.TokensDao;
 import vn.whoever.mainserver.model.Tokens;
-
+/**
+ * @author Nguyen Van Do
+ *	
+ *	This class provide accessing to database that concern about token of user.
+ */
 @Repository("tokenDao")
 public class TokensDaoImpl extends AbstractDao<String, Tokens> implements TokensDao, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1488373644738220L;
 
 	public void insertToken(Tokens tokens) {

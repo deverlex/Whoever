@@ -11,47 +11,44 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Interacts;
 
 @XmlRootElement(name = "returnGetStatus")
-@XmlType(propOrder = {"idStatus", "ssoIdPoster", "namePoster", "timePost", "contentText", "contentImage", 
-					"totalLike", "totalDislike", "totalComment"})
-@JsonPropertyOrder(value = {"idStatus", "ssoIdPoster", "namePoster", "timePost", "contentText", "contentImage", 
-					"totalLike", "totalDislike", "totalComment"})
+@XmlType(propOrder = { "idStatus", "ssoIdPoster", "namePoster", "timePost", "contentText", 
+		"contentImage", "totalLike", "totalDislike", "totalComment" })
+@JsonPropertyOrder(value = { "idStatus", "ssoIdPoster", "namePoster", "timePost", 
+		"contentText", "contentImage", "totalLike", "totalDislike", "totalComment" })
 public class ReturnStatus implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1993263526373823L;
 
 	@XmlElement(name = "idStatus", required = true)
 	private String idStatus;
-	
+
 	@XmlElement(name = "ssoIdPoster")
 	private String ssoIdPoster;
-	
+
 	@XmlElement(name = "avatarPoster")
 	private String avatarPoster;
-	
+
 	@XmlElement(name = "namePoster")
 	private String namePoster;
-	
+
 	@XmlElement(name = "timePost", required = true)
 	private String timePost;
-	
+
 	@XmlElement(name = "contentText")
 	private String contentText;
-	
+
 	@XmlElement(name = "contentImage")
 	private String contentImage;
-	
+
 	@XmlElement(name = "totalLike", defaultValue = "0")
 	private int totalLike;
-	
+
 	@XmlElement(name = "totalDislike", defaultValue = "0")
 	private int totalDislike;
-	
+
 	@XmlElement(name = "totalComment", defaultValue = "0")
 	private int totalComment;
-	
+
 	@XmlElement(name = "interact", defaultValue = "normal")
 	private Interacts interact;
 
@@ -163,5 +160,4 @@ public class ReturnStatus implements Serializable {
 	public void setInteract(Interacts interact) {
 		this.interact = interact;
 	}
-	
 }

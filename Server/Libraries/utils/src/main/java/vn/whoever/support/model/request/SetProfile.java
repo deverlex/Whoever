@@ -13,40 +13,35 @@ import vn.whoever.support.model.utils.Genders;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "setProfile")
-@XmlType(propOrder = {"nickName", "birthday", "gender", "mobile", "email", "privacy"})
-@JsonPropertyOrder(value = {"nickName", "birthday", "gender", "mobile", "email", "privacy"})
+@XmlType(propOrder = { "nickName", "birthday", "gender", "mobile", "email", "privacy" })
+@JsonPropertyOrder(value = { "nickName", "birthday", "gender", "mobile", "email", "privacy" })
 public class SetProfile implements Serializable {
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@XmlElement(name = "nickName")
 	private String nickName;
-	
+
 	@XmlElement(name = "birthday")
 	private Date birthday;
-	
+
 	@XmlElement(name = "gender")
 	private Genders gender = Genders.unknown;
-	
+
 	@XmlElement(name = "mobile")
 	private String mobile;
-	
+
 	@XmlElement(name = "email")
 	private String email;
-	
+
 	@XmlElement(name = "privacy")
 	private Privacies privacy = Privacies.normal;
-	
+
 	public SetProfile() {
 		super();
 	}
 
-	public SetProfile(String nickName, Date birthday, Genders gender, 
-			String mobile, String email, Privacies privacy) {
+	public SetProfile(String nickName, Date birthday, Genders gender, String mobile, String email, Privacies privacy) {
 		super();
 		this.nickName = nickName;
 		this.birthday = birthday;

@@ -9,19 +9,16 @@ import javax.xml.bind.annotation.XmlType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @XmlRootElement(name = "callLogin")
-@XmlType(propOrder = {"ssoId", "password"})
-@JsonPropertyOrder(value = {"ssoId", "password"})
+@XmlType(propOrder = { "ssoId", "password" })
+@JsonPropertyOrder(value = { "ssoId", "password" })
 public class CallLogin implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -655678899031L;
 
 	@XmlElement(name = "ssoId", required = true)
 	private String ssoId;
-	
-	@XmlElement(name= "password", required = true)
+
+	@XmlElement(name = "password", required = true)
 	private String password;
 
 	public CallLogin() {

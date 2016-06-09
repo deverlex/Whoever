@@ -1,5 +1,7 @@
 package vn.whoever.support.response;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -7,19 +9,21 @@ import javax.xml.bind.annotation.XmlType;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 @XmlRootElement(name = "returnContact")
-@XmlType(propOrder = {"ssoId", "nickName", "latestOnline"})
-@JsonPropertyOrder(value = {"ssoId", "nickName", "latestOnline"})
-public class ReturnContact {
+@XmlType(propOrder = { "ssoId", "nickName", "latestOnline" })
+@JsonPropertyOrder(value = { "ssoId", "nickName", "latestOnline" })
+public class ReturnContact implements Serializable {
+
+	private static final long serialVersionUID = 154342466L;
 
 	@XmlElement(name = "ssoId")
 	private String ssoId;
-	
+
 	@XmlElement(name = "nickName")
 	private String nickName;
-	
+
 	@XmlElement(name = "latestOnline")
 	private String latestOnline;
-	
+
 	public ReturnContact() {
 		super();
 	}
@@ -34,23 +38,23 @@ public class ReturnContact {
 	public String getSsoId() {
 		return ssoId;
 	}
-	
+
 	public void setSsoId(String ssoId) {
 		this.ssoId = ssoId;
 	}
-	
+
 	public String getNickName() {
 		return nickName;
 	}
-	
+
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	
+
 	public String getLatestOnline() {
 		return latestOnline;
 	}
-	
+
 	public void setLatestOnline(String latestOnline) {
 		this.latestOnline = latestOnline;
 	}

@@ -11,13 +11,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "postStatus")
-@XmlType(propOrder = {"contentText", "contentImage", "privacy", "isUseAccount"})
-@JsonPropertyOrder(value = {"contentText", "contentImage", "privacy", "isUseAccount"})
+@XmlType(propOrder = { "contentText", "contentImage", "privacy", "isUseAccount" })
+@JsonPropertyOrder(value = { "contentText", "contentImage", "privacy", "isUseAccount" })
 public class PostStatus implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 900995382611L;
 
 	@XmlElement(name = "contentText")

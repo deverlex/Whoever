@@ -16,8 +16,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import v.whoever.service.impl.GenerateIdImpl;
-import v.whoever.service.impl.GenerateSsoIdImpl;
 import vn.whoever.mainserver.dao.SetRolesDao;
 import vn.whoever.mainserver.dao.TokensDao;
 import vn.whoever.mainserver.dao.UsersDao;
@@ -25,12 +23,14 @@ import vn.whoever.mainserver.model.SetRoles;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.mainserver.service.ContactsService;
 import vn.whoever.mainserver.service.UsersService;
+import vn.whoever.service.impl.GenerateIdImpl;
+import vn.whoever.service.impl.GenerateSsoIdImpl;
 import vn.whoever.support.model.utils.Roles;
 import vn.whoever.support.model.utils.States;
 
 /**
  * For interact with user, role, token, contact
- * @author spider man
+ * @author Nguyen Van Do
  * @date 3/2016
  */
 
@@ -73,7 +73,11 @@ public class UsersServiceImpl implements UsersService{
 	public Users findByIdUser(String idUser) {
 		return userDao.findByIdUser(idUser);
 	}
-
+	
+	/**
+	 * Method have function register more role for user, but
+	 * in this source code that make one role user
+	 */
 	public void registerUser(Users users) {
 		Set<SetRoles> roles = new HashSet<SetRoles>();
 		roles.add(new SetRoles(users, Roles.USER));
@@ -83,13 +87,9 @@ public class UsersServiceImpl implements UsersService{
 		contactService.createContact(users.getIdUser());
 	}
 
-	public void addRole(Users users, Roles roles) {
-		
-	}
-
-	public void updateState(Users users, States state) {
-		
-	}
+	//This method isn't complete
+	public void addRole(Users users, Roles roles) {}
+	public void updateState(Users users, States state) {}
 
 	public String findIdUser(String ssoId) {
 		return userDao.findIdUser(ssoId);
@@ -106,21 +106,28 @@ public class UsersServiceImpl implements UsersService{
 	public void updateTimeUp(String idUser) {
 		userDao.updateTimeUp(idUser);
 	}
-
+	
+	/**
+	 * This method is authenticated by id and pass when user login fist
+	 */
 	public void authenticalUser(HttpServletRequest request, HttpSession session, String ssoId, String password) {
 		session.invalidate();
+		// Invalid user. If login failed -> throw an exception (catch exception from wrapper class call this method)
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(ssoId, password);
 		request.getSession();
 		authToken.setDetails(new WebAuthenticationDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authToken));
 	}
 
+	/**
+	 * This method is authenticated by token in HTTP header request
+	 */
 	public void authByRequest(HttpServletRequest request) {
 		String token = request.getHeader("Whoever-token");
+		// Get user from token id
 		Users user = userDao.findByIdUser(tokenDao.getTokenByToken(token).getIdUser());
-		System.out.println("idUser: " + user.getSsoId());
-		System.out.println("password: " + user.getPassword());
 		HttpSession session = request.getSession();
+		// Grant access for user
 		authenticalUser(request, session, user.getSsoId(), user.getPassword());
 	}
 }

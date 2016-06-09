@@ -12,30 +12,27 @@ import javax.persistence.Table;
 @Table(name = "Comments")
 public class Comments implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 109849757293L;
 
 	@Id
 	@Column(name = "idComment", nullable = false, length = 16)
 	private String idComment;
-	
+
 	@Column(name = "idUser", nullable = false, length = 16)
 	private String idUser;
-	
+
 	@Column(name = "idStatus", nullable = false, length = 16)
 	private String idStatus;
-	
+
 	@Column(name = "timePost")
 	private Date timePost = new Date();
-	
+
 	@Column(name = "content", nullable = false)
 	private String content;
-	
+
 	@Column(name = "isUseAccount", nullable = false)
 	private Boolean isUseAccount;
-	
+
 	public Comments() {
 		super();
 	}
@@ -63,11 +60,11 @@ public class Comments implements Serializable {
 	public String getIdComment() {
 		return idComment;
 	}
-	
+
 	public void setIdComment(String idComment) {
 		this.idComment = idComment;
 	}
-	
+
 	public String getIdUser() {
 		return idUser;
 	}
@@ -87,11 +84,11 @@ public class Comments implements Serializable {
 	public String getContent() {
 		return content;
 	}
-	
+
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	public Date getTimePost() {
 		return timePost;
 	}
@@ -103,7 +100,7 @@ public class Comments implements Serializable {
 	public Boolean getIsUseAccount() {
 		return isUseAccount;
 	}
-	
+
 	public void setIsUseAccount(Boolean isUseAccount) {
 		this.isUseAccount = isUseAccount;
 	}

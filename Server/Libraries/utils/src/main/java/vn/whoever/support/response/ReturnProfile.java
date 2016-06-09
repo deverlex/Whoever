@@ -13,33 +13,30 @@ import vn.whoever.support.model.utils.Genders;
 import vn.whoever.support.model.utils.Privacies;
 
 @XmlRootElement(name = "returnProfile")
-@XmlType(propOrder = {"nickName", "birthday", "gender", "mobile", "email", "privacy"})
-@JsonPropertyOrder(value = {"nickName", "birthday", "gender", "mobile", "email", "privacy"})
+@XmlType(propOrder = { "nickName", "birthday", "gender", "mobile", "email", "privacy" })
+@JsonPropertyOrder(value = { "nickName", "birthday", "gender", "mobile", "email", "privacy" })
 public class ReturnProfile implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -574323422431L;
 
 	@XmlElement(name = "nickName")
 	private String nickName;
-	
+
 	@XmlElement(name = "birthday")
 	private Date birthday;
-	
+
 	@XmlElement(name = "gender")
 	private Genders gender = Genders.unknown;
-	
+
 	@XmlElement(name = "mobile")
 	private String mobile;
-	
+
 	@XmlElement(name = "email")
 	private String email;
-	
+
 	@XmlElement(name = "privacy")
 	private Privacies privacy = Privacies.normal;
-	
+
 	public ReturnProfile() {
 		super();
 	}

@@ -65,9 +65,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
                 for (int i = 1; i < int_items; ++i) {
                     tabLayout.getTabAt(i).setIcon(icons[i]);
                 }
-
                 tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
                 updateColorTabSelected();
             }
         });
@@ -127,7 +125,6 @@ public class TabHomeFragment extends Fragment implements Initgc {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = null;
             switch (position) {
                 case 0:
                     return homeFragment;

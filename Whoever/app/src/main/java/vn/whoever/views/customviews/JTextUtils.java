@@ -1,8 +1,5 @@
 package vn.whoever.views.customviews;
 
-/**
- * Created by spider man on 1/19/2016.
- */
 import android.graphics.Paint;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -12,6 +9,8 @@ import android.widget.TextView;
  * TextJustifyUtils.java
  * @author Nikhil Lohia
  *
+ * From TextJustify-Android Library v1.0.2
+ * https://github.com/bluejamesbond/TextJustify-Android
  */
 
 public class JTextUtils {

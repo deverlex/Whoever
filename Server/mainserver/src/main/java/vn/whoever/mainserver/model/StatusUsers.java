@@ -15,28 +15,24 @@ import org.hibernate.annotations.DynamicUpdate;
 import vn.whoever.support.model.utils.Interacts;
 
 @Entity
-@Table(name = "status_users", uniqueConstraints = 
-	@UniqueConstraint(columnNames = {"idStatus", "idUser"}))
-@DynamicUpdate(value  = true)
+@Table(name = "status_users", uniqueConstraints = @UniqueConstraint(columnNames = { "idStatus", "idUser" }))
+@DynamicUpdate(value = true)
 public class StatusUsers implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1939789373L;
-	
+
 	@Id
 	@Column(name = "idStatus", nullable = false)
 	private String idStatus;
-	
+
 	@Id
 	@Column(name = "idUser", nullable = false)
 	private String idUser;
-	
+
 	@Column(name = "interact", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Interacts interact;
-	
+
 	public StatusUsers() {
 		super();
 	}

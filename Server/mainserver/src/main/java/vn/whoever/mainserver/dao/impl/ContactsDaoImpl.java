@@ -7,7 +7,11 @@ import org.springframework.stereotype.Repository;
 import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.ContactsDao;
 import vn.whoever.mainserver.model.Contacts;
-
+/**
+ * @author Nguyen Van Do
+ *	
+ *	This class provide accessing to database that concern about contacts.
+ */
 @Repository
 public class ContactsDaoImpl extends AbstractDao<String, Contacts> implements ContactsDao {
 
@@ -20,5 +24,4 @@ public class ContactsDaoImpl extends AbstractDao<String, Contacts> implements Co
 	public void createContact(Contacts contact) {
 		persist(contact);
 	}
-
 }

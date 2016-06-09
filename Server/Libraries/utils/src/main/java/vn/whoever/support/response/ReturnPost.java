@@ -1,5 +1,7 @@
 package vn.whoever.support.response;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -7,9 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 @XmlRootElement(name = "returnPost")
-@XmlType(propOrder = {"result"})
-@JsonPropertyOrder(value = {"result"})
-public class ReturnPost {
+@XmlType(propOrder = { "result" })
+@JsonPropertyOrder(value = { "result" })
+public class ReturnPost implements Serializable {
+
+	private static final long serialVersionUID = 165453L;
 
 	@XmlElement(name = "result")
 	private Integer result;
@@ -30,5 +34,4 @@ public class ReturnPost {
 	public void setResult(Integer result) {
 		this.result = result;
 	}
-
 }

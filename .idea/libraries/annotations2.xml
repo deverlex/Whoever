@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="annotations2">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/annotations.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

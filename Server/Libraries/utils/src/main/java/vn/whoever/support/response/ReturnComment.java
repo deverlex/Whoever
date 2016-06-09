@@ -11,39 +11,38 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import vn.whoever.support.model.utils.Interacts;
 
 @XmlRootElement(name = "returnComment")
-@XmlType(propOrder = {"idComment", "ssoIdPoster", "namePoster", "avatarPoster", "content", "timePost", "totalLike", "totalDislike"})
-@JsonPropertyOrder(value = {"idComment", "ssoIdPoster", "namePoster", "avatarPoster", "content", "timePost", "totalLike", "totalDislike"})
+@XmlType(propOrder = { "idComment", "ssoIdPoster", "namePoster", "avatarPoster", 
+		"content", "timePost", "totalLike", "totalDislike" })
+@JsonPropertyOrder(value = { "idComment", "ssoIdPoster", "namePoster", "avatarPoster",
+		"content", "timePost", "totalLike", "totalDislike" })
 public class ReturnComment implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1484837783364L;
 
 	@XmlElement(name = "idComment", required = true)
 	private String idComment;
-	
+
 	@XmlElement(name = "ssoIdPoster")
 	private String ssoIdPoster;
-	
+
 	@XmlElement(name = "namePoster")
 	private String namePoster;
-	
+
 	@XmlElement(name = "avatarPoster")
 	private String avatarPoster;
-	
+
 	@XmlElement(name = "content", required = true)
 	private String content;
-	
+
 	@XmlElement(name = "timePost", required = true)
 	private String timePost;
-	
+
 	@XmlElement(name = "totalLike")
 	private Integer totalLike;
-	
+
 	@XmlElement(name = "totalDislike")
 	private Integer totalDislike;
-	
+
 	@XmlElement(name = "interact", defaultValue = "normal")
 	private Interacts interact;
 

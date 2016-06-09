@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/22.0.0.iml" filepath="$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/22.0.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/23.1.1.iml" filepath="$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/23.1.1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/23.2.0.iml" filepath="$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/23.2.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.6.0/4.6.0.iml" filepath="$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.6.0/4.6.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/7.5.0/7.5.0.iml" filepath="$PROJECT_DIR$/Whoever/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/7.5.0/7.5.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/generated/source/buildConfig/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/Whoever/app/build/generated/source/buildConfig/androidTest/androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/src/androidTest/androidTest1.iml" filepath="$PROJECT_DIR$/Whoever/app/src/androidTest/androidTest1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/generated/source/buildConfig/buildConfig.iml" filepath="$PROJECT_DIR$/Whoever/app/build/generated/source/buildConfig/buildConfig.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/intermediates/manifests/full/debug/debug.iml" filepath="$PROJECT_DIR$/Whoever/app/build/intermediates/manifests/full/debug/debug.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Server/Libraries/service/src/main/main.iml" filepath="$PROJECT_DIR$/Server/Libraries/service/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Server/Libraries/utils/src/main/main1.iml" filepath="$PROJECT_DIR$/Server/Libraries/utils/src/main/main1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/src/main/main2.iml" filepath="$PROJECT_DIR$/Whoever/app/src/main/main2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Server/mainserver/src/main/main3.iml" filepath="$PROJECT_DIR$/Server/mainserver/src/main/main3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/build/generated/source/r/r.iml" filepath="$PROJECT_DIR$/Whoever/app/build/generated/source/r/r.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Server/Libraries/utils/src/test/test.iml" filepath="$PROJECT_DIR$/Server/Libraries/utils/src/test/test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Whoever/app/src/test/test1.iml" filepath="$PROJECT_DIR$/Whoever/app/src/test/test1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Whoever.iml" filepath="$PROJECT_DIR$/Whoever.iml" />
     </modules>
   </component>
 </project>

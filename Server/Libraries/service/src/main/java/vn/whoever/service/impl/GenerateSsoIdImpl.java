@@ -1,19 +1,25 @@
-package v.whoever.service.impl;
+package vn.whoever.service.impl;
 
 import java.util.Date;
 import java.util.Random;
 
 import vn.whoever.service.GenerateSsoId;
 import vn.whoever.service.KeyCode;
+/**
+ * @author Nguyen Van Do
+ *
+ *	Make ssoId login with anonymous mode
+ *	Generation using 62 characters to random -> 16 character for ssoId
+ */
 
 public class GenerateSsoIdImpl implements GenerateSsoId {
-	
+
 	private GenerateSsoIdImpl() {}
-	
+
 	Random random = new Random();
-	
+
 	private static GenerateSsoId ssoId = new GenerateSsoIdImpl();
-	
+
 	public static GenerateSsoId getId() {
 		return ssoId;
 	}
@@ -23,10 +29,9 @@ public class GenerateSsoIdImpl implements GenerateSsoId {
 	}
 
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return generateId();
 	}
-	
+
 	private synchronized String generateId() {
 		String id = "";
 		String strTime = String.valueOf((new Date()).getTime());
@@ -34,8 +39,8 @@ public class GenerateSsoIdImpl implements GenerateSsoId {
 		int length = strNumber.length;
 		int rdom;
 		int choiceArr;
-		for(int i = 0; i < 16; ++i) {
-			if(i <  length) {
+		for (int i = 0; i < 16; ++i) {
+			if (i < length) {
 				rdom = random.nextInt(16) + Integer.valueOf(strNumber[i]);
 				if (rdom > 9) {
 					choiceArr = random.nextInt(2);
@@ -59,6 +64,4 @@ public class GenerateSsoIdImpl implements GenerateSsoId {
 		}
 		return id;
 	}
-	
-	
 }

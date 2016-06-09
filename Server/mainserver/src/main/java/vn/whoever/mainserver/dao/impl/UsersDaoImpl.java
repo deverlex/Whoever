@@ -13,8 +13,11 @@ import vn.whoever.mainserver.dao.AbstractDao;
 import vn.whoever.mainserver.dao.UsersDao;
 import vn.whoever.mainserver.model.Users;
 import vn.whoever.support.model.utils.Location;
-
-
+/**
+ * @author Nguyen Van Do
+ *	
+ *	This class provide accessing to database that concern about users.
+ */
 @Repository("userDao")
 public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao, Serializable {
 
@@ -38,9 +41,8 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 		return (String) query.uniqueResult();
 	}
 	
+	// This method isn't complete at now
 	public boolean checkIsOnline(String ssoId) {
-		// TODO Auto-generated method stub
-		
 		return false;
 	}
 
@@ -58,9 +60,8 @@ public class UsersDaoImpl extends AbstractDao<String, Users> implements UsersDao
 		query.executeUpdate();
 	}
 
-	public void updateLocation(String idUser, Location location) {
-		// TODO Auto-generated method stub
-	}
+	// This method isn't complete
+	public void updateLocation(String idUser, Location location) {}
 
 	public String findSsoId(String idUser) {
 		String sql = "select ssoId from Users where idUser = '" + idUser + "'";

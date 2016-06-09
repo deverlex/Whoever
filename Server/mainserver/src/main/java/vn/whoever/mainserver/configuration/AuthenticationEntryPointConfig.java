@@ -9,10 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
+/**
+ * @author spider man
+ * send error when users access failed to web service system
+ */
+
 public class AuthenticationEntryPointConfig implements AuthenticationEntryPoint {
 
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authExp)
 			throws IOException, ServletException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: Authentication token was either missing or invalid.");
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+				"Unauthorized: Authentication token was either missing or invalid.");
 	}
 }

@@ -15,32 +15,28 @@ import org.hibernate.annotations.DynamicUpdate;
 import vn.whoever.support.model.utils.Interacts;
 
 @Entity
-@Table(name = "comment_users", uniqueConstraints = 
-	@UniqueConstraint(columnNames = {"idUser", "idComment"}))
-@DynamicUpdate(value  = true)
+@Table(name = "comment_users", uniqueConstraints = @UniqueConstraint(columnNames = { "idUser", "idComment" }))
+@DynamicUpdate(value = true)
 public class CommentUsers implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 99897776165453L;
-	
+
 	@Id
 	@Column(name = "idComment", nullable = false)
 	private String idComment;
-	
+
 	@Id
 	@Column(name = "idUser", nullable = false)
 	private String idUser;
-	
+
 	@Column(name = "interact")
 	@Enumerated(EnumType.STRING)
 	private Interacts interact = Interacts.normal;
-	
+
 	public CommentUsers() {
 		super();
 	}
-	
+
 	public CommentUsers(String idComment, String idUser, Interacts interact) {
 		super();
 		this.idComment = idComment;
@@ -67,7 +63,7 @@ public class CommentUsers implements Serializable {
 	public Interacts getInteracts() {
 		return interact;
 	}
-	
+
 	public void setInteracts(Interacts interacts) {
 		this.interact = interacts;
 	}

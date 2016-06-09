@@ -9,31 +9,26 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = " Contacts_Users", uniqueConstraints = 
-	@UniqueConstraint(columnNames = {"idContact", "idUser"}))
+@Table(name = " Contacts_Users", uniqueConstraints = @UniqueConstraint(columnNames = { "idContact", "idUser" }))
 public class ContactUsers implements Serializable {
-	
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 80799786671L;
 
 	@Id
 	@Column(name = "idContact", length = 16, nullable = false)
 	private String idContact;
-	
+
 	@Id
 	@Column(name = "idUser", length = 16, nullable = false)
 	private String idUser;
-	
+
 	@Column(name = "followed")
 	private Boolean followed;
 
 	public ContactUsers() {
 		super();
 	}
-	
+
 	public ContactUsers(String idContact, String idUser, Boolean followed) {
 		super();
 		this.idContact = idContact;
@@ -48,7 +43,7 @@ public class ContactUsers implements Serializable {
 	public void setIdContact(String idContact) {
 		this.idContact = idContact;
 	}
-	
+
 	public String getIdUser() {
 		return idUser;
 	}

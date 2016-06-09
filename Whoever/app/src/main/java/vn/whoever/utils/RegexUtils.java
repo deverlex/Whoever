@@ -11,7 +11,6 @@ public class RegexUtils {
     public static final String passWordPattern = "([^\\s]{8,32})$";
     public static final String ssoIdPattern = "^([a-zA-Z0-9])+([a-zA-Z0-9_])*([a-zA-Z0-9])+$";
 
-
     private static RegexUtils regexUtils = new RegexUtils();
 
     public static RegexUtils getInstance() {

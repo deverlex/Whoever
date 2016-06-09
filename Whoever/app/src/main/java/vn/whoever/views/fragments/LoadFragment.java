@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +111,7 @@ public class LoadFragment extends Fragment implements Initgc {
                         public void run() {
                             progressBar.setProgress(progress);
                             if(contactTransaction != null && progress == progressBar.getMax()) {
+                                Log.d("Load data", "load load");
                                 httpStatus = contactTransaction.getHttpStatusCode();
                                 if(httpStatus != null && httpStatus == HttpStatus.SC_CREATED) {
                                     loop = 5;
@@ -129,6 +131,7 @@ public class LoadFragment extends Fragment implements Initgc {
                                 }
                                 progress = 0;
                             } else if(contactTransaction == null && progress == progressBar.getMax()) {
+                                Log.d("Load data", "not connect");
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                 MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
@@ -216,7 +219,7 @@ public class LoadFragment extends Fragment implements Initgc {
 
     private boolean checkInternetAvaiable() {
         try{
-            URL myUrl = new URL("http://192.168.206.1:8080/mainserver");
+            URL myUrl = new URL("http://192.168.0.113:8080/mainserver");
             URLConnection connection = myUrl.openConnection();
             connection.setConnectTimeout(1500);
             connection.connect();

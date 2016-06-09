@@ -11,8 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "countries", uniqueConstraints = 
-	@UniqueConstraint(columnNames = {"postalCode", "name"}))
+@Table(name = "countries", uniqueConstraints = @UniqueConstraint(columnNames = { "postalCode", "name" }))
 public class Countries implements Serializable {
 
 	private static final long serialVersionUID = 165643342L;
@@ -21,10 +20,10 @@ public class Countries implements Serializable {
 	@Column(name = "idCountry")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idCountry;
-	
+
 	@Column(name = "postalCode", length = 8, nullable = false)
 	private String postalCode;
-	
+
 	@Column(name = "name", length = 32, nullable = false)
 	private String name;
 
@@ -38,7 +37,7 @@ public class Countries implements Serializable {
 		this.postalCode = postalCode;
 		this.name = name;
 	}
-	
+
 	public int getIdCountry() {
 		return idCountry;
 	}

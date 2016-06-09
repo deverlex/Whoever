@@ -3,17 +3,14 @@ package vn.whoever.mainserver.service.utils;
 import java.io.Serializable;
 
 public class ClientLocation implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 188773399585L;
-	
+
 	private String countryName;
 	private String postalCode;
 	private Double latitude;
 	private Double longitude;
-	
+
 	public ClientLocation() {
 		super();
 	}

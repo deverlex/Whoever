@@ -10,9 +10,14 @@ import vn.whoever.support.model.utils.Interacts;
 public interface CommentService {
 
 	public void postNewComment(String idStatus, String idUser, PostComment comment);
+
 	public void commentInteract(String idComment, String idUser, UserInteract interactCmt);
+
 	public List<Comments> getListComment(String idStatus);
+
 	public Interacts getInteractCommentState(String idComment, String idUser);
+
 	public int getTotalLikeComment(String idComment);
+
 	public int getTotalDislikeComment(String idComment);
 }

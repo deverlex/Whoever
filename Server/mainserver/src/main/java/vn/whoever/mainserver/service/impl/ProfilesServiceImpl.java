@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import v.whoever.service.impl.GenerateIdImpl;
 import vn.whoever.mainserver.dao.ProfilesDao;
 import vn.whoever.mainserver.model.Profiles;
 import vn.whoever.mainserver.service.ProfilesService;
+import vn.whoever.service.impl.GenerateIdImpl;
 
+/**
+ * @author Nguyen Van Do
+ * 
+ *	This class provide functions for create/get/update info profile of user
+ */
 @Service("profilesService")
 @Transactional
 public class ProfilesServiceImpl implements ProfilesService {
@@ -22,24 +27,12 @@ public class ProfilesServiceImpl implements ProfilesService {
 		return GenerateIdImpl.generateId().getId();
 	}
 
-	public boolean updateProfile(Profiles profile) {
-		try {
-			profilesDao.updateProfiles(profile);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	public void updateProfile(Profiles profile) {
+		profilesDao.updateProfiles(profile);
 	}
 
-	public boolean setProfile(Profiles profile) {
-		try {
-			profilesDao.setProfiles(profile);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	public void setProfile(Profiles profile) {
+		profilesDao.setProfiles(profile);
 	}
 
 	public Profiles getProfile(String idUser) {
@@ -57,9 +50,11 @@ public class ProfilesServiceImpl implements ProfilesService {
 	public String getNickName(String idUser) {
 		return profilesDao.getNickname(idUser);
 	}
-
+	
+	/**
+	 * Get list account when user search contact
+	 */
 	public List<Profiles> queryIdUserByNickName(String queryNickName) {
 		return profilesDao.queryIdUserByNickname(queryNickName);
-	}	
-
+	}
 }
