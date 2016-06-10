@@ -34,11 +34,12 @@ import vn.whoever.models.Comment;
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 4/22/2016.
+ * Created by Nguyen Van Do on 4/22/2016.
+ * Class implement connection and transaction status's comment
  */
 public class CommentTransaction extends AbstractTransaction {
 
-    private List<Comment> commentList = commentList = new ArrayList<Comment>();;
+    private List<Comment> commentList = new ArrayList<Comment>();
 
     public CommentTransaction(Activity activity) {
         super(activity);
@@ -48,14 +49,15 @@ public class CommentTransaction extends AbstractTransaction {
         return commentList;
     }
 
+    /**
+     * GET comment status on /mobile/status/{idStatus}/comments
+     */
     public void getCommentOfStatus(final String idStatus) {
         commentList.clear();
         String url_get_comment = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_get_comment);
         urlQuery.putPathVariable(idStatus);
         urlQuery.putPathVariable("comments");
-
-        Log.d("urlGetComment", urlQuery.getUrl());
 
         JsonArrayRequest requestComment = new JsonArrayRequest(Request.Method.GET, urlQuery.getUrl(), new Response.Listener<JSONArray>() {
             @Override
@@ -75,11 +77,9 @@ public class CommentTransaction extends AbstractTransaction {
                         comment.setTotalLike(obj.getInt("totalLike"));
                         comment.setTotalDislike(obj.getInt("totalDislike"));
                         comment.setInteract(obj.getString("interact"));
-                        Log.d("likeComment", "" + comment.getTotalLike());
-                        Log.d("dislikeComment", "" + comment.getTotalDislike());
                         commentList.add(comment);
                     } catch (JSONException e) {
-                        Log.d("insertComment", "error insert!!!");
+                        throw new Error("set comment error!");
                     }
                     httpStatusCode = HttpStatus.SC_CREATED;
                 }
@@ -87,16 +87,19 @@ public class CommentTransaction extends AbstractTransaction {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // extraction error response
                 exTractError(error);
             }
         }) {
-
+            // Get info HTTP header
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError{
+                // Set header HTTP  packet
                 return onCreateHeaders(super.getHeaders());
             }
 
             protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+                // Get HTTP status
                 httpStatusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
             }
@@ -104,6 +107,14 @@ public class CommentTransaction extends AbstractTransaction {
         TransactionQueue.getsInstance(activity).addToRequestQueue(requestComment, "requestComment");
     }
 
+    /**
+     * POST comment on mobile/status/{idStatus}/comments
+     * JSON string:
+     * {
+     *      "content" : "",
+     *      "isUseAccount" : ""
+     * }
+     */
     public void postCommentForStatus(String idStatus, String content, Boolean isUseAccount) {
         String url_post_cmt = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_post_cmt);
@@ -113,7 +124,8 @@ public class CommentTransaction extends AbstractTransaction {
         mapReq.put("content", content);
         mapReq.put("isUseAccount", String.valueOf(isUseAccount));
 
-        JsonObjectRequest postCmtRequest = new JsonObjectRequest(Request.Method.POST, urlQuery.getUrl(), new JSONObject(mapReq), new Response.Listener<JSONObject>() {
+        JsonObjectRequest postCmtRequest = new JsonObjectRequest(Request.Method.POST, urlQuery.getUrl(),
+                new JSONObject(mapReq), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             }
@@ -136,6 +148,11 @@ public class CommentTransaction extends AbstractTransaction {
         TransactionQueue.getsInstance(activity).addToRequestQueue(postCmtRequest, "postComment");
     }
 
+    /**
+     * PUT interaction comment on /mobile/status/{idStatus}/comments/{idComment}
+     * JSON string:
+     * { "interact" : "" }
+     */
     public void interactComment(String type, String idStatus, String idComment) {
         String url_interact = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_interact);
@@ -156,7 +173,6 @@ public class CommentTransaction extends AbstractTransaction {
                 exTractError(error);
             }
         }) {
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return onCreateHeaders(super.getHeaders());

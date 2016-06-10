@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settingAppFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:clickable="true"
-    android:id="@+id/settingAppFrame">
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/toolBarFromAppSetting"
@@ -19,9 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/icon_back"
             android:background="@color/colorRedMain"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:src="@drawable/icon_back" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -31,12 +31,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="14dp"
                 android:text="@string/text_app_setting"
-                android:textStyle="bold"
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
-                android:layout_margin="14dp"
-                android:layout_centerVertical="true"/>
+                android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
 

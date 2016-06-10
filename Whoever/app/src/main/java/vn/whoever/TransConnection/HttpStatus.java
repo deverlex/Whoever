@@ -4,7 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * Created by spider man on 4/13/2016.
+ * Created by Nguyen Van Do on 4/13/2016.
+ * Class define HTTP status and extraction responsive HTTP status
  */
 public class HttpStatus {
 
@@ -34,6 +35,10 @@ public class HttpStatus {
         return httpStatus;
     }
 
+    /**
+     * This method return result extraction of HTTP status
+     * if HTTP status describe an error -> show a toast notification for users
+     */
     public boolean signalCode(Integer httpCode) {
         if(httpCode == SC_OK || httpCode == SC_CREATED) {
             return true;

@@ -3,7 +3,8 @@ package vn.whoever.models;
 import java.io.Serializable;
 
 /**
- * Created by spider man on 1/10/2016.
+ * Created by Nguyen Van Do on 1/10/2016.
+ * Class describe Search Contact data object
  */
 public class SearchContact implements Serializable {
 
@@ -14,7 +15,8 @@ public class SearchContact implements Serializable {
     private String avatar;
     private boolean isFriend;
 
-    public SearchContact() {}
+    public SearchContact() {
+    }
 
     public boolean isFriend() {
         return isFriend;

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by spider man on 1/28/2016.
+ * Created by Nguyen Van Do on 1/20/2016.
+ * This class is testing for UI - not is class of application
  */
 public class ArrayMessage {
 

@@ -21,32 +21,30 @@ import vn.whoever.R;
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 3/7/2016.
+ * Created by Nguyen Van Do on 3/7/2016.
+ * This class implement dialog layout for status's privacy
  */
 public class DialogPrivacyPostStatus extends DialogFragment {
 
     private RadioGroup groupChoiceUse;
     private RadioGroup groupChoicePrivacy;
-
     private RadioButton btnAccount;
     private RadioButton btnAnonymous;
     private RadioButton btnPrimary;
     private RadioButton btnFriends;
     private RadioButton btnPublic;
-
     private Button buttonAccept;
     private Dialog dialog;
-
     private RelativeLayout toobarPrivacy;
 
-    public DialogPrivacyPostStatus() {
-
-    }
+    public DialogPrivacyPostStatus() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_privacy_status, null);
+        // Set layout's element
         init(view);
+        // Set listener layout's event
         initListener(view);
         return view;
     }
@@ -62,21 +60,20 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         btnPrimary = (RadioButton) view.findViewById(R.id.radioButtonChoicePrimary);
         btnFriends = (RadioButton) view.findViewById(R.id.radioButtonChoiceFriends);
         btnPublic = (RadioButton) view.findViewById(R.id.radioButtonChoicePublic);
-
         /**
          * TODO: default selected privacy for post status
          */
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
         Cursor cursor = db.rawQuery("select use, privacy from SetPostStatus where id=1", null);
         cursor.moveToFirst();
-        if(cursor.getString(0).equals("anonymous")) {
+        if (cursor.getString(0).equals("anonymous")) {
             btnAnonymous.setChecked(true);
         } else {
             btnAccount.setChecked(true);
         }
-        if(cursor.getString(1).equals("public")) {
+        if (cursor.getString(1).equals("public")) {
             btnPublic.setChecked(true);
-        } else if(cursor.getString(1).equals("friends")) {
+        } else if (cursor.getString(1).equals("friends")) {
             btnFriends.setChecked(true);
         } else {
             btnPrimary.setChecked(true);
@@ -92,6 +89,7 @@ public class DialogPrivacyPostStatus extends DialogFragment {
             }
         });
 
+        // Choice for anonymous or use user name mode
         groupChoiceUse.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -106,6 +104,7 @@ public class DialogPrivacyPostStatus extends DialogFragment {
             }
         });
 
+        // Choice privacy for post status
         groupChoicePrivacy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -134,6 +133,7 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         return dialog;
     }
 
+    // Update UI after choice
     public void updateDbSet() {
         String use = "anonymous";
         String privacy = "public";
@@ -147,20 +147,21 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         TextView textPrivacy = (TextView) toobarPrivacy.findViewById(R.id.textShowPrivacyPostStatus);
         textPrivacy.setText("Public");
 
-        if(!btnAnonymous.isChecked()) {
+        if (!btnAnonymous.isChecked()) {
             use = "account";
             imageUseAccount.setImageResource(R.drawable.icon_account);
             textUseAccount.setText("Account");
         }
-        if(btnFriends.isChecked()) {
+        if (btnFriends.isChecked()) {
             privacy = "friends";
             imagePrivacy.setImageResource(R.drawable.icon_contacts_red);
             textPrivacy.setText("Friends");
-        } else if(btnPrimary.isChecked()) {
+        } else if (btnPrimary.isChecked()) {
             privacy = "primary";
             imagePrivacy.setImageResource(R.drawable.icon_lock_red);
             textPrivacy.setText("Primary");
         }
+        // Update choice mode into database
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("use", use);
@@ -168,7 +169,6 @@ public class DialogPrivacyPostStatus extends DialogFragment {
         db.update("SetPostStatus", values, "id=1", null);
         db.close();
     }
-
     public void setLayout(RelativeLayout layout) {
         this.toobarPrivacy = layout;
     }

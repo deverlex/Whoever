@@ -10,19 +10,24 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import vn.whoever.R;
 
 /**
- * Created by spider man on 4/24/2016.
+ * Created by Nguyen Van Do on 4/24/2016.
+ * This is adapter for update data in db to UI
  */
 public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
 
+    // List contain data show on UI
+    // Need changeable list to Iterator - but not now
     protected List<T> dataList;
     protected Fragment fragment;
 
     protected final int VIEW_ITEM = 1;
+    // View_prog is item (icon) bottom when load more item
     protected final int VIEW_PROG = 0;
 
     protected int visibleThreshold = 5;
@@ -30,14 +35,15 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
     protected boolean loading;
     protected OnLoadMoreListener onLoadMoreListener;
 
-    public AbstractAdapter(Fragment fragment, List<T> dataList,RecyclerView recyclerView) {
+    public AbstractAdapter(Fragment fragment, List<T> dataList, RecyclerView recyclerView) {
         this.fragment = fragment;
         this.dataList = dataList;
 
-        if(recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            // Listener scroll event
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -45,8 +51,9 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
 
                     totalItemCount = linearLayoutManager.getItemCount();
                     lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                    if(!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                        if(onLoadMoreListener != null) {
+                    // Check condition for load more item on recycler view
+                    if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                        if (onLoadMoreListener != null) {
                             onLoadMoreListener.onLoadMore();
                         }
                         loading = true;
@@ -85,39 +92,41 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
         notifyItemRemoved(position);
     }
 
+    // refresh data on UI
     public void refreshData(List<T> newData) {
-        if(newData.size() > 0) {
-            while (!dataList.isEmpty()){
+        if (newData.size() > 0) {
+            while (!dataList.isEmpty()) {
                 dataList.remove(0);
                 notifyItemRemoved(0);
             }
-            while (!newData.isEmpty()) {
-                dataList.add(0,newData.remove(newData.size() - 1));
-                notifyItemInserted(0);
-            }
-            Log.d("update", "listComment");
-        }
-    }
-
-    public void swapData(List<T> newData) {
-        if(newData.size() > 14) {
-            while (!dataList.isEmpty()){
-                dataList.remove(0);
-                notifyItemRemoved(0);
-            }
-            while (!newData.isEmpty()) {
-                dataList.add(0,newData.remove(newData.size() - 1));
-                notifyItemInserted(0);
-            }
-            Log.d("update", "listStatus");
-        } else if(newData.size() > 0) {
             while (!newData.isEmpty()) {
                 dataList.add(0, newData.remove(newData.size() - 1));
                 notifyItemInserted(0);
             }
-            Log.d("update", "listStatus");
         }
-        Log.d("update", "not success!!!");
+    }
+
+    public void swapData(List<T> newData) {
+        /**
+         * If new data response from server > 14 item
+         * refresh all item on UI
+         */
+        if (newData.size() > 14) {
+            while (!dataList.isEmpty()) {
+                dataList.remove(0);
+                notifyItemRemoved(0);
+            }
+            while (!newData.isEmpty()) {
+                dataList.add(0, newData.remove(newData.size() - 1));
+                notifyItemInserted(0);
+            }
+        } else if (newData.size() > 0) {
+            // else: add more item into old list
+            while (!newData.isEmpty()) {
+                dataList.add(0, newData.remove(newData.size() - 1));
+                notifyItemInserted(0);
+            }
+        }
     }
 
     @Override
@@ -125,9 +134,9 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
         return dataList.size();
     }
 
+    // Class set progress bar when load more item
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
-
         public ProgressViewHolder(View view) {
             super(view);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBarLoad);
@@ -136,6 +145,7 @@ public abstract class AbstractAdapter<T> extends RecyclerView.Adapter {
         }
     }
 
+    // Navigate to different fragment from old fragment to new fragment
     public void navigateToFragment(Fragment frag, String strStack) {
         fragment.getParentFragment().getChildFragmentManager().beginTransaction().replace(R.id.majorFrame, frag)
                 .addToBackStack(strStack).commit();

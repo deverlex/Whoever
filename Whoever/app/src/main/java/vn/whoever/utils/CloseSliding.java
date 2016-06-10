@@ -7,7 +7,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 /**
- * Created by spider man on 12/27/2015.
+ * Created by Nguyen Van Do on 12/27/2015.
+ * Animation for hiding a layout
  */
 public class CloseSliding extends TranslateAnimation
         implements Animation.AnimationListener {
@@ -25,6 +26,7 @@ public class CloseSliding extends TranslateAnimation
         slidingLayout = layout;
         panelWidth = width;
 
+        // Time handler is 300 ms
         setDuration(300);
         setFillAfter(false);
         setInterpolator(new AccelerateDecelerateInterpolator());
@@ -42,17 +44,11 @@ public class CloseSliding extends TranslateAnimation
     }
 
     @Override
-    public void onAnimationEnd(Animation animation) {
-
-    }
+    public void onAnimationEnd(Animation animation) {}
 
     @Override
-    public void onAnimationRepeat(Animation animation) {
-
-    }
+    public void onAnimationRepeat(Animation animation) {}
 
     @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
+    public void onAnimationStart(Animation animation) {}
 }

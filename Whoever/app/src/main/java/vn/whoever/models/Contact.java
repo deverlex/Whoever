@@ -1,9 +1,14 @@
 package vn.whoever.models;
 
+import java.io.Serializable;
+
 /**
- * Created by spider man on 5/1/2016.
+ * Created by Nguyen Van Do on 5/1/2016.
+ * Class describe Contact data object
  */
-public class Contact {
+public class Contact implements Serializable {
+
+    private static final long serialVersionUID = 154532343947723L;
 
     private String groupName;
     private String ssoId;
@@ -11,7 +16,8 @@ public class Contact {
     private String latestStatus;
     private String latestOnline;
 
-    public Contact() {}
+    public Contact() {
+    }
 
     public String getSsoId() {
         return ssoId;

@@ -27,7 +27,7 @@ import vn.whoever.models.dao.ConnDB;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 12/28/2015.
+ * Created by Nguyen Van Do on 12/28/2015.
  */
 public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLayout.OnRefreshListener {
 
@@ -106,6 +106,7 @@ public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLa
 
     int loop = 0;
 
+    // Refresh data of status
     private void fetchStatus() {
         loop = 0;
         homeRefreshLayout.setRefreshing(true);
@@ -123,11 +124,9 @@ public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLa
                             if(httpCode != null && httpCode == HttpStatus.SC_CREATED) {
                                 loadData();
                                 if(statusList.size() > 0) {
-                                    Log.d("update size", String.valueOf(statusList.size()));
                                     statusAdapter.swapData(statusList);
                                     homeRefreshLayout.setRefreshing(false);
                                     loop = 15;
-                                    Log.d("loadData", "update news feeds");
                                 }
                             }
                             ++loop;
@@ -176,7 +175,6 @@ public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLa
     }
 
     protected void loadData() {
-        Log.d("loadDbHome", "loading....");
         statusList = new ArrayList<>();
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
         Cursor cursor = db.rawQuery("select idStatus, ssoIdPoster, avatarPoster, namePoster," +
@@ -198,7 +196,6 @@ public class HomePageFragment extends Fragment implements Initgc, SwipeRefreshLa
             statusList.add(status);
         }
         cursor.close();
-        //db.close();
     }
 
     @Override

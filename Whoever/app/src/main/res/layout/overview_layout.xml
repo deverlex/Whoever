@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/overviewFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:clickable="true"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:paddingLeft="10dp"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:clickable="true"
-    android:id="@+id/overviewFrame">
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -127,12 +127,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconIndexOnWorldOverview"
                         android:text="@string/text_rank_world"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -163,12 +163,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconIndexOnLanguageOverview"
                         android:text="@string/text_rank_language"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -227,12 +227,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconCreateGroupOverview"
                         android:text="@string/text_create_group"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -240,7 +240,7 @@
                     android:id="@+id/listGroupOverview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@null"/>
+                    android:divider="@null" />
 
             </LinearLayout>
 
@@ -292,12 +292,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconAppSettingOverview"
                         android:text="@string/text_app_setting"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -328,12 +328,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconAccountSettingOverview"
                         android:text="@string/text_account_setting"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -364,12 +364,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconLogActivityOverview"
                         android:text="@string/text_activity_log"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -377,6 +377,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
+
                     <RelativeLayout
                         android:id="@+id/iconPrivacyOverview"
                         android:layout_width="40dp"
@@ -398,12 +399,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconPrivacyOverview"
                         android:text="@string/text_privacy"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -434,12 +435,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconHelpCenterOverview"
                         android:text="@string/text_help_center"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -465,15 +466,16 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/icon_alert" />
                     </RelativeLayout>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconReportOverview"
                         android:text="@string/text_report"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -504,12 +506,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconTermOverview"
                         android:text="@string/text_term_policies"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -540,12 +542,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconAboutOverview"
                         android:text="@string/text_ablout"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -576,12 +578,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iconLogOutOverview"
                         android:text="@string/text_logout"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
                         android:textColor="@color/colorSilverBlack"
-                        android:layout_marginLeft="15dp"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

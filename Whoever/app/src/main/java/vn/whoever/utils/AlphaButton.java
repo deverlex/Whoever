@@ -11,7 +11,8 @@ import android.view.animation.Animation;
 import android.widget.ImageButton;
 
 /**
- * Created by spider man on 1/16/2016.
+ * Created by Nguyen Van Do on 1/16/2016.
+ * Animation for button
  */
 public class AlphaButton extends AlphaAnimation
         implements Animation.AnimationListener {
@@ -23,7 +24,7 @@ public class AlphaButton extends AlphaAnimation
     }
 
     public AlphaButton(FloatingActionButton imageButton, float fromAlpha, float toAlpha) {
-        super(fromAlpha,toAlpha);
+        super(fromAlpha, toAlpha);
         this.imageButton = imageButton;
         setDuration(300);
         setFillAfter(false);
@@ -34,20 +35,16 @@ public class AlphaButton extends AlphaAnimation
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        if(imageButton.getVisibility() == View.VISIBLE) {
+        if (imageButton.getVisibility() == View.VISIBLE) {
             imageButton.setVisibility(View.GONE);
-        } else if(imageButton.getVisibility() != View.VISIBLE) {
+        } else if (imageButton.getVisibility() != View.VISIBLE) {
             imageButton.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
-    public void onAnimationRepeat(Animation animation) {
-
-    }
+    public void onAnimationRepeat(Animation animation) {}
 
     @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
+    public void onAnimationStart(Animation animation) {}
 }

@@ -1,7 +1,7 @@
 package vn.whoever.utils;
 
 /**
- * Created by spider man on 12/26/2015.
+ * Created by Nguyen Van Do on 12/26/2015.
  * TODO: check form email, password, nickname...
  */
 public class RegexUtils {
@@ -17,6 +17,7 @@ public class RegexUtils {
         return regexUtils;
     }
 
+    //Check the validity of email
     public boolean checkEmail(String email) {
         /**
          * TODO: process split string before pattern
@@ -25,21 +26,25 @@ public class RegexUtils {
         return email.matches(emailPattern) && email.length() > 8;
     }
 
+    // Check the validity of SSOID
     public boolean checkSsoId(String ssoId) {
         ssoId = standardizeString(ssoId);
         return ssoId.matches(ssoIdPattern) && ssoId.length() > 7;
     }
 
+    // Check the validity of password
     public boolean checkPassword(String password) {
         password = standardizeString(password);
         return password.matches(passWordPattern);
     }
 
+    //Check the validity of nickname/user account
     public boolean checkNickName(String nickName) {
         nickName = standardizeString(nickName);
         return nickName.matches(nickNamePattern) && nickName.length() > 3;
     }
 
+    // TODO: standardized string
     public String standardizeString(String str) {
         str = str.replaceAll("\\s+", " ");
         return str.trim();

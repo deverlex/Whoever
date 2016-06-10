@@ -35,7 +35,8 @@ import vn.whoever.views.customviews.JTextView;
 import vn.whoever.views.customviews.RoundedImageView;
 
 /**
- * Created by spider man on 4/9/2016.
+ * Created by Nguyen Van Do on 4/9/2016.
+ * This class implement comment layout.
  */
 public class CommentFragment extends Fragment implements Initgc {
 
@@ -86,25 +87,18 @@ public class CommentFragment extends Fragment implements Initgc {
         viewTotalComment = (TextView) view.findViewById(R.id.viewTotalCommentOnReply);
         btnBackActivity = (ImageButton) view.findViewById(R.id.btnBackHomeFromComment);
         idStatus = loadSetStatusOnListComment();
-
         progressLoadComment = (ProgressBar) view.findViewById(R.id.progressLoadComment);
         progressLoadComment.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF4801"),
                 android.graphics.PorterDuff.Mode.MULTIPLY);
 
         toolBarInputComment = (RelativeLayout) view.findViewById(R.id.toolBarInputSendTextOfComment);
-
         btnSendComment = (ImageButton) view.findViewById(R.id.btnSendComment);
         inputTextCommentSend = (EditText)  view.findViewById(R.id.inputCommentSend);
-
         recyclerViewComment = (RecyclerView) view.findViewById(R.id.listCommentOfStatusDetail);
-
         recyclerViewComment.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity());
-
         recyclerViewComment.setLayoutManager(linearLayoutManager);
-
         commentAdapter = new CommentAdapter(this, commentList, recyclerViewComment);
-
         recyclerViewComment.setAdapter(commentAdapter);
 
         getCommentFromService(idStatus);

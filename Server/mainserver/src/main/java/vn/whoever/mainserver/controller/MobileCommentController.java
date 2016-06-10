@@ -54,8 +54,8 @@ public class MobileCommentController {
 	@Autowired
 	private AuthToken authToken;
 
-	@RequestMapping(value = {
-			"/{idStatus}/comments" }, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = {"/{idStatus}/comments" }, method = RequestMethod.POST, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void postComment(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value = "idStatus") String idStatus, @RequestBody PostComment postComment)
 			throws IOException {
@@ -77,8 +77,8 @@ public class MobileCommentController {
 
 	}
 
-	@RequestMapping(value = {
-			"/{idStatus}/comments/{idComment}" }, method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = {"/{idStatus}/comments/{idComment}" }, method = RequestMethod.PUT, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void interactComment(HttpServletRequest request,
 			@PathVariable(value = "idStatus") String idStatus, @PathVariable(value = "idComment") String idComment,
 			@RequestBody UserInteract interactCmt) {
@@ -107,7 +107,7 @@ public class MobileCommentController {
 	 * This method handle request get list comment from users And response list
 	 * comment of a status to users
 	 * 
-	 * Information is described below { "idComment" : "", "ssoIdPoster" : "",
+	 * Information responsive is described below { "idComment" : "", "ssoIdPoster" : "",
 	 * "namePoster" : "", "avatarPoster" : "", "content" : "", "timePost" : "",
 	 * "totalLike" : "", "totalDislike" : "" }
 	 * 

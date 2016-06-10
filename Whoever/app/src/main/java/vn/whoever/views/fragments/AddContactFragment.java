@@ -26,7 +26,8 @@ import vn.whoever.models.SearchContact;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 4/8/2016.
+ * Created by Nguyen Van Do on 4/8/2016.
+ * This class implement add new contact layout
  */
 public class AddContactFragment extends Fragment implements Initgc {
 
@@ -59,19 +60,16 @@ public class AddContactFragment extends Fragment implements Initgc {
         btnOpenChoicePostalCode = (ImageButton) view.findViewById(R.id.btnOpenChoicePostalCode);
         textViewPostalCode = (TextView) view.findViewById(R.id.textPostalCodeByCountries);
         textSearchContact = (EditText) view.findViewById(R.id.editTextQueryAddFriends);
-
         recyclerViewSearch = (RecyclerView) view.findViewById(R.id.listSuggestFriendAdd);
         searchContactList = new ArrayList<>();
         mHandler = new Handler();
-
         recyclerViewSearch.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getContext());
-
         recyclerViewSearch.setLayoutManager(linearLayoutManager);
         searchContactAdapter = new SearchContactAdapter(this, searchContactList, recyclerViewSearch);
-
+        /// SET adapter for layout
         recyclerViewSearch.setAdapter(searchContactAdapter);
-
+        // Create new object for connection and transaction to server
         contactTransaction = new ContactTransaction(getActivity());
     }
 
@@ -84,26 +82,20 @@ public class AddContactFragment extends Fragment implements Initgc {
             }
         });
 
-        btnSearchFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        btnOpenChoicePostalCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        textViewPostalCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        btnSearchFriends.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
+//
+//        btnOpenChoicePostalCode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
+//
+//        textViewPostalCode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
 
         textSearchContact.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -133,7 +125,7 @@ public class AddContactFragment extends Fragment implements Initgc {
     }
 
     int loop = 0;
-
+    // Load data from server when search different user
     public void loadQuerySearch(String query) {
         loop = 0;
         progressDialogQuery = ProgressDialog.show(getActivity(), "", "waiting query...", true);
@@ -145,13 +137,14 @@ public class AddContactFragment extends Fragment implements Initgc {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            if(contactTransaction.getSearchContactList().size() > 0) {
+                            // If have result -> stop lood and show data on layout
+                            if (contactTransaction.getSearchContactList().size() > 0) {
                                 progressDialogQuery.dismiss();
                                 searchContactList = contactTransaction.getSearchContactList();
                                 searchContactAdapter.refreshData(searchContactList);
                                 loop = 10;
                             }
-                            if(loop == 9) {
+                            if (loop == 9) {
                                 searchContactList.clear();
                                 searchContactAdapter.refreshData(searchContactList);
                                 progressDialogQuery.dismiss();
@@ -167,21 +160,17 @@ public class AddContactFragment extends Fragment implements Initgc {
         })).start();
 
     }
-
-    public void fetchSearchContact() {
-
-    }
+    // This method isn't completed.
+    public void fetchSearchContact() {}
 
     @Override
     public void onPause() {
-        if(progressDialogQuery != null && progressDialogQuery.isShowing()) {
+        if (progressDialogQuery != null && progressDialogQuery.isShowing()) {
             progressDialogQuery.dismiss();
         }
         super.onPause();
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by spider man on 1/10/2016.
+ * Created by Nguyen Van Do on 1/10/2016.
+ * Class describe Comment data object
  */
 public class Comment implements Serializable {
 
@@ -21,7 +22,8 @@ public class Comment implements Serializable {
     private int totalDislike;
     private String interact;
 
-    public Comment() {}
+    public Comment() {
+    }
 
     public String getIdStatus() {
         return idStatus;

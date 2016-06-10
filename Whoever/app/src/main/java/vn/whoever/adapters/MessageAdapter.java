@@ -20,7 +20,8 @@ import vn.whoever.models.ArrayMessage;
 import vn.whoever.models.Message;
 
 /**
- * Created by spider man on 1/26/2016.
+ * Created by Nguyen Van Do on 1/26/2016.
+ * This class isn't complete at now.
  */
 public class MessageAdapter extends BaseAdapter {
 
@@ -34,7 +35,7 @@ public class MessageAdapter extends BaseAdapter {
     private int stepNumber;
     private int startCount;
 
-    public MessageAdapter(Activity activity, int startCount ,int stepNumber) {
+    public MessageAdapter(Activity activity, int startCount, int stepNumber) {
         this.activity = activity;
         viewHolders = new ArrayList<>();
         loadListMessageChat();
@@ -52,7 +53,7 @@ public class MessageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(messages != null) {
+        if (messages != null) {
             return messages.size();
         } else {
             return 0;
@@ -61,7 +62,7 @@ public class MessageAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        if(messages != null) {
+        if (messages != null) {
             return messages.get(position);
         } else {
             return null;
@@ -80,9 +81,7 @@ public class MessageAdapter extends BaseAdapter {
         Message message = messages.get(position);
         this.position = position;
 
-        Log.d("Position of item MSG", String.valueOf(position));
-
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_layout, null);
             holder = createViewHolder(convertView);
             convertView.setTag(holder);
@@ -91,20 +90,15 @@ public class MessageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position == 0 && oldPosition == 0) {
+        if (position == 0 && oldPosition == 0) {
             oldState = message.getIsme();
             viewHolders.get(position).space.setVisibility(View.GONE);
         }
-
-        //holder.imageReceiver.setImageBitmap(null);
-        //holder.imageSender.setImageBitmap(null);
-
-        if(position > oldPosition) {
+        if (position > oldPosition) {
             setAlignment(holder, message.getIsme());
             holder.message.setText(message.getMessage());
             oldPosition = position;
         }
-        //holder.state.setText(String.valueOf(message.getDate()));
 
         return convertView;
     }
@@ -120,18 +114,18 @@ public class MessageAdapter extends BaseAdapter {
     public void setAlignment(ViewHolder holder, boolean isMe) {
         ViewHolder lholder;
 
-        if(position > 0) {
+        if (position > 0) {
             // TODO: need config later
-            if(messages.get(position).getDate().getTime() - messages.get(position - 1).getDate().getTime() < 10000){
+            if (messages.get(position).getDate().getTime() - messages.get(position - 1).getDate().getTime() < 10000) {
                 viewHolders.get(position - 1).layoutState.setVisibility(View.GONE);
             }
 
-            if(position == 1) {
+            if (position == 1) {
                 Log.d("isMe: ", String.valueOf(isMe));
                 Log.d("oldState: ", String.valueOf(oldState));
             }
 
-            if(oldState != isMe) {
+            if (oldState != isMe) {
                 viewHolders.get(position - 1).space.setVisibility(View.INVISIBLE);
             }
             oldState = isMe; // isMe of position - 1
@@ -139,12 +133,12 @@ public class MessageAdapter extends BaseAdapter {
 
         viewHolders.get(position).space.setVisibility(View.GONE);
 
-		// TODO: change position layout for item message and avatar message
+        // TODO: change position layout for item message and avatar message
         /**
          * TODO: me is sender
          */
-        if(isMe) {
-            if(position > 0 && messages.get(position-1).getIsme()) {
+        if (isMe) {
+            if (position > 0 && messages.get(position - 1).getIsme()) {
                 lholder = viewHolders.get(position - 1);
                 lholder.imageSender.setVisibility(View.INVISIBLE);
                 lholder.layoutMessage.setBackgroundResource(R.drawable.in_message_ex);
@@ -161,7 +155,7 @@ public class MessageAdapter extends BaseAdapter {
             holder.message.setTextColor(Color.parseColor("#ffffff"));
 
         } else {
-            if(position > 0 && !messages.get(position-1).getIsme()) {
+            if (position > 0 && !messages.get(position - 1).getIsme()) {
                 lholder = viewHolders.get(position - 1);
                 lholder.imageReceiver.setVisibility(View.INVISIBLE);
                 lholder.layoutMessage.setBackgroundResource(R.drawable.out_message_ex);

@@ -13,7 +13,8 @@ import vn.whoever.models.ArrayInbox;
 import vn.whoever.models.Inbox;
 
 /**
- * Created by spider man on 1/14/2016.
+ * Created by Nguyen Van Do on 1/14/2016.
+ * This class isn't complete at now
  */
 public class InboxAdapter extends BaseAdapter {
 
@@ -27,7 +28,7 @@ public class InboxAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(listInbox != null) {
+        if (listInbox != null) {
             return listInbox.size();
         } else {
             return 0;
@@ -36,7 +37,7 @@ public class InboxAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        if(listInbox != null) {
+        if (listInbox != null) {
             return listInbox.get(position);
         } else {
             return null;
@@ -52,13 +53,10 @@ public class InboxAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Inbox inbox = (Inbox) getItem(position);
 
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_inbox_layout, null);
         }
-
-
-
         return convertView;
     }
 

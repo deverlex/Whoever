@@ -50,20 +50,15 @@ public class MainFragment extends Fragment implements Initgc {
     private LinearLayout layoutOverview;
     private LinearLayout layoutOnline;
     private LinearLayout layoutHome;
-
     private FrameLayout.LayoutParams layoutParamsOverview;
     private FrameLayout.LayoutParams layoutParamsOnline;
     private FrameLayout.LayoutParams layoutParamsMain;
-
     private LinearLayout listenerClick;
     private FrameLayout.LayoutParams listenerPrams;
-
     private RelativeLayout btnOpenOverview;
     private RelativeLayout btnOpenOnline;
     private RelativeLayout btnOpenNotify;
     private RelativeLayout btnOpenSearch;
-
-
 
     /**
      * TODO: for layout on online list layout
@@ -72,11 +67,9 @@ public class MainFragment extends Fragment implements Initgc {
     private ImageView btnDestroySeachOnline;
     private ListView listOnline;
     private ListOnlineAdapter listOnlineAdapter;
-
     /**
      * TODO: for layout overview
      */
-
     private RelativeLayout directAppSetting;
     private RelativeLayout directAccountSetting;
     private RelativeLayout directActivityLog;
@@ -163,6 +156,8 @@ public class MainFragment extends Fragment implements Initgc {
 
     @Override
     public void initListener(View view) {
+
+        // Show layout on left home screen
         btnOpenOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +182,7 @@ public class MainFragment extends Fragment implements Initgc {
                 }
             }
         });
-
+        // Show layout on right home screen
         btnOpenOnline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,11 +221,10 @@ public class MainFragment extends Fragment implements Initgc {
                 navigateFragment(new SearchFragment(), "majorFrameToSearch");
             }
         });
-
+        // closing left || right layout on home screen
         listenerClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (isExpandedLeft) {
                     isExpandedLeft = false;
                     closeListenerClick();
@@ -388,8 +382,7 @@ public class MainFragment extends Fragment implements Initgc {
         listenerClick.setLayoutParams(listenerPrams);
     }
 
+    // This method isn't completed.
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

@@ -7,7 +7,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
- * Created by spider man on 1/7/2016.
+ * Created by Nguyen Van Do on 1/7/2016.
+ * This class isn't complete at now.
  */
 public class NotifyService extends Service {
 
@@ -25,14 +26,12 @@ public class NotifyService extends Service {
     Thread thread = new Thread(new Runnable() {
         @Override
         public void run() {
-
-            for(int i = 0 ;i < 1000; ++i) {
-                Log.d("Service", "service running...");
+            for (int i = 0; i < 1000; ++i) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
             }
-
             stopSelf();
         }
     });

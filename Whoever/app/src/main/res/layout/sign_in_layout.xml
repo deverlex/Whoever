@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/signInFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/colorRedMain"
+    android:clickable="true"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:clickable="true"
-    android:id="@+id/signInFrame">
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/logoTextStartSignIn"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="w"
         android:textColor="@color/colorWhite"
-        android:textSize="98sp"/>
+        android:textSize="98sp" />
 
     <EditText
         android:id="@+id/inputSsoIdStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hind_input_ssoId"
-        android:textColorHint="@color/colorSilverWhite"
-        android:layout_marginTop="12dp"
-        android:singleLine="true"
-        android:textSize="20sp"
-        android:layout_below="@+id/logoTextStartSignIn"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/logoTextStartSignIn"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/custom_edit_text"/>
+        android:layout_marginTop="12dp"
+        android:background="@drawable/custom_edit_text"
+        android:hint="@string/hind_input_ssoId"
+        android:singleLine="true"
+        android:textColorHint="@color/colorSilverWhite"
+        android:textSize="20sp" />
 
     <EditText
+        android:id="@+id/inputPasswordStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:inputType="textPassword"
-        android:editable="false"
-        android:id="@+id/inputPasswordStart"
-        android:layout_below="@+id/inputSsoIdStart"
-        android:hint="@string/hind_input_password"
-        android:textColorHint="@color/colorSilverWhite"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:singleLine="true"
-        android:textSize="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/inputSsoIdStart"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/custom_edit_text"/>
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_edit_text"
+        android:editable="false"
+        android:hint="@string/hind_input_password"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textColorHint="@color/colorSilverWhite"
+        android:textSize="20sp" />
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardSignInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardUseCompatPadding="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/spaceButtonSignIn"
         android:layout_below="@+id/inputPasswordStart"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/spaceButtonSignIn"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true">
 
         <Button
             android:id="@+id/signInButton"
@@ -74,72 +73,71 @@
             android:layout_height="40dp"
             android:background="@color/colorButtonMain"
             android:text="@string/text_button_signin"
-            android:textSize="12dp"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"/>
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
     </android.support.v7.widget.CardView>
-
 
 
     <Space
+        android:id="@+id/spaceButtonSignIn"
         android:layout_width="15dp"
         android:layout_height="wrap_content"
-        android:id="@+id/spaceButtonSignIn"
         android:layout_below="@+id/inputPasswordStart"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardUseCompatPadding="true"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/spaceButtonSignIn"
         android:layout_below="@+id/inputPasswordStart"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:layout_toLeftOf="@+id/spaceButtonSignIn"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true">
+
         <Button
+            android:id="@+id/skipSignInButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/skipSignInButton"
             android:background="@color/colorButtonMain"
             android:text="@string/text_button_skip"
-            android:textSize="12dp"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"/>
+            android:textSize="12dp"
+            android:textStyle="bold" />
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/textForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardSignInButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="@string/text_forgot_password"
         android:textColor="@color/colorWhite"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:id="@+id/textForgotPassword"/>
+        android:textStyle="bold" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/textTermUserInfor"
-        android:text="@string/text_term_user"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
-        android:textColor="@color/colorWhite"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textCreateNewUser"
-        android:text="@string/text_to_new_user"
-        android:textColor="@color/colorWhite"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:text="@string/text_term_user"
+        android:textColor="@color/colorWhite" />
+
+    <TextView
+        android:id="@+id/textCreateNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textTermUserInfor"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:text="@string/text_to_new_user"
+        android:textColor="@color/colorWhite" />
 
 </RelativeLayout>

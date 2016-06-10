@@ -17,7 +17,8 @@ import vn.whoever.utils.Initgc;
 import vn.whoever.views.dialogs.DialogViewProfile;
 
 /**
- * Created by spider man on 4/9/2016.
+ * Created by Nguyen Van Do on 4/9/2016.
+ * This class implement profile layout.
  */
 public class ProfileFragment extends Fragment implements Initgc {
 
@@ -66,7 +67,5 @@ public class ProfileFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

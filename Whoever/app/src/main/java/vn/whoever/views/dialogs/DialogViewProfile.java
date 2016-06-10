@@ -16,7 +16,8 @@ import vn.whoever.R;
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 5/7/2016.
+ * Created by Nguyen Van Do on 5/7/2016.
+ * This class implement dialog layout for view profile
  */
 public class DialogViewProfile extends DialogFragment {
 
@@ -53,6 +54,7 @@ public class DialogViewProfile extends DialogFragment {
         buttonAccept = (Button) view.findViewById(R.id.btnAcceptCloseProfile);
     }
 
+    // Get info from database and set into layout
     public void initData(View view) {
         SQLiteDatabase db = ConnDB.getConn().getReadableDatabase();
         Cursor cursor = db.rawQuery("select langName, birthday, gender, mobile, email from LocalProfile", null);
@@ -63,7 +65,6 @@ public class DialogViewProfile extends DialogFragment {
         textEmail.setText("" + cursor.getString(4));
         textMobile.setText(""+cursor.getString(3));
         cursor.close();
-
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

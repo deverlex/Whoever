@@ -10,29 +10,23 @@ import vn.whoever.R;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 4/9/2016.
+ * Created by Nguyen Van Do on 4/9/2016.
+ * This class isn't completed.
  */
 public class AccountSettingFragment extends Fragment implements Initgc {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_account_layout, container, false);
-
         return view;
     }
 
     @Override
-    public void init(View view) {
-
-    }
+    public void init(View view) {}
 
     @Override
-    public void initListener(View view) {
-
-    }
+    public void initListener(View view) {}
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

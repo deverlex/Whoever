@@ -1,134 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcomeFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp"
     android:background="@color/colorRedMain"
     android:clickable="true"
-    android:id="@+id/welcomeFrame">
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp">
 
     <TextView
         android:id="@+id/logoTextStartWelcome"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="w"
         android:textColor="@color/colorWhite"
-        android:textSize="98sp"/>
+        android:textSize="98sp" />
 
     <TextView
+        android:id="@+id/textViewWelcome0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/logoTextStartWelcome"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
-        android:id="@+id/textViewWelcome0"
         android:text="@string/text_view_welcome0"
         android:textColor="@color/colorWhite"
-        android:layout_centerHorizontal="true"
-        android:textSize="18dp"
-        android:layout_below="@+id/logoTextStartWelcome"/>
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textViewWelcome1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/textViewWelcome0"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:text="@string/text_view_welcome1"
         android:textColor="@color/colorWhite"
-        android:layout_centerHorizontal="true"
         android:textSize="28dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/textViewWelcome2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_below="@+id/textViewWelcome1"
-        android:id="@+id/textViewWelcome2"
-        android:text="@string/text_view_welcome2"
-        android:textColor="@color/colorWhite"
         android:layout_centerHorizontal="true"
-        android:textSize="16dp"
-        android:textAlignment="center"/>
+        android:layout_marginTop="4dp"
+        android:text="@string/text_view_welcome2"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp" />
 
     <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/spaceCenterWelcome"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/textViewWelcome2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:id="@+id/textViewBirthday"
-        android:text="@string/text_view_birthday"
-        android:textColor="@color/colorWhite"
-        android:layout_toLeftOf="@+id/spaceCenterWelcome"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textViewWelcome2"
-        android:layout_toRightOf="@id/spaceCenterWelcome"
-        android:text="@string/text_default_birthday"
-        android:background="@drawable/custom_edit_text"
-        android:id="@+id/textBirthDayWelcome"
-        android:textColor="@color/colorWhite"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingTop="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:id="@+id/textViewLanguage"
-        android:layout_below="@+id/textViewBirthday"
-        android:text="@string/text_view_language"
-        android:textColor="@color/colorWhite"
+        android:layout_marginTop="32dp"
         android:layout_toLeftOf="@+id/spaceCenterWelcome"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:text="@string/text_view_birthday"
+        android:textColor="@color/colorWhite" />
 
     <TextView
+        android:id="@+id/textBirthDayWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/textBirthDayWelcome"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textViewWelcome2"
+        android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/spaceCenterWelcome"
         android:background="@drawable/custom_edit_text"
-        android:id="@+id/textLanguageWelcome"
-        android:textColor="@color/colorWhite"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp"
+        android:text="@string/text_default_birthday"
+        android:textColor="@color/colorWhite" />
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <TextView
+        android:id="@+id/textViewLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardUseCompatPadding="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewBirthday"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@+id/spaceCenterWelcome"
+        android:text="@string/text_view_language"
+        android:textColor="@color/colorWhite" />
+
+    <TextView
+        android:id="@+id/textLanguageWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textBirthDayWelcome"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/spaceCenterWelcome"
+        android:background="@drawable/custom_edit_text"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorWhite" />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textViewLanguage"
-        android:layout_marginTop="34dp">
+        android:layout_marginTop="34dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true">
 
         <Button
             android:id="@+id/buttonPushApp"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="@string/text_button_pushapp"
             android:background="@color/colorButtonMain"
+            android:text="@string/text_button_pushapp"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorRedMain"
     android:clickable="true"
-    tools:context=".views.activities.MainActivity"
-    android:id="@+id/mainFrame">
+    tools:context=".views.activities.MainActivity">
 
-    <include
-        layout="@layout/main_layout" />
+    <include layout="@layout/main_layout" />
 
 </FrameLayout>

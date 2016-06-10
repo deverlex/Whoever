@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/onlineFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="right"
     android:background="@color/colorButtonMain"
+    android:clickable="true"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:layout_gravity="right"
-    android:clickable="true"
-    android:id="@+id/onlineFrame">
+    android:orientation="vertical">
 
     <!-- layout for search -->
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorRedMain"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:background="@color/colorRedMain">
 
         <EditText
             android:id="@+id/textInputFromOnlineList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_search_online"
             android:layout_below="@+id/iconButtonSearchFromOnlineList"
-            android:paddingLeft="34sp"
-            android:paddingRight="44sp"
-            android:hint="@string/text_btn_search"
-            android:inputType="text"
-            android:textColorHint="@color/colorSilverWhite"
-            android:layout_marginTop="-21dp"
+            android:layout_marginBottom="7dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginBottom="7dp"
-            android:singleLine="true"/>
+            android:layout_marginTop="-21dp"
+            android:background="@drawable/custom_search_online"
+            android:hint="@string/text_btn_search"
+            android:inputType="text"
+            android:paddingLeft="34sp"
+            android:paddingRight="44sp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorSilverWhite" />
 
         <ImageView
             android:id="@+id/iconButtonSearchFromOnlineList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_search"
-            android:layout_marginRight="12dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/icon_search" />
 
         <ImageView
             android:id="@+id/btnDestroyInputFromOnlineList"
             android:layout_width="44dp"
             android:layout_height="26dp"
-            android:src="@drawable/icon_close"
             android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
             android:layout_marginTop="12dp"
-            android:visibility="invisible"/>
+            android:src="@drawable/icon_close"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -59,17 +59,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/text_choice_show_near"
             android:textColor="@color/colorWhite"
             android:textSize="15dp"
@@ -78,9 +78,9 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:thumb="@drawable/custom_switch_selector_red"
             android:track="@drawable/custom_track_switch_red" />
@@ -91,8 +91,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:dividerHeight="5dp"
-        android:divider="@color/colorRedMain">
+        android:divider="@color/colorRedMain"
+        android:dividerHeight="5dp">
 
     </ListView>
 </LinearLayout>

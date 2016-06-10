@@ -27,9 +27,10 @@ import vn.whoever.models.SearchContact;
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 4/23/2016.
+ * Created by Nguyen Van Do on 4/23/2016.
+ * Class implement connection and transaction contact info
  */
-public class ContactTransaction extends  AbstractTransaction{
+public class ContactTransaction extends AbstractTransaction {
 
     private List<SearchContact> searchContactList;
 
@@ -41,6 +42,9 @@ public class ContactTransaction extends  AbstractTransaction{
         return this.searchContactList;
     }
 
+    /**
+     * GET search contact on: /mobille/friends/search/{query}
+     */
     public void queryContact(String query) {
         searchContactList = new ArrayList<SearchContact>();
         String url_query = address + "/friends/search";
@@ -49,31 +53,30 @@ public class ContactTransaction extends  AbstractTransaction{
 
         JsonArrayRequest queryContactRequest = new JsonArrayRequest(Request.Method.GET, urlQuery.getUrl(),
                 new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray resp) {
-                try {
-                    for(int i = 0; i < resp.length(); ++i) {
-                        JSONObject obj = resp.getJSONObject(i);
-                        SearchContact contact = new SearchContact();
-                        contact.setNickName(obj.getString("nickName"));
-                        contact.setAvatar("null");
-                        contact.setSsoId(obj.getString("ssoId"));
-                        contact.setIsFriend(obj.getBoolean("isFriend"));
-                        searchContactList.add(contact);
-                    }
-                    Log.d("size of query:", String.valueOf(resp.length()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onResponse(JSONArray resp) {
+                        try {
+                            for (int i = 0; i < resp.length(); ++i) {
+                                JSONObject obj = resp.getJSONObject(i);
+                                SearchContact contact = new SearchContact();
+                                contact.setNickName(obj.getString("nickName"));
+                                contact.setAvatar("null");
+                                contact.setSsoId(obj.getString("ssoId"));
+                                contact.setIsFriend(obj.getBoolean("isFriend"));
+                                searchContactList.add(contact);
+                            }
+                            Log.d("size of query:", String.valueOf(resp.length()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-            }
-        }, new Response.ErrorListener() {
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 exTractError(error);
             }
         }) {
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return onCreateHeaders(super.getHeaders());
@@ -85,40 +88,44 @@ public class ContactTransaction extends  AbstractTransaction{
                 return super.parseNetworkResponse(response);
             }
         };
-
         TransactionQueue.getsInstance(activity).addToRequestQueue(queryContactRequest, "queryContact");
     }
 
+    /***
+     * GET list friend on: /mobile/friends
+     */
     public void getListFriends() {
         String url_getFriends = address + "/friends/";
 
         JsonArrayRequest requestGetFriends = new JsonArrayRequest(Request.Method.GET, url_getFriends,
                 new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray resp) {
-                SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
-                for(int i = 0; i < resp.length(); ++i) {
-                    try {
-                        JSONObject obj = resp.getJSONObject(i);
-                        ContentValues values = new ContentValues();
-                        values.put("ssoId", obj.getString("ssoId"));
-                        values.put("nickName", obj.getString("nickName"));
-                        values.put("latestOnline", obj.getString("latestOnline"));
-                        db.insert("Contact", null, values);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    @Override
+                    public void onResponse(JSONArray resp) {
+                        SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
+                        for (int i = 0; i < resp.length(); ++i) {
+                            try {
+                                JSONObject obj = resp.getJSONObject(i);
+                                ContentValues values = new ContentValues();
+                                values.put("ssoId", obj.getString("ssoId"));
+                                values.put("nickName", obj.getString("nickName"));
+                                values.put("latestOnline", obj.getString("latestOnline"));
+                                db.insert("Contact", null, values);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        httpStatusCode = HttpStatus.SC_CREATED;
                     }
-                }
-                httpStatusCode = HttpStatus.SC_CREATED;
-            }
-        }, new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Extraction error response
                 exTractError(error);
             }
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                // SET header HTTP packet
                 return onCreateHeaders(super.getHeaders());
             }
 
@@ -128,10 +135,12 @@ public class ContactTransaction extends  AbstractTransaction{
                 return super.parseNetworkResponse(response);
             }
         };
-
         TransactionQueue.getsInstance(activity).addToRequestQueue(requestGetFriends, "getListFriends");
     }
 
+    /**
+     * POST following contact on: /mobile/friends/{ssoId}
+     */
     public void followContact(String ssoId) {
         String url_follow = address + "/friends";
         UrlQuery urlQuery = new UrlQuery(url_follow);
@@ -150,6 +159,7 @@ public class ContactTransaction extends  AbstractTransaction{
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                // Set header for request
                 return onCreateHeaders(super.getHeaders());
             }
 
@@ -159,11 +169,6 @@ public class ContactTransaction extends  AbstractTransaction{
                 return super.parseNetworkResponse(response);
             }
         };
-
         TransactionQueue.getsInstance(activity).addToRequestQueue(followRequest, "followRequest");
-    }
-
-    public void getContactOnline() {
-
     }
 }

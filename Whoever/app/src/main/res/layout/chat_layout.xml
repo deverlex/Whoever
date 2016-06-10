@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chatFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:clickable="true"
-    android:id="@+id/chatFrame">
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/toolBarFromChat"
@@ -12,55 +12,53 @@
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:background="@color/colorRedMain">
-
         <ImageButton
             android:id="@+id/btnBackFromChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/icon_back"
             android:background="@color/colorRedMain"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:src="@drawable/icon_back" />
 
         <ImageButton
             android:id="@+id/btnQuickViewProfileFromChat"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:src="@drawable/icon_eye"
             android:background="@color/colorRedMain"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:src="@drawable/icon_eye" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnBackFromChat"
             android:layout_toLeftOf="@+id/btnSendStatus"
+            android:layout_toRightOf="@+id/btnBackFromChat"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textNameChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
                 android:text="Em Ngân"
-                android:textStyle="bold"
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textTimeAccessFromChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
                 android:text="Vừa mới truy cập"
-                android:textSize="12sp"
-                android:textColor="@color/colorWhite"/>
-
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -68,19 +66,19 @@
         android:id="@+id/listMessageOfChatSession"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolBarFromChat"
         android:layout_above="@+id/viewLineOfChatSession"
+        android:layout_below="@+id/toolBarFromChat"
+        android:background="@color/colorWhite"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:background="@color/colorWhite"
         android:listSelector="@color/colorWhite" />
 
     <View
         android:id="@+id/viewLineOfChatSession"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorSilver"
-        android:layout_above="@+id/toolBarInputSendTextOfChat"/>
+        android:layout_above="@+id/toolBarInputSendTextOfChat"
+        android:background="@color/colorSilver" />
 
     <RelativeLayout
         android:id="@+id/toolBarInputSendTextOfChat"
@@ -93,28 +91,24 @@
             android:id="@+id/btnSendMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/inputMessageSend"
             android:layout_alignParentRight="true"
-            android:src="@drawable/icon_send_red"
+            android:layout_marginBottom="2dp"
             android:background="@color/colorWhite"
             android:padding="10dp"
-            android:layout_marginBottom="2dp"
-            android:layout_alignBottom="@+id/inputMessageSend"/>
+            android:src="@drawable/icon_send_red" />
 
         <EditText
             android:id="@+id/inputMessageSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Write a message"
-            android:background="@color/colorWhite"
-            android:textSize="16sp"
-            android:padding="10dp"
-            android:layout_toLeftOf="@+id/btnSendMessage"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:cursorVisible="true" />
-
+            android:layout_toLeftOf="@+id/btnSendMessage"
+            android:background="@color/colorWhite"
+            android:cursorVisible="true"
+            android:hint="Write a message"
+            android:padding="10dp"
+            android:textSize="16sp" />
     </RelativeLayout>
-
-
-
 </RelativeLayout>

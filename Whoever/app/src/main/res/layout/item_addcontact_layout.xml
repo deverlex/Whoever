@@ -1,52 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemAddContact"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorSilverWhite"
-    card_view:cardCornerRadius="5dp"
     card_view:cardBackgroundColor="@color/colorWhite"
-    card_view:cardUseCompatPadding="true"
-    android:id="@+id/itemAddContact">
+    card_view:cardCornerRadius="5dp"
+    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/colorWhite"
-        android:layout_height="61dp">
-
+        android:layout_height="61dp"
+        android:background="@color/colorWhite">
         <vn.whoever.views.customviews.RoundedImageView
             android:id="@+id/avatarAddContact"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/emngan"
-            android:scaleType="fitXY"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginTop="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/emngan" />
 
         <TextView
             android:id="@+id/nickNameAddAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/colorRedMain"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/avatarAddContact"
-            android:layout_marginLeft="30dp"/>
+            android:textColor="@color/colorRedMain"
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/btnFollowNewAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_add_contact_red"
-            android:background="@color/colorWhite"
             android:layout_alignParentRight="true"
-            android:padding="15dp"
+            android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:layout_centerVertical="true"/>
-
+            android:background="@color/colorWhite"
+            android:padding="15dp"
+            android:src="@drawable/icon_add_contact_red" />
     </RelativeLayout>
-
 </android.support.v7.widget.CardView>

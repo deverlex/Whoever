@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 /**
- * Created by spider man on 12/27/2015.
+ * Created by Nguyen Van Do on 12/27/2015.
  * TODO: translate layout from RIGHT to LEFT
  */
 public class TranslateToLeft extends TranslateAnimation
@@ -27,6 +27,7 @@ public class TranslateToLeft extends TranslateAnimation
         this.slidingLayout = layout;
         this.panelWidth = width;
 
+        // Set time handling translate is 300 ms
         setDuration(300);
         setFillAfter(false);
         setInterpolator(new AccelerateDecelerateInterpolator());

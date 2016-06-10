@@ -16,7 +16,8 @@ import vn.whoever.R;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 4/8/2016.
+ * Created by Nguyen Van Do on 4/8/2016.
+ * This class isn't completed.
  */
 public class NotifiesFragment extends Fragment implements Initgc {
 
@@ -86,7 +87,5 @@ public class NotifiesFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

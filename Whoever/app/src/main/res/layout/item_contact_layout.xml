@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemContactFrame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:id="@+id/itemContactFrame">
+    android:background="@color/colorWhite">
 
     <View
         android:id="@+id/lineBetweenContacts"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:background="@color/colorButtonMain" />
 
@@ -19,12 +19,12 @@
         android:id="@+id/groupTextContactList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/lineBetweenContacts"
         android:layout_marginLeft="10dp"
         android:text="T"
         android:textColor="@color/colorButtonMain"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/lineBetweenContacts"/>
+        android:textStyle="bold" />
 
     <vn.whoever.views.customviews.RoundedImageView
         android:id="@+id/imageAvatarOnContacts"
@@ -35,7 +35,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:scaleType="fitXY"
-        android:src="@drawable/emngan"/>
+        android:src="@drawable/emngan" />
 
     <RelativeLayout
         android:id="@+id/layoutTimeLatestActive"
@@ -53,7 +53,6 @@
             android:text="4 giờ"
             android:textColor="@color/colorSilver"
             android:textSize="10dp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -85,6 +84,5 @@
             android:textColor="@color/colorSilver"
             android:textSize="14sp" />
     </RelativeLayout>
-
 </RelativeLayout>
 

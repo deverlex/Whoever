@@ -33,7 +33,8 @@ import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 12/29/2015.
+ * Created by Nguyen Van Do on 12/29/2015.
+ * This class implement contact layout.
  */
 public class ContactsFragment extends Fragment implements Initgc {
 
@@ -205,7 +206,6 @@ public class ContactsFragment extends Fragment implements Initgc {
             }
         }
         cursor.close();
-
         Collections.sort(contactList, new Comparator<Contact>() {
             @Override
             public int compare(Contact lhs, Contact rhs) {
@@ -222,7 +222,6 @@ public class ContactsFragment extends Fragment implements Initgc {
                 contactList.get(i).setGroupName("");
             }
         }
-
         return contactList;
     }
 

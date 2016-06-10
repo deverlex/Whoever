@@ -30,7 +30,8 @@ import vn.whoever.utils.Initgc;
 import vn.whoever.utils.TimeUtils;
 
 /**
- * Created by spider man on 12/26/2015.
+ * Created by Nguyen Van Do on 12/26/2015.
+ * This class implement welcome layout.
  */
 public class WelcomeFragment extends Fragment implements Initgc {
 
@@ -41,9 +42,8 @@ public class WelcomeFragment extends Fragment implements Initgc {
     LanguagePickerFragment langDialog;
     private TextView textLogoApp;
     private ProgressDialog progressDialog;
-
     private Handler handler = new Handler();
-    private int timeout;
+    private int loop;
     private Integer httpCode = null;
 
     private boolean isAccount = false; // for use register account
@@ -66,9 +66,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
         } else {
             isAccount = false;
         }
-
         hiddenSoftInput();
-
         init(view);
         initListener(view);
         return view;
@@ -80,14 +78,11 @@ public class WelcomeFragment extends Fragment implements Initgc {
         textViewBirthday = (TextView) view.findViewById(R.id.textBirthDayWelcome);
         textViewLanguage = (TextView) view.findViewById(R.id.textLanguageWelcome);
         btnPushApp = (Button) view.findViewById(R.id.buttonPushApp);
-
         dateDialog = new DatePickerFragment();
         dateDialog.setViewDate(textViewBirthday);
-
         langDialog  = new LanguagePickerFragment();
         langDialog.setTextLanguage(textViewLanguage);
         textViewLanguage.setText(langDialog.getLangName(langCode));
-
         textLogoApp = (TextView) view.findViewById(R.id.logoTextStartWelcome);
         Typeface bauhau93_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bauhau93.ttf");
         textLogoApp.setTypeface(bauhau93_font);
@@ -111,8 +106,9 @@ public class WelcomeFragment extends Fragment implements Initgc {
 
                     birthday = dateDialog.getDateString();
 
+                    // Open application - have signed
                     if (isAccount) {
-                        timeout = 50;
+                        loop = 50;
                         final InfoTransaction infoTransaction = new InfoTransaction(getActivity());
                         infoTransaction.registerUser(ssoId, password, nickName, birthday, langCode);
 
@@ -120,7 +116,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                while (timeout > 0) {
+                                while (loop > 0) {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
@@ -130,16 +126,16 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                                     insertDB();
                                                     loadDataActive();
                                                 }
-                                                timeout = 0;
+                                                loop = 0;
                                                 progressDialog.dismiss();
                                             }
-                                            if (timeout == 1) {
+                                            if (loop == 1) {
                                                 progressDialog.dismiss();
                                                 HttpStatus.getStatus(getActivity()).signalCode(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                             }
                                         }
                                     });
-                                    --timeout;
+                                    --loop;
                                     try {
                                         Thread.sleep(150);
                                     } catch (InterruptedException e) {}
@@ -148,14 +144,15 @@ public class WelcomeFragment extends Fragment implements Initgc {
                         }).start();
 
                     } else {
-                        timeout = 40;
+                        // for register/login with anonymous mode
+                        loop = 40;
                         final InfoTransaction infoTransaction = new InfoTransaction(getActivity());
                         infoTransaction.getRequestLoginAnonymous(langCode);
                         progressDialog = ProgressDialog.show(getActivity(), "", "Waiting for login...", true);
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                while (timeout > 0) {
+                                while (loop > 0) {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
@@ -165,16 +162,16 @@ public class WelcomeFragment extends Fragment implements Initgc {
                                                     insertDbForAnnonymous();
                                                     loadDataActive();
                                                 }
-                                                timeout = 0;
+                                                loop = 0;
                                                 progressDialog.dismiss();
                                             }
-                                            if (timeout == 1) {
+                                            if (loop == 1) {
                                                 progressDialog.dismiss();
                                                 HttpStatus.getStatus(getActivity()).signalCode(HttpStatus.SC_SERVICE_UNAVAIABLE);
                                             }
                                         }
                                     });
-                                    --timeout;
+                                    --loop;
                                     try {
                                         Thread.sleep(150);
                                     } catch (InterruptedException e) {}
@@ -242,6 +239,7 @@ public class WelcomeFragment extends Fragment implements Initgc {
         db.update("LocalProfile", values, "id = 1", null);
     }
 
+    // This method hide virtual keyboard
     public void hiddenSoftInput() {
         View view = getActivity().getCurrentFocus();
         if(view != null) {
@@ -257,7 +255,5 @@ public class WelcomeFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

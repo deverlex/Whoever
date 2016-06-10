@@ -1,23 +1,25 @@
 package vn.whoever.models;
 
+import java.io.Serializable;
+
 /**
- * Created by spider man on 12/31/2015.
+ * Created by Nguyen Van Do on 12/31/2015.
+ * This class for test UI - not is class in this application
  */
-public class LocalAccount {
+public class LocalAccount implements Serializable {
+
+    private static final long serialVersionUID = 1545323565773L;
 
     private String ssoId;
     private String password;
-    private Double xLoc;
-    private Double yLoc;
     private String langCode;
 
-    public LocalAccount() {}
+    public LocalAccount() {
+    }
 
-    public LocalAccount(String ssoId, String password, Double xLoc, Double yLoc, String langCode) {
+    public LocalAccount(String ssoId, String password, String langCode) {
         this.ssoId = ssoId;
         this.password = password;
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
         this.langCode = langCode;
     }
 
@@ -27,14 +29,6 @@ public class LocalAccount {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setxLoc(Double xLoc) {
-        this.xLoc = xLoc;
-    }
-
-    public void setyLoc(Double yLoc) {
-        this.yLoc = yLoc;
     }
 
     public void setLangCode(String langCode) {
@@ -47,14 +41,6 @@ public class LocalAccount {
 
     public String getPassword() {
         return password;
-    }
-
-    public Double getxLoc() {
-        return xLoc;
-    }
-
-    public Double getyLoc() {
-        return yLoc;
     }
 
     public String getLangCode() {

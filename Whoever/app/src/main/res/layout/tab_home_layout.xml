@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabHomeFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clickable="true"
-    android:id="@+id/tabHomeFrame">
+    android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayoutHome"
+        style="@style/MyCustomTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:tabMode="fixed"
-        style="@style/MyCustomTabLayout"
+        android:layout_marginTop="-10dp"
         android:background="@color/colorWhite"
-        android:layout_marginTop="-10dp" />
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:tabMode="fixed" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPageHome"

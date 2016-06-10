@@ -15,7 +15,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
- * Created by spider man on 3/2/2016.
+ * Created by Nguyen Van Do on 3/2/2016.
+ * Class load data list languages support by application from assets (XML file)
  */
 public class LanguageDao {
 
@@ -28,40 +29,31 @@ public class LanguageDao {
         factory = DocumentBuilderFactory.newInstance();
     }
 
-    /**
-     * Func used fetch an XML file from assets folder
-     *
-     * @return a list language supported by application
-     */
     public synchronized HashMap<String, String> getArrayLanguageSupport() {
         listLanguage = new LinkedHashMap<>();
         try {
             InputStream inputStream = context.getAssets().open("language/languages.xml");
-
+            // Read XML file using by DOM
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(inputStream);
             document.getDocumentElement().normalize();
             Element element = document.getDocumentElement();
-
             Node nodeLanguageSupport = element.getChildNodes().item(1);
-
             NodeList nodeList = nodeLanguageSupport.getChildNodes();
-            for(int i = 0 ; i < nodeList.getLength(); ++i) {
-                if(nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+            for (int i = 0; i < nodeList.getLength(); ++i) {
+                if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Element element_val = (Element) nodeList.item(i);
                     listLanguage.put(element_val.getAttribute("id"), element_val.getTextContent());
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(listLanguage.size() ==0) {
-            listLanguage.put("en","English");
-            listLanguage.put("vi","Tiếng Việt");
+        // set default for list language if load data failed
+        if (listLanguage.size() == 0) {
+            listLanguage.put("en", "English");
+            listLanguage.put("vi", "Tiếng Việt");
         }
-
         return listLanguage;
     }
-
 }

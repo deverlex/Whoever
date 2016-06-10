@@ -31,7 +31,8 @@ import vn.whoever.utils.Initgc;
 import vn.whoever.utils.RegexUtils;
 
 /**
- * Created by spider man on 12/24/2015.
+ * Created by Nguyen Van Do on 12/24/2015.
+ * This class implement sign in layout.
  */
 public class SignInFragment extends Fragment implements Initgc {
 
@@ -97,20 +98,20 @@ public class SignInFragment extends Fragment implements Initgc {
             }
         });
 
-        editTextSsoId.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // check key input
-                return false;
-            }
-        });
+//        editTextSsoId.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                // check key input
+//                return false;
+//            }
+//        });
 
-        editTextPassword.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                return false;
-            }
-        });
+//        editTextPassword.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                return false;
+//            }
+//        });
 
         editTextSsoId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -151,7 +152,6 @@ public class SignInFragment extends Fragment implements Initgc {
                 bundle.putBoolean("isSignUp", false);
                 WelcomeFragment welcomeFragment = new WelcomeFragment();
                 welcomeFragment.setArguments(bundle);
-
                 navigateFrame(welcomeFragment, "signinFrameToWelcome");
             }
         });
@@ -229,6 +229,7 @@ public class SignInFragment extends Fragment implements Initgc {
         MainActivity.frgTrans.replace(R.id.mainFrame, fragment).addToBackStack(strStack).commit();
     }
 
+    // Navigate to load layout and remove all layout on stack
     public void loadDataActive() {
         MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
         MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -250,9 +251,7 @@ public class SignInFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 
     private void insertDB() {
         SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
@@ -262,6 +261,5 @@ public class SignInFragment extends Fragment implements Initgc {
         values.put("password", password);
         db.execSQL("delete from LocalAccount");
         db.insert("LocalAccount", null, values);
-        //db.close();
     }
 }

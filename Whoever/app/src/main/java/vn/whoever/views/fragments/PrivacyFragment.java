@@ -10,7 +10,8 @@ import vn.whoever.R;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 4/9/2016.
+ * Created by Nguyen Van Do on 4/9/2016.
+ * This class isn't completed.
  */
 public class PrivacyFragment extends Fragment implements Initgc {
 
@@ -22,17 +23,11 @@ public class PrivacyFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void init(View view) {
-
-    }
+    public void init(View view) {}
 
     @Override
-    public void initListener(View view) {
-
-    }
+    public void initListener(View view) {}
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

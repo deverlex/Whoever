@@ -78,7 +78,8 @@ public class MobileStatusController {
 	 * This method describe getting newsfeed of home page followed by location
 	 * and linked of user. Message equivalent to message of get Home page
 	 */
-	@RequestMapping(value = "/mobile/news", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/mobile/news", method = RequestMethod.POST, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody List<ReturnStatus> getNews(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody GetStatus getStatus) {
 
@@ -134,7 +135,8 @@ public class MobileStatusController {
 	 * Message of posting is described as below { "contentText" : "",
 	 * "contentImage" : "", "privacy" : "", "isUseAccount" : "" }
 	 */
-	@RequestMapping(value = "/mobile/status", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/mobile/status", method = RequestMethod.POST, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody ReturnPost postStatus(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody PostStatus postStatus) {
 

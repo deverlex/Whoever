@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemStatusFrame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorSilverWhite"
-    card_view:cardCornerRadius="5dp"
     card_view:cardBackgroundColor="@color/colorWhite"
-    card_view:cardUseCompatPadding="true"
-    android:id="@+id/itemStatusFrame">
+    card_view:cardCornerRadius="5dp"
+    card_view:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,8 +17,8 @@
         <RelativeLayout
             android:id="@+id/headerStatusItemLayout"
             android:layout_width="match_parent"
-            android:clickable="true"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clickable="true">
 
             <!-- have a avatar, nickname, time upload, extend option button -->
             <vn.whoever.views.customviews.RoundedImageView
@@ -30,7 +29,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_margin="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/donguyen"/>
+                android:src="@drawable/donguyen" />
 
             <TextView
                 android:id="@+id/nickNameAndExtendOnStatus"
@@ -38,59 +37,59 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@+id/imageAvatarOnStatus"
-                android:textColor="@color/colorBlack"
                 android:text="Nguyen Do"
+                android:textColor="@color/colorBlack"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/timeUploadStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_below="@+id/nickNameAndExtendOnStatus"
+                android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/imageAvatarOnStatus"
                 android:text="13:15 hôm qua"
-                android:textSize="11sp"/>
+                android:textSize="11sp" />
 
             <ImageButton
                 android:id="@+id/extendButtonStatusOnStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorWhite"
                 android:paddingLeft="15dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:src="@drawable/icon_extends"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:background="@color/colorWhite" />
-
+                android:src="@drawable/icon_extends" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/bodyStatusItemLayout"
             android:layout_width="match_parent"
-            android:clickable="false"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:orientation="vertical">
+
             <vn.whoever.views.customviews.JTextView
                 android:id="@+id/contentStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="fill_horizontal"
                 android:textColor="@color/colorBlack"
                 android:textSize="14sp"
-                android:textStyle="normal"
-                android:gravity="fill_horizontal"/>
+                android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/imageInStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxHeight="350dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
         </LinearLayout>
 
         <View
@@ -98,13 +97,13 @@
             android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/colorSilver"/>
+            android:background="@color/colorSilver" />
 
         <LinearLayout
             android:id="@+id/toolBarStatusItemLayout"
             android:layout_width="match_parent"
-            android:clickable="false"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:orientation="horizontal"
             android:weightSum="3">
 
@@ -115,92 +114,91 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_weight="1"
                 android:orientation="horizontal"
-                android:padding="2dp"
-                android:layout_weight="1">
+                android:padding="2dp">
                 <ImageView
                     android:id="@+id/iconLikeStatus"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
+                    android:layout_marginTop="2dp" />
 
                 <TextView
                     android:id="@+id/totalLikeStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="20dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorSilverBlack"
                     android:text="12"
-                    android:textStyle="bold"
-                    android:layout_gravity="center" />
+                    android:textColor="@color/colorSilverBlack"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnDislikeStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/btnLikeStatus"
                 android:layout_toLeftOf="@+id/btnCommentStatus"
+                android:layout_toRightOf="@+id/btnLikeStatus"
                 android:layout_weight="1"
-                android:padding="2dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="2dp">
 
                 <ImageView
                     android:id="@+id/iconDisklikeStatus"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
+                    android:layout_marginTop="2dp" />
 
                 <TextView
                     android:id="@+id/totalDislikeStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="20dp"
-                    android:textSize="14dp"
-                    android:textColor="@color/colorSilverBlack"
                     android:text="12"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"/>
+                    android:textColor="@color/colorSilverBlack"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnCommentStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_weight="1"
-                android:padding="2dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="2dp">
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/icon_comment"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="2dp"
-                    android:alpha="0.5"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/icon_comment" />
 
                 <TextView
                     android:id="@+id/totalCommentStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorSilverBlack"
-                    android:text="12 Comment"
-                    android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:layout_marginRight="10dp"/>
-
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:text="12 Comment"
+                    android:textColor="@color/colorSilverBlack"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

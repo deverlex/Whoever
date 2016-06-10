@@ -14,7 +14,8 @@ import vn.whoever.models.Contact;
 import vn.whoever.views.customviews.RoundedImageView;
 
 /**
- * Created by spider man on 1/13/2016.
+ * Created by Nguyen Van Do on 1/13/2016.
+ * Class set adapter update database to UI Contact
  */
 public class ContactsAdapter extends AbstractAdapter<Contact> {
 
@@ -25,7 +26,7 @@ public class ContactsAdapter extends AbstractAdapter<Contact> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        if(viewType == VIEW_ITEM) {
+        if (viewType == VIEW_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact_layout, parent, false);
             vh = new ContactViewHandler(view);
         } else {
@@ -37,9 +38,9 @@ public class ContactsAdapter extends AbstractAdapter<Contact> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ContactViewHandler) {
+        if (holder instanceof ContactViewHandler) {
             Contact contact = (Contact) dataList.get(position);
-            if(!contact.getGroupName().equals("")) {
+            if (!contact.getGroupName().equals("")) {
                 ((ContactViewHandler) holder).groupName.setText(contact.getGroupName());
                 ((ContactViewHandler) holder).groupName.setVisibility(View.VISIBLE);
                 ((ContactViewHandler) holder).lineTop.setVisibility(View.VISIBLE);
@@ -56,6 +57,7 @@ public class ContactsAdapter extends AbstractAdapter<Contact> {
         }
     }
 
+    // Set class describe contact view object
     public class ContactViewHandler extends RecyclerView.ViewHolder {
 
         public TextView groupName;

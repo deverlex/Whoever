@@ -25,21 +25,19 @@ import vn.whoever.utils.Initgc;
 import vn.whoever.views.dialogs.DialogPrivacyPostStatus;
 
 /**
- * Created by spider man on 4/8/2016.
+ * Created by Nguyen Van Do on 4/8/2016.
+ * This class implement post status layout.
  */
 public class PostStatusFragment extends Fragment implements Initgc {
 
     private RelativeLayout toolbarPostStatus;
     private RelativeLayout toobarPrivacy;
-
     private ImageButton btnBackHome;
     private ImageButton btnPost;
-
     private ImageView symbolUse;
     private TextView textShowUse;
     private ImageView symbolPrivacy;
     private TextView textShowPrivacy;
-
     private EditText editContentStatus;
     private DialogPrivacyPostStatus privacyPost;
     private StatusTransaction statusTransaction;

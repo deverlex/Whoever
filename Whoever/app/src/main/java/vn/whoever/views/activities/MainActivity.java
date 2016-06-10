@@ -19,7 +19,10 @@ import vn.whoever.TransConnection.InfoTransaction;
 import vn.whoever.models.dao.ConnDB;
 import vn.whoever.views.fragments.LoadFragment;
 import vn.whoever.views.fragments.SignInFragment;
-
+/**
+ * Created by Nguyen Van Do on 12/20/2015.
+ * This main class - begin execute at this class
+ */
 public class MainActivity extends AppCompatActivity {
 
     public static FragmentManager frgtManager;
@@ -37,33 +40,31 @@ public class MainActivity extends AppCompatActivity {
         frgtManager = getSupportFragmentManager();
         frgTrans = frgtManager.beginTransaction();
 
-        /**
-         * TODO: connection to DB
-         *
-         */
-        if(isLogged) {
+        if (isLogged) {
             frgTrans.replace(R.id.mainFrame, new LoadFragment()).commit();
         } else {
             frgTrans.replace(R.id.mainFrame, new SignInFragment()).commit();
         }
         hiddenSoftInput();
 
-        //TODO: for keep session
+        //TODO: for keep session connection to server
         CookieHandler.setDefault(new CookieManager());
     }
 
+    // Hiding virtual keyboard
     public void hiddenSoftInput() {
         View view = this.getCurrentFocus();
-        if(view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
+    // Listener back pressed on keyboard
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if(fm.getFragments() != null) {
+        if (fm.getFragments() != null) {
             for (Fragment frag : fm.getFragments()) {
                 if (frag != null && frag.isVisible()) {
                     FragmentManager childFm = frag.getChildFragmentManager();
@@ -82,12 +83,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
+        // Send reconnection to server when application resume
         (new InfoTransaction(this)).getReConnect();
         super.onResume();
     }
 
     @Override
     public void onStart() {
+        // Opening connection into database when user open application
         ConnDB.getConn(this);
         ConnDB.getConn().openDataBase();
         super.onStart();
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
+        // Closing connection into database
         ConnDB.getConn().close();
         super.onStop();
     }

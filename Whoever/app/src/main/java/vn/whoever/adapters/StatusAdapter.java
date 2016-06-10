@@ -23,21 +23,22 @@ import vn.whoever.views.fragments.ProfileFragment;
 import vn.whoever.views.fragments.CommentFragment;
 
 /**
- * Created by spider man on 4/23/2016.
+ * Created by Nguyen Van Do on 4/23/2016.
+ * Class set adapter update database to UI Newsfeed
  */
 public class StatusAdapter extends AbstractAdapter<Status> {
 
     private StatusTransaction statusTransaction;
 
     public StatusAdapter(Fragment fragment, List<Status> listStatus, RecyclerView recyclerView) {
-        super(fragment, listStatus,recyclerView);
+        super(fragment, listStatus, recyclerView);
         statusTransaction = new StatusTransaction(fragment.getActivity());
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        if(viewType == VIEW_ITEM) {
+        if (viewType == VIEW_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_status_layout, parent, false);
             vh = new StatusViewHolder(view);
         } else {
@@ -49,7 +50,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof StatusViewHolder) {
+        if (holder instanceof StatusViewHolder) {
             final Status singleStatus = (Status) dataList.get(position);
             ((StatusViewHolder) holder).nickName.setText(singleStatus.getNamePoster());
             ((StatusViewHolder) holder).timeUp.setText(singleStatus.getTimePost());
@@ -57,23 +58,24 @@ public class StatusAdapter extends AbstractAdapter<Status> {
             ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
             ((StatusViewHolder) holder).totalComment.setText(String.valueOf(singleStatus.getTotalComment()));
             final String strContent;
-            if(singleStatus.getContentImage().equals("null")) {
+            if (singleStatus.getContentImage().equals("null")) {
                 // TODO: add image for status
-                if(singleStatus.getContentText().length() > 682)
+                if (singleStatus.getContentText().length() > 682)
                     strContent = singleStatus.getContentText().substring(0, 682) + "...";
                 else strContent = singleStatus.getContentText();
             } else {
-                if(singleStatus.getContentText().length() > 268)
-                    strContent = singleStatus.getContentText().substring(0,268) + "...";
+                if (singleStatus.getContentText().length() > 268)
+                    strContent = singleStatus.getContentText().substring(0, 268) + "...";
                 else strContent = singleStatus.getContentText();
             }
             ((StatusViewHolder) holder).contentText.setText(strContent);
             ((StatusViewHolder) holder).status = singleStatus;
 
-            if(singleStatus.getInteract().equals("like")) {
+            // Set UI for two item like and dislike on status item
+            if (singleStatus.getInteract().equals("like")) {
                 ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
                 ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
-            } else if(singleStatus.getInteract().equals("dislike")) {
+            } else if (singleStatus.getInteract().equals("dislike")) {
                 ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
                 ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
             } else {
@@ -81,18 +83,19 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
             }
 
+            // Handling event click on like button
             ((StatusViewHolder) holder).btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ContentValues values = new ContentValues();
-                    if(singleStatus.getInteract().equals("like")) {
+                    if (singleStatus.getInteract().equals("like")) {
                         singleStatus.setInteract("normal");
                         ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like);
                         singleStatus.setTotalLike(singleStatus.getTotalLike() - 1);
                         ((StatusViewHolder) holder).totalLike.setText(String.valueOf(singleStatus.getTotalLike()));
                         values.put("interact", "normal");
                         values.put("totalLike", singleStatus.getTotalLike());
-                    } else if(singleStatus.getInteract().equals("dislike")) {
+                    } else if (singleStatus.getInteract().equals("dislike")) {
                         singleStatus.setInteract("like");
                         ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
                         ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
@@ -103,7 +106,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                         values.put("interact", "like");
                         values.put("totalLike", singleStatus.getTotalLike());
                         values.put("totalDislike", singleStatus.getTotalDislike());
-                    } else if(singleStatus.getInteract().equals("normal")){
+                    } else if (singleStatus.getInteract().equals("normal")) {
                         singleStatus.setInteract("like");
                         ((StatusViewHolder) holder).imgLike.setImageResource(R.drawable.icon_like_red);
                         singleStatus.setTotalLike(singleStatus.getTotalLike() + 1);
@@ -117,18 +120,19 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 }
             });
 
+            // Handling event click on dislike button
             ((StatusViewHolder) holder).btnDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ContentValues values = new ContentValues();
-                    if(singleStatus.getInteract().equals("dislike")) {
+                    if (singleStatus.getInteract().equals("dislike")) {
                         singleStatus.setInteract("normal");
                         ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike);
                         singleStatus.setTotalDislike(singleStatus.getTotalDislike() - 1);
                         ((StatusViewHolder) holder).totalDislike.setText(String.valueOf(singleStatus.getTotalDislike()));
                         values.put("interact", "normal");
                         values.put("totalDislike", singleStatus.getTotalDislike());
-                    } else if(singleStatus.getInteract().equals("like")) {
+                    } else if (singleStatus.getInteract().equals("like")) {
                         singleStatus.setInteract("dislike");
                         singleStatus.setTotalLike(singleStatus.getTotalLike() - 1);
                         singleStatus.setTotalDislike(singleStatus.getTotalDislike() + 1);
@@ -139,7 +143,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                         values.put("interact", "dislike");
                         values.put("totalLike", singleStatus.getTotalLike());
                         values.put("totalDislike", singleStatus.getTotalDislike());
-                    } else if(singleStatus.getInteract().equals("normal")){
+                    } else if (singleStatus.getInteract().equals("normal")) {
                         singleStatus.setInteract("dislike");
                         ((StatusViewHolder) holder).imgDislike.setImageResource(R.drawable.icon_dislike_red);
                         singleStatus.setTotalDislike(singleStatus.getTotalDislike() + 1);
@@ -153,6 +157,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 }
             });
 
+            // Handling event click on icon comment on status item -> navigate to detail status
             ((StatusViewHolder) holder).btnComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -165,6 +170,7 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 }
             });
 
+            // Handling event click on content text of status area -> navigate to detail status
             ((StatusViewHolder) holder).contentText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -177,11 +183,8 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                 }
             });
 
-            if(singleStatus.getSsoIdPoster() == null) {
-                System.exit(1);
-            }
-
-            if(!singleStatus.getSsoIdPoster().equals("null")) {
+            // If status is posted by user using nick name -> user can view profile
+            if (!singleStatus.getSsoIdPoster().equals("null")) {
                 ((StatusViewHolder) holder).nickName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -195,7 +198,6 @@ public class StatusAdapter extends AbstractAdapter<Status> {
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
-                        Log.d("ssoIdPoster", singleStatus.getSsoIdPoster());
                         bundle.putString("ssoidPoster", singleStatus.getSsoIdPoster());
                         navigateToFragment(new ProfileFragment(), "statusFrameToProfile");
                     }
@@ -209,6 +211,9 @@ public class StatusAdapter extends AbstractAdapter<Status> {
         }
     }
 
+    /**
+     * Set class describe status view UI object
+     */
     public static class StatusViewHolder extends RecyclerView.ViewHolder {
 
         public TextView nickName;
@@ -224,7 +229,6 @@ public class StatusAdapter extends AbstractAdapter<Status> {
         public LinearLayout btnComment;
         public LinearLayout btnLike;
         public LinearLayout btnDislike;
-
         public Status status;
 
         public StatusViewHolder(View view) {

@@ -8,7 +8,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 /**
- * Created by spider man on 2/24/2016.
+ * Created by Nguyen Van Do on 2/24/2016.
+ * This class handle event concerned date picker
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -30,21 +31,20 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         this.month = monthOfYear;
         this.dayOfMonth = dayOfMonth;
 
+        // Update text time on Welcome layout
         String strDate = "";
-        if(dayOfMonth < 10) {
+        if (dayOfMonth < 10) {
             strDate += "0" + dayOfMonth;
         } else {
             strDate += dayOfMonth;
         }
 
-        if(month < 10) {
+        if (month < 10) {
             strDate += "/0" + month;
         } else {
             strDate += "/" + month;
         }
-
         strDate += "/" + year;
-
         viewDate.setText(strDate);
     }
 
@@ -66,19 +66,17 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public String getDateString() {
         String strDate = "";
-
         strDate += year;
-        if(month < 10) {
+        if (month < 10) {
             strDate += "-0" + month;
         } else {
             strDate += "-" + month;
         }
-        if(dayOfMonth < 10) {
+        if (dayOfMonth < 10) {
             strDate += "-0" + dayOfMonth;
         } else {
-            strDate += "-"+dayOfMonth;
+            strDate += "-" + dayOfMonth;
         }
-
         return strDate;
     }
 }

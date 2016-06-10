@@ -41,8 +41,8 @@ public class MobileProfilesController {
 	 * { "nickName" : "", "birthday" : "", "gender" : "", "mobile" : "", "email"
 	 * : "", "privacy" : "" }
 	 */
-	@RequestMapping(value = {
-			"/mobile/profiles" }, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = {"/mobile/profiles" }, method = RequestMethod.POST, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody Boolean setProfile(HttpServletRequest request, @RequestBody SetProfile setProfile) {
 
 		String idUser = authToken.getIdUserHttp(request);

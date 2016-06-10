@@ -13,7 +13,9 @@ import com.android.volley.toolbox.Volley;
 import java.util.Objects;
 
 /**
- * Created by spider man on 1/7/2016.
+ * Created by Nguyen Van Do on 1/7/2016.
+ * Making a queue for request to server.
+ * This class is singleton
  */
 public class TransactionQueue {
 
@@ -31,15 +33,15 @@ public class TransactionQueue {
     }
 
     public RequestQueue getRequestQueue() {
-        if(mRequestQueue == null) {
+        if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(applicationContext);
         }
-
         return mRequestQueue;
     }
 
     public <T> void addToRequestQueue(Request<T> request, String tag) {
         request.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
+        // Timeout of a request is 10 second
         int socketTimeout = 10000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
@@ -49,12 +51,12 @@ public class TransactionQueue {
 
     public <T> void addToRequestQueue(Request<T> request) {
         request.setTag(TAG);
-
+        // Add a request into queue request
         getRequestQueue().add(request);
     }
 
     public void cancelPendingRequests(Objects tag) {
-        if(mRequestQueue != null) {
+        if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
     }

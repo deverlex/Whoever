@@ -16,19 +16,22 @@ import vn.whoever.R;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 12/29/2015.
+ * Created by Nguyen Van Do on 12/29/2015.
+ * This class implement tab home page layout.
  */
 public class TabHomeFragment extends Fragment implements Initgc {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private static final int int_items = 4;
+    // Set icon for 4 tab when not choice
     private int[] icons = {
             R.drawable.icon_home,
             R.drawable.icon_newsfeed,
             R.drawable.icon_inbox,
             R.drawable.icon_contacts
     };
+    // Set icon for 4  tab when choice
     private int[] icons_red = {
             R.drawable.icon_home_red,
             R.drawable.icon_newsfeed_red,
@@ -38,7 +41,6 @@ public class TabHomeFragment extends Fragment implements Initgc {
 
     private ArrayList<String> titles;
 
-   // private int selectedItems = 0;
     private Fragment homeFragment;
     private Fragment newsFragment;
     private Fragment inboxFragment;
@@ -60,7 +62,6 @@ public class TabHomeFragment extends Fragment implements Initgc {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
-
                 tabLayout.getTabAt(0).setIcon(icons_red[0]);
                 for (int i = 1; i < int_items; ++i) {
                     tabLayout.getTabAt(i).setIcon(icons[i]);
@@ -91,10 +92,9 @@ public class TabHomeFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initListener(View view) {
+    public void initListener(View view) {}
 
-    }
-
+    // Update icon tab when changeable
     public void updateColorTabSelected() {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -129,13 +129,13 @@ public class TabHomeFragment extends Fragment implements Initgc {
                 case 0:
                     return homeFragment;
                 case 1:
-                    return  newsFragment;
+                    return newsFragment;
                 case 2:
                     return inboxFragment;
                 case 3:
                     return contactFragment;
             }
-            return  null;
+            return null;
         }
 
         @Override
@@ -155,8 +155,7 @@ public class TabHomeFragment extends Fragment implements Initgc {
         super.onPause();
     }
 
+    // This method isn't completed.
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

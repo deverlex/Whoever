@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- * Created by spider man on 1/10/2016.
+ * Created by Nguyen Van Do on 1/10/2016.
+ * Class describe Status data object
  */
 public class Status implements Serializable {
 
@@ -23,7 +24,8 @@ public class Status implements Serializable {
     private int totalComment;
     private String interact;
 
-    public Status() {}
+    public Status() {
+    }
 
     public String getIdStatus() {
         return idStatus;

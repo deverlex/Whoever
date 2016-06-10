@@ -1,11 +1,15 @@
 package vn.whoever.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by spider man on 1/13/2016.
+ * Created by Nguyen Van Do on 1/13/2016.
+ * This class isnn't complete at now
  */
-public class Inbox {
+public class Inbox implements Serializable {
+
+    private static final long serialVersionUID = 154532354503943L;
 
     private long idMessage;
     private LocalAccount userSend;

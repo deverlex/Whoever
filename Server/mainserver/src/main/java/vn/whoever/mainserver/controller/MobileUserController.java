@@ -66,8 +66,8 @@ public class MobileUserController {
 	 * "gender" : "", "mobile" : "", "email" : "", "isOnline" : "", "privacy" :
 	 * "" }
 	 */
-	@RequestMapping(value = {
-			"/login" }, method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(value = {"/login" }, method = RequestMethod.POST, 
+			produces = "application/json", consumes = "application/json")
 	public @ResponseBody ReturnCallLogin loginWithAccount(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody CallLogin login) {
 
@@ -164,7 +164,8 @@ public class MobileUserController {
 	 * {"ssoId" : "", "password" : "", "nickName" : "", "birthday" : "",
 	 * "langCode" : ""}
 	 */
-	@RequestMapping(value = {"/register"}, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = {"/register"}, method = RequestMethod.POST, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody String registerAccount(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody CallRegister req) {
 
@@ -240,7 +241,6 @@ public class MobileUserController {
 	// This function isn't complete
 	@RequestMapping(value = { "/get/term" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String acceptTermWhoever(@RequestParam(value = "lang", defaultValue = "en") String langCode) {
-
 		return "";
 	}
 

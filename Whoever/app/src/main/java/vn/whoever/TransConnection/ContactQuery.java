@@ -19,7 +19,8 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONObject;
 
 /**
- * Created by spider man on 1/7/2016.
+ * Created by Nguyen Van Do on 1/7/2016.
+ * Class implement connection and transaction contact info
  */
 public class ContactQuery extends AbstractTransaction {
 
@@ -29,6 +30,9 @@ public class ContactQuery extends AbstractTransaction {
 
     public String resultQuerySsoId;
 
+    /**
+     * GET check ssoId available on: /mobile/users/query/{ssoId}
+     */
     public String findSsoIdAvaiable(String ssoId) {
         String url_query = address + "/users/query";
 
@@ -40,11 +44,11 @@ public class ContactQuery extends AbstractTransaction {
             @Override
             public void onResponse(String response) {
                 resultQuerySsoId = response;
-                Log.d("querySsoId", response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Extraction error response
                 exTractError(error);
             }
         });
@@ -52,23 +56,19 @@ public class ContactQuery extends AbstractTransaction {
         return resultQuerySsoId;
     }
 
+    // This method isn't complete at now
     public void getTermUser() {
         String urlQuery = "http://192.168.1.112:8080/mainserver/mobile/term";
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, urlQuery, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
-
-            }
+            public void onResponse(JSONObject response) {}
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
+            public void onErrorResponse(VolleyError error) {}
         });
         TransactionQueue.getsInstance(activity).addToRequestQueue(objectRequest);
     }
-
     public String getQuerySsoId() {
         return resultQuerySsoId;
     }

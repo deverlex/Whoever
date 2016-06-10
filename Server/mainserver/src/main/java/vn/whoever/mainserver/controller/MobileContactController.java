@@ -72,8 +72,8 @@ public class MobileContactController {
 	 * This method for add a new friend action of users.
 	 * 
 	 */
-	@RequestMapping(value = {
-			"/{ssoId}" }, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = {"/{ssoId}" }, method = RequestMethod.POST, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody void addFriend(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value = "ssoId") String ssoId) {
 
@@ -91,8 +91,8 @@ public class MobileContactController {
 	 * Information responsive is described this below { "ssoId" : "", "nickName"
 	 * : "", "latestOnline" : " }
 	 */
-	@RequestMapping(value = {
-			"/search/{query}" }, method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = {"/search/{query}" }, method = RequestMethod.GET, 
+			consumes = "application/json", produces = "application/json")
 	public @ResponseBody List<ReturnSearchContact> queryContact(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable(value = "query") String query) {
 		Map<String, ReturnSearchContact> mapReturn = new HashMap<String, ReturnSearchContact>();

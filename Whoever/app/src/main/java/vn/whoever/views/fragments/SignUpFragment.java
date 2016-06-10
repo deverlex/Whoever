@@ -23,7 +23,8 @@ import vn.whoever.utils.RegexUtils;
 import vn.whoever.views.activities.MainActivity;
 
 /**
- * Created by spider man on 12/24/2015.
+ * Created by Nguyen Van Do on 12/24/2015.
+ * This class implement sign up layout.
  */
 public class SignUpFragment extends Fragment implements Initgc {
 
@@ -84,7 +85,7 @@ public class SignUpFragment extends Fragment implements Initgc {
 
         contactQuery = new ContactQuery(getActivity());
 
-        if(ssoId.length() > 7) {
+        if (ssoId.length() > 7) {
             checkSuggestSsoId();
         }
     }
@@ -108,16 +109,13 @@ public class SignUpFragment extends Fragment implements Initgc {
                 password = editTextPassword.getText().toString();
                 nickName = editTextNickName.getText().toString();
 
-                if(toast != null) {
+                if (toast != null) {
                     toast.cancel();
                 }
 
-                Log.d("check create?", String.valueOf(isHasCreate));
-
-                if(isHasCreate && RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)
+                if (isHasCreate && RegexUtils.getInstance().checkSsoId(ssoId) && RegexUtils.getInstance().checkPassword(password)
                         && RegexUtils.getInstance().checkNickName(nickName)) {
-                    if(checkBoxAgreeTerm.isChecked()) {
-
+                    if (checkBoxAgreeTerm.isChecked()) {
                         Bundle bundle = new Bundle();
                         bundle.putBoolean("isSignUp", true);
                         bundle.putString("nickName", nickName);
@@ -125,9 +123,7 @@ public class SignUpFragment extends Fragment implements Initgc {
                         bundle.putString("password", password);
                         WelcomeFragment welcomeFragment = new WelcomeFragment();
                         welcomeFragment.setArguments(bundle);
-
                         navigateToWelcome(welcomeFragment, "signupFrameToWelcome");
-
                     } else {
                         toast = Toast.makeText(getActivity().getApplicationContext(), "Choice agree to the Term", Toast.LENGTH_SHORT);
                         toast.show();
@@ -143,10 +139,10 @@ public class SignUpFragment extends Fragment implements Initgc {
         checkBoxAgreeTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(toast != null) {
+                if (toast != null) {
                     toast.cancel();
                 }
-                if(isCheckTerm) {
+                if (isCheckTerm) {
                     isCheckTerm = false;
                     toast = Toast.makeText(getActivity().getApplicationContext(), "Not agree to the Term, don't create new account", Toast.LENGTH_LONG);
                     toast.show();
@@ -158,20 +154,18 @@ public class SignUpFragment extends Fragment implements Initgc {
             }
         });
 
-        textViewTerm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        textViewTerm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
 
         editTextNickName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     boolean check = RegexUtils.getInstance().checkNickName(editTextNickName.getText().toString());
-                    if(!check) {
-                        if(toast != null) {
+                    if (!check) {
+                        if (toast != null) {
                             toast.cancel();
                         }
                         toast = Toast.makeText(getActivity(), "Nickname isn't standard of Nickname", Toast.LENGTH_LONG);
@@ -184,17 +178,17 @@ public class SignUpFragment extends Fragment implements Initgc {
         editTextSsoId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     String strSsoId = editTextSsoId.getText().toString();
                     boolean check = RegexUtils.getInstance().checkSsoId(strSsoId);
-                    if(!check) {
-                        if(toast != null) {
+                    if (!check) {
+                        if (toast != null) {
                             toast.cancel();
                         }
                         toast = Toast.makeText(getActivity(), "Account ID isn't standard of Account ID", Toast.LENGTH_LONG);
                         toast.show();
                     }
-                    if(strSsoId.length() > 7) {
+                    if (strSsoId.length() > 7) {
                         ssoId = strSsoId;
                         checkSuggestSsoId();
                     }
@@ -225,15 +219,14 @@ public class SignUpFragment extends Fragment implements Initgc {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 while (timeout > 0) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             querySsoId = contactQuery.getQuerySsoId();
-                            if(querySsoId != null) {
+                            if (querySsoId != null) {
                                 timeout = 0;
-                                if(querySsoId.equals("avaiable")) {
+                                if (querySsoId.equals("avaiable")) {
                                     Toast.makeText(getActivity(), "This account was avaiable!", Toast.LENGTH_SHORT).show();
                                     isHasCreate = false;
                                 } else {
@@ -245,7 +238,8 @@ public class SignUpFragment extends Fragment implements Initgc {
                     --timeout;
                     try {
                         Thread.sleep(250);
-                    } catch (InterruptedException e) {}
+                    } catch (InterruptedException e) {
+                    }
                 }
             }
         }).start();
@@ -265,13 +259,11 @@ public class SignUpFragment extends Fragment implements Initgc {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(toast != null) {
+        if (toast != null) {
             toast.cancel();
         }
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

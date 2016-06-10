@@ -32,7 +32,8 @@ import java.util.Map;
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 4/22/2016.
+ * Created by Nguyen Van Do on 4/22/2016.
+ * Class implement connection and transaction user's account
  */
 public class InfoTransaction extends AbstractTransaction {
 
@@ -40,6 +41,9 @@ public class InfoTransaction extends AbstractTransaction {
         super(activity);
     }
 
+    /**
+     * GET reconnect on: /mobile/users/reconnect
+     */
     public void getReConnect() {
         String url_reconnect = address + "/users/reconnect";
 
@@ -52,11 +56,13 @@ public class InfoTransaction extends AbstractTransaction {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Extraction an error
                 exTractError(error);
             }
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                // SET header -> set token on header -> server check token -> accepted/unaccepted
                 return onCreateHeaders(super.getHeaders());
             }
 
@@ -68,6 +74,14 @@ public class InfoTransaction extends AbstractTransaction {
         TransactionQueue.getsInstance(activity).addToRequestQueue(reConnectRequest, "reConnect");
     }
 
+    /**
+     * POST request login to server on: /mobile/users/login
+     * JSON string:
+     * {
+     *     "ssoId" : "",
+     *     "password" : ""
+     * }
+     */
     public void getRequestLogin(final String ssoId, final String password) {
         String url_login = address + "/users/login";
         httpStatusCode = null;
@@ -80,30 +94,19 @@ public class InfoTransaction extends AbstractTransaction {
             @Override
             public void onResponse(JSONObject res) {
                 try {
-                    String avatarPhoto = res.getString("avatarPhoto");
-                    String coverPhoto = res.getString("coverPhoto");
-                    String nickName = res.getString("nickName");
-                    String langName = res.getString("langName");
-                    String birthday = res.getString("birthday");
-                    String gender = res.getString("gender");
-                    String mobile = res.getString("mobile");
-                    String email = res.getString("email");
-                    String privacy = res.getString("privacy");
-                    Boolean isOnline = res.getBoolean("isOnline");
-
                     SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                     ContentValues values = new ContentValues();
                     values.put("id", 1);
-                    values.put("avatarPhoto", avatarPhoto);
-                    values.put("coverPhoto", coverPhoto);
-                    values.put("nickName", nickName);
-                    values.put("langName", langName);
-                    values.put("birthday", birthday);
-                    values.put("gender", gender);
-                    values.put("mobile", mobile);
-                    values.put("email", email);
-                    values.put("privacy", privacy);
-                    values.put("isOnline", isOnline);
+                    values.put("avatarPhoto", res.getString("avatarPhoto"));
+                    values.put("coverPhoto", res.getString("coverPhoto"));
+                    values.put("nickName", res.getString("nickName"));
+                    values.put("langName", res.getString("langName"));
+                    values.put("birthday", res.getString("birthday"));
+                    values.put("gender", res.getString("gender"));
+                    values.put("mobile", res.getString("mobile"));
+                    values.put("email", res.getString("email"));
+                    values.put("privacy", res.getString("privacy"));
+                    values.put("isOnline", res.getBoolean("isOnline"));
                     db.execSQL("delete from LocalProfile");
                     db.insert("LocalProfile", null, values);
                 } catch (Exception e) {
@@ -130,6 +133,9 @@ public class InfoTransaction extends AbstractTransaction {
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 Map<String, String> headers = response.headers;
+                /**
+                 * Insert token info into database after request login
+                 */
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("token", headers.get("Whoever-token"));
@@ -139,10 +145,20 @@ public class InfoTransaction extends AbstractTransaction {
                 return super.parseNetworkResponse(response);
             }
         };
-
         TransactionQueue.getsInstance(activity).addToRequestQueue(requestLogin);
     }
 
+    /***
+     * POST register user on: /mobile/users/register
+     * JSON string:
+     * {
+     *      "ssoId" : "",
+     *      "password" : "",
+     *      "nickName" : "",
+     *      "birthday" : "",
+     *      "langCode" : ""
+     * }
+     */
     public void registerUser(String ssoId, String password, String nickName, String birthday, String langCode) {
         String url_register = address + "/users/register";
         Map<String, Object> jsonRegister = new LinkedHashMap<>();
@@ -180,6 +196,7 @@ public class InfoTransaction extends AbstractTransaction {
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 Map<String, String> headers = response.headers;
+                //Insert token info into database after register account on server
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("token", headers.get("Whoever-token"));
@@ -188,11 +205,13 @@ public class InfoTransaction extends AbstractTransaction {
                 db.insert("Auth", null, values);
                 return super.parseNetworkResponse(response);
             }
-
         };
         TransactionQueue.getsInstance(activity).addToRequestQueue(registerRequest);
     }
 
+    /**
+     * GET request login with anonymous mode on: /mobile/users/anonymous/{langCode}
+     */
     public void getRequestLoginAnonymous(String langCode) {
         String url_anonymous = address + "/users/anonymous";
         httpStatusCode = null;
@@ -206,13 +225,13 @@ public class InfoTransaction extends AbstractTransaction {
                 ContentValues values = new ContentValues();
                 values.put("id", 1);
                 values.put("langName", res);
-                Log.d("language", res);
                 db.execSQL("delete from LocalProfile");
                 db.insert("LocalProfile", null, values);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Extraction an error on response
                 exTractError(error);
             }
         }) {
@@ -220,11 +239,11 @@ public class InfoTransaction extends AbstractTransaction {
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
                 httpStatusCode = response.statusCode;
                 Map<String, String> headers = response.headers;
+                // Insert token info into database
                 SQLiteDatabase db = ConnDB.getConn().getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("token", headers.get("Whoever-token"));
                 values.put("expTime", headers.get("Token-expiration"));
-                Log.d("token", headers.get("Whoever-token"));
                 db.execSQL("delete from Auth");
                 db.insert("Auth", null, values);
                 return super.parseNetworkResponse(response);
@@ -233,6 +252,9 @@ public class InfoTransaction extends AbstractTransaction {
         TransactionQueue.getsInstance(activity).addToRequestQueue(stringRequest);
     }
 
+    /**
+     * GET logout server on: /mobile/users/logout
+     */
     public void logout() {
         String url_anonymous = address + "/users/logout";
         StringRequest logoutRequest = new StringRequest(Request.Method.GET, url_anonymous, new Response.Listener<String>() {

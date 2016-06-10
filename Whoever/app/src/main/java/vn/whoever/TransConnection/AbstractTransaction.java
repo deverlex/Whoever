@@ -20,7 +20,8 @@ import java.util.Map;
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 4/24/2016.
+ * Created by Nguyen Van Do on 4/24/2016.
+ * Class abstract for connect - transaction data between application and server
  */
 public abstract class AbstractTransaction {
 
@@ -32,6 +33,9 @@ public abstract class AbstractTransaction {
         this.activity = activity;
     }
 
+    /***
+     * Configuration for header HTTP packet
+     */
     protected Map<String, String> onCreateHeaders (Map<String, String> headers) {
         if (headers == null
                 || headers.equals(Collections.emptyMap())) {
@@ -43,22 +47,24 @@ public abstract class AbstractTransaction {
         Cursor cursor = db.rawQuery("Select token, expTime from Auth", null);
         String token = "";
         String expTime = "";
+        // Load token and token expiration time from database
         while (cursor.moveToNext()) {
             token = cursor.getString(0);
             expTime = cursor.getString(1);
         }
         cursor.close();
+        // Set data into header HTTP packet
         headers.put("Whoever-token", token);
         headers.put("Token-expiration", expTime);
         headers.put("User-agent", System.getProperty("http.agent"));
         return headers;
-
     }
 
     public synchronized Integer getHttpStatusCode() {
         return httpStatusCode;
     }
 
+    // Get extract error response from server  and volley API
     protected void exTractError(VolleyError error) {
         NetworkResponse networkResponse = error.networkResponse;
         if(networkResponse != null) {

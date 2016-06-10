@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/postStatusFrame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
-    android:clickable="true"
-    android:id="@+id/postStatusFrame">
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/toolBarFromPostStatus"
@@ -19,35 +19,35 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/icon_back"
             android:background="@color/colorRedMain"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:src="@drawable/icon_back" />
 
         <ImageButton
             android:id="@+id/btnSendStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_send"
-            android:background="@color/colorRedMain"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="12dp"/>
+            android:background="@color/colorRedMain"
+            android:padding="12dp"
+            android:src="@drawable/icon_send" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnBackFromPostStatus"
-            android:layout_toLeftOf="@+id/btnSendStatus">
+            android:layout_toLeftOf="@+id/btnSendStatus"
+            android:layout_toRightOf="@+id/btnBackFromPostStatus">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="14dp"
                 android:text="@string/text_write_status"
-                android:textStyle="bold"
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
-                android:layout_margin="14dp"
-                android:layout_centerVertical="true"/>
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -62,29 +62,29 @@
             android:id="@+id/textViewPrivacyPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_privacy_in_post_status"
-            android:textSize="14sp"
-            android:textColor="@color/colorSilverBlack"
-            android:layout_margin="10dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
+            android:text="@string/text_privacy_in_post_status"
+            android:textColor="@color/colorSilverBlack"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/symbolUseAccountPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_account"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textViewPrivacyPostStatus"
-            android:layout_centerVertical="true"/>
+            android:src="@drawable/icon_account" />
 
         <TextView
             android:id="@+id/textShowUseAccountPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_privacy_with_account"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/symbolUseAccountPostStatus"
             android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/symbolUseAccountPostStatus"
+            android:text="@string/text_privacy_with_account"
             android:textColor="@color/colorButtonMain"
             android:textSize="14sp" />
 
@@ -92,21 +92,21 @@
             android:id="@+id/symbolPrivacyPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_lock_red"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/textShowUseAccountPostStatus"
-            android:layout_marginLeft="20dp" />
+            android:src="@drawable/icon_lock_red" />
 
         <TextView
             android:id="@+id/textShowPrivacyPostStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/symbolPrivacyPostStatus"
             android:text="Friends"
             android:textColor="@color/colorButtonMain"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -116,13 +116,12 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:src="@drawable/icon_navigate" />
-        
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorRedMain"
-            android:layout_below="@+id/textViewPrivacyPostStatus"/>
-
+            android:layout_below="@+id/textViewPrivacyPostStatus"
+            android:background="@color/colorRedMain" />
     </RelativeLayout>
 
 
@@ -134,30 +133,29 @@
         android:layout_below="@+id/toolBarChoicePrivacy"
         android:background="@color/colorSilverWhite">
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:cardUseCompatPadding="true"
-            card_view:cardCornerRadius="3dp"
+            android:layout_above="@+id/listViewPhotoPostStatus"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_above="@+id/listViewPhotoPostStatus">
+            card_view:cardCornerRadius="3dp"
+            card_view:cardUseCompatPadding="true">
 
             <EditText
                 android:id="@+id/contentTextInputStatus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                android:hint="@string/text_hind_box_write_status"
-                android:textSize="16sp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7sp"
                 android:layout_marginBottom="10sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="7sp"
+                android:background="@color/colorWhite"
                 android:gravity="top|left"
-                android:scrollbars="vertical"/>
+                android:hint="@string/text_hind_box_write_status"
+                android:scrollbars="vertical"
+                android:textSize="16sp" />
 
         </android.support.v7.widget.CardView>
 
@@ -165,12 +163,10 @@
             android:id="@+id/listViewPhotoPostStatus"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:numColumns="3"
             android:layout_alignParentBottom="true"
+            android:numColumns="3"
             android:visibility="visible">
 
         </GridView>
-
     </RelativeLayout>
-
 </RelativeLayout>

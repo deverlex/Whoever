@@ -35,9 +35,9 @@ import vn.whoever.utils.Initgc;
 import vn.whoever.views.dialogs.DialogViewNews;
 
 /**
- * Created by spider man on 12/28/2015.
+ * Created by Nguyen Van Do on 12/28/2015.
+ * This class implement news feed layout.
  */
-
 public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLayout.OnRefreshListener {
 
     private LinearLayout toolbar;
@@ -45,20 +45,17 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
     private FloatingActionButton btnFilter;
     protected Handler mHandler;
     protected Handler pHandler;
-
     private boolean isHideToolbar = false;
 
     private RelativeLayout btnWriteStatus;
     private LinearLayout btnChoiceWriteStatus;
     private LinearLayout btnChoiceUpPhoto;
     private ImageButton avatarInToolbar;
-
     private LinearLayoutManager linearLayoutManager;
     private SwipeRefreshLayout newsRefreshLayout;
 
     private List<Status> statusList;
     private StatusAdapter statusAdapter;
-
     private StatusTransaction statusTransaction;
     private boolean onCreate = false;
     private DialogViewNews dialogViewNews;
@@ -116,7 +113,7 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                 }, 2000);
             }
         });
-
+        // Show/Hide tab bar -> write new status
         final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
             @Override
             public boolean onDown(MotionEvent event) {
@@ -227,11 +224,9 @@ public class NewsFeedFragment extends Fragment implements Initgc, SwipeRefreshLa
                             if(httpCode != null && httpCode == HttpStatus.SC_CREATED) {
                                 loadData();
                                 if(statusList.size() > 0) {
-                                    Log.d("update size", String.valueOf(statusList.size()));
                                     statusAdapter.swapData(statusList);
                                     newsRefreshLayout.setRefreshing(false);
                                     loop = 15;
-                                    Log.d("loadData", "update news feeds");
                                 }
                             }
                             ++loop;

@@ -1,152 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/signUpFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/colorRedMain"
+    android:clickable="true"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:clickable="true"
-    android:id="@+id/signUpFrame">
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/logoTextStartSignUp"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="w"
         android:textColor="@color/colorWhite"
-        android:textSize="68sp"/>
+        android:textSize="68sp" />
 
     <TextView
+        android:id="@+id/textRegisterView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/logoTextStartSignUp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="12dp"
-        android:id="@+id/textRegisterView"
         android:text="@string/text_register_account"
         android:textColor="@color/colorWhite"
         android:textSize="22dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="5dp"
-        android:layout_below="@+id/logoTextStartSignUp"/>
+        android:textStyle="bold" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
         android:id="@+id/textRegisterNickNameView"
-        android:text="@string/nick_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textRegisterView"
-        android:textColor="@color/colorSilver"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/nick_name_text"
+        android:textColor="@color/colorSilver" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:editable="false"
-        android:textSize="20sp"
-        android:inputType="text"
         android:id="@+id/textEditNickNameRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textRegisterNickNameView"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custom_edit_text"
+        android:editable="false"
         android:hint="@string/text_name_example"
+        android:inputType="text"
         android:singleLine="true"
         android:textColorHint="@color/colorSilverWhite"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/custom_edit_text"/>
+        android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/textRegisterSsoIdView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ssoId_text"
         android:layout_below="@+id/textEditNickNameRegister"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorSilver"
         android:layout_marginLeft="5dp"
-        android:id="@+id/textRegisterSsoIdView"/>
+        android:layout_marginTop="10dp"
+        android:text="@string/ssoId_text"
+        android:textColor="@color/colorSilver" />
 
     <EditText
+        android:id="@+id/textEditSsoIdRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textRegisterSsoIdView"
-        android:layout_marginTop="5dp"
-        android:editable="false"
-        android:textSize="20sp"
-        android:inputType="textEmailAddress"
-        android:hint="@string/text_ssoId_example"
-        android:singleLine="true"
-        android:textColorHint="@color/colorSilverWhite"
-        android:background="@drawable/custom_edit_text"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textRegisterSsoIdView"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:id="@+id/textEditSsoIdRegister"/>
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custom_edit_text"
+        android:editable="false"
+        android:hint="@string/text_ssoId_example"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:textColorHint="@color/colorSilverWhite"
+        android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/textRegisterPasswordView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/password_text"
         android:layout_below="@+id/textEditSsoIdRegister"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorSilver"
         android:layout_marginLeft="5dp"
-        android:id="@+id/textRegisterPasswordView"/>
+        android:layout_marginTop="10dp"
+        android:text="@string/password_text"
+        android:textColor="@color/colorSilver" />
 
     <EditText
+        android:id="@+id/textEditPasswordRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textRegisterPasswordView"
-        android:layout_marginTop="5dp"
-        android:editable="false"
-        android:singleLine="true"
-        android:textSize="20sp"
-        android:inputType="textPassword"
-        android:hint="@string/text_password_example"
-        android:textColorHint="@color/colorSilverWhite"
-        android:background="@drawable/custom_edit_text"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textRegisterPasswordView"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:id="@+id/textEditPasswordRegister"/>
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custom_edit_text"
+        android:editable="false"
+        android:hint="@string/text_password_example"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textColorHint="@color/colorSilverWhite"
+        android:textSize="20sp" />
 
     <CheckBox
+        android:id="@+id/checkAgreeTermService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textEditPasswordRegister"
-        android:layout_marginTop="18dp"
-        android:textColor="@color/colorWhite"
-        android:buttonTint="@color/colorWhite"
-        android:text="@string/text_term_agree"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:id="@+id/checkAgreeTermService"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textEditPasswordRegister"
+        android:layout_marginTop="18dp"
+        android:buttonTint="@color/colorWhite"
+        android:text="@string/text_term_agree"
+        android:textColor="@color/colorWhite" />
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardSignUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/checkAgreeTermService"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="14dp"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/checkAgreeTermService"
+        android:layout_marginTop="14dp"
         card_view:cardCornerRadius="5dp"
         card_view:cardUseCompatPadding="true">
 
@@ -157,28 +156,28 @@
             android:background="@color/colorButtonMain"
             android:text="@string/text_button_signup"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/textHaveAAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardSignUpButton"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:text="@string/text_have_account"
         android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textHaveAAccount"/>
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/textTermUserInfor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textTermUserInfor"
-        android:text="@string/text_term_user"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
-        android:textColor="@color/colorWhite"/>
+        android:text="@string/text_term_user"
+        android:textColor="@color/colorWhite" />
 
 </RelativeLayout>

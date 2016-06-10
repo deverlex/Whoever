@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/inboxFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
     android:background="@color/colorWhite"
     android:clickable="true"
-    android:id="@+id/inboxFrame">
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <ListView
         android:id="@+id/listViewPreviewMessage"
@@ -17,19 +16,16 @@
         android:background="@color/colorWhite"
         android:divider="@null"
         android:dividerHeight="0dp">
-
     </ListView>
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnCreateNewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_pen_white"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="20dp"
-        app:fabSize="normal"
-        app:backgroundTint="@color/colorRedMain" />
-
+        android:src="@drawable/icon_pen_white"
+        app:backgroundTint="@color/colorRedMain"
+        app:fabSize="normal" />
 </RelativeLayout>

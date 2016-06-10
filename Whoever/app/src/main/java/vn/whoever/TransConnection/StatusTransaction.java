@@ -24,7 +24,8 @@ import vn.whoever.models.Status;
 import vn.whoever.models.dao.ConnDB;
 
 /**
- * Created by spider man on 4/22/2016.
+ * Created by Nguyen Van Do on 4/22/2016.
+ * Class implement connection and transaction status info
  */
 public class StatusTransaction extends AbstractTransaction {
 
@@ -34,6 +35,16 @@ public class StatusTransaction extends AbstractTransaction {
         super(activity);
     }
 
+    /**
+     * POST post status on: /mobile/status
+     * JSON string:
+     * {
+     *      "contentText" : "",
+     *      "contentImage" : "",
+     *      "privacy" : "",
+     *      "isUseAccount" : ""
+     * }
+     */
     public void postStatus(String contentText, String contentImage, String privacy, String isUseAccount) {
         String url_post_status = address + "/status";
         Map<String, String> parameter = new LinkedHashMap<>();
@@ -46,17 +57,18 @@ public class StatusTransaction extends AbstractTransaction {
                 new JSONObject(parameter), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("responsePost", "status post: " + response.toString());
                 httpStatusCode = HttpStatus.SC_CREATED;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Extraction error from response
                 exTractError(error);
             }
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                // SET header for HTTP packet
                 return onCreateHeaders(super.getHeaders());
             }
 
@@ -68,12 +80,20 @@ public class StatusTransaction extends AbstractTransaction {
         TransactionQueue.getsInstance(activity).addToRequestQueue(requestPostStatus, "postStatus");
     }
 
+    /**
+     * POST get news feed on: /mobile/news
+     * JSON string:
+     * {
+     *      "order" : "",
+     *      "offset"  : ""
+     * }
+     */
     public void getNewsFeed(String order, final int offset) {
         String url_news = address + "/news";
         Map<String, Object> mapGetStatus = new LinkedHashMap<>();
         mapGetStatus.put("order", order);
         mapGetStatus.put("offset", offset);
-        Log.d("getNewFeed()", "get");
+
         JSONObject jsonReqStatus = new JSONObject(mapGetStatus);
         isInsert = true;
 
@@ -100,9 +120,8 @@ public class StatusTransaction extends AbstractTransaction {
                                 values.put("interact", obj.getString("interact"));
                                 values.put("isHome", false);
                                 db.insert("Status", null, values);
-                                Log.d("insertDb", "success");
                             } catch (JSONException e) {
-                                Log.d("insertStatus", "error insert!!");
+                                e.printStackTrace();
                             }
                             values.clear();
                         }
@@ -112,6 +131,7 @@ public class StatusTransaction extends AbstractTransaction {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Extraction error from response
                 exTractError(error);
             }
         }){
@@ -129,6 +149,11 @@ public class StatusTransaction extends AbstractTransaction {
         TransactionQueue.getsInstance(activity).addToRequestQueue(newsRequest, "requestNews");
     }
 
+    /**
+     * PUT status's interaction on: /mobile/status/{idStatus}
+     * JSON string:
+     * { "interact" : "" }
+     */
     public void interactStatus(String interact, String idStatus) {
         String url_interact = address + "/status";
         UrlQuery urlQuery = new UrlQuery(url_interact);
@@ -141,16 +166,18 @@ public class StatusTransaction extends AbstractTransaction {
                 new JSONObject(interactMap), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                // Nothing
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Extraction error from response
                 exTractError(error);
             }
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                // SET header HTTP packet
                 return onCreateHeaders(super.getHeaders());
             }
 
@@ -160,12 +187,5 @@ public class StatusTransaction extends AbstractTransaction {
             }
         };
         TransactionQueue.getsInstance(activity).addToRequestQueue(interactRequest, "requestInteractStatus");
-    }
-
-    public void getHomePage() {
-        /**
-         * Dua vao id nguoi dung ma lay langCode
-         */
-
     }
 }

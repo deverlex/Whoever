@@ -18,17 +18,16 @@ import vn.whoever.views.activities.MainActivity;
 import vn.whoever.views.fragments.NewsFeedFragment;
 
 /**
- * Created by spider man on 4/23/2016.
+ * Created by Nguyen Van Do on 4/23/2016.
+ * This class implement dialog layout for choice view newsfeed mode
  */
 public class DialogViewNews extends DialogFragment {
 
     private RadioGroup choiceViewGr;
     private RadioButton btnNearby;
     private RadioButton btnFriends;
-
     private Button btnAccept;
     private Dialog dialog;
-
     private NewsFeedFragment fragment;
     private String setView = "nearby";
 
@@ -40,7 +39,6 @@ public class DialogViewNews extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_news_layout, container, false);
-
         init(view);
         initListener(view);
         return view;
@@ -50,7 +48,6 @@ public class DialogViewNews extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         return dialog;
     }
 
@@ -66,7 +63,6 @@ public class DialogViewNews extends DialogFragment {
             btnNearby.setChecked(false);
             btnFriends.setChecked(true);
         }
-
         choiceViewGr = (RadioGroup) view.findViewById(R.id.groupButtonChoiceViewNews);
     }
 
@@ -97,7 +93,6 @@ public class DialogViewNews extends DialogFragment {
             }
         });
     }
-
     public String getSetView() {
         return setView;
     }

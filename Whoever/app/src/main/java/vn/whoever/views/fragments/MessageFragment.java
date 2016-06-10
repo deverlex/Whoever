@@ -15,7 +15,8 @@ import vn.whoever.utils.Initgc;
 import vn.whoever.views.activities.MainActivity;
 
 /**
- * Created by spider man on 4/9/2016.
+ * Created by Nguyen Van Do on 4/9/2016.
+ * This class isn't completed.
  */
 public class MessageFragment extends Fragment implements Initgc {
 
@@ -61,12 +62,10 @@ public class MessageFragment extends Fragment implements Initgc {
             }
         });
 
-        btnSendMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        btnSendMessage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
     }
 
     public void navigateToProfile(Fragment fragment, String strStack) {
@@ -76,7 +75,5 @@ public class MessageFragment extends Fragment implements Initgc {
     }
 
     @Override
-    public void initGc() {
-
-    }
+    public void initGc() {}
 }

@@ -36,7 +36,8 @@ import vn.whoever.utils.Initgc;
 import vn.whoever.views.activities.MainActivity;
 
 /**
- * Created by spider man on 4/9/2016.
+ * Created by Nguyen Van Do on 4/9/2016.
+ * This class implement load data layout.
  */
 public class LoadFragment extends Fragment implements Initgc {
 
@@ -91,7 +92,7 @@ public class LoadFragment extends Fragment implements Initgc {
     @Override
     public void initListener(View view) {
         isLogged = MainActivity.sharedPref.getBoolean("isLogged", false);
-        if(!isLogged && checkInternetAvaiable()) {
+        if(!isLogged && checkInternetAvailable()) {
             initData();
             runLoadData();
         } else if(isLogged) {
@@ -111,10 +112,10 @@ public class LoadFragment extends Fragment implements Initgc {
                         public void run() {
                             progressBar.setProgress(progress);
                             if(contactTransaction != null && progress == progressBar.getMax()) {
-                                Log.d("Load data", "load load");
                                 httpStatus = contactTransaction.getHttpStatusCode();
                                 if(httpStatus != null && httpStatus == HttpStatus.SC_CREATED) {
                                     loop = 5;
+                                    // Navigate to home screen (tab view screen)
                                     MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                     MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
@@ -122,6 +123,7 @@ public class LoadFragment extends Fragment implements Initgc {
                                     loop += 1;
                                     progressBar.setProgress(0);
                                     if(loop >= 4) {
+                                        // Navigate to home screen (tab view screen) but show alert about connection internet
                                         MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                         MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                         MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
@@ -131,7 +133,6 @@ public class LoadFragment extends Fragment implements Initgc {
                                 }
                                 progress = 0;
                             } else if(contactTransaction == null && progress == progressBar.getMax()) {
-                                Log.d("Load data", "not connect");
                                 MainActivity.frgTrans = MainActivity.frgtManager.beginTransaction();
                                 MainActivity.frgtManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 MainActivity.frgTrans.replace(R.id.mainFrame, new MainFragment()).commit();
@@ -217,7 +218,7 @@ public class LoadFragment extends Fragment implements Initgc {
     @Override
     public void initGc() {}
 
-    private boolean checkInternetAvaiable() {
+    private boolean checkInternetAvailable() {
         try{
             URL myUrl = new URL("http://192.168.0.113:8080/mainserver");
             URLConnection connection = myUrl.openConnection();

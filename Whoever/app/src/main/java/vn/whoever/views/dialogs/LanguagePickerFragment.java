@@ -17,7 +17,8 @@ import java.util.Map;
 import vn.whoever.models.dao.LanguageDao;
 
 /**
- * Created by spider man on 2/24/2016.
+ * Created by Nguyen Van Do on 2/24/2016.
+ * This class implement dialog layout for choice use's language
  */
 public class LanguagePickerFragment extends DialogFragment {
 
@@ -34,34 +35,31 @@ public class LanguagePickerFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         dialog = new AlertDialog.Builder(getActivity());
-
         dialog.setTitle("Please Select");
         dialog.setPositiveButton("Cancel", new PositiveButton());
-
-
         String sysCodeLanguage = Locale.getDefault().getISO3Language().substring(0, 2);
+        // get language default of mobile
         getLangName(sysCodeLanguage);
-
         listkey = new ArrayList<>();
         listLanguage = new ArrayList<>();
 
+        // SET list languages for choice
         for (Map.Entry<String, String> select : mapLanguage.entrySet()) {
             listLanguage.add(select.getValue());
             listkey.add(select.getKey());
         }
 
-        if(position == 0 || position == -1) {
+        if (position == 0 || position == -1) {
             position = listkey.indexOf(sysCodeLanguage);
         }
 
         cs = listLanguage.toArray(new CharSequence[listLanguage.size()]);
+        // Set choice language on layout when user view layout
         dialog.setSingleChoiceItems(cs, position, selectedItem);
-
         return dialog.create();
     }
 
     class PositiveButton implements DialogInterface.OnClickListener {
-
         @Override
         public void onClick(DialogInterface dialogInterface, int wh) {
             dialogInterface.dismiss();

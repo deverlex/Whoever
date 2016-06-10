@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newsHomeFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSilverWhite"
+    android:clickable="true"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:clickable="true"
-    android:id="@+id/newsHomeFrame">
+    android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshListHomeLayout"
@@ -18,7 +18,7 @@
             android:id="@+id/listViewHomeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"/>
+            android:background="@color/colorWhite" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

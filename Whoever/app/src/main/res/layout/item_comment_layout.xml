@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:id="@+id/itemReplyFrame">
-
     <vn.whoever.views.customviews.RoundedImageView
         android:id="@+id/avatarItemOnCommentList"
         android:layout_width="40dp"
@@ -45,7 +44,6 @@
         android:background="@color/colorWhite"
         android:orientation="horizontal"
         android:weightSum="3">
-
         <TextView
             android:id="@+id/timePostCommentOnCommentList"
             android:layout_width="wrap_content"
@@ -63,7 +61,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1">
-
             <ImageView
                 android:layout_width="5dp"
                 android:layout_height="5dp"
@@ -86,7 +83,6 @@
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:textColor="@color/colorSilverBlack"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -96,7 +92,6 @@
             android:layout_alignParentRight="true"
             android:orientation="horizontal"
             android:layout_weight="1">
-
             <ImageView
                 android:layout_width="5dp"
                 android:layout_height="5dp"
@@ -120,7 +115,5 @@
                 android:layout_marginRight="10dp"
                 android:textColor="@color/colorSilverBlack"/>
         </LinearLayout>
-
     </LinearLayout>
-
 </RelativeLayout>

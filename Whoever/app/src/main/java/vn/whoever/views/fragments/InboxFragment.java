@@ -17,7 +17,8 @@ import vn.whoever.utils.AlphaButton;
 import vn.whoever.utils.Initgc;
 
 /**
- * Created by spider man on 12/29/2015.
+ * Created by Nguyen Van Do on 12/29/2015.
+ * This class isn't completed.
  */
 public class InboxFragment extends Fragment implements Initgc {
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/replyFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:orientation="vertical"
     android:clickable="true"
-    android:id="@+id/replyFrame">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/toolBarFromComment"
@@ -20,34 +20,33 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/icon_back"
             android:background="@color/colorRedMain"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:src="@drawable/icon_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_comment_header"
-            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_margin="14dp"
             android:layout_toRightOf="@+id/btnBackHomeFromComment"
+            android:text="@string/text_comment_header"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
-            android:layout_margin="14dp"
-            android:layout_centerVertical="true"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/headerInforUserFromComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/toolBarFromComment">
+        android:layout_below="@+id/toolBarFromComment"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/headerStatusDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <!-- have a avatar, nickname, time upload, extend option button -->
             <vn.whoever.views.customviews.RoundedImageView
                 android:id="@+id/imageAvatarOnStatusDetail"
@@ -57,7 +56,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_margin="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/donguyen"/>
+                android:src="@drawable/donguyen" />
 
             <TextView
                 android:id="@+id/nickNameAndExtendOnStatusDetail"
@@ -67,29 +66,29 @@
                 android:layout_toRightOf="@+id/imageAvatarOnStatusDetail"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/timeUploadStatusDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
                 android:layout_below="@+id/nickNameAndExtendOnStatusDetail"
+                android:layout_marginTop="3dp"
                 android:layout_toRightOf="@+id/imageAvatarOnStatusDetail"
                 android:textColor="@color/colorSilverBlack"
-                android:textSize="11sp"/>
+                android:textSize="11sp" />
 
             <ImageButton
                 android:id="@+id/extendBtnOnRepliesStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorWhite"
                 android:paddingLeft="15dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:src="@drawable/icon_extends"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:background="@color/colorWhite" />
+                android:src="@drawable/icon_extends" />
 
         </RelativeLayout>
 
@@ -103,52 +102,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="fill_horizontal"
                 android:textColor="@color/colorBlack"
                 android:textSize="14sp"
-                android:textStyle="normal"
-                android:gravity="fill_horizontal"/>
+                android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/imageInStatusDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxHeight="350dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
         </LinearLayout>
 
         <View
             android:id="@+id/viewLineOfContentStatus"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorSilver"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:background="@color/colorSilver" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TextView
                 android:id="@+id/viewTotalCommentOnReply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/colorSilverBlack"
                 android:layout_alignParentLeft="true"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:textColor="@color/colorSilverBlack"
+                android:textSize="14sp" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_sort"
-                android:background="@color/colorWhite"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"/>
-
+                android:layout_marginRight="10dp"
+                android:background="@color/colorWhite"
+                android:src="@drawable/icon_sort" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -157,16 +154,16 @@
         android:id="@+id/listCommentOfStatusDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
+        android:layout_above="@+id/toolBarInputSendTextOfComment"
         android:layout_below="@+id/headerInforUserFromComment"
-        android:layout_above="@+id/toolBarInputSendTextOfComment"/>
+        android:background="@color/colorWhite" />
 
     <View
         android:id="@+id/viewLineOfComment"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorSilver"
-        android:layout_above="@+id/toolBarInputSendTextOfComment"/>
+        android:layout_above="@+id/toolBarInputSendTextOfComment"
+        android:background="@color/colorSilver" />
 
     <RelativeLayout
         android:id="@+id/toolBarInputSendTextOfComment"
@@ -174,49 +171,46 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorWhite">
-
         <ImageButton
             android:id="@+id/btnQuickLikeStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:src="@drawable/icon_like"
+            android:layout_alignBottom="@+id/inputCommentSend"
             android:layout_alignParentLeft="true"
+            android:background="@color/colorWhite"
             android:padding="10dp"
-            android:layout_alignBottom="@+id/inputCommentSend"/>
+            android:src="@drawable/icon_like" />
 
         <ImageButton
             android:id="@+id/btnSendComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/inputCommentSend"
             android:layout_alignParentRight="true"
-            android:src="@drawable/icon_send_red"
+            android:layout_marginBottom="2dp"
             android:background="@color/colorWhite"
             android:padding="10dp"
-            android:layout_marginBottom="2dp"
-            android:layout_alignBottom="@+id/inputCommentSend"/>
+            android:src="@drawable/icon_send_red" />
 
         <EditText
             android:id="@+id/inputCommentSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Write a message"
-            android:textSize="16sp"
-            android:background="@color/colorWhite"
-            android:padding="10dp"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/btnSendComment"
             android:layout_toRightOf="@+id/btnQuickLikeStatus"
-            android:layout_centerVertical="true"
-            android:cursorVisible="true" />
-
+            android:background="@color/colorWhite"
+            android:cursorVisible="true"
+            android:hint="Write a message"
+            android:padding="10dp"
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progressLoadComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
-
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 </RelativeLayout>

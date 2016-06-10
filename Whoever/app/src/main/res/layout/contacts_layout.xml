@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contactFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clickable="true"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:background="@color/colorWhite"
-    android:orientation="vertical"
-    android:clickable="true"
-    android:id="@+id/contactFrame">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/layoutHeaderContactList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <include
             android:id="@+id/toolBarContact"
             layout="@layout/toolbar_contacts_layout" />
@@ -23,20 +24,18 @@
         android:id="@+id/recyclerContactList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/layoutHeaderContactList"
-        android:layout_alignParentBottom="true"/>
+        android:background="@color/colorWhite" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddNewContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
         android:src="@drawable/icon_add_contact"
         app:backgroundTint="@color/colorRedMain"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        app:fabSize="normal"/>
-
-
+        app:fabSize="normal" />
 </RelativeLayout>

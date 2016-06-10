@@ -14,33 +14,33 @@
             android:id="@+id/imageAvatarUserOnContactList"
             android:layout_width="35dp"
             android:layout_height="match_parent"
-            android:src="@drawable/donguyen"
-            android:scaleType="fitXY"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginTop="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/donguyen" />
 
         <ImageView
             android:id="@+id/stateUserOnContactList"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:src="@drawable/icon_brightness_blue"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="35dp"/>
+            android:layout_marginTop="35dp"
+            android:src="@drawable/icon_brightness_blue" />
 
         <TextView
             android:id="@+id/textStateUserOnContactList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your State"
-            android:layout_toRightOf="@+id/imageAvatarUserOnContactList"
             android:layout_centerVertical="true"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorSilver"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="25dp"/>
+            android:layout_marginRight="25dp"
+            android:layout_toRightOf="@+id/imageAvatarUserOnContactList"
+            android:text="Your State"
+            android:textColor="@color/colorSilver"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/layoutControlOnlineState"
@@ -49,49 +49,49 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
             android:layout_toRightOf="@+id/textStateUserOnContactList">
+
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:thumb="@drawable/custom_switch_selector"
-                android:track="@drawable/custom_track_switch"/>
+                android:track="@drawable/custom_track_switch" />
         </RelativeLayout>
 
         <ImageButton
             android:id="@+id/btnSearchContact"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_search_red"
             android:layout_alignParentRight="true"
+            android:background="@color/colorWhite"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/colorWhite"/>
+            android:src="@drawable/icon_search_red" />
 
         <View
             android:id="@+id/lineWhiteOnToolbarContact"
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/btnSearchContact"
-            android:background="@color/colorRedMain"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_toLeftOf="@+id/btnSearchContact"
+            android:background="@color/colorRedMain" />
     </RelativeLayout>
-
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="People are your follow"
-        android:textSize="15dp"
-        android:textColor="@color/colorSilver"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginTop="5dp"
+        android:text="People are your follow"
+        android:textColor="@color/colorSilver"
+        android:textSize="15dp"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorSilverWhite"/>
+        android:background="@color/colorSilverWhite" />
 
 </LinearLayout>
